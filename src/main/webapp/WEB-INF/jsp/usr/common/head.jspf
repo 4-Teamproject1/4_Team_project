@@ -20,6 +20,10 @@
 <!-- 제이쿼리 불러오기 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<!-- 애니.js 이게 없으면 메인상단의 이미지들이 슬라이드쇼나 움직이는 동작을 안한다.-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.js"></script>
+
+
 <script>
   // 테마를 전환하는 함수
   function Theme__toggle() {
