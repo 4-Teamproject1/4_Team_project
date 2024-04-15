@@ -6,14 +6,13 @@
 
 <div class="list-container">
 	<div class="list-board">
-		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a> <a href="#" class="list-board-item">학술행사</a>
-		<a href="#" class="list-board-item">공모전</a>
+		<a href="#" class="list-board-item">학술연구정보</a> <a href="#" class="">학술행사</a>
+		<a href="#" class="">공모전</a>
 	</div>
+		<div class="list-items-container">
+	<div>
 
-	<div class="list-items-container">
-		<div class="list-items-section">
-
-			<h1 class="">학술행사</h1>
+			<h2 class="">학술행사</h2>
 			<div class="sort-options ">
 				<form>
 					<input type="radio" id="option1" name="options" value="option1">
@@ -54,7 +53,6 @@
 			<div class="category-filters">
 				<!-- Category Filters -->
 				<!-- Your category filters HTML here -->
-
 			</div>
 
 			<!-- Entry 2 -->
@@ -87,27 +85,19 @@
 			</table>
 		</div>
 	</div>
-	<div class="side-bar-container"></div>
+	<div class="asd"></div>
 </div>
 
 
 
-
-
 <style>
-/* flex */
 .list-container {
 	display: flex;
-	
+	background-color: #333333;
+	align-content: center;
 }
+/* Navigation */
 .list-board {
-	flex: 0.5;
-}
-.list-items-container {
-	flex: 4;
-}
-
-.side-bar-container {
 	flex: 1;
 	background-color: pink;
 }
@@ -197,12 +187,18 @@
 }
 
 .list-board-item {
-	display: block;
 	background-color: white;
 	padding: 20px;
 }
 
+.list-items-container {
+	flex: 2;
+}
 
+.asd {
+	flex: 1;
+	background-color: pink;
+}
 </style>
 
 
