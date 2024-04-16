@@ -7,111 +7,191 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <header class="header">
-  <button class="logo">로고</button>
-  <nav class="header_menu">
-    <button class="username">abc123님</button>
-    <button class="hd_info">학회 정보</button>
-    <button class="hd_contest">공모전</button>
-    <button class="hd_question">문의사항</button>
-    <button class="hd_logout">로그아웃</button>
-  </nav>
+	<button class="logo">로고</button>
+	<nav class="header_menu">
+		<button class="username">abc123님</button>
+		<button class="hd_info">학회 정보</button>
+		<button class="hd_contest">공모전</button>
+		<button class="hd_question">문의사항</button>
+		<button class="hd_logout">로그아웃</button>
+	</nav>
 </header>
 
 <div class="img"></div>
 <div class="menu_box1 left">
-  <div class="mypage">마이 페이지</div>
+	<div class="mypage">문의사항</div>
 </div>
-<div class="right">
-  <div class="menu_box2 myschedule">내 일정</div>
-  <div class="menu_box2 myinfo">내 정보</div>
-  <div class="menu_box2 myquestion">내 문의</div>
+
+<div class="Question_box title">
+	<div class="Ques1">제목</div>
+	<input class="Ques2" type="text" autocomplete="off" placeholder="제목을 입력하세요">
 </div>
+
+<div class="Question_box file">
+	<div class="Ques1" placeholder="첨부파일 없음">첨부파일</div>
+	<div class="Ques2 file_attachment"></div>
+	<button class="Ques2 file_btn">파일 선택하기</button>
+</div>
+
+<div class="Question_box content">
+	<div class="content Ques1">내용</div>
+	<input class="Ques2" type="text" autocomplete="off" placeholder="내용을 입력하세요">
+</div>
+
+<button class="write_btn">등록</button>
 
 <style>
-  body {
-    width: 100%;
-    hight: 130%;
-    margin: 0;
-    /* 바깥 여백 설정 */
-    padding: 0;
-    /* 안쪽 여백 설정 */
-  }
+body {
+	width: 100%;
+	hight: 130%;
+	margin: 0;
+	padding: 0;
+}
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 17px auto 0;
-    padding: 0 20px;
-    gap: 20px;
-  }
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
+}
 
-  .logo {
-    text-align: center;
-  }
+.logo {
+	text-align: center;
+}
 
-  .header_menu {
-    display: flex;
-    gap: 20px;
-  }
+.header_menu {
+	display: flex;
+	gap: 20px;
+}
 
-  .username {
-    flex-grow: 1;
-  }
+.username {
+	flex-grow: 1;
+}
 
-  .img {
-    position: absolute;
-    width: 100%;
-    height: 150px;
-    left: 0px;
-    top: 57px;
-    background: url('https://velog.velcdn.com/images/vrslxowe/post/1ddba4e8-b0c3-4c29-8ed7-332eb6c06820/image.jpg') no-repeat;
-    background-size: cover;
-    
-  }
+.img {
+	position: absolute;
+	width: 100%;
+	height: 150px;
+	left: 0px;
+	top: 57px;
+	background:
+		url('https://velog.velcdn.com/images/vrslxowe/post/1ddba4e8-b0c3-4c29-8ed7-332eb6c06820/image.jpg')
+		no-repeat;
+	background-size: cover;
+}
 
-  .menu_box1,
-  .menu_box2 {
-    border-radius: 18px;
-    background: #f9b563;
-    text-align: center;
-    display: inline-block;
-    /* 인라인 블록으로 설정하여 요소들이 한 줄에 나타나도록 함 */
-  }
+.menu_box1, .menu_box2 {
+	border-radius: 18px;
+	background: #f9b563;
+	text-align: center;
+	display: inline-block;
+	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
 
-  .menu_box1 {
-    width: 130px;
-    height: 80px;
-    font-size: 19px;
-    line-height: 80px;
-  }
+.menu_box1 {
+	width: 130px;
+	height: 80px;
+	font-size: 17px;
+	line-height: 82px;
+}
 
-  .menu_box2 {
-    width: 110px;
-    height: 70px;
-    font-size: 19px;
-    margin-right: 100px;
-    line-height: 75px;
-  }
+.menu_box2 {
+	width: 110px;
+	height: 70px;
+	font-size: 16px;
+	margin-right: 100px;
+	line-height: 72px;
+}
 
-  .menu_box2:last-child {
-    margin-right: 0;
-    /* 마지막 요소의 오른쪽 마진 제거 */
-  }
+.menu_box2:last-child {
+	margin-right: 0;
+	/* 마지막 요소의 오른쪽 마진 제거 */
+}
 
-  .left {
-    position: absolute;
-    left: 112.5px;
-    top: 155px;
-  }
+.left {
+	position: absolute;
+	left: 112.5px;
+	top: 155px;
+}
 
-  .right {
-    display: flex;
-    position: absolute;
-    right: 112.5px;
-    top: 165px;
-  }
+.Question_box {
+	top: 200px;
+	left: 25%;
+	height: 87px;
+	width: 1000px;
+	position: relative;
+	border-bottom-width: 1px;
+	border-color: #878787;
+}
+
+.Ques1 {
+	width: 160px;
+	height: 87px;
+	background: #ffe4cb;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-bottom-width: 1px;
+	border-color: #878787;
+}
+
+.Ques2 {
+	top: -55px;
+	left: 19%;
+	width: 200px;
+	position: relative;
+}
+
+.title {
+	height: 89px;
+	border-top-width: 2px;
+	border-top-color: #535353;
+}
+
+.content {
+	height: 350px;
+}
+
+.content>input {
+	top: -90%;
+}
+
+
+.file_attachment {
+	height: 30px;
+	border: 1px solid black;
+	border-radius: 6px;
+}
+
+.file_btn {
+	top: -105%;
+	left: 41%;
+	width: 95px;
+	height: 38px;
+	font-size: 12.5px;
+	border-radius: 10px;
+	background: #ffe4cb;
+	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.write_btn {
+	width: 110px;
+	height: 60px;
+	font-size: 16px;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 3%;
+	border-radius: 18px;
+	background: #f9b563;
+	text-align: center;
+	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
 </style>
 
 <%@ include file="../common/foot.jspf"%>
