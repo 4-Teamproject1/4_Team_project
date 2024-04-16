@@ -359,7 +359,11 @@ html, body {
 				</select>
 			</div>
 		</div>
-
+		<div class="btn_box">
+			<div class="search_btn btn">
+				<button>검색</button>
+			</div>
+		</div>
 	</div>
 </section>
 
