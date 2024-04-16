@@ -155,10 +155,22 @@ public class UsrMemberController {
 		return "usr/member/myPage";
 	}
 	
+	@RequestMapping("/usr/member/myInfo")
+	public String myInfo() {
+
+		return "/usr/member/myInfo";
+	}
+	
 	@RequestMapping("/usr/member/mySchedule")
 	public String mySchedule() {
 
 		return "/usr/member/mySchedule";
+	}
+	
+	@RequestMapping("/usr/member/myQuestion")
+	public String myQuestion() {
+
+		return "/usr/member/myQuestion";
 	}
 
 	@RequestMapping("/usr/member/checkPw")
