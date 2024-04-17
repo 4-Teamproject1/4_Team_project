@@ -3,7 +3,7 @@
 <%@ include file="../common/head.jspf"%>
 
 <style>
-/* 범위박스 */
+
 .time-range {
 	display: flex;
 	max-width: 233px;
@@ -33,8 +33,9 @@
 .departure-time {
 	color: #24262c;
 	margin-top: 20px;
-	width: 100%;
+	width: 80%;
 	font: 400 14px/130% Roboto, sans-serif;
+/* 	border: 3px solid; */
 }
 
 .departure-time-range {
@@ -133,10 +134,10 @@
 }
 
 .divider {
-	display: flex;
+	/* 	display: flex; */
 	/*  margin-top: 34px;  */
 	width: 100%;
-	flex-direction: column;
+	/* 	flex-direction: column; */
 	justify-content: center;
 }
 
@@ -297,10 +298,10 @@
 	margin-left: 0;
 }
 
-/* @media (max-width: 991px) {
-  .main-image-container {
-    width: 100%;
-  }
+/* @media ( max-width : 991px) {
+	.main-image-container {
+		width: 100%;
+	}
 } */
 .main-image-wrapper {
 	display: flex;
@@ -323,12 +324,11 @@
 	height: 250px;
 }
 
-/* @media (max-width: 991px) {
-  .main-image {
-    padding-left: 20px;
-  }
-}
- */
+/* @media ( max-width : 991px) {
+	.main-image {
+		padding-left: 20px;
+	}
+} */
 .outer-box {
 	width: 100%;
 	display: flex;
@@ -346,11 +346,12 @@
 	padding: 7px 60px;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-nav {
-    padding: 0 20px;
-  }
-} */
+/* @media ( max-width : 991px) {
+	.accommodation-nav {
+		padding: 0 20px;
+	}
+}
+ */
 .accommodation-nav-list {
 	display: flex;
 	width: 337px;
@@ -381,10 +382,10 @@
 	padding: 30px 80px 80px 33px;
 }
 
-/* @media (max-width: 991px) {
-  .container {
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.container {
+		padding: 0 20px;
+	}
 } */
 .header {
 	align-self: stretch;
@@ -395,14 +396,13 @@
 	justify-content: space-between;
 }
 
-/* @media (max-width: 991px) {
-  .header {
-    max-width: 100%;
-    margin-right: 10px;
-    flex-wrap: wrap;
-  }
-}
- */
+/* @media ( max-width : 991px) {
+	.header {
+		max-width: 100%;
+		margin-right: 10px;
+		flex-wrap: wrap;
+	}
+} */
 .logo {
 	text-align: center;
 	font: 23px Exo 2, sans-serif;
@@ -460,11 +460,12 @@
 	font: 700 14px/143% Inter, sans-serif;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-type {
-    margin-left: 10px;
-  }
-} */
+/* @media ( max-width : 991px) {
+	.accommodation-type {
+		margin-left: 10px;
+	}
+}
+ */
 .accommodation-list {
 	display: flex;
 	width: 247px;
@@ -477,10 +478,10 @@
 	padding: 4px 0;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-list {
-    margin-left: 10px;
-  }
+/* @media ( max-width : 991px) {
+	.accommodation-list {
+		margin-left: 10px;
+	}
 }
  */
 .accommodation-item {
@@ -526,13 +527,15 @@
 	width: 100%;
 	height: 400px;
 	flex-direction: column; /* 요소들을 세로로 배치합니다. */
-	/*   border: 2px solid; */
+/* 	margin-top: 10px; */
+/* 	 border: 2px solid; */
 }
 
 .small-outer-content-box {
 	display: flex;
 	justify-content: center;
 	width: 100%;
+/* 	border: 3px solid; */
 }
 
 .outer-searchBox {
@@ -565,7 +568,7 @@
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 	width: 1300px;
-	/*  border: 12px solid red; */
+	/* 	border: 12px solid red; */
 }
 
 .flight-search-header {
@@ -577,15 +580,14 @@
 	background-color: #fff;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	/* border: 3px solid blue; */
-	height: 100px;
+	/* 	  border: 3px solid blue; */
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-header {
-    max-width: 100%;
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-header {
+		max-width: 100%;
+		padding: 0 20px;
+	}
 } */
 .flight-search-content {
 	display: flex;
@@ -593,10 +595,10 @@
 	gap: 20px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-content {
-    flex-wrap: wrap;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-content {
+		flex-wrap: wrap;
+	}
 } */
 .flight-search-image {
 	width: 434px;
@@ -604,13 +606,13 @@
 	object-fit: auto;
 	object-position: center;
 	border-radius: 22px 4px 4px 22px;
-	/*   	border: 3px solid; */
+	/* 	border: 3px solid; */
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-image {
-    max-width: 100%;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-image {
+		max-width: 100%;
+	}
 } */
 .flight-search-details {
 	display: flex;
@@ -636,6 +638,7 @@
 	align-self: stretch;
 	margin: auto 0;
 	gap: 8px;
+	/* 	border: 3px solid red; */
 }
 
 .flight-search-date-icon {
@@ -766,11 +769,11 @@
 	border-radius: 999px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-button {
-    white-space: initial;
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-button {
+		white-space: initial;
+		padding: 0 20px;
+	}
 } */
 .flight-info {
 	display: flex;
@@ -788,11 +791,11 @@
 	gap: 20px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-details {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
+/* @media ( max-width : 991px) {
+	.flight-details {
+		max-width: 100%;
+		flex-wrap: wrap;
+	}
 } */
 .airline-name {
 	color: #000;
@@ -801,20 +804,11 @@
 	font: 400 16px/114% Roboto, sans-serif;
 }
 
-.outer-depart-info, .arrival-info{
-height: 50px;
-/* border: 3px solid red; */
-display: flex;
-align-items: center;
-}
-
 .departure-info, .arrival-info {
 	display: flex;
-	
+	margin-top: 17px;
 	gap: 12px;
 	font-weight: 400;
-/* 	border: 3px solid; */
-	
 }
 
 .departure-time, .arrival-time {
@@ -869,10 +863,10 @@ align-items: center;
 	font: 700 13px/140% Roboto, sans-serif;
 }
 
-/* @media (max-width: 991px) {
-  .divider {
-    max-width: 100%;
-  }
+/* @media ( max-width : 991px) {
+	.divider {
+		max-width: 100%;
+	}
 } */
 .search-container {
 	justify-content: center;
@@ -910,9 +904,307 @@ align-items: center;
 	height: 10px;
 }
 
-.searchBox2 {
-	margin-top: 20px;
+.train-info-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.train-info {
+	display: flex;
+	flex-direction: column;
+	max-width: 598px;
+}
+
+.train-info-container {
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.train-info-container {
+		max-width: 100%;
+	}
+}
+
+.train-info-row {
+	display: flex;
+	gap: 20px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-row {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+} */
+.train-info-col {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	width: 82%;
+	margin-left: 0;
+}
+
+media (max-width: 991px) { .train-info-col { width:100%;
+	
+}
+
+}
+.train-info-details {
+	display: flex;
+	flex-grow: 1;
+	gap: 17px;
+	text-align: center;
+	padding: 0 20px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-details {
+		margin-top: 40px;
+	}
+} */
+.train-info-times {
+	display: flex;
+	flex-direction: column;
+	white-space: nowrap;
+	flex-grow: 1;
+	flex-basis: 0;
+	width: fit-content;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-times {
+		white-space: initial;
+	}
+} */
+.train-info-header {
+	display: flex;
+	gap: 20px;
+	/* 	border: 5px solid purple; */
+}
+
+.train-info-name {
+	display: flex;
+	flex-direction: column;
+	/* 	border: 3px solid red; */
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-name {
+		white-space: initial;
+	}
+} */
+.train-name {
+	border-radius: 5px;
+	background-color: #010101;
+	color: #fff;
+	justify-content: center;
+	padding: 6px 12px;
+	font: 700 10px Inter, sans-serif;
+}
+
+/* @media ( max-width : 991px) {
+	.train-name {
+		white-space: initial;
+	}
+}
+ */
+.train-time {
+	display: flex;
+	margin-top: 17px;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.departure-time {
+	color: #000;
+	font: 700 34px Inter, sans-serif;
+	/* 	border: 3px solid blue; */
+	height: 50px;
+}
+
+.outer-arrival-icon {
+	/* 	border: 3px solid blue; */
+	display: flex;
+	align-items: end;
+}
+
+.arrival-icon {
+	color: #525252;
+	font: 600 29px Inter, sans-serif;
+	/* 	border: 3px solid blue;
+ */
+	height: 50px;
+}
+
+.outer-arrival-time {
+	display: flex;
+	align-items: end;
+	/* 	border: 3px solid red; */
+}
+
+.arrival-time {
+	color: #000;
+	height: 50px;
+	font: 700 34px Inter, sans-serif;
+	/* 	margin-top: 33px; */
+	/* 	  border: 3px solid;  */
+}
+
+.train-class {
+	display: flex;
+	margin-top: 18px;
+	gap: 20px;
+	font-size: 15px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-class {
+		white-space: initial;
+	}
+} */
+.class-general {
+	display: flex;
+	gap: 11px;
+	flex: 1;
+}
+
+@media ( max-width : 991px) {
+	.class-general {
+		white-space: initial;
+	}
+}
+
+.class-general-label {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: #fff;
+	font-weight: 700;
+	justify-content: center;
+	padding: 7px;
+}
+
+/* @media ( max-width : 991px) {
+	.class-general-label {
+		white-space: initial;
+	}
+} */
+.class-general-status {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	margin: auto 0;
+}
+
+.class-special {
+	display: flex;
+	gap: 11px;
+	flex: 1;
+}
+/* 
+@media ( max-width : 991px) {
+	.class-special {
+		white-space: initial;
+	}
+}
+ */
+.class-special-label {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: #fff;
+	font-weight: 700;
+	justify-content: center;
+	padding: 7px 8px;
+}
+
+/* @media ( max-width : 991px) {
+	.class-special-label {
+		white-space: initial;
+	}
+} */
+.class-special-status {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	margin: auto 0;
+}
+
+.small-outer-travel-time {
+/* 	border: 3px solid green; */
+	margin-top: 35px;
+	height: 50px;
+	display: flex;
+	align-items: end;
+	
+}
+
+.outer-travel-time {
+	display: flex;
+	align-items: end;
+	height: 100px;
+	/* 	border: 2px solid;  */
+	margin-top: 10px;
+}
+
+.travel-time {
+	color: #000;
+	margin: auto 0;
+	font: 400 20px Inter, sans-serif;
+	/* 	border: 3px solid;  */
+}
+
+.booking-col {
+	display: flex;
+	line-height: normal;
+	width: 18%;
+	margin-left: 20px;
+	/* 	border: 3px solid red; */
+	align-items: center;
+}
+
+.outer-booking-btn {
 	/* border: 3px solid; */
+	
+}
+
+.booking-btn {
+	border-radius: 10px;
+	background-color: #d9d9d9;
+	/* margin-top: 44px; */
+	color: #000;
+	white-space: nowrap;
+	text-align: center;
+	width: 100%;
+	justify-content: center;
+	padding: 12px 30px;
+	font: 400 20px Inter, sans-serif;
+}
+
+/* @media ( max-width : 991px) {
+	.booking-btn {
+		margin-top: 40px;
+		white-space: initial;
+		padding: 0 20px;
+	}
+} */
+.divider {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: solid;
+	/* 	border-width: 1px; */
+	/* background-color: #000; */
+	/* 	min-height: 1px; */
+	/* 	margin-top: 5px; */
+	width: 100%;
+	/* border: 3px solid; */
+}
+
+@media ( max-width : 991px) {
+	.divider {
+		max-width: 100%;
+	}
 }
 
 /* 검색칸 */
@@ -997,6 +1289,296 @@ align-items: center;
 	margin: auto 0;
 	font: 400 14px/130% Roboto, sans-serif;
 }
+
+.searchBox2 {
+	margin-top: 20px;
+	/* border: 3px solid; */
+}
+
+
+
+/* 예매가능 버스 목록 */
+
+  .bus-details {
+    display: flex;
+    max-width: 603px;
+    flex-direction: column;
+  }
+
+  .bus-info {
+    width: 100%;
+  }
+
+  @media (max-width: 991px) {
+    .bus-info {
+      max-width: 100%;
+    }
+  }
+
+  .bus-info-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media (max-width: 991px) {
+    .bus-info-wrapper {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+
+  .bus-info-main {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 84%;
+    margin-left: 0;
+  }
+
+  @media (max-width: 991px) {
+    .bus-info-main {
+      width: 100%;
+    }
+  }
+
+  .bus-info-header {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: start;
+    text-align: center;
+ /*    border: 3px solid; */
+    width: 700px;
+  }
+
+  @media (max-width: 991px) {
+    .bus-info-header {
+      max-width: 100%;
+    }
+  }
+
+  .bus-type {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 991px) {
+    .bus-type {
+      white-space: initial;
+    }
+  }
+
+  .bus-speed {
+    border-radius: 5px;
+    background-color: #f30e0e;
+    color: #fff;
+    justify-content: center;
+    padding: 5px 13px;
+    font: 700 10px Inter, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .bus-speed {
+      white-space: initial;
+    }
+  }
+
+  .bus-class {
+    background-color: #fff;
+    color: #e70815;
+    justify-content: center;
+    padding: 3px 6px;
+    font: 500 15px Inter, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .bus-class {
+      white-space: initial;
+    }
+  }
+
+  .bus-timings {
+    background-color: #fff;
+    align-self: stretch;
+    display: flex;
+    gap: 17px;
+    font-size: 34px;
+    color: #000;
+    padding: 15px 20px 0 0;
+/*     border: 3px solid; */
+    width: 500px;
+  }
+
+  @media (max-width: 991px) {
+    .bus-timings {
+      flex-wrap: wrap;
+    }
+  }
+
+  .departure-time {
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+  }
+
+.outer-arrow{
+
+  height: 100px;
+  display: flex;
+  align-items:center;
+  
+}
+  .arrow {
+    color: #525252;
+    font: 600 29px Inter, sans-serif;
+/*     border: 3px solid; */
+    height: 50px;
+  }
+
+  .arrival-time {
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+  }
+
+  .duration {
+    flex-grow: 1;
+    flex-basis: auto;
+    margin: auto 0;
+    font: 400 20px Inter, sans-serif;
+/*     border: 3px solid; */
+    width: 300px;
+  }
+
+  .bus-features {
+    display: flex;
+  /*   margin-top: 5px; */
+    gap: 20px;
+    font-size: 15px;
+/* border: 3px solid; */
+  }
+
+  .bus-type-duration {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+  }
+
+  .bus-type-label {
+    font-family: Inter, sans-serif;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #fff;
+    font-weight: 700;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 7px;
+    height: 30px;
+/*     margin-top: 30px; */
+  }
+
+  @media (max-width: 991px) {
+    .bus-type-label {
+      white-space: initial;
+    }
+  }
+
+  .bus-type-duration-value {
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    margin: auto 0;
+    width: 100px;
+  }
+
+  .bus-operator {
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    flex-grow: 1;
+    flex-basis: auto;
+    margin: auto 0;
+  }
+
+  .bus-info-price {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 16%;
+    margin-left: 20px;
+  }
+
+  @media (max-width: 991px) {
+    .bus-info-price {
+      width: 100%;
+    }
+  }
+
+  .bus-price-details {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    color: #000;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    margin: auto 0;
+  }
+
+  @media (max-width: 991px) {
+    .bus-price-details {
+      margin-top: 12px;
+      white-space: initial;
+    }
+  }
+
+  .view-details {
+    background-color: #fff;
+    justify-content: center;
+    padding: 10px 16px;
+    font: 13px Inter, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .view-details {
+      white-space: initial;
+    }
+  }
+
+  .price {
+    border-radius: 10px;
+    background-color: #fff;
+    justify-content: center;
+    padding: 11px 9px;
+    font: 20px Inter, sans-serif;
+  }
+
+  @media (max-width: 991px) {
+    .price {
+      white-space: initial;
+    }
+  }
+
+  .separator {
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    background-color: #000;
+    min-height: 1px;
+    margin-top: 25px;
+    width: 640px;
+  }
+
+  @media (max-width: 991px) {
+    .separator {
+      max-width: 100%;
+    }
+  }
+
+
+
+
+
 </style>
 
 <header class="header">
@@ -1016,63 +1598,6 @@ align-items: center;
 				<input type="text" class="search-text" placeholder="텍스트 검색">
 			</div>
 
-			<section class="time-range">
-				<header class="time-range-header">
-					<h2 class="time-range-title">시간대</h2>
-					<button class="time-range-reset">해제하기</button>
-				</header>
-
-				<p class="departure-time">출발 00:00 ~ 24:00</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="departure-time-labels">
-					<span>00:00</span> <span>24:00</span>
-				</div>
-
-				<p class="arrival-time">도착 00:00 ~ 24:00</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="arrival-time-labels">
-					<span>00:00</span> <span>24:00</span>
-				</div>
-
-				<div class="divider">
-					<div class="divider-line"></div>
-				</div>
-
-				<header class="price-range-header">
-					<h2 class="price-range-title">1인당 요금</h2>
-					<button class="price-range-reset">해제하기</button>
-				</header>
-
-				<p class="price-range-max">최고 USD504</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="divider">
-					<div class="divider-line"></div>
-				</div>
-
-				<header class="duration-range-header">
-					<h2 class="duration-range-title">소요 시간</h2>
-
-					<button class="price-range-reset">해제하기</button>
-				</header>
-
-				<p class="duration-range-max">72시간 미만</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-			</section>
 		</div>
 	</div>
 
@@ -1089,6 +1614,7 @@ align-items: center;
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 								<li><a href="../article/recommendAirplaneList">항공</a></li>
+
 								<li><a href="../article/recommendTrainList">기차</a></li>
 								<li><a href="../article/recommendBusList">버스</a></li>
 							</ul>
@@ -1180,7 +1706,7 @@ align-items: center;
 							<div class="flight-search-passengers">
 								<div class="flight-search-passenger-count">
 									<div class="flight-search-passenger-icon"></div>
-									<select class="select select-ghost w-full max-w-xs">
+									<!-- <select class="select select-ghost w-full max-w-xs">
 										<option disabled selected><img
 												src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf324d7d075e3aa82dd4036f568d5ba7d5e3cac9abcc614363f794c2ec45721e?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 												alt="" class="your-class-name" /><img
@@ -1190,7 +1716,7 @@ align-items: center;
 										<option>1</option>
 										<option>2</option>
 										<option>3</option>
-									</select>
+									</select> -->
 								</div>
 								<div class="flight-search-passenger-icon">
 									<!-- <img
@@ -1204,12 +1730,12 @@ align-items: center;
 							<div class="flight-search-class">
 								<div class="flight-search-class-details dropdown dropdown-open">
 									<div class="flight-search-class-name ">
-										<select class="select select-ghost w-full max-w-xs">
+										<!-- <select class="select select-ghost w-full max-w-xs">
 											<option disabled selected>이코노미</option>
 											<option>Svelte</option>
 											<option>Vue</option>
 											<option>React</option>
-										</select>
+										</select> -->
 									</div>
 									<!-- <div class="flight-search-class-icon">
 
@@ -1231,43 +1757,53 @@ align-items: center;
 
 		<div class="outer-content-box">
 			<div class="small-outer-content-box">
-				<section class="flight-info">
-					<div class="flight-details">
-						<h2 class="airline-name">제주항공</h2>
-						<div class="outer-depart-info">
-							<div class="departure-info">
-								<time class="departure-time">06:20</time>
-								<span class="departure-airport">GMP</span>
-							</div>
-						</div>
 
-						<div class="outer-arrival-info">
-							<div class="arrival-info">
-								<time class="arrival-time">07:20</time>
-								<span class="arrival-airport">GMP</span>
-							</div>
-						</div>
-						<div class="flight-duration-pricing">
-							<p class="flight-duration">01시간 00분</p>
-							<div class="pricing-info">
-								<div class="discounted-price">
-									<span class="fare-type">할인석</span> <span class="discounted-fare">편도 52,000원~</span>
-								</div>
-								<span class="regular-fare">편도 51,000원~</span>
-							</div>
-						</div>
-					</div>
-					<hr class="divider-line" />
-				</section>
+
+			<section class="bus-details">
+  <div class="bus-info">
+    <div class="bus-info-wrapper">
+      <div class="bus-info-main">
+        <header class="bus-info-header">
+          <div class="bus-type">
+            <span class="bus-speed">고속</span>
+            <span class="bus-class">프리미엄</span>
+          </div>
+          <div class="bus-timings">
+            <time class="departure-time">22:37</time>
+            <div class="outer-arrow">     <span class="arrow">→</span></div>
+       
+            <time class="arrival-time">23:44</time>
+            <span class="duration">1시간 7분</span>
+          </div>
+          <div class="bus-features">
+            <div class="bus-type-duration">
+              <span class="bus-type-label">직통</span>
+              <span class="bus-type-duration-value">1시간 40분</span>
+            </div>
+            <span class="bus-operator">금호익스프레스(주)</span>
+          </div>
+        </header>
+      </div>
+      <aside class="bus-info-price">
+        <div class="bus-price-details">
+          <span class="view-details">운행상세&gt;</span>
+          <span class="price">15,800원</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <hr class="separator" />
+</section>
+
 			</div>
+		
+
 
 		</div>
 
 	</div>
 
-
-
-
+	
 
 
 

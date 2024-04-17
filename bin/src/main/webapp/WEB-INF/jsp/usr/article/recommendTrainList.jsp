@@ -3,7 +3,6 @@
 <%@ include file="../common/head.jspf"%>
 
 <style>
-/* 범위박스 */
 .time-range {
 	display: flex;
 	max-width: 233px;
@@ -133,10 +132,10 @@
 }
 
 .divider {
-	display: flex;
+	/* 	display: flex; */
 	/*  margin-top: 34px;  */
 	width: 100%;
-	flex-direction: column;
+	/* 	flex-direction: column; */
 	justify-content: center;
 }
 
@@ -297,10 +296,10 @@
 	margin-left: 0;
 }
 
-/* @media (max-width: 991px) {
-  .main-image-container {
-    width: 100%;
-  }
+/* @media ( max-width : 991px) {
+	.main-image-container {
+		width: 100%;
+	}
 } */
 .main-image-wrapper {
 	display: flex;
@@ -323,12 +322,11 @@
 	height: 250px;
 }
 
-/* @media (max-width: 991px) {
-  .main-image {
-    padding-left: 20px;
-  }
-}
- */
+/* @media ( max-width : 991px) {
+	.main-image {
+		padding-left: 20px;
+	}
+} */
 .outer-box {
 	width: 100%;
 	display: flex;
@@ -346,11 +344,12 @@
 	padding: 7px 60px;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-nav {
-    padding: 0 20px;
-  }
-} */
+/* @media ( max-width : 991px) {
+	.accommodation-nav {
+		padding: 0 20px;
+	}
+}
+ */
 .accommodation-nav-list {
 	display: flex;
 	width: 337px;
@@ -381,10 +380,10 @@
 	padding: 30px 80px 80px 33px;
 }
 
-/* @media (max-width: 991px) {
-  .container {
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.container {
+		padding: 0 20px;
+	}
 } */
 .header {
 	align-self: stretch;
@@ -395,14 +394,13 @@
 	justify-content: space-between;
 }
 
-/* @media (max-width: 991px) {
-  .header {
-    max-width: 100%;
-    margin-right: 10px;
-    flex-wrap: wrap;
-  }
-}
- */
+/* @media ( max-width : 991px) {
+	.header {
+		max-width: 100%;
+		margin-right: 10px;
+		flex-wrap: wrap;
+	}
+} */
 .logo {
 	text-align: center;
 	font: 23px Exo 2, sans-serif;
@@ -460,11 +458,12 @@
 	font: 700 14px/143% Inter, sans-serif;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-type {
-    margin-left: 10px;
-  }
-} */
+/* @media ( max-width : 991px) {
+	.accommodation-type {
+		margin-left: 10px;
+	}
+}
+ */
 .accommodation-list {
 	display: flex;
 	width: 247px;
@@ -477,10 +476,10 @@
 	padding: 4px 0;
 }
 
-/* @media (max-width: 991px) {
-  .accommodation-list {
-    margin-left: 10px;
-  }
+/* @media ( max-width : 991px) {
+	.accommodation-list {
+		margin-left: 10px;
+	}
 }
  */
 .accommodation-item {
@@ -565,7 +564,6 @@
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 	width: 1300px;
-	/*  border: 12px solid red; */
 }
 
 .flight-search-header {
@@ -577,15 +575,13 @@
 	background-color: #fff;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	/* border: 3px solid blue; */
-	height: 100px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-header {
-    max-width: 100%;
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-header {
+		max-width: 100%;
+		padding: 0 20px;
+	}
 } */
 .flight-search-content {
 	display: flex;
@@ -593,10 +589,10 @@
 	gap: 20px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-content {
-    flex-wrap: wrap;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-content {
+		flex-wrap: wrap;
+	}
 } */
 .flight-search-image {
 	width: 434px;
@@ -604,14 +600,15 @@
 	object-fit: auto;
 	object-position: center;
 	border-radius: 22px 4px 4px 22px;
-	/*   	border: 3px solid; */
+	border: 3px solid;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-image {
-    max-width: 100%;
-  }
-} */
+@media ( max-width : 991px) {
+	.flight-search-image {
+		max-width: 100%;
+	}
+}
+
 .flight-search-details {
 	display: flex;
 	flex-direction: column;
@@ -627,8 +624,6 @@
 	padding: 12px 14px;
 	background-color: #edf0f9;
 	border-radius: 999px;
-	justify-content: center;
-	/* 	border: 3px solid; */
 }
 
 .flight-search-date {
@@ -766,11 +761,11 @@
 	border-radius: 999px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-search-button {
-    white-space: initial;
-    padding: 0 20px;
-  }
+/* @media ( max-width : 991px) {
+	.flight-search-button {
+		white-space: initial;
+		padding: 0 20px;
+	}
 } */
 .flight-info {
 	display: flex;
@@ -788,11 +783,11 @@
 	gap: 20px;
 }
 
-/* @media (max-width: 991px) {
-  .flight-details {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
+/* @media ( max-width : 991px) {
+	.flight-details {
+		max-width: 100%;
+		flex-wrap: wrap;
+	}
 } */
 .airline-name {
 	color: #000;
@@ -801,20 +796,11 @@
 	font: 400 16px/114% Roboto, sans-serif;
 }
 
-.outer-depart-info, .arrival-info{
-height: 50px;
-/* border: 3px solid red; */
-display: flex;
-align-items: center;
-}
-
 .departure-info, .arrival-info {
 	display: flex;
-	
+	margin-top: 17px;
 	gap: 12px;
 	font-weight: 400;
-/* 	border: 3px solid; */
-	
 }
 
 .departure-time, .arrival-time {
@@ -869,10 +855,10 @@ align-items: center;
 	font: 700 13px/140% Roboto, sans-serif;
 }
 
-/* @media (max-width: 991px) {
-  .divider {
-    max-width: 100%;
-  }
+/* @media ( max-width : 991px) {
+	.divider {
+		max-width: 100%;
+	}
 } */
 .search-container {
 	justify-content: center;
@@ -910,9 +896,303 @@ align-items: center;
 	height: 10px;
 }
 
-.searchBox2 {
-	margin-top: 20px;
+.train-info-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.train-info {
+	display: flex;
+	flex-direction: column;
+	max-width: 598px;
+}
+
+.train-info-container {
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.train-info-container {
+		max-width: 100%;
+	}
+}
+
+.train-info-row {
+	display: flex;
+	gap: 20px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-row {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+} */
+.train-info-col {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	width: 82%;
+	margin-left: 0;
+}
+
+media (max-width: 991px) { .train-info-col { width:100%;
+	
+}
+
+}
+.train-info-details {
+	display: flex;
+	flex-grow: 1;
+	gap: 17px;
+	text-align: center;
+	padding: 0 20px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-details {
+		margin-top: 40px;
+	}
+} */
+.train-info-times {
+	display: flex;
+	flex-direction: column;
+	white-space: nowrap;
+	flex-grow: 1;
+	flex-basis: 0;
+	width: fit-content;
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-times {
+		white-space: initial;
+	}
+} */
+.train-info-header {
+	display: flex;
+	gap: 20px;
+	/* 	border: 5px solid purple; */
+}
+
+.train-info-name {
+	display: flex;
+	flex-direction: column;
+	/* 	border: 3px solid red; */
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-name {
+		white-space: initial;
+	}
+} */
+.train-name {
+	border-radius: 5px;
+	background-color: #010101;
+	color: #fff;
+	justify-content: center;
+	padding: 6px 12px;
+	font: 700 10px Inter, sans-serif;
+}
+
+/* @media ( max-width : 991px) {
+	.train-name {
+		white-space: initial;
+	}
+}
+ */
+.train-time {
+	display: flex;
+	margin-top: 17px;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.departure-time {
+	color: #000;
+	font: 700 34px Inter, sans-serif;
+	/* 	border: 3px solid blue; */
+	height: 50px;
+}
+
+.outer-arrival-icon {
+	/* 	border: 3px solid blue; */
+	display: flex;
+	align-items: end;
+}
+
+.arrival-icon {
+	color: #525252;
+	font: 600 29px Inter, sans-serif;
+	/* 	border: 3px solid blue;
+ */
+	height: 50px;
+}
+
+.outer-arrival-time {
+	display: flex;
+	align-items: end;
+	/* 	border: 3px solid red; */
+}
+
+.arrival-time {
+	color: #000;
+	font: 700 34px Inter, sans-serif;
+	margin-top: 35px;
 	/* border: 3px solid; */
+}
+
+.train-class {
+	display: flex;
+	margin-top: 18px;
+	gap: 20px;
+	font-size: 15px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-class {
+		white-space: initial;
+	}
+} */
+.class-general {
+	display: flex;
+	gap: 11px;
+	flex: 1;
+}
+
+@media ( max-width : 991px) {
+	.class-general {
+		white-space: initial;
+	}
+}
+
+.class-general-label {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: #fff;
+	font-weight: 700;
+	justify-content: center;
+	padding: 7px;
+}
+
+/* @media ( max-width : 991px) {
+	.class-general-label {
+		white-space: initial;
+	}
+} */
+.class-general-status {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	margin: auto 0;
+}
+
+.class-special {
+	display: flex;
+	gap: 11px;
+	flex: 1;
+}
+/* 
+@media ( max-width : 991px) {
+	.class-special {
+		white-space: initial;
+	}
+}
+ */
+.class-special-label {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: #fff;
+	font-weight: 700;
+	justify-content: center;
+	padding: 7px 8px;
+}
+
+/* @media ( max-width : 991px) {
+	.class-special-label {
+		white-space: initial;
+	}
+} */
+.class-special-status {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	margin: auto 0;
+}
+
+.small-outer-travel-time {
+	/* 	border: 3px solid green; */
+	margin-top: 35px;
+	height: 50px;
+	display: flex;
+	align-items: end;
+}
+
+.outer-travel-time {
+	display: flex;
+	align-items: end;
+	height: 120px;
+	/* 	border: 2px solid; */
+}
+
+.travel-time {
+	color: #000;
+	margin: auto 0;
+	font: 400 20px Inter, sans-serif;
+	/* 	border: 3px solid; */
+}
+
+.booking-col {
+	display: flex;
+	line-height: normal;
+	width: 18%;
+	margin-left: 20px;
+	/* 	border: 3px solid red; */
+	align-items: center;
+}
+
+.outer-booking-btn {
+	/* border: 3px solid; */
+	
+}
+
+.booking-btn {
+	border-radius: 10px;
+	background-color: #d9d9d9;
+	/* margin-top: 44px; */
+	color: #000;
+	white-space: nowrap;
+	text-align: center;
+	width: 100%;
+	justify-content: center;
+	padding: 12px 30px;
+	font: 400 20px Inter, sans-serif;
+}
+
+/* @media ( max-width : 991px) {
+	.booking-btn {
+		margin-top: 40px;
+		white-space: initial;
+		padding: 0 20px;
+	}
+} */
+.divider {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: solid;
+	border-width: 1px;
+	background-color: #000;
+	/* 	min-height: 1px; */
+	/* 	margin-top: 5px; */
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.divider {
+		max-width: 100%;
+	}
 }
 
 /* 검색칸 */
@@ -998,11 +1278,12 @@ align-items: center;
 	font: 400 14px/130% Roboto, sans-serif;
 }
 </style>
-
 <header class="header">
 	<div class="logo">로고</div>
 	<div class="user-info">
-		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
+		<span class="username">
+			<span class="black-text">abc123</span>
+			<span class="black-text">님</span>
 		</span>
 		<div class="society-info">학회정보</div>
 		<div class="inquiries">문의사항</div>
@@ -1016,63 +1297,6 @@ align-items: center;
 				<input type="text" class="search-text" placeholder="텍스트 검색">
 			</div>
 
-			<section class="time-range">
-				<header class="time-range-header">
-					<h2 class="time-range-title">시간대</h2>
-					<button class="time-range-reset">해제하기</button>
-				</header>
-
-				<p class="departure-time">출발 00:00 ~ 24:00</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="departure-time-labels">
-					<span>00:00</span> <span>24:00</span>
-				</div>
-
-				<p class="arrival-time">도착 00:00 ~ 24:00</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="arrival-time-labels">
-					<span>00:00</span> <span>24:00</span>
-				</div>
-
-				<div class="divider">
-					<div class="divider-line"></div>
-				</div>
-
-				<header class="price-range-header">
-					<h2 class="price-range-title">1인당 요금</h2>
-					<button class="price-range-reset">해제하기</button>
-				</header>
-
-				<p class="price-range-max">최고 USD504</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-
-				<div class="divider">
-					<div class="divider-line"></div>
-				</div>
-
-				<header class="duration-range-header">
-					<h2 class="duration-range-title">소요 시간</h2>
-
-					<button class="price-range-reset">해제하기</button>
-				</header>
-
-				<p class="duration-range-max">72시간 미만</p>
-
-				<div>
-					<input type="range" min="0" max="100" value="40" class="range range-warning" />
-				</div>
-			</section>
 		</div>
 	</div>
 
@@ -1082,15 +1306,19 @@ align-items: center;
 				<nav class="accommodation-nav">
 					<ul class="accommodation-nav-list">
 
-						<div class="accommodation-nav-item btn m-1">
-							<a href="../article/recommendlist">숙소</a>
-						</div>
+						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">숙소</div>
 						<div class="dropdown">
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								<li><a href="../article/recommendBusList">버스</a></li>
+								<li>
+									<a>항공</a>
+								</li>
+								<li>
+									<a>기차</a>
+								</li>
+								<li>
+									<a>버스</a>
+								</li>
 							</ul>
 						</div>
 
@@ -1143,7 +1371,7 @@ align-items: center;
 							<div class="flight-search-details">
 								<div class="flight-search-dates">
 									<div class="flight-search-date">
-										<!-- <div class="flight-search-date-icon">
+										<div class="flight-search-date-icon">
 
 											<img
 												src="https://cdn.builder.io/api/v1/image/assets/TEMP/36fa2c3b0a8961d87b50f228f68a2281f5fa3e5c753dc9b0a1181b340d9873b4?apiKey=f834c4360ac549c5b5237c00b19938c4&"
@@ -1151,12 +1379,12 @@ align-items: center;
 											<img
 												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b533c9792731d97f1f90a405a81d97c8ff6003c50cace4cf001954acb1f6363f?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 												alt="Calendar icon" />
-										</div> -->
+										</div>
 										<div class="flight-search-date-text">일, 28 4월</div>
 										<!-- <div id="calendar" > -->
 
 									</div>
-									<!-- <div class="flight-search-date">
+									<div class="flight-search-date">
 										<div class="flight-search-date-icon">
 											<img
 												src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f9b7796862a0f5136ed1e711686f04480ccf0ab3ca59e32418fb698a54a423b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
@@ -1166,15 +1394,15 @@ align-items: center;
 												alt="Calendar icon" />
 										</div>
 										<div class="flight-search-date-text">화, 30 4월</div>
-									</div> -->
-									<!-- <div class="flight-search-duration">
+									</div>
+									<div class="flight-search-duration">
 										<img
 											src="https://cdn.builder.io/api/v1/image/assets/TEMP/d4eaca586df01d2de36e8aa7bc9b4266b5739b251e12629b62f8daca305803e8?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 											alt="" />
 										<img
 											src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0440974fe5614d0211dee8350a8804486c0546f430b6ffd7f706b61334e2a49?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 											alt="Flight duration" />
-									</div> -->
+									</div>
 								</div>
 							</div>
 							<div class="flight-search-passengers">
@@ -1231,44 +1459,89 @@ align-items: center;
 
 		<div class="outer-content-box">
 			<div class="small-outer-content-box">
-				<section class="flight-info">
-					<div class="flight-details">
-						<h2 class="airline-name">제주항공</h2>
-						<div class="outer-depart-info">
-							<div class="departure-info">
-								<time class="departure-time">06:20</time>
-								<span class="departure-airport">GMP</span>
-							</div>
-						</div>
+				<div class="train-info-wrapper">
+					<section class="train-info">
+						<div class="train-info-container">
+							<div class="train-info-row">
+								<div class="train-info-col">
+									<div class="train-info-details">
+										<div class="train-info-times">
+											<header class="train-info-header">
+												<div class="train-info-name">
+													<div class="train-name">KTX</div>
+													<div class="train-time">
+														<time class="departure-time">22:37</time>
 
-						<div class="outer-arrival-info">
-							<div class="arrival-info">
-								<time class="arrival-time">07:20</time>
-								<span class="arrival-airport">GMP</span>
-							</div>
-						</div>
-						<div class="flight-duration-pricing">
-							<p class="flight-duration">01시간 00분</p>
-							<div class="pricing-info">
-								<div class="discounted-price">
-									<span class="fare-type">할인석</span> <span class="discounted-fare">편도 52,000원~</span>
+														<div class="outer-arrival-icon">
+															<div class="arrival-icon">→</div>
+														</div>
+
+													</div>
+												</div>
+												<div class="outer-arrival-time">
+													<time class="arrival-time">23:44</time>
+												</div>
+
+											</header>
+											<div class="train-class">
+												<div class="class-general">
+													<div class="class-general-label">일반</div>
+													<div class="class-general-status">예매가능</div>
+												</div>
+												<div class="class-special">
+													<div class="class-special-label">특</div>
+													<div class="class-special-status">예매가능</div>
+												</div>
+											</div>
+										</div>
+										<div class="outer-travel-time">
+											<div class="small-outer-travel-time">
+												<div class="travel-time">1시간 7분</div>
+											</div>
+
+										</div>
+
+									</div>
 								</div>
-								<span class="regular-fare">편도 51,000원~</span>
+
+								<div class="booking-col">
+									<div class="outer-booking-btn">
+										<button class="booking-btn">예매</button>
+									</div>
+
+								</div>
+
 							</div>
 						</div>
-					</div>
-					<hr class="divider-line" />
-				</section>
+						<div class="divider"></div>
+
+					</section>
+				</div>
 			</div>
 
 		</div>
 
 	</div>
 
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var flightSearchDateText = document
+					.querySelector(".flight-search-date-text");
+			var calendar = document.getElementById("calendar");
 
-
-
-
+			// flight-search-date-text 요소를 클릭했을 때
+			flightSearchDateText.addEventListener("click", function() {
+				// 달력을 표시하거나 숨깁니다.
+				if (calendar.style.display === "none"
+						|| calendar.style.display === "") {
+					calendar.style.display = "block";
+					// 이번 달이 기본으로 설정된 달력을 표시하는 기능을 추가할 수 있습니다.
+				} else {
+					calendar.style.display = "none";
+				}
+			});
+		});
+	</script>
 
 
 	<%@ include file="../common/foot.jspf"%>
