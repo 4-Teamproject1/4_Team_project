@@ -19,17 +19,26 @@
 
 <div class="img"></div>
 <div class="menu_box1 left">
-	<div class="mypage">마이 페이지</div>
+	<div class="mypage">문의사항</div>
 </div>
-<div class="right">
-	<a href="../member/mySchedule">
-		<button class="menu_box2 myschedule">내 일정</button>
-	</a> <a href="../member/myInfo">
-		<button class="menu_box2 myinfo">내 정보</button>
-	</a> <a href="../member/myQuestion">
-		<button class="menu_box2 myquestion">내 문의</button>
-	</a>
+
+<div class="Question_box title">
+	<div class="Ques1">제목</div>
+	<input class="Ques2" type="text" autocomplete="off" placeholder="제목을 입력하세요">
 </div>
+
+<div class="Question_box file">
+	<div class="Ques1" placeholder="첨부파일 없음">첨부파일</div>
+	<div class="Ques2 file_attachment"></div>
+	<button class="Ques2 file_btn">파일 선택하기</button>
+</div>
+
+<div class="Question_box content">
+	<div class="content Ques1">내용</div>
+	<input class="Ques2" type="text" autocomplete="off" placeholder="내용을 입력하세요">
+</div>
+
+<button class="write_btn">등록</button>
 
 <style>
 body {
@@ -108,12 +117,80 @@ body {
 	top: 155px;
 }
 
-.right {
+.Question_box {
+	top: 200px;
+	left: 25%;
+	height: 87px;
+	width: 1000px;
+	position: relative;
+	border-bottom-width: 1px;
+	border-color: #878787;
+}
+
+.Ques1 {
+	width: 160px;
+	height: 87px;
+	background: #ffe4cb;
+	position: relative;
 	display: flex;
-	gap: 100px;
-	position: absolute;
-	right: 112.5px;
-	top: 165px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-bottom-width: 1px;
+	border-color: #878787;
+}
+
+.Ques2 {
+	top: -55px;
+	left: 19%;
+	width: 200px;
+	position: relative;
+}
+
+.title {
+	height: 89px;
+	border-top-width: 2px;
+	border-top-color: #535353;
+}
+
+.content {
+	height: 350px;
+}
+
+.content>input {
+	top: -90%;
+}
+
+
+.file_attachment {
+	height: 30px;
+	border: 1px solid black;
+	border-radius: 6px;
+}
+
+.file_btn {
+	top: -105%;
+	left: 41%;
+	width: 95px;
+	height: 38px;
+	font-size: 12.5px;
+	border-radius: 10px;
+	background: #ffe4cb;
+	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.write_btn {
+	width: 110px;
+	height: 60px;
+	font-size: 16px;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 3%;
+	border-radius: 18px;
+	background: #f9b563;
+	text-align: center;
+	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>
 

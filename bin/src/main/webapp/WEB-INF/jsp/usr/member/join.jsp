@@ -2,6 +2,152 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="JOIN"></c:set>
 <%@ include file="../common/head.jspf"%>
+
+<style>
+.background_img {
+	background-image:
+		url('https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png');
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.signup-container {
+	border-radius: 30px;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	background-color: rgba(249, 181, 99, 0.8);
+	display: flex;
+	max-width: 550px;
+	flex-direction: column;
+	font-size: 20px;
+	color: rgba(0, 0, 0, 0.4);
+	font-weight: 400;
+	text-align: center;
+	margin: auto;
+	margin-top: 20px;
+	padding: 76px 51px;
+}
+
+@media ( max-width : 991px) {
+	.signup-container {
+		padding: 0 20px;
+		margin: auto;
+		margin-top: 20px; /* 미디어 쿼리에서 margin-top 조정 */
+	}
+}
+
+.input-field {
+	font-family: Inter, sans-serif;
+	border-radius: 10px;
+	border: 2px solid rgba(0, 0, 0, 0.2);
+	background-color: rgba(249, 181, 99, 0.8);
+	align-items: start;
+	justify-content: center;
+	padding: 21px 60px;
+}
+
+@media ( max-width : 991px) {
+	.input-field {
+		max-width: 100%;
+		padding: 0 20px;
+		margin: auto;
+		margin-top: 20px; /* 미디어 쿼리에서 margin-top 조정 */
+	}
+}
+
+.input-field-top {
+	border-radius: 10px 10px 0px 0px;
+}
+
+.input-field-bottom {
+	border-radius: 0px 0px 10px 10px;
+	border-top: none;
+}
+
+.user-info-container {
+	border-radius: 10px;
+	display: flex;
+	margin-top: 13px;
+	padding-bottom: 10px;
+	flex-direction: column;
+}
+
+@media ( max-width : 991px) {
+	.user-info-container {
+		max-width: 100%;
+	}
+}
+
+.user-info-field {
+	font-family: Inter, sans-serif;
+	border: 2px solid rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+	align-items: start;
+	justify-content: center;
+	padding: 21px 59px;
+}
+
+@media ( max-width : 991px) {
+	.user-info-field {
+		max-width: 100%;
+		padding: 0 20px;
+	}
+}
+
+.user-info-field-top {
+	border-radius: 10px 10px 0px 0px;
+}
+
+.gender-container {
+	align-self: center;
+	display: flex;
+	margin-top: 10px;
+	gap: 12px;
+}
+
+.gender-option {
+	display: flex;
+	flex: 1;
+}
+
+.signup-button {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #9a6c4b;
+	align-self: center;
+	margin-top: 47px;
+	width: 300px;
+	max-width: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	padding: 16px 60px;
+}
+
+@media ( max-width : 991px) {
+	.signup-button {
+		margin-top: 20px;
+		margin-bottom: 10px;
+		padding: 0 20px;
+	}
+}
+
+.input-icon {
+	position: absolute;
+	left: 0;
+	width: 40px;
+	aspect-ratio: 1;
+	object-fit: contain;
+	object-position: center;
+}
+</style>
+
+
 <!-- lodash debounce -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script>
@@ -89,73 +235,42 @@
 
 	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);
 </script>
-
-<section class="mt-8 text-xl px-4">
-	<div class="mx-auto">
-		<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
-			<table class="join-box table-box-1" border="1">
-				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td>
-							<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId"
-								class="input input-bordered input-primary w-full max-w-xs" placeholder="아이디를 입력해주세요" autocomplete="off" />
-
-						</td>
-						<td>
-							<div class="checkDup-msg"></div>
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
-								placeholder="비밀번호를 입력해주세요" name="loginPw" />
-						</td>
-					</tr>
-					<tr>
-						<th>이름</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
-								placeholder="이름을 입력해주세요" name="name" />
-						</td>
-					</tr>
-					<tr>
-						<th>닉네임</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
-								placeholder="닉네임을 입력해주세요" name="nickname" />
-						</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
-								placeholder="전화번호를 입력해주세요" name="cellphoneNum" />
-						</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
-								placeholder="이메일을 입력해주세요" name="email" />
-						</td>
-					</tr>
-
-					<tr>
-						<th></th>
-						<td>
-							<input class="btn btn-outline btn-info" type="submit" value="가입" />
-						</td>
-					</tr>
-				</tbody>
-			</table>
+<div class="background_img"></div>
+<main class="signup-container ">
+	<div class=" input-field">
+		<form class="" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+			<div>
+				<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId" class=" input mb-4 max-w-xs"
+					placeholder="아이디를 입력해주세요" autocomplete="off" />
+			</div>
+			<div class="checkDup-msg mb-4"></div>
+			<div>
+				<input class="input max-w-xs mb-4" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
+			</div>
+			<!-- input-primary를 쓰면 파란색 테두리생김 -->
+			<section class="user-info-container">
+				<div>
+					<div>
+						<input class="input  mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이름을 입력해주세요" name="name" />
+					</div>
+					<div>
+						<input class="input  mb-4  max-w-xs" autocomplete="off" type="text" placeholder="닉네임을 입력해주세요" name="nickname" />
+					</div>
+					<div>
+						<input class="input  mb-4  max-w-xs" autocomplete="off" type="text" placeholder="전화번호를 입력해주세요" name="cellphoneNum" />
+					</div>
+					<div>
+						<input class="input  mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이메일을 입력해주세요" name="email" />
+					</div>
+				</div>
+			</section>
 		</form>
 		<div class="btns">
-			<button class="btn btn-outline" class="" type="button" onclick="history.back();">뒤로가기</button>
+			<input class="btn signup-button " type="submit" value="가입" />
+			<button class="btn signup-button" class="" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
-</section>
+</main>
 
 
 
