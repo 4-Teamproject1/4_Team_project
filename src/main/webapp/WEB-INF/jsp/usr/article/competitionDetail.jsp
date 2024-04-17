@@ -13,64 +13,61 @@
 	<div class="list-items-container">
 		<div class="list-items-section">
 
-			<div class="">학술행사</div>
-			<div class="">공모전</div>
-			<div class="sort-options ">
-				<form>
-					<input type="radio" id="option1" name="options" value="option1">
-					<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
-					&nbsp; <input type="radio" id="option2" name="options"
-						value="option2">
-					<button type="button" onclick="selectRadio('option2')">조회순</button>
-					&nbsp; <input type="radio" id="option3" name="options"
-						value="option3">
-					<button type="button" onclick="selectRadio('option3')">마감순</button>
-					&nbsp; <input type="radio" id="option4" name="options"
-						value="option4">
-					<button type="button" onclick="selectRadio('option4')">제목순</button>
-				</form>
-
-				<script>
-					function selectRadio(optionId) {
-						document.getElementById(optionId).checked = true;
-					}
-				</script>
-
-				<script>
-					function selectRadio(optionId) {
-						document.getElementById(optionId).checked = true;
-					}
-				</script>
-
-				<script>
-					function selectRadio(optionId) {
-						document.getElementById(optionId).checked = true;
-					}
-				</script>
-
-			</div>
-
 			<form class="search-form">
 				<!-- Search form -->
 				<!-- Your search form HTML here -->
 			</form>
+			<div>
+				<div style="font-size: 20px; margin-bottom: 10px;">공모전</div>
+				<div class="detail-top-bar">
+					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터
+						웨비나</div>
+					<ul class="top-bar-count">
+						<li>조회수<span>53</span></li>
+						<li>즐겨찾기수<span>3</span></li>
+					</ul>
+				</div>
 
-<img src="https://attachment.hibrain.io/recruits/3469412/1713143906596/제목 없음.png" style="height: 1234px; width: 900px;">
-		
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>접수기간</td>
+							<td>24.06.27 14:00 ~ 24.06.28 15:00</td>
+							<td>관련 홈페이지</td>
+							<td><a href="">바로가기</a></td>
+						</tr>
+						<tr>
+							<td>총시상금</td>
+							<td>600만원</td>
+							<td>1등시상금</td>
+							<td>500만원</td>
+						</tr>
+						<tr>
+							<td>담당자 연락처</td>
+							<td><span>063-530-9432</span></td>
+							<td>담당자 이메일</td>
+							<td>hj1234@1894.or.kr</td>
+						</tr>
+					</tbody>
+
+
+					<!-- 추가적인 데이터 행들을 여기에 추가 -->
+
+				</table>
+
+				<div class="competition-body">
+					<img
+						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
+						alt="" loading="lazy" />
+				</div>
+				<div class="bookmark">
+					<button class="bookmark-button">즐겨찾기</button>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="side-bar-container"></div>
-</div>
 
-<div class="bottom-bar">
-	<div class="page-bar">
-		<span><button><a href="" class="btn"><</a></button> </span>
-		<button><a href="" class="btn">1</a></button>
-		<button><a href="" class="btn">2</a></button>
-		<button><a href="" class="btn">3</a></button>
-		<span><button><a href="" class="btn">></a></button> </span>
-	</div>
+	<div class="side-bar-container"></div>
 </div>
 
 
@@ -92,6 +89,17 @@
 	margin: 20px;
 }
 
+.list-board-item:hover, .list-board-item:active {
+	background-color: orange; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+}
+
+.list-board-item {
+	display: block;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
 .side-bar-container {
 	flex: 1;
 	background-color: pink;
@@ -106,119 +114,63 @@
 	color: #4a5568;
 }
 
-/* Search Form */
-.search-form {
-	gap: 0.375rem;
-	align-items: center;
-	margin-top: 1.75rem;
+.detail-top-bar {
+	border-top: solid 2px black;
 }
 
-.search-input {
-	height: 1.5rem;
-	border: 1px solid #cbd5e0;
-}
-
-.search-btn {
-	padding: 0.375rem 0.625rem;
-	font-size: 0.875rem;
-	line-height: 1rem;
-	color: #fff;
-	background-color: #f9fafb;
-	border: none;
-	border-radius: 0.25rem;
-}
-
-/* Category Filters */
-.category-filters {
+.top-bar-count {
 	display: flex;
-	justify-content: left;
-	align-items: center;
-	padding: 0.25rem 0.5rem;
-	font-size: 0.875rem;
-	line-height: 1rem;
-	color: #4a5568;
-	white-space: nowrap;
-	border-top: 2px solid #ed8936;
 }
 
-.category-filters>span {
-	padding: 5px 10px 5px 10px;
+.top-bar-count>li {
+	display: inline-block;
+	margin-right: 20px;
 }
 
-.category-item {
-	display: flex;
-	gap: 0.625rem;
-	align-items: center;
-}
-
-.category-count {
-	font-weight: bold;
-	color: #3182ce;
+.top-bar-count>li>span {
+	margin-left: 5px;
 }
 
 /* Table */
-.table-box {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.875rem 1.25rem;
-	font-size: 0.875rem;
-	line-height: 1rem;
-	color: #1a202c;
-	white-space: nowrap;
-	border-bottom: 1px solid #cbd5e0;
-}
-
-.table-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.625rem 0.875rem;
-	font-size: 0.875rem;
-	line-height: 1rem;
-	color: #1a202c;
-	white-space: nowrap;
-	border-bottom: 1px solid #cbd5e0;
-}
-
-.list-table {
-	background-color: #F9B563;
-}
-
-.list-table th {
-	text-align: center;
-}
-
-.list-board-item {
-	display: block;
-	background-color: white;
-	padding: 10px;
-	border-radius: 5px;
-}
-
-/* 테이블 행 hover 시 배경색 변경 */
-.table tbody tr:hover {
-	background-color: #EAD8C0;
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 tr {
 	justify-content: center;
 }
 
-/* 하단 바 */
-.bottom-bar {
-	margin-top: 60px;
-	border: solid 1px red;
+.table td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+.competition-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%; /* 부모 요소의 높이에 따라 이미지를 세로 중앙 정렬합니다. */
+}
+
+.competition-body img {
+	max-width: 100%; /* 이미지의 최대 너비를 부모 요소의 너비에 맞춥니다. */
+	max-height: 100%; /* 이미지의 최대 높이를 부모 요소의 높이에 맞춥니다. */
+}
+
+.bookmark {
 	text-align: center;
 }
 
-.page-bar {
-
-	background-color: yellow;
+.bookmark-button {
+	border: solid 1px black;
+	border-radius: 10px;
+	padding: 20px 60px;
 }
 
-.page-bar>button {
-
+.bookmark-button:hover {
+	background-color: #F7C566;
 }
 </style>
 
