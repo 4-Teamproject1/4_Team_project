@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="My Schedule"></c:set>
+<c:set var="pageTitle" value="Test Join"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<div id="calendar"></div>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
-<script>
+<div id="calendar"></div>
 
+<script>
 !(function () {
 	  var today = moment();
 
@@ -26,7 +28,40 @@
 	    }
 	    // 페이지 로드 시 이벤트를 모두 표시하는 함수 호출
 	    this.showAllEvents();
+	    
+	 // 스크롤 가능한 컨테이너 요소
+	    this.scrollContainer = this.el.querySelector(".scroll-container")
 	  }
+	// 캘린더 다음 달로 이동 함수
+	  Calendar.prototype.nextMonth = function () {
+	    this.current.add("months", 1);
+	    this.next = true;
+	    this.draw();
+	    this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
+	  };
+
+	  // 캘린더 이전 달로 이동 함수
+	  Calendar.prototype.prevMonth = function () {
+	    this.current.subtract("months", 1);
+	    this.next = false;
+	    this.draw();
+	    this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
+	  };
+
+	  // 스크롤 컨테이너 위치 조정 함수
+	  Calendar.prototype.adjustScrollContainerPosition = function () {
+	    var self = this;
+	    // 월 전환 애니메이션이 완료된 후 조정되도록 지연
+	    setTimeout(function () {
+	      // 현재 월의 위치를 기반으로 새로운 위치 계산
+	      var calendarRect = self.el.getBoundingClientRect();
+	      var scrollContainerRect = self.scrollContainer.getBoundingClientRect();
+	      var newTop = scrollContainerRect.top - calendarRect.top;
+
+	      // 스크롤 컨테이너의 새로운 상단 위치 설정
+	      self.scrollContainer.style.top = newTop + "px";
+	    }, 500); // 애니메이션 기간에 맞춰 지연 조정
+	  };
 
 	  // 캘린더 그리기 함수
 	  Calendar.prototype.draw = function () {
@@ -62,6 +97,9 @@
 	      this.header.appendChild(right);
 	      this.header.appendChild(left);
 	      this.el.appendChild(this.header);
+
+	      // 주단위 요일 이름 그리기 (추가)
+	      this.drawWeekdays();
 	    }
 
 	    this.title.innerHTML = this.current.format("MMM YYYY");
@@ -151,7 +189,7 @@
 	  };
 
 	  // 주단위 요일 이름 배열
-	  var weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	  var weekdays = ["일", "월", "화", "수", "목", "금", "토"];
 
 	  // 요일 레이블 생성 함수
 	  Calendar.prototype.drawWeekdays = function () {
@@ -198,6 +236,8 @@
 
 	      todaysEvents.forEach(function (ev) {
 	        var evSpan = createElement("span", ev.color);
+	        var eventNameSpan = createElement("span", "event-name", ev.eventName); // 이벤트 이름을 포함하는 요소 생성
+	        evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
 	        element.appendChild(evSpan);
 	      });
 	    }
@@ -233,15 +273,15 @@
 	        var dayNumberElement = createElement(
 	          "div",
 	          "day-number",
-	          day.format("DD")
+	          day.format("DD일")
 	        );
 	        dayElement.appendChild(dayNumberElement);
 	        self.renderEvents(todaysEvents, dayElement);
 	        scrollContainer.appendChild(dayElement);
 	      }
 	    }
-	    // 스크롤 가능한 컨테이너를 캘린더 요소의 오른쪽에 추가
-	    this.el.parentNode.insertBefore(scrollContainer, this.el.nextSibling);
+	    // scrollContainer를 캘린더 요소의 자식 요소로 삽입
+	    this.el.appendChild(scrollContainer);
 	  };
 
 	  // 날짜 클릭 시 상세 정보 표시 함수
@@ -365,41 +405,39 @@
 
 	!(function () {
 	  var data = [
-	    { eventName: "Lunch Meeting w/ Mark", calendar: "Work", color: "orange" },
 	    {
-	      eventName: "Interview - Jr. Web Developer",
-	      calendar: "Work",
+	      eventName: "한일차세대학세미나",
+	      calendar: "conference",
 	      color: "orange"
 	    },
 	    {
-	      eventName: "Demo New App to the Board",
-	      calendar: "Work",
+	      eventName: "한국미디어문화학회 학술대회",
+	      calendar: "conference",
 	      color: "orange"
 	    },
-	    { eventName: "Dinner w/ Marketing", calendar: "Work", color: "orange" },
-
-	    { eventName: "Game vs Portalnd", calendar: "Sports", color: "gray" },
-	    { eventName: "Game vs Houston", calendar: "Sports", color: "gray" },
-	    { eventName: "Game vs Denver", calendar: "Sports", color: "gray" },
-	    { eventName: "Game vs San Degio", calendar: "Sports", color: "gray" },
-
-	    { eventName: "School Play", calendar: "Kids", color: "gray" },
 	    {
-	      eventName: "Parent/Teacher Conference",
-	      calendar: "Kids",
+	      eventName: "국제성인역량조사(PIAAC) 학술대회",
+	      calendar: "conference",
+	      color: "orange"
+	    },
+	    {
+	      eventName: "환태평양 정신의학회 학술대회",
+	      calendar: "conference",
+	      color: "orange"
+	    },
+
+	    { eventName: "KT&G 상상실현 콘테스트", calendar: "contest", color: "gray" },
+	    {
+	      eventName: "제6회 교육 공공데이터 분석·활용대회",
+	      calendar: "contest",
 	      color: "gray"
 	    },
 	    {
-	      eventName: "Pick up from Soccer Practice",
-	      calendar: "Kids",
+	      eventName: "CICA 미술관 국제전 “Drawing Now 2024” 공모",
+	      calendar: "contest",
 	      color: "gray"
 	    },
-	    { eventName: "Ice Cream Night", calendar: "Kids", color: "orange" },
-
-	    { eventName: "Free Tamale Night", calendar: "Other", color: "orange" },
-	    { eventName: "Bowling Team", calendar: "Other", color: "orange" },
-	    { eventName: "Teach Kids to Code", calendar: "Other", color: "orange" },
-	    { eventName: "Startup Weekend", calendar: "Other", color: "orange" }
+	    { eventName: "사하 수필공모전", calendar: "contest", color: "gray" }
 	  ];
 
 	  function addDate(ev) {}
@@ -409,9 +447,6 @@
 	    // 먼저 헤더를 표시
 	    this.drawHeader();
 
-	    // 주단위 요일 이름 그리기
-	    this.drawWeekdays();
-
 	    // 그다음, 달을 표시
 	    this.drawMonth();
 	  };
@@ -419,126 +454,17 @@
 	  var calendar = new Calendar("#calendar", data);
 	})();
 
+
 </script>
 
-<header class="header">
-	<button class="logo">로고</button>
-	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
-		<button class="hd_info">학회 정보</button>
-		<button class="hd_contest">공모전</button>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
-		</a>
-		<button class="hd_logout">로그아웃</button>
-	</nav>
-</header>
-
-<div class="img"></div>
-<div class="menu_box1 left">
-	<div class="mypage">마이 페이지</div>
-</div>
-<div class="right">
-	<a href="../member/mySchedule">
-		<button class="menu_box2 myschedule">내 일정</button>
-	</a> <a href="../member/myInfo">
-		<button class="menu_box2 myinfo">내 정보</button>
-	</a> <a href="../member/myQuestion">
-		<button class="menu_box2 myquestion">내 문의</button>
-	</a>
-</div>
-
-<div id="calendar"></div>
-
-<style>
-body {
-	width: 100%;
-	hight: 130%;
-	margin: 0;
-	padding: 0;
-}
-
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	margin: 17px auto 0;
-	padding: 0 20px;
-	gap: 20px;
-}
-
-.logo {
-	text-align: center;
-}
-
-.header_menu {
-	display: flex;
-	gap: 20px;
-}
-
-.hd_logout {
-	font-size: 12.5px;
-}
-
-.username {
-	flex-grow: 1;
-}
-
-.img {
-	position: absolute;
-	width: 100%;
-	height: 150px;
-	left: 0px;
-	top: 57px;
-	background:
-		url('https://velog.velcdn.com/images/vrslxowe/post/1ddba4e8-b0c3-4c29-8ed7-332eb6c06820/image.jpg')
-		no-repeat;
-	background-size: cover;
-}
-
-.menu_box1, .menu_box2 {
-	border-radius: 18px;
-	background: #f9b563;
-	text-align: center;
-	display: inline-block;
-	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.menu_box1 {
-	width: 130px;
-	height: 80px;
-	font-size: 17px;
-	line-height: 82px;
-}
-
-.menu_box2 {
-	width: 110px;
-	height: 70px;
-	font-size: 16px;
-	margin-right: 100px;
-	line-height: 72px;
-}
-
-.menu_box2:last-child {
-	margin-right: 0;
-	/* 마지막 요소의 오른쪽 마진 제거 */
-}
-
-.left {
-	position: absolute;
-	left: 112.5px;
-	top: 155px;
-}
-
-.right {
-	display: flex;
-	gap: 100px;
-	position: absolute;
-	right: 112.5px;
-	top: 165px;
+<style type="text/css">
+/* 전역 CSS 리셋 */
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* 캘린더 컨테이너 */
@@ -549,13 +475,7 @@ body {
   width: 600px;
   height: 750px;
   margin: 0 auto;
-  overflow: hidden;
-}
-
-/* 스크롤 가능한 영역에 스타일 적용 */
-.scroll-container {
-  overflow-y: auto; /* 수직 스크롤 활성화 */
-  max-height: 100px; /* 필요한 만큼 최대 높이 조정 */
+  background-color: white;
 }
 
 /* 헤더 */
@@ -623,7 +543,6 @@ body {
   -moz-animation: moveFromTopFadeMonth 0.4s ease-out;
   animation: moveFromTopFadeMonth 0.4s ease-out;
   opacity: 1;
-  color: red;
 }
 
 /* 다음 월 나가기 애니메이션 */
@@ -632,7 +551,6 @@ body {
   -moz-animation: moveToTopFadeMonth 0.4s ease-in;
   animation: moveToTopFadeMonth 0.4s ease-in;
   opacity: 1;
-  color: yellow;
 }
 
 /* 이전 월 입장 애니메이션 */
@@ -641,7 +559,6 @@ body {
   -moz-animation: moveFromBottomFadeMonth 0.4s ease-out;
   animation: moveFromBottomFadeMonth 0.4s ease-out;
   opacity: 1;
-  color: pink;
 }
 
 /* 이전 월 나가기 애니메이션 */
@@ -650,7 +567,6 @@ body {
   -moz-animation: moveToBottomFadeMonth 0.4s ease-in;
   animation: moveToBottomFadeMonth 0.4s ease-in;
   opacity: 1;
-  color: purple;
 }
 
 /* 날짜 */
@@ -666,6 +582,7 @@ body {
   z-index: 2;
   border: 1px solid #ccc;
 }
+/* 요일 */
 .weekday-label {
   height: 50px;
   display: inline-block;
@@ -680,45 +597,48 @@ body {
 
 /* 다른 달의 날짜 */
 .day.other {
-  color: rgba(0, 0, 0, 0.1);
+  color: #bfbfbf;
 }
 
 /* 오늘 날짜 */
 .day.today {
-  color: rgba(156, 202, 235, 1);
+  color: #8ab1fe;
 }
 
-/* 요일 이름 */
-.day-name {
-  font-size: 9px;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  letter-spacing: 0.7px;
-}
-
-/* 날짜 번호 */
+/* 이벤트 날짜 */
 .day-number {
   font-size: 24px;
   letter-spacing: 1.5px;
 }
 
-/* 날짜 이벤트 */
+/* 날짜 이벤트 동그라미 위치 */
 .day .day-events {
-  list-style: none;
-  margin-top: 3px;
-  text-align: center;
-  height: 12px;
-  width: 20px;
+  margin-top: 13px;
+  padding-top: 7px;
+  margin-left: -8px;
+  height: 48px;
+  width: 79px;
   line-height: 6px;
   overflow: hidden;
+  overflow-y: scroll;
+  /* 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
-/* 이벤트 동그라미 */
+/* 이벤트 이름 스타일 */
+.day .day-events span.event-name {
+  font-size: 12px;
+  color: black;
+  margin-left: 13px;
+  width: 30px;
+  white-space: nowrap;
+}
+
+/* 캘린더 이벤트 동그라미 */
 .day .day-events span {
-  vertical-align: top;
   display: block;
   padding: 0;
-  margin: 0;
   width: 8px;
   height: 8px;
   line-height: 5px;
@@ -742,7 +662,7 @@ body {
   top: 0;
   transform: translateY(-50%);
   right: -60%;
-  background-color: pink;
+  background-color: red;
 }
 
 /* 세부 정보 입장 애니메이션 */
@@ -763,8 +683,11 @@ body {
 .events {
   height: 75px;
   padding: 7px 0;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: scroll;
+  /* 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 /* 이벤트 목록 입장 애니메이션 */
@@ -792,6 +715,19 @@ body {
   -webkit-animation: fadeOut 0.3s ease both;
   -moz-animation: fadeOut 0.3s ease both;
   animation: fadeOut 0.3s ease both;
+}
+
+/* 스크롤 가능한 영역에 스타일 적용 */
+.scroll-container {
+  position: absolute;
+  margin-top: -95%;
+  margin-left: 650px;
+  width: 450px;
+  max-height: 500px; /* 필요한 만큼 최대 높이 조정 */
+  overflow-y: scroll;
+  /* 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 /* 이벤트 */
@@ -1038,8 +974,4 @@ body {
     height: 0px;
   }
 }
-
-
 </style>
-
-<%@ include file="../common/foot.jspf"%>
