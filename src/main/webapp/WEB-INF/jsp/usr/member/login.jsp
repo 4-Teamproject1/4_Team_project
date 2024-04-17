@@ -30,6 +30,7 @@
 	color: rgba(0, 0, 0, 0.4);
 	font-weight: 400;
 	text-align: center;
+	margin-top: 20px;
 }
 
 @media ( max-width : 991px) {
