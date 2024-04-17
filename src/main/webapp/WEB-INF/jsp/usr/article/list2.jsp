@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../common/head.jspf"%>
 
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="#" class="list-board-item">학술행사</a> <a href="#"
-			class="list-board-item">공모전</a>
+		<a href="#" class="list-board-item">학술행사</a>
+		<a href="#" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -20,14 +19,14 @@
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
 						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
-						&nbsp; <input type="radio" id="option2" name="options"
-							value="option2">
+						&nbsp;
+						<input type="radio" id="option2" name="options" value="option2">
 						<button type="button" onclick="selectRadio('option2')">조회순</button>
-						&nbsp; <input type="radio" id="option3" name="options"
-							value="option3">
+						&nbsp;
+						<input type="radio" id="option3" name="options" value="option3">
 						<button type="button" onclick="selectRadio('option3')">마감순</button>
-						&nbsp; <input type="radio" id="option4" name="options"
-							value="option4">
+						&nbsp;
+						<input type="radio" id="option4" name="options" value="option4">
 						<button type="button" onclick="selectRadio('option4')">제목순</button>
 					</form>
 
@@ -52,9 +51,7 @@
 
 
 				<form class="search-form">
-					<!-- Search form -->
-					<!-- Your search form HTML here -->
-					<input type="text" placeholder="검색어를 입력하세요."/>
+					<input type="text" placeholder="검색어를 입력하세요." />
 					<button>검색</button>
 				</form>
 			</div>
@@ -62,16 +59,35 @@
 			<div class="category-filters">
 				<!-- Category Filters -->
 				<!-- Your category filters HTML here -->
-				<span> <a href="">전체(9)</a>
-				</span> <span> <a href="">공학(3)</a>
-				</span> <span> <a href="">자연과학(2)</a>
-				</span> <span> <a href="">의약학(1)</a>
-				</span> <span> <a href="">인문학(2)</a>
-				</span> <span> <a href="">사회과학(0)</a>
-				</span> <span> <a href="">예술체육(1)</a>
-				</span> <span> <a href="">농수해양(0)</a>
-				</span> <span> <a href="">복합학(0)</a>
-				</span> <span> <a href="">전공불문(0)</a>
+				<span>
+					<a href="">전체(9)</a>
+				</span>
+				<span>
+					<a href="">공학(3)</a>
+				</span>
+				<span>
+					<a href="">자연과학(2)</a>
+				</span>
+				<span>
+					<a href="">의약학(1)</a>
+				</span>
+				<span>
+					<a href="">인문학(2)</a>
+				</span>
+				<span>
+					<a href="">사회과학(0)</a>
+				</span>
+				<span>
+					<a href="">예술체육(1)</a>
+				</span>
+				<span>
+					<a href="">농수해양(0)</a>
+				</span>
+				<span>
+					<a href="">복합학(0)</a>
+				</span>
+				<span>
+					<a href="">전공불문(0)</a>
 				</span>
 
 
@@ -109,7 +125,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>3</td>
@@ -117,7 +132,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>4</td>
@@ -125,7 +139,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>5</td>
@@ -133,7 +146,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>6</td>
@@ -141,7 +153,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>7</td>
@@ -149,7 +160,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>8</td>
@@ -157,7 +167,6 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
 					</tbody>
 					<tbody>
 						<td>9</td>
@@ -165,33 +174,99 @@
 						<td>24.04.03 ~ 24.04.24</td>
 						<td>24.04.09</td>
 						<td>53</td>
-
+					</tbody>
+					<tbody>
+						<td>9</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>10</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>11</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>12</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>13</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>14</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>15</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>16</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>17</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
 					</tbody>
 
 				</table>
 			</div>
 		</div>
 	</div>
-	<div class="side-bar-container"></div>
+	<div class="side-bar-container">
+		<img class="info-img" src="https://i.ibb.co/tpt0rzp/image.png" alt="image" border="0">
+	</div>
 </div>
 
 <div class="bottom-bar">
 	<div class="page-bar">
-		<span><button>
-				<a href="" class="btn"><</a>
-			</button> </span>
+
 		<button>
-			<a href="" class="btn">1</a>
+			<a href=""><</a>
 		</button>
 		<button>
-			<a href="" class="btn">2</a>
+			<a href="">1</a>
 		</button>
 		<button>
-			<a href="" class="btn">3</a>
+			<a href="">2</a>
 		</button>
-		<span><button>
-				<a href="" class="btn">></a>
-			</button> </span>
+		<button>
+			<a href="">3</a>
+		</button>
+		<button>
+			<a href="">></a>
+		</button>
+
 	</div>
 </div>
 
@@ -212,39 +287,54 @@
 	margin-right: 10px;
 }
 
+/* list container */
 .list-items-container {
 	flex: 4;
 	margin: 20px;
+	height: 100%;
 }
 
+/* side bar container */
 .side-bar-container {
 	flex: 1;
-	background-color: pink;
+	height: 800px;
 }
 
+.info-img {
+	margin-top: 100px;
+}
 /* Sorting Options */
 .sort-options-container {
 	display: flex;
-
 	color: #4a5568;
 }
 
-.sort-options{
-	flex:4;
-	background-color: yellow;
+.sort-options {
+	flex: 4;
 }
 /* Search Form */
 .search-form {
-	flex:1;
-	gap: 0.375rem;
+	flex: 1;
+	justify-content: right;
 	align-items: center;
-	margin-top: 1.75rem;
-	background-color: red;
 }
 
-.search-input {
-	height: 1.5rem;
+.search-form input {
 	border: 1px solid #cbd5e0;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+.search-form button {
+	background-color: #DADDB1;
+	padding: 5px 10px;
+	border-radius: 10px;
+	text-color: white;
+}
+
+.search-form button:hover {
+	background-color: #F9B563;
 }
 
 .search-btn {
@@ -271,7 +361,7 @@
 }
 
 .category-filters>span {
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px;
 }
 
 .category-item {
@@ -317,7 +407,15 @@
 .list-table th {
 	text-align: center;
 }
+/* 중앙 정렬을 위한 CSS */
+.table td {
+  text-align: center;
+}
 
+/* 제목 열은 중앙 정렬되지 않도록 수정 */
+.table td:nth-child(2) {
+  text-align: left;
+}
 .list-board-item {
 	display: block;
 	background-color: white;
@@ -327,7 +425,7 @@
 
 /* 테이블 행 hover 시 배경색 변경 */
 .table tbody tr:hover {
-	background-color: #EAD8C0;
+	background-color: #FFDD95;
 }
 
 tr {
@@ -340,10 +438,17 @@ tr {
 	text-align: center;
 }
 
+.page-bar>button>a:hover {
+	background-color: #F7C566;
+}
+
 .page-bar>button>a {
 	border: solid 1px gray;
-	margin-top: 10px;
 	border-radius: 10px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 </style>
 
