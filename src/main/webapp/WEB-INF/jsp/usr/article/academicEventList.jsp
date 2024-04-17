@@ -287,6 +287,11 @@
 	margin-right: 10px;
 }
 
+/* 버튼에 마우스를 올렸을 때와 클릭했을 때의 스타일 */
+.list-board-item:hover, .list-board-item:active {
+	background-color: orange; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+}
+
 /* list container */
 .list-items-container {
 	flex: 4;
@@ -317,6 +322,7 @@
 	flex: 1;
 	justify-content: right;
 	align-items: center;
+	
 }
 
 .search-form input {
@@ -409,13 +415,14 @@
 }
 /* 중앙 정렬을 위한 CSS */
 .table td {
-  text-align: center;
+	text-align: center;
 }
 
 /* 제목 열은 중앙 정렬되지 않도록 수정 */
 .table td:nth-child(2) {
-  text-align: left;
+	text-align: left;
 }
+
 .list-board-item {
 	display: block;
 	background-color: white;
