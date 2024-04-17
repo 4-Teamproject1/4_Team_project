@@ -61,6 +61,7 @@
 @media ( max-width : 991px) {
 	.username-input, .password-input {
 		flex-wrap: wrap;
+		margin-top:20px;
 	}
 }
 
