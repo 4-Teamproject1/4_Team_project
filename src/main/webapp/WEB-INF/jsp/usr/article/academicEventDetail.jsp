@@ -103,7 +103,6 @@
 
 .side-bar-container {
 	flex: 1;
-	background-color: pink;
 }
 
 /* Sorting Options */
