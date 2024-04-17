@@ -12,8 +12,7 @@
 	<div class="list-items-container">
 		<div class="list-items-section">
 
-			<div class="">학술행사</div>
-			<div class="">공모전</div>
+			<div class="main-list">공모전</div>
 			<div class="sort-options-container ">
 				<div class="sort-options">
 					<form>
@@ -54,43 +53,6 @@
 					<input type="text" placeholder="검색어를 입력하세요." />
 					<button>검색</button>
 				</form>
-			</div>
-
-			<div class="category-filters">
-				<!-- Category Filters -->
-				<!-- Your category filters HTML here -->
-				<span>
-					<a href="">전체(9)</a>
-				</span>
-				<span>
-					<a href="">공학(3)</a>
-				</span>
-				<span>
-					<a href="">자연과학(2)</a>
-				</span>
-				<span>
-					<a href="">의약학(1)</a>
-				</span>
-				<span>
-					<a href="">인문학(2)</a>
-				</span>
-				<span>
-					<a href="">사회과학(0)</a>
-				</span>
-				<span>
-					<a href="">예술체육(1)</a>
-				</span>
-				<span>
-					<a href="">농수해양(0)</a>
-				</span>
-				<span>
-					<a href="">복합학(0)</a>
-				</span>
-				<span>
-					<a href="">전공불문(0)</a>
-				</span>
-
-
 			</div>
 
 			<!-- Entry 2 -->
@@ -298,6 +260,9 @@
 	margin: 20px;
 	height: 100%;
 }
+.main-list{
+	font-size:24px;
+}
 
 /* side bar container */
 .side-bar-container {
@@ -316,13 +281,14 @@
 
 .sort-options {
 	flex: 4;
+	margin-top: 5px;
 }
 /* Search Form */
 .search-form {
 	flex: 1;
 	justify-content: right;
 	align-items: center;
-	
+	margin-bottom: 5px;
 }
 
 .search-form input {

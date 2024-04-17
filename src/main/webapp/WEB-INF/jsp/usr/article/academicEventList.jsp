@@ -12,8 +12,7 @@
 	<div class="list-items-container">
 		<div class="list-items-section">
 
-			<div class="">학술행사</div>
-			<div class="">공모전</div>
+			<div class="main-list">학술행사</div>
 			<div class="sort-options-container ">
 				<div class="sort-options">
 					<form>
@@ -60,7 +59,7 @@
 				<!-- Category Filters -->
 				<!-- Your category filters HTML here -->
 				<span>
-					<a href="">전체(9)</a>
+					<a href="" style="font-size:16px;">전체(9)</a>
 				</span>
 				<span>
 					<a href="">공학(3)</a>
@@ -299,6 +298,9 @@
 	height: 100%;
 }
 
+.main-list{
+	font-size:24px;
+}
 /* side bar container */
 .side-bar-container {
 	flex: 1;
@@ -316,12 +318,14 @@
 
 .sort-options {
 	flex: 4;
+	margin-top: 5px;
 }
 /* Search Form */
 .search-form {
 	flex: 1;
 	justify-content: right;
 	align-items: center;
+	margin-bottom: 5px;
 	
 }
 
