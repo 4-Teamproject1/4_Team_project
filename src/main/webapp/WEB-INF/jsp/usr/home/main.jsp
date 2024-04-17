@@ -200,7 +200,7 @@ html, body {
 	height: 180px;
 	display: flex;
 	flex-direction: row; /* 요소들을 가로로 정렬하기 위해 flex-direction을 row로 설정 */
-/* 	border: 2px solid red; */
+	/* 	border: 2px solid red; */
 }
 
 .box_date, .select {
@@ -296,6 +296,204 @@ html, body {
 	height: 40px;
 	font-size: 16px; /* 글꼴 크기 설정 */
 }
+
+/* main페이지 하단 정보요약글 */
+.event-schedule {
+	align-items: center;
+	background-color: rgba(220, 220, 220, 0.2);
+	box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	padding: 19px 60px 9px;
+}
+
+@media ( max-width : 991px) {
+	.event-schedule {
+		padding: 0 20px;
+	}
+}
+
+.event-schedule-container {
+	max-width: 1464px;
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.event-schedule-container {
+		max-width: 100%;
+	}
+}
+
+.event-schedule-columns {
+	display: flex;
+	gap: 20px;
+}
+
+@media ( max-width : 991px) {
+	.event-schedule-columns {
+		align-items: stretch;
+		flex-direction: column;
+		gap: 0;
+	}
+}
+
+.event-column {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	margin-left: 0;
+	margin-right: 5%;
+	width: 45%;
+}
+
+.event-column-secondary {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	margin-left: 5%;
+	width: 45%;
+}
+
+
+@media ( max-width : 991px) {
+	.event-column {
+		width: 100%;
+		margin: auto;
+	}
+}
+
+@media ( max-width : 991px) {
+	.event-column-secondary {
+		width: 100%;
+		margin: auto;
+	}
+}
+.event-card {
+	background-color: rgba(255, 255, 255, 0.65);
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	font-size: 15px;
+	font-weight: 400;
+	justify-content: center;
+	padding: 2px 0;
+	text-align: center;
+	white-space: nowrap;
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.event-card {
+		margin-top: 40px;
+		max-width: 100%;
+		white-space: initial;
+	}
+}
+
+.event-card-content {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	padding: 32px 57px;
+}
+
+@media ( max-width : 991px) {
+	.event-card-content {
+		max-width: 100%;
+		padding: 0 20px;
+		white-space: initial;
+	}
+}
+
+.event-details {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	max-width: 100%;
+	width: 410px;
+}
+
+@media ( max-width : 991px) {
+	.event-details {
+		white-space: initial;
+	}
+}
+
+.event-info {
+	color: #000;
+	display: flex;
+	flex-direction: column;
+}
+
+@media ( max-width : 991px) {
+	.event-info {
+		white-space: initial;
+	}
+}
+
+.event-title {
+	font-family: Inter, sans-serif;
+}
+
+.event-description {
+	align-self: end;
+	font-family: Inter, sans-serif;
+	margin-top: 24px;
+}
+
+.event-date {
+	align-self: end;
+	color: #878787;
+	font-family: Inter, sans-serif;
+	margin-top: 38px;
+}
+
+.event-more-button {
+	align-items: center;
+	align-self: center;
+	background-color: rgba(239, 152, 46, 0.3);
+	border-radius: 37px;
+	color: #0f0e0e;
+	font-family: Inter, sans-serif;
+	justify-content: center;
+	margin-top: 116px;
+	max-width: 100%;
+	padding: 19px 60px;
+	width: 166px;
+}
+
+@media ( max-width : 991px) {
+	.event-more-button {
+		margin-top: 40px;
+		padding: 0 20px;
+		white-space: initial;
+	}
+}
+
+
+.event-card-secondary {
+	background-color: rgba(255, 255, 255, 0.65);
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	font-size: 15px;
+	font-weight: 400;
+	padding: 32px 57px;
+	text-align: center;
+	white-space: nowrap;
+	width: 100%;
+}
+
+@media ( max-width : 991px) {
+	.event-card-secondary {
+		margin-top: 40px;
+		max-width: 100%;
+		padding: 0 20px;
+		white-space: initial;
+	}
+}
 </style>
 
 <div class="main_background">
@@ -365,6 +563,39 @@ html, body {
 			</div>
 		</div>
 	</div>
+
+	<section class="event-schedule">
+		<div class="event-schedule-container">
+			<div class="event-schedule-columns">
+				<div class="event-column">
+					<article class="event-card">
+						<div class="event-card-content">
+							<div class="event-details">
+								<div class="event-info">
+									<h3 class="event-title">학술행사일정</h3>
+									<p class="event-description">다인이ㅏ미아;님이;ㅏㄴ미;아</p>
+								</div>
+								<time class="event-date">04.04</time>
+							</div>
+							<a href="#" class="event-more-button">더보기</a>
+						</div>
+					</article>
+				</div>
+				<div class="event-column-secondary">
+					<article class="event-card-secondary">
+						<div class="event-details">
+							<div class="event-info">
+								<h3 class="event-title">공모전일정</h3>
+								<p class="event-description">다인이ㅏ미아;님이;ㅏㄴ미;아</p>
+							</div>
+							<time class="event-date">04.04</time>
+						</div>
+						<a href="#" class="event-more-button">더보기</a>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
 </section>
 
 
