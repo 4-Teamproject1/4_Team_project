@@ -452,5 +452,19 @@ tr {
 }
 </style>
 
+<script>
+    // JavaScript로 학술행사를 클릭했을 때 색상 변경
+    document.querySelector('.list-board-item:nth-child(2)').addEventListener('click', function() {
+        // 선택한 요소의 배경색 변경
+        this.style.backgroundColor = '#4CAF50';
+        // 다른 요소들의 배경색 원래대로 돌리기
+        var siblings = this.parentNode.children;
+        for (var i = 0; i < siblings.length; i++) {
+            if (siblings[i] !== this) {
+                siblings[i].style.backgroundColor = '#F9B563';
+            }
+        }
+    });
+</script>
 
 <%@ include file="../common/foot.jspf"%>
