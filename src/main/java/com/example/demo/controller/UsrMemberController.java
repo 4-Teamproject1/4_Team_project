@@ -167,6 +167,12 @@ public class UsrMemberController {
 		return "/usr/member/mySchedule";
 	}
 	
+	@RequestMapping("/usr/member/mySchedule2")
+	public String mySchedule2() {
+
+		return "/usr/member/mySchedule2";
+	}
+	
 	@RequestMapping("/usr/member/myQuestion")
 	public String myQuestion() {
 
