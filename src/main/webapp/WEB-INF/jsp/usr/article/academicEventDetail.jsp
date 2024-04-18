@@ -1,31 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../common/head.jspf"%>
 
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="#" class="list-board-item">학술행사</a> <a href="#"
-			class="list-board-item">공모전</a>
+		<a href="#" class="list-board-item">학술행사</a>
+		<a href="#" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
 		<div class="list-items-section">
 
 			<form class="search-form">
-				<!-- Search form -->
+				<!-- Search form --> 
 				<!-- Your search form HTML here -->
 			</form>
 			<div>
 				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
-					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터
-						웨비나</div>
+					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터 웨비나</div>
 					<ul class="top-bar-count">
-						<li>조회수<span>53</span></li>
-						<li>즐겨찾기수<span>3</span></li>
+						<li>
+							조회수
+							<span>53</span>
+						</li>
+						<li>
+							즐겨찾기수
+							<span>3</span>
+						</li>
 					</ul>
+					<ul class="                              ">즐겨찾기</ul>
 				</div>
 
 				<table class="table">
@@ -40,11 +45,15 @@
 							<td>참가비</td>
 							<td>무료</td>
 							<td>관련 홈페이지</td>
-							<td><a href="">바로가기</a></td>
+							<td>
+								<a href="">바로가기</a>
+							</td>
 						</tr>
 						<tr>
 							<td>담당자 연락처</td>
-							<td><span>063-530-9432</span></td>
+							<td>
+								<span>063-530-9432</span>
+							</td>
 							<td>담당자 이메일</td>
 							<td>hj1234@1894.or.kr</td>
 						</tr>
@@ -55,13 +64,47 @@
 
 				</table>
 
-	
+
 				<div class="competition-body">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
 						alt="" loading="lazy" />
 				</div>
 				<div class="bookmark">
+					<div class="place-box">
+						<div>장소</div>
+						<div class="map" id="map" style="width: 500px; height: 350px;"></div>
+						<div>교통편</div>
+						<div>바로가기</div>
+					</div>
+
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	4d58ba447ad884369bfffee6e0c34649"></script>
+					<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = {
+							center : new kakao.maps.LatLng(33.450701,
+									126.570667), // 지도의 중심좌표
+							level : 3
+						// 지도의 확대 레벨
+						};
+
+						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+						// 마커가 표시될 위치입니다 
+						var markerPosition = new kakao.maps.LatLng(33.450701,
+								126.570667);
+
+						// 마커를 생성합니다
+						var marker = new kakao.maps.Marker({
+							position : markerPosition
+						});
+
+						// 마커가 지도 위에 표시되도록 설정합니다
+						marker.setMap(map);
+
+						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+						// marker.setMap(null);
+					</script>
 					<button class="bookmark-button">즐겨찾기</button>
 				</div>
 			</div>
@@ -70,6 +113,7 @@
 
 	<div class="side-bar-container"></div>
 </div>
+
 
 
 
@@ -161,6 +205,13 @@ tr {
 
 .bookmark {
 	text-align: center;
+}
+
+.place-box{
+	text-align: left;
+}
+.map {
+	border: solid 1px black;
 }
 
 .bookmark-button {
