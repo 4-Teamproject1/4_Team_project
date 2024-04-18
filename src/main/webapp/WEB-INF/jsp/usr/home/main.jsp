@@ -573,7 +573,7 @@ html, body {
 							<div class="event-details">
 								<div class="event-info">
 									<h3 class="event-title">학술행사일정</h3>
-									<p class="event-description">다인이ㅏ미아;님이;ㅏㄴ미;아</p>
+									<p class="event-description">학술행사일정 미리보기해야지</p>
 								</div>
 								<time class="event-date">04.04</time>
 							</div>
@@ -586,7 +586,7 @@ html, body {
 						<div class="event-details">
 							<div class="event-info">
 								<h3 class="event-title">공모전일정</h3>
-								<p class="event-description">다인이ㅏ미아;님이;ㅏㄴ미;아</p>
+								<p class="event-description">공모전일정 미리보기해야지</p>
 							</div>
 							<time class="event-date">04.04</time>
 						</div>
