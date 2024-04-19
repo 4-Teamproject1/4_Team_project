@@ -28,11 +28,31 @@ public class TrainTicketCrawler2 {
         // 기차표 검색 페이지로 이동
         driver.get(url);
 
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
         // 검색창 요소 찾기
         WebElement searchInput = driver.findElement(By.cssSelector("div.input_box input.input_search"));
 
         // 검색어 입력
+<<<<<<< HEAD
+//        String searchText = "경상남도 창원시 의창구 창원대학로 20";
+        
+        String searchText = "경기도 성남시 분당구 하오개로 323";
+        searchInput.sendKeys(searchText);
+        
+        // 엔터 입력 (검색 실행)
+        searchInput.sendKeys(Keys.ENTER);
+        
+
+
+//        // 출발지 입력
+//        WebElement departureInput = driver.findElement(By.id("#input_search1713492796393"));
+//        departureInput.sendKeys("서울역");
+
+=======
         String searchText = "서울역";
         searchInput.sendKeys(searchText);
         
@@ -41,6 +61,7 @@ public class TrainTicketCrawler2 {
 //        WebElement departureInput = driver.findElement(By.id("#input_search1713492796393"));
 //        departureInput.sendKeys("서울역");
         
+>>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
 //        // 도착지 입력
 //        WebElement arrivalInput = driver.findElement(By.id("arrival"));
 //        arrivalInput.sendKeys("부산역");
@@ -56,6 +77,25 @@ public class TrainTicketCrawler2 {
         // 스크롤 내리기
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 300)");
+<<<<<<< HEAD
+//
+//        // 시간표 조회 버튼 클릭
+//        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'EkxmVtPgf4qaNumd_yo2')]"));
+//        searchButton.click();
+//
+//        // 기차 시간표 데이터 크롤링
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement timetable = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_3-5Oc']")));
+//        List<WebElement> scheduleRows = timetable.findElements(By.xpath(".//ul[@class='_3tdEo']//li"));
+//        for (WebElement row : scheduleRows) {
+//            System.out.println(row.getText());
+//        }
+
+//        // WebDriver 종료
+//        driver.quit();
+    }
+}
+=======
 
         // 시간표 조회 버튼 클릭
         WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'EkxmVtPgf4qaNumd_yo2')]"));
@@ -73,3 +113,4 @@ public class TrainTicketCrawler2 {
         driver.quit();
     }
 }
+>>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
