@@ -7,13 +7,14 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TrainTicketCrawler {
+public class TrainTicketCrawler2 {
     public static void main(String[] args) {
         // 크롬 드라이버 경로 설정
         System.setProperty("webdriver.chrome.driver", "C:\\work\\chromedriver-win64 (1)\\chromedriver-win64/chromedriver.exe");
@@ -22,27 +23,36 @@ public class TrainTicketCrawler {
         WebDriver driver = new ChromeDriver();
 
         // 네이버 기차표 검색 페이지 URL
-        String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EA%B8%B0%EC%B0%A8%ED%91%9C+%EC%98%88%EB%A7%A4";
+        String url = "https://map.naver.com/p?c=15.00,0,0,0,dh";
 
         // 기차표 검색 페이지로 이동
         driver.get(url);
 
-        // 출발지 입력
-        WebElement departureInput = driver.findElement(By.xpath("//input[@placeholder='출발 기차역']"));
-        departureInput.sendKeys("서울");
+        
+        // 검색창 요소 찾기
+        WebElement searchInput = driver.findElement(By.cssSelector("div.input_box input.input_search"));
 
-        // 도착지 입력
-        WebElement arrivalInput = driver.findElement(By.xpath("//input[@placeholder='도착 기차역']"));
-        arrivalInput.sendKeys("부산");
+        // 검색어 입력
+        String searchText = "서울역";
+        searchInput.sendKeys(searchText);
+        
+        
+//        // 출발지 입력
+//        WebElement departureInput = driver.findElement(By.id("#input_search1713492796393"));
+//        departureInput.sendKeys("서울역");
+        
+//        // 도착지 입력
+//        WebElement arrivalInput = driver.findElement(By.id("arrival"));
+//        arrivalInput.sendKeys("부산역");
 
-        // 날짜 입력 (수정된 부분)
-        LocalDate date = LocalDate.now().plusDays(3); // 예를 들어, 오늘로부터 3일 뒤로 설정
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
-        String formattedDate = date.format(formatter);
-        WebElement dateInput = driver.findElement(By.xpath("//dd[contains(@class, 'lx5CLVZizAnop1laHAqU')]"));
-        dateInput.click(); // 클릭하여 날짜 선택 팝업 띄우기
-        WebElement selectedDate = driver.findElement(By.xpath("//button[@aria-label='" + formattedDate + "']"));
-        selectedDate.click(); // 선택한 날짜 클릭
+//        // 날짜 입력 (수정된 부분)
+//        LocalDate date = LocalDate.now().plusDays(3); // 예를 들어, 오늘로부터 3일 뒤로 설정
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
+//        String formattedDate = date.format(formatter);
+//        WebElement dateInput = driver.findElement(By.xpath("//dd[contains(@class, 'lx5CLVZizAnop1laHAqU')]"));
+//        dateInput.click(); // 클릭하여 날짜 선택 팝업 띄우기
+//        WebElement selectedDate = driver.findElement(By.xpath("//button[@aria-label='" + formattedDate + "']"));
+//        selectedDate.click(); // 선택한 날짜 클릭
         // 스크롤 내리기
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 300)");
