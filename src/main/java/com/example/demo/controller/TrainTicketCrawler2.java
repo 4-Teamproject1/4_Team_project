@@ -60,4 +60,3 @@ public class TrainTicketCrawler2 {
 		driver.quit();
 	}
 }
-
