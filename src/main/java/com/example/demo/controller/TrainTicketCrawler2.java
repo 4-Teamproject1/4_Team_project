@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -23,94 +21,53 @@ public class TrainTicketCrawler2 {
         WebDriver driver = new ChromeDriver();
 
         // 네이버 기차표 검색 페이지 URL
-        String url = "https://map.naver.com/p?c=15.00,0,0,0,dh";
+        String url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&device=c&network=g&adid=695827820287&rand=4503536931058910549&expid=&adpos=&aud=kwd-304551434341&gclid=Cj0KCQjw8pKxBhD_ARIsAPrG45lLdMb_4IW3wJ6-QBpNh2CcPRLxz36RLBmJOG_7mMzXovKgyBHRVhcaAmIuEALw_wcB&pslc=1&ds=JNryncziEDwLm8PF#packages";
 
         // 기차표 검색 페이지로 이동
         driver.get(url);
-
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
         // 검색창 요소 찾기
         WebElement searchInput = driver.findElement(By.cssSelector("div.input_box input.input_search"));
 
+        // WebDriverWait 인스턴스 생성
+        WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 검색창이 활성화될 때까지 기다림
+        WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
+
         // 검색어 입력
-<<<<<<< HEAD
-//        String searchText = "경상남도 창원시 의창구 창원대학로 20";
-        
         String searchText = "경기도 성남시 분당구 하오개로 323";
-        searchInput.sendKeys(searchText);
-        
+        activatedSearchInput.sendKeys(searchText);
+
         // 엔터 입력 (검색 실행)
-        searchInput.sendKeys(Keys.ENTER);
-        
+        activatedSearchInput.sendKeys(Keys.ENTER);
 
 
-//        // 출발지 입력
-//        WebElement departureInput = driver.findElement(By.id("#input_search1713492796393"));
-//        departureInput.sendKeys("서울역");
-
-=======
-        String searchText = "서울역";
-        searchInput.sendKeys(searchText);
+        // 도착 버튼 찾기
+        WebElement arrivalButton = wait_web.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.btn_area div.btn_box.direction button.btn_goal")));
+        // 도착 버튼 클릭
+        arrivalButton.click();
         
         
-//        // 출발지 입력
-//        WebElement departureInput = driver.findElement(By.id("#input_search1713492796393"));
-//        departureInput.sendKeys("서울역");
-        
->>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
-//        // 도착지 입력
-//        WebElement arrivalInput = driver.findElement(By.id("arrival"));
-//        arrivalInput.sendKeys("부산역");
+     // WebDriverWait를 사용하여 출발지 입력란이 활성화될 때까지 기다립니다.
+        WebElement searchInput_start = wait_web.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.search_input_wrap div.search_input input.input_search")));
+        // 검색창을 클릭하여 활성화합니다.
+        searchInput_start.click();
+        // 검색어 입력
+        String searchText_start = "대전광역시 서구 둔산로 52 미라클빌딩 3층";
+        // 검색어 입력란에 값을 입력합니다.
+        searchInput_start.sendKeys(searchText_start);
+        searchInput_start.sendKeys(Keys.ENTER);
 
-//        // 날짜 입력 (수정된 부분)
-//        LocalDate date = LocalDate.now().plusDays(3); // 예를 들어, 오늘로부터 3일 뒤로 설정
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
-//        String formattedDate = date.format(formatter);
-//        WebElement dateInput = driver.findElement(By.xpath("//dd[contains(@class, 'lx5CLVZizAnop1laHAqU')]"));
-//        dateInput.click(); // 클릭하여 날짜 선택 팝업 띄우기
-//        WebElement selectedDate = driver.findElement(By.xpath("//button[@aria-label='" + formattedDate + "']"));
-//        selectedDate.click(); // 선택한 날짜 클릭
-        // 스크롤 내리기
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, 300)");
-<<<<<<< HEAD
-//
-//        // 시간표 조회 버튼 클릭
-//        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'EkxmVtPgf4qaNumd_yo2')]"));
-//        searchButton.click();
-//
-//        // 기차 시간표 데이터 크롤링
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement timetable = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_3-5Oc']")));
-//        List<WebElement> scheduleRows = timetable.findElements(By.xpath(".//ul[@class='_3tdEo']//li"));
-//        for (WebElement row : scheduleRows) {
-//            System.out.println(row.getText());
-//        }
 
-//        // WebDriver 종료
-//        driver.quit();
-    }
-}
-=======
+    
+        // 길찾기 버튼 요소 찾기
+        WebElement findPathButton = driver.findElement(By.cssSelector(".search_btn_area .btn_direction.search.active"));
 
-        // 시간표 조회 버튼 클릭
-        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'EkxmVtPgf4qaNumd_yo2')]"));
-        searchButton.click();
+        // 길찾기 버튼 클릭
+        findPathButton.click();
 
-        // 기차 시간표 데이터 크롤링
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement timetable = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_3-5Oc']")));
-        List<WebElement> scheduleRows = timetable.findElements(By.xpath(".//ul[@class='_3tdEo']//li"));
-        for (WebElement row : scheduleRows) {
-            System.out.println(row.getText());
-        }
 
         // WebDriver 종료
         driver.quit();
     }
 }
->>>>>>> d88050117416f4e916da681229f8ff3865ef00cb
