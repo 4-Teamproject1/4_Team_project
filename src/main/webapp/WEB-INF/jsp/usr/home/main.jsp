@@ -265,7 +265,7 @@ html, body {
 
 .select_box {
 	margin-top: 33px;
-	margin-left: 600px; /* box_start와의 간격을 설정 */
+	margin-left: -5%; /* box_start와의 간격을 설정 */
 	order: 4; /* select를 네 번째로 나오도록 순서를 4로 설정 */
 	/* 	border: 2px solid red; */
 }
@@ -274,8 +274,8 @@ html, body {
 	width: 400px;
 	height: 53px;
 	width: 300px;
-	margin-top: 210px;
-	margin-left: 400px;
+	margin-top: 160px;
+	margin-left: 240px;
 	/* 	background-color: green; */
 }
 
@@ -306,33 +306,38 @@ html, body {
 		padding: 0 20px; /* 왼쪽과 오른쪽 여백을 설정 */
 		width: calc(45% - 40px); /* 너비를 뷰포트의 45%로 설정하고 좌우 여백을 고려하여 계산 */
 		margin-right: 20px; /* 오른쪽 여백 설정 */
-		margin-left: 5%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
+		margin-left: 11%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
 		float: left; /* 왼쪽으로 플로팅 */
 	}
 	.box_end {
 		padding: 0 20px; /* 왼쪽과 오른쪽 여백을 설정 */
 		width: calc(45% - 40px); /* 너비를 뷰포트의 45%로 설정하고 좌우 여백을 고려하여 계산 */
-		margin-left: 5%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
+		margin-left: 55%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
 		float: left; /* 왼쪽으로 플로팅 */
 	}
 	.box_date {
 		padding: 0 20px; /* 왼쪽과 오른쪽 여백을 설정 */
-		width: 40%; /* 너비를 뷰포트의 40%로 설정 */
+		width: 38%; /* 너비를 뷰포트의 40%로 설정 */
 		margin: auto; /* 가운데 정렬을 위해 자동 마진 설정 */
-		clear: both; /* float 요소 아래로 내려가게 함 */
+		margin-left: 11%;
+		margin-top: 5%;
+		clear: both;
+		margin-top: 5%; /* float 요소 아래로 내려가게 함 */
 	}
 	.select_box {
 		padding: 0 20px; /* 왼쪽과 오른쪽 여백을 설정 */
-		width: 90%; /* 너비를 뷰포트의 90%로 설정 */
+		width: 80%; /* 너비를 뷰포트의 90%로 설정 */
 		margin: auto; /* 가운데 정렬을 위해 자동 마진 설정 */
-		left: 5%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
+		margin-top: 10px;
+		margin-left: -20%; /* 왼쪽 여백을 뷰포트의 5%로 설정 */
 	}
 	.btn_box {
-		padding: 0 20px; /* 왼쪽과 오른쪽 여백을 설정 */
+		padding: auto; /* 왼쪽과 오른쪽 여백을 설정 */
 		width: 90%; /* 너비를 뷰포트의 90%로 설정 */
 		margin: auto; /* 가운데 정렬을 위해 자동 마진 설정 */
-		margin-left: 10%;
-		margin-top: 35%; /* 위쪽 여백 조정 */
+		margin-left: 25%;
+		margin-top: 24%; /* 위쪽 여백 조정 */
+		clear: both; /* float 요소 아래로 내려가게 함 */
 	}
 }
 
@@ -594,11 +599,11 @@ html, body {
 					<option>6</option>
 				</select>
 			</div>
-		</div>
 		<div class="btn_box">
 			<div class="search_btn btn">
 				<button>검색</button>
 			</div>
+		</div>
 		</div>
 	</div>
 
