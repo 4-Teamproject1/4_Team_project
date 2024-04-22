@@ -71,10 +71,7 @@ public class TrainTicketCrawler3_JDW {
         reservat_Button.click();
         
         
-        
-        // 시간표 조회 버튼 클릭
-        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class, 'EkxmVtPgf4qaNumd_yo2')]"));
-        searchButton.click();
+       
 
         // 기차 시간표 데이터 크롤링
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
