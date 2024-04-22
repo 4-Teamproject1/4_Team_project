@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,10 @@ public class TrainTicketCrawler2 {
 //        String url = "https://map.naver.com/p/settings?c=15.00,0,0,0,dh";
 		// 기차표 검색 페이지로 이동
 		driver.get(url);
+		// 출발지와 도착지 정보
+		String departure = "서울역";
+		String arrival = "부산역";
+
 
 		// 출발지 입력
 		// findElements방식을 사용하면 뒤에 .get[i]를 사용해서 요소를 넣어줘야 한다.
