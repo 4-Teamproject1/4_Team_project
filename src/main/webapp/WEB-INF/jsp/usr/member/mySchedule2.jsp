@@ -170,171 +170,171 @@
 	    }
 	  };
 
-	  // 현재 달 그리기 함수
-	  Calendar.prototype.currentMonth = function () {
-	    var clone = this.current.clone();
+	    // 현재 달을 그리는 함수
+	    Calendar.prototype.currentMonth = function () {
+	      var clone = this.current.clone();
 
-	    while (clone.month() === this.current.month()) {
-	      this.drawDay(clone);
-	      clone.add("days", 1);
-	    }
-	  };
-
-	  // 주 단위 요소 생성 함수
-	  Calendar.prototype.getWeek = function (day) {
-	    if (!this.week || day.day() === 0) {
-	      this.week = createElement("div", "week");
-	      this.month.appendChild(this.week);
-	    }
-	  };
-
-	  // 주단위 요일 이름 배열
-	  var weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-
-	  // 요일 레이블 생성 함수
-	  Calendar.prototype.drawWeekdays = function () {
-	    var weekdaysRow = createElement("div", "weekdays-row");
-	    weekdays.forEach(function (weekday) {
-	      var weekdayLabel = createElement("div", "weekday-label", weekday);
-	      weekdaysRow.appendChild(weekdayLabel);
-	    });
-	    this.el.appendChild(weekdaysRow);
-	  };
-
-	  // 날짜 그리기 함수
-	  Calendar.prototype.drawDay = function (day) {
-	    var self = this;
-	    this.getWeek(day);
-
-	    // 날짜 외부 요소 생성
-	    var outer = createElement("div", this.getDayClass(day));
-	    outer.addEventListener("click", function () {
-	      self.openDay(this);
-	    });
-
-	    // 날짜
-	    var number = createElement("div", "day-number", day.format("DD"));
-
-	    // 이벤트
-	    var events = createElement("div", "day-events");
-	    this.drawEvents(day, events);
-
-	    outer.appendChild(number);
-	    outer.appendChild(events);
-	    this.week.appendChild(outer);
-	  };
-
-	  // 날짜에 해당하는 이벤트 그리기 함수
-	  Calendar.prototype.drawEvents = function (day, element) {
-	    if (day.month() === this.current.month()) {
-	      var todaysEvents = this.events.reduce(function (memo, ev) {
-	        if (ev.date.isSame(day, "day")) {
-	          memo.push(ev);
-	        }
-	        return memo;
-	      }, []);
-
-	      todaysEvents.forEach(function (ev) {
-	        var evSpan = createElement("span", ev.color);
-	        var eventNameSpan = createElement("span", "event-name", ev.eventName); // 이벤트 이름을 포함하는 요소 생성
-	        evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
-	        element.appendChild(evSpan);
-	      });
-	    }
-	  };
-
-	  // 날짜에 따른 클래스 설정 함수
-	  Calendar.prototype.getDayClass = function (day) {
-	    classes = ["day"];
-	    if (day.month() !== this.current.month()) {
-	      classes.push("other");
-	    } else if (today.isSame(day, "day")) {
-	      classes.push("today");
-	    }
-	    return classes.join(" ");
-	  };
-
-	  // 기본적으로 페이지가 로드될 때 이벤트를 표시하는 함수
-	  Calendar.prototype.showAllEvents = function () {
-	    var self = this;
-	    // 스크롤 가능한 컨테이너 생성
-	    var scrollContainer = createElement("div", "scroll-container");
-	    // 현재 월의 각 날짜에 대해 반복
-	    var daysInMonth = this.current.daysInMonth();
-	    for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
-	      var day = this.current.clone().date(dayNumber);
-	      var todaysEvents = this.events.filter(function (ev) {
-	        return ev.date.isSame(day, "day");
-	      });
-	      // 전체 월에 대한 이벤트 표시
-	      if (todaysEvents.length > 0) {
-	        // 날짜에 해당하는 이벤트를 함께 표시하기 위해 scrollContainer에 날짜도 추가
-	        var dayElement = createElement("div", "day-events-container");
-	        var dayNumberElement = createElement(
-	          "div",
-	          "day-number",
-	          day.format("DD일")
-	        );
-	        dayElement.appendChild(dayNumberElement);
-	        self.renderEvents(todaysEvents, dayElement);
-	        scrollContainer.appendChild(dayElement);
+	      while (clone.month() === this.current.month()) {
+	        this.drawDay(clone);
+	        clone.add("days", 1);
 	      }
-	    }
-	    // scrollContainer를 캘린더 요소의 자식 요소로 삽입
-	    this.el.appendChild(scrollContainer);
-	  };
+	    };
 
-	  // 날짜 클릭 시 상세 정보 표시 함수
-	  Calendar.prototype.openDay = function (el) {
-	    var details, arrow;
-	    var dayNumber =
-	      +el.querySelector(".day-number").innerText ||
-	      +el.querySelector(".day-number").textContent;
-	    var day = this.current.clone().date(dayNumber);
+	    // 주 단위 요소를 생성하는 함수
+	    Calendar.prototype.getWeek = function (day) {
+	      if (!this.week || day.day() === 0) {
+	        this.week = createElement("div", "week");
+	        this.month.appendChild(this.week);
+	      }
+	    };
 
-	    // Find the currently opened detail window, if any
-	    var currentOpened = document.querySelector(".details");
+	 // 주단위 요일 이름 배열
+	    var weekdays = ["일", "월", "화", "수", "목", "금", "토"];
 
-	    // Only open the detail window if it's not already open for the clicked date
-	    if (!currentOpened || currentOpened.parentNode !== el.parentNode) {
-	      // Close any previously opened detail window
-	      if (currentOpened) {
-	        currentOpened.addEventListener("animationend", function () {
-	          if (currentOpened.parentNode) {
-	            currentOpened.parentNode.removeChild(currentOpened);
+	    // 요일 레이블을 그리는 함수
+	    Calendar.prototype.drawWeekdays = function () {
+	      // 요일 행 요소 생성
+	      var weekdaysRow = createElement("div", "weekdays-row");
+
+	      // 각 요일에 대해 반복
+	      weekdays.forEach(function (weekday) {
+	        // 요일 레이블 요소 생성
+	        var weekdayLabel = createElement("div", "weekday-label", weekday);
+
+	        // 요일 행에 요일 레이블 추가
+	        weekdaysRow.appendChild(weekdayLabel);
+	      });
+
+	      // 캘린더 요소에 요일 행 추가
+	      this.el.appendChild(weekdaysRow);
+	    };
+
+	    // 날짜를 그리는 함수
+	    Calendar.prototype.drawDay = function (day) {
+	      var self = this;
+	      this.getWeek(day);
+
+	      // 날짜 외부 요소 생성
+	      var outer = createElement("div", this.getDayClass(day));
+	      outer.addEventListener("click", function () {
+	        self.openDay(this);
+	      });
+
+	      // 날짜
+	      var number = createElement("div", "day-number", day.format("DD"));
+
+	      // 이벤트
+	      var events = createElement("div", "day-events");
+	      this.drawEvents(day, events);
+
+	      outer.appendChild(number);
+	      outer.appendChild(events);
+	      this.week.appendChild(outer);
+	    };
+
+	    // 날짜에 해당하는 이벤트를 그리는 함수
+	    Calendar.prototype.drawEvents = function (day, element) {
+	      if (day.month() === this.current.month()) {
+	        var todaysEvents = this.events.reduce(function (memo, ev) {
+	          if (ev.date.isSame(day, "day")) {
+	            memo.push(ev);
 	          }
+	          return memo;
+	        }, []);
+
+	        todaysEvents.forEach(function (ev) {
+	          var evSpan = createElement("span", ev.color);
+	          var eventNameSpan = createElement("span", "event-name", ev.eventName); // 이벤트 이름을 포함하는 요소 생성
+	          evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
+	          element.appendChild(evSpan);
 	        });
-	        currentOpened.className = "details out";
 	      }
+	    };
 
-	      // Create a new detail window
-	      details = createElement("div", "details in");
-	      arrow = createElement("div", "arrow");
-	      var eventsWrapper = createElement("div", "events");
+	    // 날짜에 따라 클래스를 설정하는 함수
+	    Calendar.prototype.getDayClass = function (day) {
+	      classes = ["day"];
+	      if (day.month() !== this.current.month()) {
+	        classes.push("other");
+	      } else if (today.isSame(day, "day")) {
+	        classes.push("today");
+	      }
+	      return classes.join(" ");
+	    };
 
-	      details.appendChild(arrow);
-	      details.appendChild(eventsWrapper);
+	    // 페이지가 로드될 때 모든 이벤트를 표시하는 함수
+	    Calendar.prototype.showAllEvents = function () {
+	      var self = this;
+	      // 스크롤 가능한 컨테이너 생성
+	      var scrollContainer = createElement("div", "scroll-container");
+	      // 현재 월의 각 날짜에 대해 반복
+	      var daysInMonth = this.current.daysInMonth();
+	      for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+	        var day = this.current.clone().date(dayNumber);
+	        var todaysEvents = this.events.filter(function (ev) {
+	          return ev.date.isSame(day, "day");
+	        });
+	        // 전체 월에 대한 이벤트 표시
+	        if (todaysEvents.length > 0) {
+	          // 날짜에 해당하는 이벤트를 함께 표시하기 위해 scrollContainer에 날짜도 추가
+	          var dayElement = createElement("div", "day-events-container");
+	          var dayNumberElement = createElement(
+	            "div",
+	            "day-number",
+	            day.format("DD일")
+	          );
+	          dayElement.appendChild(dayNumberElement);
+	          self.renderEvents(todaysEvents, dayElement);
+	          scrollContainer.appendChild(dayElement);
+	        }
+	      }
+	      // scrollContainer를 캘린더 요소의 자식 요소로 삽입
+	      this.el.appendChild(scrollContainer);
+	    };
 
-	      // Add the detail window to the body element
-	      document.body.appendChild(details);
+	    // 날짜를 클릭했을 때 상세 정보를 표시하는 함수
+	    Calendar.prototype.openDay = function (el) {
+	      var details;
+	      var dayNumber =
+	        +el.querySelector(".day-number").innerText ||
+	        +el.querySelector(".day-number").textContent;
+	      var day = this.current.clone().date(dayNumber);
 
-	      // Position the detail window
-	      details.style.right = "140px";
-	      details.style.top = "50px";
-	      details.style.position = "fixed";
+	      // 현재 열려 있는 디테일 창을 찾고 없으면 null 반환
+	      var currentOpened = document.querySelector(".details");
 
-	      // Find events for the clicked day
-	      var todaysEvents = this.events.filter(function (ev) {
-	        return ev.date.isSame(day, "day");
-	      });
+	      // 클릭된 날짜에 디테일 창이 열려 있지 않은 경우에만 디테일 창 열기
+	      if (!currentOpened || currentOpened.parentNode !== el.parentNode) {
+	        // // 이전에 열려 있던 디테일 창 있다면 닫기
+	        if (currentOpened) {
+	          //애니메이션이 종료시 디테일 창 제거
+	          currentOpened.addEventListener("animationend", function () {
+	            if (currentOpened.parentNode) {
+	              currentOpened.parentNode.removeChild(currentOpened);
+	            }
+	          });
+	          currentOpened.className = "details out";
+	        }
 
-	      // Render events for the clicked day
-	      this.renderEvents(todaysEvents, eventsWrapper);
+	        // 새로운 디테일 창을 생성
+	        details = createElement("div", "details in");
+	        var eventsWrapper = createElement("div", "events");
 
-	      // Position the arrow
-	      arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + "px";
-	    }
-	  };
+	        details.appendChild(eventsWrapper);
+
+	        // 디테일 창을 body 요소에 추가
+	        document.body.appendChild(details);
+
+	        // 클릭된 날짜에 해당하는 이벤트 찾기
+	        var todaysEvents = this.events.filter(function (ev) {
+	          return ev.date.isSame(day, "day");
+	        });
+
+	        // 클릭된 날짜의 이벤트 렌더링
+	        this.renderEvents(todaysEvents, eventsWrapper);
+	      }
+	    };
+
 
 	  // 이벤트 렌더링 함수
 	  Calendar.prototype.renderEvents = function (events, ele) {
@@ -458,6 +458,7 @@
 </script>
 
 <style type="text/css">
+
 /* 전역 CSS 리셋 */
 *,
 *:before,
@@ -480,48 +481,49 @@
 
 /* 헤더 */
 .header {
-  height: 50px;
-  width: 150px;
-  text-align: center;
-  position: relative;
-  z-index: 100;
+  padding: 20px 0 40px;
+	height: 14px;
+	width: 215px;
+	text-align: center;
+	position: relative;
+	z-index: 2;
 }
 
 /* 헤더 제목 */
 .header h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 1em;
-  font-weight: 400;
-  line-height: 50px;
-  letter-spacing: 1px;
-  text-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);
+  margin: 0px;
+	padding: 10px;
+	padding-left: 10px;
+	margin-left: 35px;
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 0px;
+	letter-spacing: 1px;
 }
 
 /* 네비게이션 화살표 */
 .left,
 .right {
   position: absolute;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  top: 50%;
-  margin-top: -7.5px;
-  cursor: pointer;
+	width: 0;
+	height: 0;
+	top: 30px;
+	margin-top: -7.5px;
+	cursor: pointer;
 }
 
 /* 왼쪽 화살표 */
 .left {
   border-width: 7.5px 10px 7.5px 0;
-  border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
-  left: 20px;
+	border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+	left: 40px;
 }
 
 /* 오른쪽 화살표 */
 .right {
   border-width: 7.5px 0 7.5px 10px;
-  border-color: transparent transparent transparent rgba(160, 159, 160, 1);
-  right: 20px;
+	border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+	right: 5px;
 }
 
 /* 월 컨테이너 */
@@ -555,19 +557,20 @@
 
 /* 이전 월 입장 애니메이션 */
 .month.in.prev {
-  -webkit-animation: moveFromBottomFadeMonth 0.4s ease-out;
-  -moz-animation: moveFromBottomFadeMonth 0.4s ease-out;
-  animation: moveFromBottomFadeMonth 0.4s ease-out;
+  -webkit-animation: moveFromTopFadeMonth 0.4s ease-out;
+  -moz-animation: moveFromTopFadeMonth 0.4s ease-out;
+  animation: moveFromTopFadeMonth 0.4s ease-out;
   opacity: 1;
 }
 
 /* 이전 월 나가기 애니메이션 */
 .month.out.prev {
-  -webkit-animation: moveToBottomFadeMonth 0.4s ease-in;
-  -moz-animation: moveToBottomFadeMonth 0.4s ease-in;
-  animation: moveToBottomFadeMonth 0.4s ease-in;
+  -webkit-animation: moveToTopFadeMonth 0.4s ease-in;
+  -moz-animation: moveToTopFadeMonth 0.4s ease-in;
+  animation: moveToTopFadeMonth 0.4s ease-in;
   opacity: 1;
 }
+
 
 /* 날짜 */
 .day {
@@ -582,6 +585,7 @@
   z-index: 2;
   border: 1px solid #ccc;
 }
+
 /* 요일 */
 .weekday-label {
   height: 50px;
@@ -594,6 +598,39 @@
   z-index: 2;
   border: 1px solid #ccc;
 }
+
+/* 이전 월 입장 애니메이션 */
+.weekday-label.in.prev {
+  -webkit-animation: moveFromTopFadeMonth 0.4s ease-out;
+  -moz-animation: moveFromTopFadeMonth 0.4s ease-out;
+  animation: moveFromTopFadeMonth 0.4s ease-out;
+  opacity: 1;
+}
+
+/* 이전 월 나가기 애니메이션 */
+.weekday-label.out.prev {
+  -webkit-animation: moveToTopFadeMonth 0.4s ease-in;
+  -moz-animation: moveToTopFadeMonth 0.4s ease-in;
+  animation: moveToTopFadeMonth 0.4s ease-in;
+  opacity: 1;
+}
+
+/* 다음 월 입장 애니메이션 */
+.weekday-label.in.next {
+  -webkit-animation: moveFromTopFadeMonth 0.4s ease-out;
+  -moz-animation: moveFromTopFadeMonth 0.4s ease-out;
+  animation: moveFromTopFadeMonth 0.4s ease-out;
+  opacity: 1;
+}
+
+/* 다음 월 나가기 애니메이션 */
+.weekday-label.out.next {
+  -webkit-animation: moveToTopFadeMonth 0.4s ease-in;
+  -moz-animation: moveToTopFadeMonth 0.4s ease-in;
+  animation: moveToTopFadeMonth 0.4s ease-in;
+  opacity: 1;
+}
+
 
 /* 다른 달의 날짜 */
 .day.other {
@@ -659,10 +696,10 @@
   position: relative;
   width: 300px;
   height: auto;
-  top: 0;
+  bottom: 100%;
   transform: translateY(-50%);
   right: -60%;
-  background-color: red;
+  background-color: skyblue;
 }
 
 /* 세부 정보 입장 애니메이션 */
@@ -681,7 +718,7 @@
 
 /* 이벤트 목록 */
 .events {
-  height: 75px;
+  height: auto;
   padding: 7px 0;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -725,9 +762,27 @@
   width: 450px;
   max-height: 500px; /* 필요한 만큼 최대 높이 조정 */
   overflow-y: scroll;
-  /* 스크롤바 숨김 */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+}
+
+/* 스크롤바 디자인 설정 */
+.scroll-container::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+/* 스크롤바 트랙 (스크롤바 뒤의 영역) */
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 트랙의 배경색 */
+}
+
+/* 스크롤바 핸들 (드래그 가능한 부분) */
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888; /* 핸들의 배경색 */
+  border-radius: 6px; /* 핸들의 모서리 둥글기 설정 */
+}
+
+/* 핸들에 마우스를 올렸을 때 */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 핸들의 배경색을 변경하여 호버 시 시각적 피드백 제공 */
 }
 
 /* 이벤트 */
