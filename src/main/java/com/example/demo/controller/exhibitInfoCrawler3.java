@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ConferenceInfoCrawler {
+public class exhibitInfoCrawler3 {
     private static WebDriver driver;
     private static String url;
 
@@ -38,25 +38,27 @@ public class ConferenceInfoCrawler {
         researchMenu.click();
 
         // 학술행사 상세페이지로 이동
-        WebElement conferenceLink = driver.findElement(By.xpath("//a[@href='/research/researches/33/recruitments/112/recruits?listType=ING']"));
+        WebElement conferenceLink = driver.findElement(By.xpath("//a[@href='/research/researches/486/recruitments/115/recruits?listType=ING']"));
         conferenceLink.click();
 
-        // 카테고리 목록 가져오기
-        List<WebElement> categories = driver.findElements(By.xpath("//ul[@id='menuCoutLinst']/li[position() > 1]/a"));
+		/*
+		 * // 카테고리 목록 가져오기 List<WebElement> categories =
+		 * driver.findElements(By.xpath("//ul[@id='menuCoutLinst']/li[position() > 1]/a"
+		 * ));
+		 */
 
-        // 각 카테고리에 대해 반복문 실행
+       /* // 각 카테고리에 대해 반복문 실행
         for (WebElement category : categories) {
             System.out.println("카테고리: " + category.getText());
 
             // 각 카테고리 클릭
-            category.click();
+            category.click();*/
 
             // 모든 학술행사 목록을 가져옴
             List<WebElement> conferenceElements = driver.findElements(By.xpath("//div[@class='contentBody']//ul[@id='articleList']//li[@class='row sortRoot']"));
 
             // 각 학술행사에 대해 반복문 실행
             for (WebElement conferenceElement : conferenceElements) {
-            	System.out.println(conferenceElement.getText());
                 // 각 학술행사의 링크를 가져옴
                 WebElement linkElement = conferenceElement.findElement(By.tagName("a"));
                 String conferenceLink1 = linkElement.getAttribute("href");
@@ -67,7 +69,7 @@ public class ConferenceInfoCrawler {
                 try {
                     // 상세페이지에서 학회의 제목 추출
                     WebElement titleElement = driver.findElement(By.xpath("//div[@class='titleWrap']/h4"));
-                    String 학회제목 = titleElement.getText();
+                    String 공모전제목 = titleElement.getText();
 
                     // 상세페이지에서 조회수 요소를 찾기 위해 <li> 태그의 클래스가 "cnt"인 요소를 찾고 그 안에 있는 <span> 태그의 클래스가
                     // "bold"인 요소를 찾습니다.
@@ -77,10 +79,11 @@ public class ConferenceInfoCrawler {
                     // 테이블에서 행사기간, 접수기간, 참가비, 관련 홈페이지 정보 가져오기
                     WebElement table = driver.findElement(By.className("contentSummaryInfo"));
                     List<WebElement> rows = table.findElements(By.tagName("tr"));
-                    String 행사기간 = "";
                     String 접수기간 = "";
-                    String 참가비 = "";
                     String 관련홈페이지 = "";
+                    String 총시상금 = "";
+                    String 최우수시상금 = "";
+                   
 
                     for (WebElement row : rows) {
                         List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -88,18 +91,19 @@ public class ConferenceInfoCrawler {
                             String label = cells.get(i).getText();
                             String value = cells.get(i + 1).getText();
                             switch (label) {
-                                case "행사기간":
-                                    행사기간 = value;
-                                    break;
                                 case "접수기간":
-                                    접수기간 = value;
+                                	접수기간 = value;
                                     break;
-                                case "참가비":
-                                    참가비 = value;
+                                case "관련홈페이지":
+                                	 WebElement linkElement1 = cells.get(i + 1).findElement(By.tagName("a"));
+                                     관련홈페이지 = linkElement1.getAttribute("href");
+                                	
                                     break;
-                                case "관련 홈페이지":
-                                    WebElement linkElement1 = cells.get(i + 1).findElement(By.tagName("a"));
-                                    관련홈페이지 = linkElement1.getAttribute("href");
+                                case "총시상금":
+                                	총시상금 = value;
+                                    break;
+                                case "최우수시상금":
+                                	최우수시상금 = value;
                                     break;
                             }
                         }
@@ -143,11 +147,11 @@ public class ConferenceInfoCrawler {
             		String 장소 = 장소Element.getText();
 
                     // 결과 출력
-                    System.out.println("학회제목: " + 학회제목);
+                    System.out.println("학회제목: " + 공모전제목);
                     System.out.println("조회수: " + 조회수);
-                    System.out.println("행사기간: " + 행사기간);
-                    System.out.println("접수기간: " + 접수기간);
-                    System.out.println("참가비: " + 참가비);
+                    System.out.println("행사기간: " + 접수기간);
+                    System.out.println("접수기간: " + 관련홈페이지);
+					/* System.out.println("참가비: " + 참가비); */
                     System.out.println("장소: " + 장소);
                     System.out.println("관련홈페이지: " + 관련홈페이지);
                     System.out.println("담당자 연락처: " + 담당자연락처);
@@ -161,7 +165,7 @@ public class ConferenceInfoCrawler {
                     e.printStackTrace();
                 }
             }
-        }
+        
 
         // WebDriver 종료
         driver.quit();
