@@ -51,6 +51,37 @@ public class TrainTicketCrawler4_GUS {
 		
 		// 검색 후 첫번째 요소 찾기
 //        WebElement firstLiElement = driver.findElement(By.cssSelector(".Popup__content .AutocompleteList li:first-child"));
+<<<<<<< HEAD
+
+		try {
+			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
+			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			System.out.println("페이지 로드 시간이 초과되었습니다.");
+		}
+
+		try {
+			// XPath로 모든 li 요소들을 찾습니다.
+			List<WebElement> liElements = driver.findElements(By.xpath("//li[contains(@class,'Suggestion') and contains(@class,'Suggestion__categoryName')]"));
+			List<WebElement> liElements_Box = driver.findElements(By.xpath("//ul[@class,'AutocompleteList']"));
+			System.out.println(liElements_Box);
+			System.out.println(liElements);
+			// liElements가 비어있는지 확인합니다.
+			if (!liElements.isEmpty()) {
+				// 첫 번째 li 요소를 선택합니다.
+				WebElement firstLi = liElements.get(0);
+
+				// 해당 요소를 클릭합니다.
+				firstLi.click();
+			} else {
+				System.out.println("li 요소를 찾을 수 없습니다.");
+			}
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			// 요소를 찾을 수 없을 때 예외 처리합니다.
+			System.out.println("li 요소를 찾을 수 없습니다.");
+		}
+		// time_taken과 time_unit 요소를 함께 찾는 XPath
+=======
 	           
 		 try {
 	            // 페이지 로드를 위한 대기 시간 설정 (초 단위)
@@ -72,6 +103,7 @@ public class TrainTicketCrawler4_GUS {
 		     }
 		 }
 	        // time_taken과 time_unit 요소를 함께 찾는 XPath
+>>>>>>> ca28777edf6281feb6f5ac944ef7108220671653
 //	        String combinedXPath = "//li[contains(@class, 'sc-1tj2a62') and contains(@class, 'eypxCR') and contains(@class, 'is_selected')]//span[@class='time_taken' or @class='time_unit']";
 //
 //	        // time_taken과 time_unit 요소 찾기
@@ -89,6 +121,18 @@ public class TrainTicketCrawler4_GUS {
 //	                timeUnitText = text;
 //	            }
 //	        }
+<<<<<<< HEAD
+
+		// XPath를 사용하여 해당 요소를 찾습니다.
+		WebElement ulElement = driver.findElement(By
+				.xpath("//div[@class='Popup Autocomplete Autocomplete--with-dayuse']//ul[@class='AutocompleteList']"));
+
+		// 해당 요소의 내용을 출력합니다.
+		System.out.println("찾은 ul 요소의 내용: " + ulElement.getText());
+
+		// ul 요소 내의 첫 번째 li 요소를 찾습니다.
+		WebElement firstLiElement = driver.findElement(By.cssSelector(""));
+=======
 	        
 		  // XPath를 사용하여 해당 요소를 찾습니다.
         WebElement ulElement = driver.findElement(By.xpath("//div[@class='Popup Autocomplete Autocomplete--with-dayuse']//ul[@class='AutocompleteList']"));
@@ -102,6 +146,7 @@ public class TrainTicketCrawler4_GUS {
 	// ul 요소 내의 첫 번째 li 요소를 찾습니다.
 	WebElement firstLiElement = driver
 				.findElement(By.cssSelector(""));
+>>>>>>> ca28777edf6281feb6f5ac944ef7108220671653
 
 	wait_web=new WebDriverWait(driver,Duration.ofSeconds(10));
 
