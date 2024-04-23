@@ -62,26 +62,48 @@
 			<a href="/">LOGO</a>
 			<div class="flex-grow"></div>
 			<ul class="flex">
-				<li class=""><a class="h-full px-3 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
+				<li class="">
+					<a class="h-full px-3 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
 						<span>🌞</span>
 						<span>🌚</span>
-					</a></li>
-				<li><a class="hover:underline" href="/">HOME</a></li>
-				<li><a class="hover:underline" href="../article/list?boardId=1&page=1">LIST</a>
+					</a>
+				</li>
+				<li>
+					<a class="hover:underline" href="/">HOME</a>
+				</li>
+				<li>
+					<a class="hover:underline" href="../article/list?boardId=1&page=1">LIST</a>
 					<ul>
-						<li><a class="hover:underline" href="../article/list?boardId=1&page=1">NOTICE</a></li>
-						<li><a class="hover:underline" href="../article/list?boardId=2&page=1">FREE</a></li>
-						<li><a class="hover:underline" href="../article/list?boardId=3&page=1">QnA</a></li>
-					</ul></li>
+						<li>
+							<a class="hover:underline" href="../article/list?boardId=1&page=1">NOTICE</a>
+						</li>
+						<li>
+							<a class="hover:underline" href="../article/list?boardId=2&page=1">FREE</a>
+						</li>
+						<li>
+							<a class="hover:underline" href="../article/list?boardId=3&page=1">QnA</a>
+						</li>
+					</ul>
+				</li>
 				<c:if test="${!rq.isLogined() }">
-					<li><a class="hover:underline" href="${rq.loginUri }">LOGIN</a></li>
-					<li><a class="hover:underline" href="../member/join">JOIN</a></li>
+					<li>
+						<a class="hover:underline" href="${rq.loginUri }">LOGIN</a>
+					</li>
+					<li>
+						<a class="hover:underline" href="../member/join">JOIN</a>
+					</li>
 				</c:if>
 				<c:if test="${rq.isLogined() }">
-					<li><a class="hover:underline" href="../article/write">WRITE</a></li>
-					<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/myPage">MYPAGE</a></li>
-					<li><a onclick="if(confirm('로그아웃 할래?') == false) return false;" class="hover:underline"
-							href="${rq.logoutUri }">LOGOUT</a></li>
+					<li>
+						<a class="hover:underline" href="../article/write">WRITE</a>
+					</li>
+					<li class="hover:underline">
+						<a class="h-full px-3 flex items-center" href="/usr/member/myPage">MYPAGE</a>
+					</li>
+					<li>
+						<%-- 					<a onclick="if(confirm('로그아웃 할래?') == false) return false;" class="hover:underline" href="${rq.logoutUri }">LOGOUT</a> --%>
+						<a onclick="if(confirm('로그아웃 할래?') == false) return false;" class="hover:underline" href="../member/doLogout">LOGOUT</a>
+					</li>
 				</c:if>
 			</ul>
 		</div>
