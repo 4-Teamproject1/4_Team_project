@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -49,28 +51,61 @@ public class TrainTicketCrawler4_GUS {
 		// 검색 후 첫번째 요소 찾기
 //        WebElement firstLiElement = driver.findElement(By.cssSelector(".Popup__content .AutocompleteList li:first-child"));
 
-		   try {
-	            // ul의 첫 번째 li 요소를 찾습니다.
-	            WebElement firstLi = driver.findElement(By.cssSelector("div.Popup__content ul.AutocompleteList li:first-child"));
+		try {
+			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
+			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			System.out.println("페이지 로드 시간이 초과되었습니다.");
+		}
 
-	            // 요소가 존재하는지 확인합니다.
-	            if (firstLi != null) {
-	            	wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
+		try {
+			// XPath로 모든 li 요소들을 찾습니다.
+			List<WebElement> liElements = driver.findElements(By.xpath("//li[contains(@class,'Suggestion') and contains(@class,'Suggestion__categoryName')]"));
+			List<WebElement> liElements_Box = driver.findElements(By.xpath("//ul[@class,'AutocompleteList']"));
+			System.out.println(liElements_Box);
+			System.out.println(liElements);
+			// liElements가 비어있는지 확인합니다.
+			if (!liElements.isEmpty()) {
+				// 첫 번째 li 요소를 선택합니다.
+				WebElement firstLi = liElements.get(0);
 
-	        		// 검색창이 활성화될 때까지 기다림
-	        		activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(firstLi));
-	                // 해당 요소를 클릭합니다.
-	                firstLi.click();
-	            } else {
-	                System.out.println("첫 번째 li 요소를 찾을 수 없습니다.1");
-	            }
-	        } catch (org.openqa.selenium.NoSuchElementException e) {
-	            // 요소를 찾을 수 없을 때 예외 처리합니다.
-	            System.out.println("첫 번째 li 요소를 찾을 수 없습니다.2");
-	        }
+				// 해당 요소를 클릭합니다.
+				firstLi.click();
+			} else {
+				System.out.println("li 요소를 찾을 수 없습니다.");
+			}
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			// 요소를 찾을 수 없을 때 예외 처리합니다.
+			System.out.println("li 요소를 찾을 수 없습니다.");
+		}
+		// time_taken과 time_unit 요소를 함께 찾는 XPath
+//	        String combinedXPath = "//li[contains(@class, 'sc-1tj2a62') and contains(@class, 'eypxCR') and contains(@class, 'is_selected')]//span[@class='time_taken' or @class='time_unit']";
+//
+//	        // time_taken과 time_unit 요소 찾기
+//	        List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
+//
+//	        // timeElements에서 각 요소의 텍스트를 가져와 구분합니다.
+//	        String timeTakenText = "";
+//	        String timeUnitText = "";
+//
+//	        for (WebElement element : timeElements) {
+//	            String text = element.getText();
+//	            if (element.getAttribute("class").equals("time_taken")) {
+//	                timeTakenText = text;
+//	            } else if (element.getAttribute("class").equals("time_unit")) {
+//	                timeUnitText = text;
+//	            }
+//	        }
+
+		// XPath를 사용하여 해당 요소를 찾습니다.
+		WebElement ulElement = driver.findElement(By
+				.xpath("//div[@class='Popup Autocomplete Autocomplete--with-dayuse']//ul[@class='AutocompleteList']"));
+
+		// 해당 요소의 내용을 출력합니다.
+		System.out.println("찾은 ul 요소의 내용: " + ulElement.getText());
+
 		// ul 요소 내의 첫 번째 li 요소를 찾습니다.
-		WebElement firstLiElement = driver
-				.findElement(By.cssSelector(""));
+		WebElement firstLiElement = driver.findElement(By.cssSelector(""));
 
 		wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
 
