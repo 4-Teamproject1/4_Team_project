@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="My Schedule"></c:set>
+<c:set var="pageTitle" value="My Question"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -9,10 +9,14 @@
 <header class="header">
 	<button class="logo">로고</button>
 	<nav class="header_menu">
-		<button class="username">abc123님</button>
+		<a href="../member/myInfo">
+			<button class="username">abc123님</button>
+		</a>
 		<button class="hd_info">학회 정보</button>
 		<button class="hd_contest">공모전</button>
-		<button class="hd_question">문의사항</button>
+		<a href="../member/myQuestion">
+			<button class="hd_question">문의사항</button>
+		</a>
 		<button class="hd_logout">로그아웃</button>
 	</nav>
 </header>
@@ -65,6 +69,10 @@ body {
 .header_menu {
 	display: flex;
 	gap: 20px;
+}
+
+.hd_logout {
+	font-size: 12.5px;
 }
 
 .username {

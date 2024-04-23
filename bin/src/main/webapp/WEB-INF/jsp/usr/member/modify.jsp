@@ -3,7 +3,100 @@
 <c:set var="pageTitle" value="MEMBER MODIFY"></c:set>
 <%@ include file="../common/head.jspf"%>
 <!-- Member modify 관련 -->
+<style>
+.background_img {
+	background-image:
+		url('https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png');
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
 
+.signup-container {
+	border-radius: 30px;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	background-color: rgba(249, 181, 99, 0.8);
+	display: flex;
+	max-width: 550px;
+	flex-direction: column;
+	font-size: 20px;
+	color: rgba(0, 0, 0, 0.4);
+	font-weight: 400;
+	text-align: center;
+	margin: auto;
+	margin-top: 20px;
+	padding: 76px 51px;
+}
+
+@media ( max-width : 991px) {
+	.signup-container {
+		padding: 0 20px;
+		margin: auto;
+		margin-top: 20px; /* 미디어 쿼리에서 margin-top 조정 */
+	}
+}
+ 
+.input-field {
+	font-family: Inter, sans-serif;
+	border-radius: 10px;
+	border: 2px solid rgba(0, 0, 0, 0.2);
+	background-color: rgba(249, 181, 99, 0.8);
+	align-items: start;
+	justify-content: center;
+	padding: 21px 60px;
+}
+
+@media ( max-width : 991px) {
+	.input-field {
+		max-width: 100%;
+		padding: 0 20px;
+		margin: auto;
+		margin-top: 20px; /* 미디어 쿼리에서 margin-top 조정 */
+	}
+}
+
+.user-info-container {
+	border-radius: 10px;
+	display: flex;
+	margin-top: 13px;
+	padding-bottom: 10px;
+	flex-direction: column;
+}
+
+@media ( max-width : 991px) {
+	.user-info-container {
+		max-width: 100%;
+	}
+}
+
+.signup-button {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #9a6c4b;
+	align-self: center;
+	margin-top: 47px;
+	width: 300px;
+	max-width: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	padding: 16px 60px;
+}
+
+@media ( max-width : 991px) {
+	.signup-button {
+		margin-top: 20px;
+		margin-bottom: 10px;
+		padding: 0 20px;
+	}
+}
+
+</style>
 <script type="text/javascript">
 	let MemberModify__submitFormDone = false;
 	function MemberModify__submit(form) {
@@ -34,73 +127,74 @@
 	}
 </script>
 
+<div class="background_img"></div>
 <section class="mt-8 text-xl px-4">
-	<div class="mx-auto">
+	<div class="signup-container">
 		<form action="../member/doModify" method="POST" onsubmit="MemberModify__submit(this); return false;">
-			<table class="member-modify-box table-box-1" border="1">
-				<tbody>
-					<tr>
-						<th>가입일</th>
-						<td>${rq.loginedMember.regDate }</td>
-					</tr>
-					<tr>
+		
+	
+					<div class="input-field">
+						<div>가입일</div>
+						<div>${rq.loginedMember.regDate }</div>
+					</div>
+					<div class="input-field">
 						<th>아이디</th>
 						<td>${rq.loginedMember.loginId }</td>
-					</tr>
-					<tr>
-						<th>새 비밀번호</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+					</div>
+					<div class="user-info-container">
+					<div class="">
+						새 비밀번호
+						<div>
+							<input class="input input-bordered w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="새 비밀번호를 입력해주세요" name="loginPw" />
-						</td>
-					</tr>
+						</div>
+					</div>
 					<tr>
 						<th>새 비밀번호 확인</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+						<div>
+							<input class="input input-bordered  w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="새 비밀번호 확인을 입력해주세요" name="loginPwConfirm" />
-						</td>
+						</div>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+						<div>
+							<input class="input input-bordered  w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="이름을 입력해주세요" name="name" value="${rq.loginedMember.name }" />
-						</td>
+						</div>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+						<div>
+							<input class="input input-bordered  w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="닉네임을 입력해주세요" name="nickname" value="${rq.loginedMember.nickname }" />
-						</td>
+						</div>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+						<div>
+							<input class="input input-bordered  w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="전화번호를 입력해주세요" name="cellphoneNum" value="${rq.loginedMember.cellphoneNum }" />
-						</td>
+						</div>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td>
-							<input class="input input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
+						<div>
+							<input class="input input-bordered  w-full max-w-xs" autocomplete="off" type="text"
 								placeholder="이메일을 입력해주세요" name="email" value="${rq.loginedMember.email }" />
-						</td>
+						</div>
 					</tr>
-
+					</div>
 					<tr>
 						<th></th>
 						<td>
-							<input class="btn btn-outline btn-info" type="submit" value="수정" />
+							<input class="signup-button" type="submit" value="수정" />
 						</td>
 					</tr>
-				</tbody>
-			</table>
+	
 		</form>
 		<div class="btns">
-			<button class="btn btn-outline" class="" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="signup-button"type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

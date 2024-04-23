@@ -34,11 +34,11 @@
 }
 
 @media ( max-width : 991px) {
-    .login-container {
-        padding: 0 20px;
-        margin: auto;
-        margin-top: 40px; /* 미디어 쿼리에서 margin-top 조정 */
-    }
+	.login-container {
+		padding: 0 20px;
+		margin: auto;
+		margin-top: 40px; /* 미디어 쿼리에서 margin-top 조정 */
+	}
 }
 
 .username-input, .password-input {
@@ -62,7 +62,7 @@
 @media ( max-width : 991px) {
 	.username-input, .password-input {
 		flex-wrap: wrap;
-		margin-top:20px;
+		margin-top: 20px;
 	}
 }
 
@@ -83,7 +83,7 @@
 	margin: auto 0;
 }
 
-.login-button {
+.login_button {
 	font-family: Inter, sans-serif;
 	border-radius: 5px;
 	background-color: #9a6c4b;
@@ -96,7 +96,7 @@
 }
 
 @media ( max-width : 991px) {
-	.login-button {
+	.login_button {
 		max-width: 100%;
 		padding: 0 20px;
 	}
@@ -150,7 +150,7 @@
 				alt="Username icon" class="input-icon" />
 			<input class="input-label input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
 				placeholder="아이디를 입력해주세요" name="loginId" />
-			<!--       <label for="username" class="input-label">아이디</label> -->
+
 		</div>
 		<div class="password-input">
 			<img
@@ -158,9 +158,8 @@
 				alt="Password icon" class="input-icon password-icon" />
 			<input class="input-label input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
 				placeholder="비밀번호를 입력해주세요" name="loginPw" />
-			<!--       <label for="password" class="input-label">비밀번호</label> -->
 		</div>
-		<button type="submit" class="login-button">로그인</button>
+		<input class="login_button" type="submit" value="로그인" />
 	</form>
 	<a href="#" class="forgot-password">아이디 찾기 / 비밀번호 찾기</a>
 	<section class="signup-section">

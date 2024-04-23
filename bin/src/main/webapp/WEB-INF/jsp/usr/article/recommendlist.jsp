@@ -1057,9 +1057,10 @@
 						<div class="dropdown">
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a>항공</a></li>
-								<li><a>기차</a></li>
-								<li><a>버스</a></li>
+								<li><a href="../article/recommendAirplaneList">항공</a></li>
+
+								<li><a href="../article/recommendTrainList">기차</a></li>
+								<li><a href="../article/recommendBusList">버스</a></li>
 							</ul>
 						</div>
 

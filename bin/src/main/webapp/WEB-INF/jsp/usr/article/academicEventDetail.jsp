@@ -13,35 +13,25 @@
 		<div class="list-items-section">
 
 			<form class="search-form">
-				<!-- Search form -->
+				<!-- Search form --> 
 				<!-- Your search form HTML here -->
 			</form>
 			<div>
-				<div>학술행사</div>
+				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
-					<div>한국비임상기술지원센터 웨비나</div>
+					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터 웨비나</div>
 					<ul class="top-bar-count">
-						<li>조회수</li>
-						<li>즐겨찾기수</li>
+						<li>
+							조회수
+							<span>53</span>
+						</li>
+						<li>
+							즐겨찾기수
+							<span>3</span>
+						</li>
 					</ul>
+					<ul class="                              ">즐겨찾기</ul>
 				</div>
-
-				<section className="flex flex-col pt-7 mt-2.5 w-full border-t-2 border-orange-300 border-solid max-md:max-w-full">
-					<div className="flex gap-5 justify-between px-px w-full max-md:flex-wrap max-md:max-w-full">
-						<article className="flex flex-col px-5">
-
-							<div className="flex justify-center items-center mt-4 max-md:pr-5">
-								<img
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b4d3c0b3dc5f1af72fd00ecebc19f8948b486a3bcc5bbc29f9e8984d45912b6?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
-									alt="" loading="lazy" className="aspect-[7.69] w-[252px]" />
-							</div>
-						</article>
-						<FavoriteButton
-							imageUrl="https://cdn.builder.io/api/v1/image/assets/TEMP/946738d0c21d981c43f3521a578b3ee864baa212bc7d6a2433e25b40881c4e4f?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
-							text="즐겨찾기" />
-					</div>
-
-				</section>
 
 				<table class="table">
 					<tbody>
@@ -74,11 +64,48 @@
 
 				</table>
 
-				<div
-					className="flex flex-col items-center px-16 pb-20 mt-11 w-full bg-slate-100 max-md:px-5 max-md:mt-10 max-md:max-w-full">
+
+				<div class="competition-body">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
-						alt="" loading="lazy" className="w-full aspect-[0.69] max-w-[793px] max-md:max-w-full" />
+						alt="" loading="lazy" />
+				</div>
+				<div class="bookmark">
+					<div class="place-box">
+						<div>장소</div>
+						<div class="map" id="map" style="width: 500px; height: 350px;"></div>
+						<div>교통편</div>
+						<div>바로가기</div>
+					</div>
+
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	4d58ba447ad884369bfffee6e0c34649"></script>
+					<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = {
+							center : new kakao.maps.LatLng(33.450701,
+									126.570667), // 지도의 중심좌표
+							level : 3
+						// 지도의 확대 레벨
+						};
+
+						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+						// 마커가 표시될 위치입니다 
+						var markerPosition = new kakao.maps.LatLng(33.450701,
+								126.570667);
+
+						// 마커를 생성합니다
+						var marker = new kakao.maps.Marker({
+							position : markerPosition
+						});
+
+						// 마커가 지도 위에 표시되도록 설정합니다
+						marker.setMap(map);
+
+						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+						// marker.setMap(null);
+					</script>
+					<button class="bookmark-button">즐겨찾기</button>
 				</div>
 			</div>
 		</div>
@@ -87,29 +114,6 @@
 	<div class="side-bar-container"></div>
 </div>
 
-<div class="bottom-bar">
-	<div class="page-bar">
-		<span>
-			<button>
-				<a href="" class="btn"><</a>
-			</button>
-		</span>
-		<button>
-			<a href="" class="btn">1</a>
-		</button>
-		<button>
-			<a href="" class="btn">2</a>
-		</button>
-		<button>
-			<a href="" class="btn">3</a>
-		</button>
-		<span>
-			<button>
-				<a href="" class="btn">></a>
-			</button>
-		</span>
-	</div>
-</div>
 
 
 
@@ -130,11 +134,20 @@
 	margin: 20px;
 }
 
-.side-bar-container {
-	flex: 1;
-	background-color: pink;
+.list-board-item:hover, .list-board-item:active {
+	background-color: orange; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
 }
 
+.list-board-item {
+	display: block;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.side-bar-container {
+	flex: 1;
+}
 
 /* Sorting Options */
 .sort-options {
@@ -145,19 +158,23 @@
 	color: #4a5568;
 }
 
-.detail-top-bar{
-
+.detail-top-bar {
+	border-top: solid 2px black;
 }
 
-.top-bar-count{
+.top-bar-count {
 	display: flex;
-	background-color: red;
 }
 
-.top-bar-count > li{
-	display:inline-block;
-	background-color: yellow;
+.top-bar-count>li {
+	display: inline-block;
+	margin-right: 20px;
 }
+
+.top-bar-count>li>span {
+	margin-left: 5px;
+}
+
 /* Table */
 .table {
 	border-collapse: collapse;
@@ -174,21 +191,38 @@ tr {
 	padding: 8px;
 }
 
-/* 하단 바 */
-.bottom-bar {
-	margin-top: 60px;
-	border: solid 1px red;
+.competition-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%; /* 부모 요소의 높이에 따라 이미지를 세로 중앙 정렬합니다. */
+}
+
+.competition-body img {
+	max-width: 100%; /* 이미지의 최대 너비를 부모 요소의 너비에 맞춥니다. */
+	max-height: 100%; /* 이미지의 최대 높이를 부모 요소의 높이에 맞춥니다. */
+}
+
+.bookmark {
 	text-align: center;
 }
 
-.page-bar {
-	background-color: yellow;
+.place-box{
+	text-align: left;
+}
+.map {
+	border: solid 1px black;
 }
 
-.page-bar>button {
-	
+.bookmark-button {
+	border: solid 1px black;
+	border-radius: 10px;
+	padding: 20px 60px;
+}
+
+.bookmark-button:hover {
+	background-color: #F7C566;
 }
 </style>
-
 
 <%@ include file="../common/foot.jspf"%>
