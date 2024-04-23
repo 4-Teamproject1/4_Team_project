@@ -83,7 +83,7 @@
 	margin: auto 0;
 }
 
-.login-button {
+.login_button {
 	font-family: Inter, sans-serif;
 	border-radius: 5px;
 	background-color: #9a6c4b;
@@ -96,7 +96,7 @@
 }
 
 @media ( max-width : 991px) {
-	.login-button {
+	.login_button {
 		max-width: 100%;
 		padding: 0 20px;
 	}
@@ -158,9 +158,8 @@
 				alt="Password icon" class="input-icon password-icon" />
 			<input class="input-label input-bordered input-primary w-full max-w-xs" autocomplete="off" type="text"
 				placeholder="비밀번호를 입력해주세요" name="loginPw" />
-
 		</div>
-		<input type="submit" class="login-button" value="로그인"/>
+		<input class="login_button" type="submit" value="로그인" />
 	</form>
 	<a href="#" class="forgot-password">아이디 찾기 / 비밀번호 찾기</a>
 	<section class="signup-section">
