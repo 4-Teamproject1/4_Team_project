@@ -151,6 +151,11 @@ public class ConferenceInfoCrawler2 {
                         }
                     }
                 }
+                
+             // 이미지 요소 찾기
+    			WebElement imageElement = driver.findElement(By.xpath("//div[@class='viewBody']//img"));
+    			// 이미지의 src 속성값 가져오기
+    			String imageURL = imageElement.getAttribute("src");
 
              // 장소 정보 가져오기
         		WebElement 장소Element = driver.findElement(
@@ -167,6 +172,7 @@ public class ConferenceInfoCrawler2 {
                 System.out.println("관련홈페이지: " + 관련홈페이지);
                 System.out.println("담당자 연락처: " + 담당자연락처);
                 System.out.println("담당자 이메일: " + 담당자이메일);
+                System.out.println("이미지 URL: " + imageURL);
                 System.out.println("-----------------------------------");
 
                 // 상세페이지에서 뒤로 가기
