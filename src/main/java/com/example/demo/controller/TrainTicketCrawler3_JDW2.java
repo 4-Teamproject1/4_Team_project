@@ -14,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TrainTicketCrawler3_JDW {
+public class TrainTicketCrawler3_JDW2 {
 	public static void main(String[] args) {
 		// 크롬 드라이버 경로 설정
 		System.setProperty("webdriver.chrome.driver",
@@ -73,30 +73,24 @@ public class TrainTicketCrawler3_JDW {
 		// 기차역 예매 버튼 클릭
 		TrainlButton.click();
 
+	
+
+		// 대기 시간을 늘려 다시 요소를 찾습니다.
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
 		try {
-			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
-			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-		} catch (TimeoutException e) {
-			System.out.println("페이지 로드 시간이 초과되었습니다.");
+		    // 시간 요소를 찾습니다.
+		    WebElement timeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.J7J4mNqthSM_lLIOSckL")));
+
+		    // 텍스트 데이터 출력
+		    System.out.println("Time: " + timeElement.getText());
+		} catch (Exception e) {
+		    System.out.println("시간 요소를 찾을 수 없습니다.");
 		}
 
-		System.out.println("1");
-		// WebDriverWait 인스턴스 생성
-		// li 태그 요소들을 찾습니다.
-		WebElement divElement = driver.findElement(By.xpath("//div[contains(@class, 'V3LGixwGqucLqgDNv06h')]"));
-		List<WebElement> liElements = divElement.findElements(By.xpath(".//li[contains(@class, 'Iit8EKCtdTAoAXHIf7w9')]"));
-		
 
-		// 각 li 태그 요소들을 순회하면서 span 태그들을 출력합니다.
-		for (WebElement liElement : liElements) {
-		    // li 태그 안에 포함된 모든 span 태그들을 찾습니다.
-		    List<WebElement> spanElements = liElement.findElements(By.tagName("span"));
-		    
-		    // 각 span 태그들을 순회하면서 텍스트를 출력합니다.
-		    for (WebElement spanElement : spanElements) {
-		        System.out.println(spanElement.getText());
-		    }
-		}
+        // 브라우저 닫기
+        driver.quit();
 
 	}
 }
