@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -50,70 +51,91 @@ public class TrainTicketCrawler4_GUS {
 		// 검색어 입력
 		String searchText = "서울";
 		activatedSearchInput.sendKeys(searchText);
-	
+
 //		// 엔터 입력 (검색 실행)
 //		activatedSearchInput.sendKeys(Keys.ENTER);
 
-		  // 검색 결과 리스트 요소 가져오기
-        List<WebElement> searchResults = driver.findElements(By.xpath("//ul[@class='AutocompleteList']//li"));
-        System.out.println(searchResults);
-        // 검색 결과 출력
-        for (WebElement result : searchResults) {
-            System.out.println(result.getText());
-        }
 		try {
 			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
 			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
 			System.out.println("페이지 로드 시간이 초과되었습니다.");
 		}
-		
-	
-		 String combinedXPath = "//div[contains(@class, 'Box-sc-kv6pi1-0') and contains(@class, 'iloTzf')]//div[@class='Searchbox__wrapper']//div[contains(@class,'Popup') and contains(@class,'Autocomplete') and contains(@class,'Autocomplete--with-dayuse')]//ul[@class='AutocompleteList']//li";
-		
+
 		String combinedXPath2 = "//ul[@class='AutocompleteList']//li";
 
-		 List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
-		 
-		 List<WebElement> timeElements2 = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath2)));
-		
+		List<WebElement> timeElements2 = wait_web
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath2)));
+
 //		 가져온 리스트
 //		 System.out.println(timeElements);
 //		 for (WebElement element : timeElements) {
 //			    System.out.println(element.getText());
 //			}
 		// timeElements 리스트에서 첫 번째 요소 가져오기
-		 WebElement firstElement = timeElements2.get(0);
 
-		 // 첫 번째 요소 클릭
-		 firstElement.click();
-		 
-		 System.out.println("asd");
-		 
-		 // 원하는 날짜 설정
-	        String targetDate = "Thu May 02 2024";
-	        
+		WebElement firstElement = timeElements2.get(0);
+
+		// 첫 번째 요소 클릭
+		firstElement.click();
+
+		System.out.println("asd");
+
+		// 원하는 날짜 설정
+		String targetDate = "Thu May 02 2024";
+
+		// 웹 요소 찾기
+
+		String monthStr = "//div[contains(@class,'DayPicker-Caption') and contains(@class,'DayPicker-Caption-Wide')]";
+
+		List<WebElement> monthElements = wait_web
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(monthStr)));
+
+		// 찾은 웹 요소의 텍스트 값 출력
+		for (WebElement element : monthElements) {
+			System.out.println("텍스트 값: " + element.getText());
+		}
+		// 기본 달 값
+		System.out.println(monthElements.get(0).getText());
+
+		LocalDate currentDate = LocalDate.now();
+		int year = currentDate.getYear();
+		int month = currentDate.getMonthValue();
+
+		// 합친 년도와 달 문자열 생성
+		String currentYearMonth = year + "년 " + month + "월";
 		
-		 String calendarElementsStr = "//div[@class='DayPicker-Week-Wide']";
-		 List<WebElement> calendarElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(calendarElementsStr)));
-		 
-		 for (WebElement element : calendarElements) {
-			    System.out.println(element.getText());
-			    
-			}
-		 
+		System.out.println(currentYearMonth);
+		System.out.println(monthElements.get(0).getText());
+		if (currentYearMonth.equals(monthElements.get(0).getText())) {
+			
+			System.out.println("현재 달과 일치");
+		}else {
+//			if(month)
+			System.out.println("현재 달과 일치하지않음");
+		}
+			
+
+		String calendarElementsStr = "//div[@class='DayPicker-Week-Wide']";
+		List<WebElement> calendarElements = wait_web
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(calendarElementsStr)));
+
+		for (WebElement element : calendarElements) {
+			System.out.println(element.getText());
+
+		}
+
 //		 // div 안에 있는 값으로 요소 찾기
 //	        String divText = "5";
 //	        WebElement elementInsideDiv = driver.findElement(By.xpath("//div[text()='" + divText + "']"));
-		 
-		 
+
 //		 startDay.click();
-		 System.out.println("asd");
-		 
-		 WebElement endDay = driver.findElement(By.xpath("//div[@aria-label='Wed May 04 2024 ']"));
-		 
-		 endDay.click();
-	
+		System.out.println("asd");
+
+		WebElement endDay = driver.findElement(By.xpath("//div[@aria-label='Wed May 04 2024 ']"));
+
+		endDay.click();
+
 //		try {
 //			// XPath로 모든 li 요소들을 찾습니다.
 //			List<WebElement> liElements = driver.findElements(
@@ -175,7 +197,7 @@ public class TrainTicketCrawler4_GUS {
 //	                timeUnitText = text;
 //	            }
 //	        }
-		
+
 		// WebDriver 종료
 //		driver.quit();
 	}
