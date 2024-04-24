@@ -5,8 +5,8 @@
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="#" class="list-board-item">학술행사</a>
-		<a href="#" class="list-board-item">공모전</a>
+		<a href="/usr/article/academicEventList" class="list-board-item">학술행사</a>
+		<a href="/usr/article/competitionList" class="list-board-item" style="background-color: orange;">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -17,16 +17,24 @@
 				<div class="sort-options">
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
-						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
+						<button type="button" onclick="selectRadio('option1')">
+							<a href="#">등록/수정일순</a>
+						</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
-						<button type="button" onclick="selectRadio('option2')">조회순</button>
+						<button type="button" onclick="selectRadio('option2')">
+							<a href="###">조회순</a>
+						</button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
-						<button type="button" onclick="selectRadio('option3')">마감순</button>
+						<button type="button" onclick="selectRadio('option3')">
+							<a href="###">마감순</a>
+						</button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
-						<button type="button" onclick="selectRadio('option4')">제목순</button>
+						<button type="button" onclick="selectRadio('option4')">
+							<a href="###">제목순</a>
+						</button>
 					</form>
 
 					<script>
@@ -260,8 +268,9 @@
 	margin: 20px;
 	height: 100%;
 }
-.main-list{
-	font-size:24px;
+
+.main-list {
+	font-size: 24px;
 }
 
 /* side bar container */
