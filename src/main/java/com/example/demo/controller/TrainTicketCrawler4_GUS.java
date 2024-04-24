@@ -63,23 +63,23 @@ public class TrainTicketCrawler4_GUS {
 		}
 		
 		 // li 요소들 선택
-        Elements liElements = doc.select("div.Popup__content > ul.AutocompleteList > li.Suggestion");
-
-        // 각 li 요소에서 정보 추출
-        for (Element li : liElements) {
-            // 데이터 추출
-            String text = li.attr("data-text");
-            String objectID = li.attr("data-objectid");
-            String placeType = li.attr("data-element-place-type");
-            String searchType = li.attr("data-element-search-type");
-
-            // 출력 또는 필요한 작업 수행
-            System.out.println("Text: " + text);
-            System.out.println("Object ID: " + objectID);
-            System.out.println("Place Type: " + placeType);
-            System.out.println("Search Type: " + searchType);
-            System.out.println("--------------------");
-        }
+//        Elements liElements = doc.select("div.Popup__content > ul.AutocompleteList > li.Suggestion");
+//
+//        // 각 li 요소에서 정보 추출
+//        for (Element li : liElements) {
+//            // 데이터 추출
+//            String text = li.attr("data-text");
+//            String objectID = li.attr("data-objectid");
+//            String placeType = li.attr("data-element-place-type");
+//            String searchType = li.attr("data-element-search-type");
+//
+//            // 출력 또는 필요한 작업 수행
+//            System.out.println("Text: " + text);
+//            System.out.println("Object ID: " + objectID);
+//            System.out.println("Place Type: " + placeType);
+//            System.out.println("Search Type: " + searchType);
+//            System.out.println("--------------------");
+//        }
 //
 //		try {
 //			// XPath로 모든 li 요소들을 찾습니다.
