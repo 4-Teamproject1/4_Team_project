@@ -1,16 +1,24 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class TrainTicketCrawler4_GUS {
 	public static void main(String[] args) {
@@ -42,77 +50,130 @@ public class TrainTicketCrawler4_GUS {
 		// 검색어 입력
 		String searchText = "서울";
 		activatedSearchInput.sendKeys(searchText);
+	
+//		// 엔터 입력 (검색 실행)
+//		activatedSearchInput.sendKeys(Keys.ENTER);
 
-		// 엔터 입력 (검색 실행)
-		activatedSearchInput.sendKeys(Keys.ENTER);
-
-		// 검색 후 첫번째 요소 찾기
-//        WebElement firstLiElement = driver.findElement(By.cssSelector(".Popup__content .AutocompleteList li:first-child"));
-
-		   try {
-	            // ul의 첫 번째 li 요소를 찾습니다.
-	            WebElement firstLi = driver.findElement(By.cssSelector("div.Popup__content ul.AutocompleteList li:first-child"));
-
-	            // 요소가 존재하는지 확인합니다.
-	            if (firstLi != null) {
-	            	wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-	        		// 검색창이 활성화될 때까지 기다림
-	        		activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(firstLi));
-	                // 해당 요소를 클릭합니다.
-	                firstLi.click();
-	            } else {
-	                System.out.println("첫 번째 li 요소를 찾을 수 없습니다.1");
-	            }
-	        } catch (org.openqa.selenium.NoSuchElementException e) {
-	            // 요소를 찾을 수 없을 때 예외 처리합니다.
-	            System.out.println("첫 번째 li 요소를 찾을 수 없습니다.2");
-	        }
-		// ul 요소 내의 첫 번째 li 요소를 찾습니다.
-		WebElement firstLiElement = driver
-				.findElement(By.cssSelector(""));
-
-		wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-		// 검색창이 활성화될 때까지 기다림
-		activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(firstLiElement));
-
-		// 첫번째 요소 클릭
-		firstLiElement.click();
-
-		// WebDriverWait를 사용하여 출발지 입력란이 활성화될 때까지 기다립니다.
-		WebElement searchInput_start = wait_web.until(ExpectedConditions
-				.elementToBeClickable(By.cssSelector("div.search_input_wrap div.search_input input.input_search")));
-		// 검색창을 클릭하여 활성화합니다.
-		searchInput_start.click();
-		// 검색어 입력
-		String searchText_start = "대전광역시 서구 둔산로 52 미라클빌딩 3층";
-		// 검색어 입력란에 값을 입력합니다.
-		searchInput_start.sendKeys(searchText_start);
-		searchInput_start.sendKeys(Keys.ENTER);
-
-		// 도착 버튼 찾기
-		WebElement arrivalButton2 = wait_web.until(ExpectedConditions
-				.elementToBeClickable(By.cssSelector("div.search_btn_area button.btn_direction.search.active")));
-		// 도착 버튼 클릭
-		arrivalButton2.click();
-
-		// 도착 버튼 찾기
-		WebElement reservat_Button = wait_web.until(ExpectedConditions.elementToBeClickable(
-				By.cssSelector("ol.list_pubtrans_directions_step li.is_selected button.btn_pubtrans_reserve")));
-		// 도착 버튼 클릭
-		reservat_Button.click();
-
-		// 기차 시간표 데이터 크롤링
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		WebElement timetable = wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_3-5Oc']")));
-		List<WebElement> scheduleRows = timetable.findElements(By.xpath(".//ul[@class='_3tdEo']//li"));
-		for (WebElement row : scheduleRows) {
-			System.out.println(row.getText());
+		  // 검색 결과 리스트 요소 가져오기
+        List<WebElement> searchResults = driver.findElements(By.xpath("//ul[@class='AutocompleteList']//li"));
+        System.out.println(searchResults);
+        // 검색 결과 출력
+        for (WebElement result : searchResults) {
+            System.out.println(result.getText());
+        }
+		try {
+			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
+			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		} catch (TimeoutException e) {
+			System.out.println("페이지 로드 시간이 초과되었습니다.");
 		}
+		
+		
+		String combinedXPath = "//ul[@class='AutocompleteList']//li";
 
+		 List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
+		 
+		
+//		 가져온 리스트
+//		 System.out.println(timeElements);
+//		 for (WebElement element : timeElements) {
+//			    System.out.println(element.getText());
+//			}
+		// timeElements 리스트에서 첫 번째 요소 가져오기
+		 WebElement firstElement = timeElements.get(0);
+
+		 // 첫 번째 요소 클릭
+		 firstElement.click();
+		 
+		 System.out.println("asd");
+		 
+		 // 원하는 날짜 설정
+	        String targetDate = "Thu May 02 2024";
+	        
+		
+		 String calendarElementsStr = "//div[@class='DayPicker-Week-Wide']";
+		 List<WebElement> calendarElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(calendarElementsStr)));
+		 
+		 for (WebElement element : calendarElements) {
+			    System.out.println(element.getText());
+			    
+			}
+		 
+//		 // div 안에 있는 값으로 요소 찾기
+//	        String divText = "5";
+//	        WebElement elementInsideDiv = driver.findElement(By.xpath("//div[text()='" + divText + "']"));
+		 
+		 
+//		 startDay.click();
+		 System.out.println("asd");
+		 
+		 WebElement endDay = driver.findElement(By.xpath("//div[@aria-label='Wed May 04 2024 ']"));
+		 
+		 endDay.click();
+	
+//		try {
+//			// XPath로 모든 li 요소들을 찾습니다.
+//			List<WebElement> liElements = driver.findElements(
+//					By.xpath("//div[@class='Popup')]//li"));
+//
+//			System.out.println(liElements);
+//			// liElements가 비어있는지 확인합니다.
+//			if (!liElements.isEmpty()) {
+//				// 첫 번째 li 요소를 선택합니다.
+//				WebElement firstLi = liElements.get(0);
+//
+//				// 해당 요소를 클릭합니다.
+//				firstLi.click();
+//			} else {
+//				System.out.println("li 요소를 찾을 수 없습니다.");
+//			}
+//		} catch (org.openqa.selenium.NoSuchElementException e) {
+//			// 요소를 찾을 수 없을 때 예외 처리합니다.
+//			System.out.println("li 요소를 찾을 수 없습니다.");
+//		}
+		// time_taken과 time_unit 요소를 함께 찾는 XPath
+//
+//		try {
+//			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
+//			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+//		} catch (TimeoutException e) {
+//			System.out.println("페이지 로드 시간이 초과되었습니다.");
+//		}
+
+//		// 모든 li 요소 찾기
+//		List<WebElement> liElements = driver.findElements(By.xpath(
+//				"//div[@class='Popup Autocomplete Autocomplete--with-dayuse']//ul[@class='AutocompleteList']/li"));
+//		System.out.println(liElements);
+//		// 각 요소의 data-text 속성 값을 비교하여 일치하는 요소 선택
+//		for (WebElement liElement : liElements) {
+//			String dataTextValue = liElement.getAttribute("data-text");
+//			if (dataTextValue.equals(searchText)) {
+//				// 일치하는 요소를 선택하거나 원하는 작업 수행
+//				liElement.click(); // 예시로 클릭하는 동작 수행
+//				break; // 일치하는 요소를 찾았으므로 반복문 종료
+//			}
+//		}
+		// time_taken과 time_unit 요소를 함께 찾는 XPath
+
+//	        String combinedXPath = "//li[contains(@class, 'sc-1tj2a62') and contains(@class, 'eypxCR') and contains(@class, 'is_selected')]//span[@class='time_taken' or @class='time_unit']";
+//
+//	        // time_taken과 time_unit 요소 찾기
+//	        List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
+//
+//	        // timeElements에서 각 요소의 텍스트를 가져와 구분합니다.
+//	        String timeTakenText = "";
+//	        String timeUnitText = "";
+//
+//	        for (WebElement element : timeElements) {
+//	            String text = element.getText();
+//	            if (element.getAttribute("class").equals("time_taken")) {
+//	                timeTakenText = text;
+//	            } else if (element.getAttribute("class").equals("time_unit")) {
+//	                timeUnitText = text;
+//	            }
+//	        }
+		
 		// WebDriver 종료
-		driver.quit();
+//		driver.quit();
 	}
 }
