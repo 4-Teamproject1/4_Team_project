@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TrainTicketCrawler3_JDW {
 	public static void main(String[] args) {
+
 		 // 크롬 드라이버 경로 설정
         System.setProperty("webdriver.chrome.driver", "C:\\work\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 
@@ -113,5 +114,3 @@ public class TrainTicketCrawler3_JDW {
     }
     
 }
-
-    
