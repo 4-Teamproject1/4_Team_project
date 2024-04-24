@@ -103,6 +103,7 @@ public class TrainTicketCrawler4_GUS {
 		// 합친 년도와 달 문자열 생성
 		String currentYearMonth = year + "년 " + month + "월";
 		
+
 		System.out.println(currentYearMonth);
 		System.out.println(monthElements.get(0).getText());
 		if (currentYearMonth.equals(monthElements.get(0).getText())) {
@@ -134,69 +135,3 @@ public class TrainTicketCrawler4_GUS {
 
 		endDay.click();
 
-//		try {
-//			// XPath로 모든 li 요소들을 찾습니다.
-//			List<WebElement> liElements = driver.findElements(
-//					By.xpath("//div[@class='Popup')]//li"));
-//
-//			System.out.println(liElements);
-//			// liElements가 비어있는지 확인합니다.
-//			if (!liElements.isEmpty()) {
-//				// 첫 번째 li 요소를 선택합니다.
-//				WebElement firstLi = liElements.get(0);
-//
-//				// 해당 요소를 클릭합니다.
-//				firstLi.click();
-//			} else {
-//				System.out.println("li 요소를 찾을 수 없습니다.");
-//			}
-//		} catch (org.openqa.selenium.NoSuchElementException e) {
-//			// 요소를 찾을 수 없을 때 예외 처리합니다.
-//			System.out.println("li 요소를 찾을 수 없습니다.");
-//		}
-		// time_taken과 time_unit 요소를 함께 찾는 XPath
-//
-//		try {
-//			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
-//			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-//		} catch (TimeoutException e) {
-//			System.out.println("페이지 로드 시간이 초과되었습니다.");
-//		}
-
-//		// 모든 li 요소 찾기
-//		List<WebElement> liElements = driver.findElements(By.xpath(
-//				"//div[@class='Popup Autocomplete Autocomplete--with-dayuse']//ul[@class='AutocompleteList']/li"));
-//		System.out.println(liElements);
-//		// 각 요소의 data-text 속성 값을 비교하여 일치하는 요소 선택
-//		for (WebElement liElement : liElements) {
-//			String dataTextValue = liElement.getAttribute("data-text");
-//			if (dataTextValue.equals(searchText)) {
-//				// 일치하는 요소를 선택하거나 원하는 작업 수행
-//				liElement.click(); // 예시로 클릭하는 동작 수행
-//				break; // 일치하는 요소를 찾았으므로 반복문 종료
-//			}
-//		}
-		// time_taken과 time_unit 요소를 함께 찾는 XPath
-
-//	        String combinedXPath = "//li[contains(@class, 'sc-1tj2a62') and contains(@class, 'eypxCR') and contains(@class, 'is_selected')]//span[@class='time_taken' or @class='time_unit']";
-//
-//	        // time_taken과 time_unit 요소 찾기
-//	        List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
-//
-//	        // timeElements에서 각 요소의 텍스트를 가져와 구분합니다.
-//	        String timeTakenText = "";
-//	        String timeUnitText = "";
-//
-//	        for (WebElement element : timeElements) {
-//	            String text = element.getText();
-//	            if (element.getAttribute("class").equals("time_taken")) {
-//	                timeTakenText = text;
-//	            } else if (element.getAttribute("class").equals("time_unit")) {
-//	                timeUnitText = text;
-//	            }
-//	        }
-
-		// WebDriver 종료
-//		driver.quit();
-	}
-}
