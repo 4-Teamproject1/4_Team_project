@@ -14,7 +14,7 @@
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
 		</a>
-		<a href="../article/competitionList">
+		<a href="../article/academicEventList">
 			<button class="hd_info">학회 정보</button>
 		</a>
 		<a href="../article/competitionList">
