@@ -55,14 +55,17 @@ public class TrainTicketCrawler3_JDW {
         // 기차역 예매 버튼 클릭
         clickTrainReservationButton(wait_web);
        
-
+        // iframe으로 전환
+        WebElement iframeElement = driver.findElement(By.id("trainScheduleIframe"));
+        driver.switchTo().frame(iframeElement);
+        
         // 기차 시간표 조회 결과 출력
         System.out.println("5가 나와야는데~");
         printTrainTimetable(driver, wait_web);
 
         System.out.println("나왔나?");
         // WebDriver 종료
-        driver.quit();
+        //driver.quit();
     }
 
     private static void clickArrivalButton(WebDriverWait wait_web) {
@@ -88,12 +91,13 @@ public class TrainTicketCrawler3_JDW {
         trainButton.sendKeys(Keys.ENTER);
         System.out.println("4");
     }
-    
+
     private static void printTrainTimetable(WebDriver driver, WebDriverWait wait_web) {
         // 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
     	 System.out.println("함수에 들어왔는가?");
 
-    	  String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa li.Iit8EKCtdTAoAXHIf7w9";
+//    	  String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa li.Iit8EKCtdTAoAXHIf7w9";
+    	  String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa ";
 
     	    // 시간표를 감싸는 부모 요소가 로딩될 때까지 대기
     	    WebElement parentElement = wait_web.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(cssSelector)));
@@ -101,7 +105,7 @@ public class TrainTicketCrawler3_JDW {
         System.out.println("5");
 
         // 부모 요소 아래에 있는 모든 span 요소를 가져옵니다.
-        List<WebElement> spanElements = parentElement.findElements(By.tagName("span"));
+        List<WebElement> spanElements = parentElement.findElements(By.tagName("li"));
         if (spanElements.size() > 0) {
             // 각 span 요소에 대해 반복하여 텍스트를 출력합니다.
             for (WebElement spanElement : spanElements) {

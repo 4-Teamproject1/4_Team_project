@@ -134,4 +134,5 @@ public class TrainTicketCrawler4_GUS {
 		WebElement endDay = driver.findElement(By.xpath("//div[@aria-label='Wed May 04 2024 ']"));
 
 		endDay.click();
-
+	}
+}
