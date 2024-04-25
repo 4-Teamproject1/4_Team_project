@@ -383,6 +383,26 @@ body {
 	flex: 4;
 	margin-top: 5px;
 }
+
+/* 사용자 정의 라디오 버튼 */
+input[type="radio"] {
+	-webkit-appearance: none; /* 웹킷 브라우저의 기본 모양 제거 */
+	-moz-appearance: none; /* 모질라 파이어폭스의 기본 모양 제거 */
+	appearance: none; /* 다른 브라우저의 기본 모양 제거 */
+	width: 13px; /* 원 모양을 만들기 위해 너비와 높이 설정 */
+	height: 13px;
+	border-radius: 50%; /* 원 모양으로 만들기 */
+	border: 1px solid #00256c; /* 라디오 버튼 동그라미의 테두리 색상 */
+	outline: none;
+}
+
+/* 라디오 버튼 선택됐을 때 */
+input[type="radio"]:checked {
+	background-color: #7E9DD9; /* 선택됐을 때 라디오 버튼 동그라미의 색상 채우기 */
+	border: 2px solid white;
+	outline: 1px solid #00256c;
+}
+
 /* 검색 폼 */
 .search-form {
 	flex: 1;
@@ -399,14 +419,14 @@ body {
 }
 
 .search-form button {
-	background-color: #7E9DD9;
+	background-color: #00256c;
 	padding: 5px 10px;
 	border-radius: 10px;
 	color: white;
 }
 
 .search-form button:hover {
-	background-color: #00256c;
+	background-color: #7E9DD9;
 }
 
 .search-btn {

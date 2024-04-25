@@ -103,7 +103,7 @@
 </script>
 
 <div id="slider">
-  <a href="#" class="control_next">▷</a>
+  <a href="#" class="control_next">>▷</a>
   <a href="#" class="control_prev">◁</a>
       <ul>
         <li style="background-image: url('https://velog.velcdn.com/images/vrslxowe/post/de3e50a4-860c-473b-bf03-c4896ec5d90c/image.jpg'); background-size: cover; background-position: center;">
