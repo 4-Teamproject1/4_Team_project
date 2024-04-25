@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,28 +50,37 @@ public class TrainTicketCrawler4_GUS {
 		// 검색어 입력
 		String searchText = "서울";
 		activatedSearchInput.sendKeys(searchText);
-
+	
 //		// 엔터 입력 (검색 실행)
 //		activatedSearchInput.sendKeys(Keys.ENTER);
 
+		  // 검색 결과 리스트 요소 가져오기
+        List<WebElement> searchResults = driver.findElements(By.xpath("//ul[@class='AutocompleteList']//li"));
+        System.out.println(searchResults);
+        // 검색 결과 출력
+        for (WebElement result : searchResults) {
+            System.out.println(result.getText());
+        }
 		try {
 			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
 			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
 			System.out.println("페이지 로드 시간이 초과되었습니다.");
 		}
+		
+		
+		String combinedXPath = "//ul[@class='AutocompleteList']//li";
 
-		String combinedXPath2 = "//ul[@class='AutocompleteList']//li";
-
-		List<WebElement> timeElements2 = wait_web
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath2)));
-
+		 List<WebElement> timeElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath)));
+		 
+		
 //		 가져온 리스트
 //		 System.out.println(timeElements);
 //		 for (WebElement element : timeElements) {
 //			    System.out.println(element.getText());
 //			}
 		// timeElements 리스트에서 첫 번째 요소 가져오기
+
 
 		WebElement firstElement = timeElements2.get(0);
 
@@ -192,3 +202,11 @@ public class TrainTicketCrawler4_GUS {
 
 	}
 }
+
+//		 // div 안에 있는 값으로 요소 찾기
+//	        String divText = "5";
+//	        WebElement elementInsideDiv = driver.findElement(By.xpath("//div[text()='" + divText + "']"));
+		 
+		 
+//		 startDay.click();
+

@@ -13,6 +13,7 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.ReactionPointService;
 import com.example.demo.service.ReplyService;
+import com.example.demo.service.TrainTicketService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
@@ -39,7 +40,10 @@ public class UsrArticleController {
 
 	@Autowired
 	private ReactionPointService reactionPointService;
-
+	
+	@Autowired
+	private TrainTicketService trainTicketService;
+	
 	public UsrArticleController() {
 
 	}
@@ -55,8 +59,6 @@ public class UsrArticleController {
 
 		Board board = boardService.getBoardById(boardId);
 
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
 		if (board == null) {
 			return rq.historyBackOnView("없는 게시판이야");
 		}
@@ -66,18 +68,14 @@ public class UsrArticleController {
 		// 글 24개 -> 3 page
 		int itemsInAPage = 10;
 
-		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
 				searchKeyword);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
-		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
 		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/recommendBusList";
@@ -85,41 +83,17 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/recommendTrainList")
-	public String recommendTrainList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
+	public String recommendTrainList(HttpServletRequest req, Model model) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
+		List<Article> spanTexts = trainTicketService.gettrainservice();
 
-		Board board = boardService.getBoardById(boardId);
+		 // 여기서 spanTexts를 이용하여 모델에 추가
+		  for (Article text : spanTexts) {
+              System.out.println("텍스트: " + text);
+          }
+        model.addAttribute("spanTexts", spanTexts);
 
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-		if (board == null) {
-			return rq.historyBackOnView("없는 게시판이야");
-		}
-
-		// 한페이지에 글 10개씩이야
-		// 글 20개 -> 2 page
-		// 글 24개 -> 3 page
-		int itemsInAPage = 10;
-
-		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-				searchKeyword);
-
-		model.addAttribute("board", board);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("page", page);
-		model.addAttribute("pagesCount", pagesCount);
-		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articlesCount", articlesCount);
-		model.addAttribute("articles", articles);
-
-		return "usr/article/recommendTrainList";
+        return "usr/article/recommendTrainList"; // 이 부분은 각자 프로젝트 설정에 따라 다를 수 있습니다.
 	}
 
 	@RequestMapping("/usr/article/recommendAirplaneList")
