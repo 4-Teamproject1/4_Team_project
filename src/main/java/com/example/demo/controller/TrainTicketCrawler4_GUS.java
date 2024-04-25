@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,10 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TrainTicketCrawler4_GUS {
 	public static void main(String[] args) {
@@ -90,30 +87,61 @@ public class TrainTicketCrawler4_GUS {
 				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(monthStr)));
 
 		// 찾은 웹 요소의 텍스트 값 출력
-		for (WebElement element : monthElements) {
-			System.out.println("텍스트 값: " + element.getText());
-		}
+//		for (WebElement element : monthElements) {
+//			System.out.println("텍스트 값: " + element.getText());
+//		}
 		// 기본 달 값
 		System.out.println(monthElements.get(0).getText());
 
+		// monthElements.get(0).getText()로 얻어온 텍스트
+		String monthText = monthElements.get(0).getText();
+
+		// 년도와 월을 추출할 정규 표현식 패턴 설정
+		Pattern pattern = Pattern.compile("(\\d{4})년 (\\d{1,2})월");
+		Matcher matcher = pattern.matcher(monthText);
+
+		int pageYear = 0;
+		int pageMonth = 0;
+
+		// 검색했을때 나온 달력의 년도와 월을 구하는 코드
+		// 매치되는 부분이 있다면 년도와 월 추출
+		if (matcher.find()) {
+			pageYear = Integer.parseInt(matcher.group(1));
+			pageMonth = Integer.parseInt(matcher.group(2));
+			System.out.println("년도: " + pageYear);
+			System.out.println("월: " + pageMonth);
+		} else {
+			System.out.println("매치되는 부분이 없습니다.");
+		}
+
+		// 이전 달 버튼 요소 찾기
+		WebElement previousMonthButton = driver.findElement(By.cssSelector("button[aria-label='Previous Month']"));
+
+		// 다음 달 버튼 요소 찾기
+		WebElement nextMonthButton = driver.findElement(By.cssSelector("button[aria-label='Next Month']"));
+
+		// 현재 날짜 구하는 코드
 		LocalDate currentDate = LocalDate.now();
-		int year = currentDate.getYear();
-		int month = currentDate.getMonthValue();
+		int nowYear = currentDate.getYear();
+		int nowMonth = currentDate.getMonthValue();
 
 		// 합친 년도와 달 문자열 생성
-		String currentYearMonth = year + "년 " + month + "월";
-		
+		String currentYearMonth = nowYear + "년 " + nowMonth + "월";
 
 		System.out.println(currentYearMonth);
 		System.out.println(monthElements.get(0).getText());
 		if (currentYearMonth.equals(monthElements.get(0).getText())) {
-			
+
 			System.out.println("현재 달과 일치");
-		}else {
-//			if(month)
-			System.out.println("현재 달과 일치하지않음");
+		} else if (pageYear == nowYear && pageMonth > nowMonth) {
+			previousMonthButton.click();
+
+		} else if (pageYear == nowYear && pageMonth < nowMonth) {
+			nextMonthButton.click();
+
+		} else {
+			System.out.println("값이 일치하지 않음");
 		}
-			
 
 		String calendarElementsStr = "//div[@class='DayPicker-Week-Wide']";
 		List<WebElement> calendarElements = wait_web
