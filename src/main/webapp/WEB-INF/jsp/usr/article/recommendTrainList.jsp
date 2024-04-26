@@ -421,7 +421,7 @@
 	font-family: Inter, sans-serif;
 }
 
- .search-container {
+.search-container {
 	justify-content: center;
 	align-items: start;
 	border-radius: 18px;
@@ -433,15 +433,13 @@
 	flex-direction: column;
 	font-size: 14px;
 	color: #737373;
-margin-right: 40px;
-	 margin: 176px 0 0 13px;
-padding: 12px 38px; 
-
-} 
+	margin-right: 40px;
+	margin: 176px 0 0 13px;
+	padding: 12px 38px;
+}
 
 .search-text {
 	background-color: #f8f7f9;
-
 }
 
 @media ( max-width : 991px) {
@@ -549,7 +547,6 @@ padding: 12px 38px;
 .searchClickBox {
 	width: 400px;
 	display: flex;
-
 }
 
 /* 추천목록 중앙서치박스 */
@@ -569,8 +566,8 @@ padding: 12px 38px;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 	width: 1300px;
-/* 	border: 12px solid red; */
-} 
+	/* 	border: 12px solid red; */
+}
 
 .flight-search-header {
 	display: flex;
@@ -581,7 +578,7 @@ padding: 12px 38px;
 	background-color: #fff;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-/* 	  border: 3px solid blue; */
+	/* 	  border: 3px solid blue; */
 }
 
 /* @media ( max-width : 991px) {
@@ -607,7 +604,7 @@ padding: 12px 38px;
 	object-fit: auto;
 	object-position: center;
 	border-radius: 22px 4px 4px 22px;
-/* 	border: 3px solid; */
+	/* 	border: 3px solid; */
 }
 
 /* @media ( max-width : 991px) {
@@ -615,7 +612,6 @@ padding: 12px 38px;
 		max-width: 100%;
 	}
 } */
-
 .flight-search-details {
 	display: flex;
 	flex-direction: column;
@@ -632,7 +628,7 @@ padding: 12px 38px;
 	background-color: #edf0f9;
 	border-radius: 999px;
 	justify-content: center;
-/* 	border: 3px solid; */
+	/* 	border: 3px solid; */
 }
 
 .flight-search-date {
@@ -640,7 +636,7 @@ padding: 12px 38px;
 	align-self: stretch;
 	margin: auto 0;
 	gap: 8px;
-/* 	border: 3px solid red; */
+	/* 	border: 3px solid red; */
 }
 
 .flight-search-date-icon {
@@ -1022,7 +1018,7 @@ media (max-width: 991px) { .train-info-col { width:100%;
 .departure-time {
 	color: #000;
 	font: 700 34px Inter, sans-serif;
-/* 	border: 3px solid blue; */
+	/* 	border: 3px solid blue; */
 	height: 50px;
 }
 
@@ -1043,15 +1039,15 @@ media (max-width: 991px) { .train-info-col { width:100%;
 .outer-arrival-time {
 	display: flex;
 	align-items: end;
-/* 	border: 3px solid red; */
+	/* 	border: 3px solid red; */
 }
 
 .arrival-time {
 	color: #000;
-		height: 50px;
+	height: 50px;
 	font: 700 34px Inter, sans-serif;
-/* 	margin-top: 33px; */
-/* 	  border: 3px solid;  */
+	/* 	margin-top: 33px; */
+	/* 	  border: 3px solid;  */
 }
 
 .train-class {
@@ -1147,7 +1143,7 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	align-items: end;
 	height: 100px;
 	/* 	border: 2px solid;  */
-		margin-top: 10px;
+	margin-top: 10px;
 }
 
 .travel-time {
@@ -1193,13 +1189,13 @@ media (max-width: 991px) { .train-info-col { width:100%;
 } */
 .divider {
 	border-color: rgba(0, 0, 0, 1);
-border-style: solid;
-/* 	border-width: 1px; */
-/* background-color: #000; */
+	border-style: solid;
+	/* 	border-width: 1px; */
+	/* background-color: #000; */
 	/* 	min-height: 1px; */
 	/* 	margin-top: 5px; */
-width: 100%;
-/* border: 3px solid; */
+	width: 100%;
+	/* border: 3px solid; */
 }
 
 @media ( max-width : 991px) {
@@ -1270,7 +1266,6 @@ width: 100%;
 	
 	
 } */
-
 .pin-icon {
 	width: 16px;
 	aspect-ratio: 1;
@@ -1292,11 +1287,10 @@ width: 100%;
 	font: 400 14px/130% Roboto, sans-serif;
 }
 
-.searchBox2{
-margin-top: 20px;
-/* border: 3px solid; */
+.searchBox2 {
+	margin-top: 20px;
+	/* border: 3px solid; */
 }
-
 </style>
 <header class="header">
 	<div class="logo">로고</div>
@@ -1332,12 +1326,18 @@ margin-top: 20px;
 						<div class="dropdown">
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
+								<li>
+									<a href="../article/recommendAirplaneList">항공</a>
+								</li>
 
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								
-									<li><a href="../article/recommendBusList">버스</a></li>
-								
+								<li>
+									<a href="../article/recommendTrainList">기차</a>
+								</li>
+
+								<li>
+									<a href="../article/recommendBusList">버스</a>
+								</li>
+
 							</ul>
 						</div>
 
@@ -1451,7 +1451,7 @@ margin-top: 20px;
 							<div class="flight-search-class">
 								<div class="flight-search-class-details dropdown dropdown-open">
 									<div class="flight-search-class-name ">
-									<!-- 	<select class="select select-ghost w-full max-w-xs">
+										<!-- 	<select class="select select-ghost w-full max-w-xs">
 											<option disabled selected>이코노미</option>
 											<option>Svelte</option>
 											<option>Vue</option>
@@ -1484,42 +1484,42 @@ margin-top: 20px;
 							<div class="train-info-row">
 								<div class="train-info-col">
 									<div class="train-info-details">
-										<div class="train-info-times">
-											<header class="train-info-header">
-												<div class="train-info-name">
-													<div class="train-name">KTX</div>
-													<div class="train-time">
-														<time class="departure-time">22:37</time>
-
-														<div class="outer-arrival-icon">
-															<div class="arrival-icon">→</div>
+										<c:if test="${not empty spanTexts}">
+											<div class="train-info-times">
+												<c:forEach var="article" items="${spanTexts}">
+													<header class="train-info-header">
+														<div class="train-info-name">
+															<div class="train-name">${article.trainName}</div>
+															<div class="train-num">${article.trainNum}</div>
+															<div class="train-time">
+																<time class="departure-time">${article.departureTime}</time>
+																<div class="outer-arrival-icon">
+																	<div class="arrival-icon">→</div>
+																</div>
+															</div>
+															<div class="outer-arrival-time">
+																<time class="arrival-time">${article.arrivalTime}</time>
+															</div>
 														</div>
-
+													</header>
+													<div class="train-class">
+														<div class="class-general">
+															<div class="class-general-label"></div>
+															<div class="class-general-status">예매</div>
+														</div>
+														<div class="class-special">
+															<div class="class-special-label"></div>
+															<div class="class-special-status">특예매</div>
+														</div>
 													</div>
-												</div>
-												<div class="outer-arrival-time">
-													<time class="arrival-time">23:44</time>
-												</div>
-
-											</header>
-											<div class="train-class">
-												<div class="class-general">
-													<div class="class-general-label">일반</div>
-													<div class="class-general-status">예매가능</div>
-												</div>
-												<div class="class-special">
-													<div class="class-special-label">특</div>
-													<div class="class-special-status">예매가능</div>
-												</div>
+													<div class="outer-travel-time">
+														<div class="small-outer-travel-time">
+															<div class="travel-time">${article.travelTime}</div>
+														</div>
+													</div>
+												</c:forEach>
 											</div>
-										</div>
-										<div class="outer-travel-time">
-											<div class="small-outer-travel-time">
-												<div class="travel-time">1시간 7분</div>
-											</div>
-
-										</div>
-
+										</c:if>
 									</div>
 								</div>
 
@@ -1536,94 +1536,7 @@ margin-top: 20px;
 
 					</section>
 				</div>
-				
 			</div>
-						<div class="small-outer-content-box">
-				<div class="train-info-wrapper">
-					<section class="train-info">
-						<div class="train-info-container">
-							<div class="train-info-row">
-								<div class="train-info-col">
-									<div class="train-info-details">
-										<div class="train-info-times">
-											<header class="train-info-header">
-												<div class="train-info-name">
-													<div class="train-name">KTX</div>
-													<div class="train-time">
-														<time class="departure-time">22:37</time>
-
-														<div class="outer-arrival-icon">
-															<div class="arrival-icon">→</div>
-														</div>
-
-													</div>
-												</div>
-												<div class="outer-arrival-time">
-													<time class="arrival-time">23:44</time>
-												</div>
-
-											</header>
-											<div class="train-class">
-												<div class="class-general">
-													<div class="class-general-label">일반</div>
-													<div class="class-general-status">예매가능</div>
-												</div>
-												<div class="class-special">
-													<div class="class-special-label">특</div>
-													<div class="class-special-status">예매가능</div>
-												</div>
-											</div>
-										</div>
-										<div class="outer-travel-time">
-											<div class="small-outer-travel-time">
-												<div class="travel-time">1시간 7분</div>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-								<div class="booking-col">
-									<div class="outer-booking-btn">
-										<button class="booking-btn">예매</button>
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-						<div class="divider"></div>
-
-					</section>
-				</div>
-				
-			</div>
-			
-
 		</div>
 
-	</div>
-
-	<!-- <script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var flightSearchDateText = document
-					.querySelector(".flight-search-date-text");
-			var calendar = document.getElementById("calendar");
-
-			// flight-search-date-text 요소를 클릭했을 때
-			flightSearchDateText.addEventListener("click", function() {
-				// 달력을 표시하거나 숨깁니다.
-				if (calendar.style.display === "none"
-						|| calendar.style.display === "") {
-					calendar.style.display = "block";
-					// 이번 달이 기본으로 설정된 달력을 표시하는 기능을 추가할 수 있습니다.
-				} else {
-					calendar.style.display = "none";
-				}
-			});
-		});
-	</script> -->
-
-
-	<%@ include file="../common/foot.jspf"%>
+		<%@ include file="../common/foot.jspf"%>

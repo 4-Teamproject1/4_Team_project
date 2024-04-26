@@ -39,7 +39,8 @@ public class UsrArticleController {
 
 	@Autowired
 	private ReactionPointService reactionPointService;
-
+	
+	
 	public UsrArticleController() {
 
 	}
@@ -55,8 +56,6 @@ public class UsrArticleController {
 
 		Board board = boardService.getBoardById(boardId);
 
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
 		if (board == null) {
 			return rq.historyBackOnView("없는 게시판이야");
 		}
@@ -66,61 +65,19 @@ public class UsrArticleController {
 		// 글 24개 -> 3 page
 		int itemsInAPage = 10;
 
-		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
 				searchKeyword);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
-		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
 		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/recommendBusList";
 	}
-	
-	
-	@RequestMapping("/usr/article/recommendTrainList")
-	public String recommendTrainList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		Board board = boardService.getBoardById(boardId);
-
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-		if (board == null) {
-			return rq.historyBackOnView("없는 게시판이야");
-		}
-
-		// 한페이지에 글 10개씩이야
-		// 글 20개 -> 2 page
-		// 글 24개 -> 3 page
-		int itemsInAPage = 10;
-
-		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-				searchKeyword);
-
-		model.addAttribute("board", board);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("page", page);
-		model.addAttribute("pagesCount", pagesCount);
-		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articlesCount", articlesCount);
-		model.addAttribute("articles", articles);
-
-		return "usr/article/recommendTrainList";
-	}
 
 	@RequestMapping("/usr/article/recommendAirplaneList")
 	public String recommendAirplaneList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
@@ -199,157 +156,12 @@ public class UsrArticleController {
 	}
 	
 	
-	@RequestMapping("/usr/article/academicEventDetail")
-	   public String showAcademicEventDetail(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-	         @RequestParam(defaultValue = "1") int page,
-	         @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-	         @RequestParam(defaultValue = "") String searchKeyword) {
-
-	      Rq rq = (Rq) req.getAttribute("rq");
-
-	      Board board = boardService.getBoardById(boardId);
-
-	      int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-	      if (board == null) {
-	         return rq.historyBackOnView("없는 게시판이야");
-	      }
-
-	      // 한페이지에 글 10개씩이야
-	      // 글 20개 -> 2 page
-	      // 글 24개 -> 3 page
-	      int itemsInAPage = 10;
-
-	      int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-	      List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-	            searchKeyword);
-
-	      model.addAttribute("board", board);
-	      model.addAttribute("boardId", boardId);
-	      model.addAttribute("page", page);
-	      model.addAttribute("pagesCount", pagesCount);
-	      model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-	      model.addAttribute("searchKeyword", searchKeyword);
-	      model.addAttribute("articlesCount", articlesCount);
-	      model.addAttribute("articles", articles);
-
-	      return "usr/article/academicEventDetail";
-	   }
-	@RequestMapping("/usr/article/competitionDetail")
-	   public String showCompetitionDetail(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-	         @RequestParam(defaultValue = "1") int page,
-	         @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-	         @RequestParam(defaultValue = "") String searchKeyword) {
-
-	      Rq rq = (Rq) req.getAttribute("rq");
-
-	      Board board = boardService.getBoardById(boardId);
-
-	      int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-	      if (board == null) {
-	         return rq.historyBackOnView("없는 게시판이야");
-	      }
-
-	      // 한페이지에 글 10개씩이야
-	      // 글 20개 -> 2 page
-	      // 글 24개 -> 3 page
-	      int itemsInAPage = 10;
-
-	      int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-	      List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-	            searchKeyword);
-
-	      model.addAttribute("board", board);
-	      model.addAttribute("boardId", boardId);
-	      model.addAttribute("page", page);
-	      model.addAttribute("pagesCount", pagesCount);
-	      model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-	      model.addAttribute("searchKeyword", searchKeyword);
-	      model.addAttribute("articlesCount", articlesCount);
-	      model.addAttribute("articles", articles);
-
-	      return "usr/article/competitionDetail";
-	   }
 	
-	@RequestMapping("/usr/article/academicEventList")
-	   public String ShowAcademicEventList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-	         @RequestParam(defaultValue = "1") int page,
-	         @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-	         @RequestParam(defaultValue = "") String searchKeyword) {
-
-	      Rq rq = (Rq) req.getAttribute("rq");
-
-	      Board board = boardService.getBoardById(boardId);
-
-	      int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-	      if (board == null) {
-	         return rq.historyBackOnView("없는 게시판이야");
-	      }
-
-	      // 한페이지에 글 10개씩이야
-	      // 글 20개 -> 2 page
-	      // 글 24개 -> 3 page
-	      int itemsInAPage = 10;
-
-	      int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-	      List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-	            searchKeyword);
-
-	      model.addAttribute("board", board);
-	      model.addAttribute("boardId", boardId);
-	      model.addAttribute("page", page);
-	      model.addAttribute("pagesCount", pagesCount);
-	      model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-	      model.addAttribute("searchKeyword", searchKeyword);
-	      model.addAttribute("articlesCount", articlesCount);
-	      model.addAttribute("articles", articles);
-
-	      return "usr/article/academicEventList";
-	   }
+	
+	
+	
 	   
-	@RequestMapping("/usr/article/competitionList")
-	   public String ShowCompetitionList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-	         @RequestParam(defaultValue = "1") int page,
-	         @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-	         @RequestParam(defaultValue = "") String searchKeyword) {
-
-	      Rq rq = (Rq) req.getAttribute("rq");
-
-	      Board board = boardService.getBoardById(boardId);
-
-	      int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-	      if (board == null) {
-	         return rq.historyBackOnView("없는 게시판이야");
-	      }
-
-	      // 한페이지에 글 10개씩이야
-	      // 글 20개 -> 2 page
-	      // 글 24개 -> 3 page
-	      int itemsInAPage = 10;
-
-	      int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
-
-	      List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-	            searchKeyword);
-
-	      model.addAttribute("board", board);
-	      model.addAttribute("boardId", boardId);
-	      model.addAttribute("page", page);
-	      model.addAttribute("pagesCount", pagesCount);
-	      model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-	      model.addAttribute("searchKeyword", searchKeyword);
-	      model.addAttribute("articlesCount", articlesCount);
-	      model.addAttribute("articles", articles);
-
-	      return "usr/article/competitionList";
-	   }
-	   
+	
 
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
