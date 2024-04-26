@@ -12,6 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,16 +24,24 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TrainTicketCrawler4_GUS {
-	public static void main(String[] args) {
-		// 크롬 드라이버 경로 설정
-		System.setProperty("webdriver.chrome.driver",
-				"C:/work/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe");
+	private static WebDriver driver;
+	private static String url;
 
-		// WebDriver 인스턴스 생성
-		WebDriver driver = new ChromeDriver();
+	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
+	public static String WEB_DRIVER_PATH = "C:/work/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe";
+
+	public static void main(String[] args) {
+		 System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+		
+		// ChromeOptions 설정
+	        ChromeOptions options = new ChromeOptions();
+	        options.setCapability("ignoreProtectedModeSettings", true);
+		 
+	        // WebDriver 인스턴스 생성
+	        driver = new ChromeDriver(options);
 
 		// 아고다 검색 페이지 url
-		String url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=f7739694-dbb7-41bd-aa27-be7c942ce354&gad_source=1&device=c&network=g&adid=695827820287&rand=7846428391314568431&expid=&adpos=&aud=kwd-6927948326&gclid=Cj0KCQjwlZixBhCoARIsAIC745BvF5aSyMA_QOWdSeqBil67b7Xx3zExuBbJP1Y2QtJ0ehVU8kW6aX8aAl0HEALw_wcB&pslc=1&ds=rsjlTo6c2PdQF7zG";
+		url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&device=c&network=g&adid=695788229412&rand=2893338334644664789&expid=&adpos=&aud=kwd-304551434341&gclid=Cj0KCQjw_qexBhCoARIsAFgBlevSo6nth5UoZYtTjxbyMdsMGb9e5H1wMGNKOHqatzyxXCnCCISQUGEaApAaEALw_wcB&checkIn=2024-05-10&checkOut=2024-05-18&adults=1&rooms=1&pslc=1&ds=pWGoz1iyjxyzPJEv";
 
 		// 아고다 검색 페이지로 이동
 		driver.get(url);
@@ -41,7 +50,7 @@ public class TrainTicketCrawler4_GUS {
 		WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
 
 		// WebDriverWait 인스턴스 생성
-		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(300));
+		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(100));
 
 		// 검색창이 활성화될 때까지 기다림
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
@@ -172,23 +181,42 @@ public class TrainTicketCrawler4_GUS {
 
 		// 검색하기 클릭
 		buttonElement.click();
+		
+		System.out.println("ㅇ.");
+		
+		
+		System.out.println("ddddd");
+		String hotelListStr="//div[@id='contentContainer']//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard')and contains(@class,'PropertyCardItem')]//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]";
+		WebElement hotelList = driver.findElement(By.xpath(hotelListStr));
+		System.out.println(hotelList);
+		List<WebElement> hotelLists = driver.findElements(By.xpath(hotelListStr));
+		System.out.println(hotelLists);
+		List<WebElement> elements5 = driver.findElements(By.xpath("//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]//a"));
+		
+		List<WebElement> elements6 = driver.findElements(By.xpath("//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]"));
+		
+		
+		System.out.println(elements5);
+		System.out.println(elements6);
+		 for (WebElement element : elements5) {
+	            System.out.println(element.getText());
+	            // 각 학술행사의 링크를 가져옴
+	            WebElement linkElement = element.findElement(By.tagName("a"));
+	            String conferenceLink = linkElement.getAttribute("href");
 
-		// <ol> 요소 선택
-		List<WebElement> hotelListElements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-			    By.xpath("//ol[@class='hotel-list-container']/li[position() <= 10]")));
+	            // 학술행사에 대한 상세 페이지로 이동
+	            driver.get(conferenceLink);
+	            System.out.println("abd");
+		 }
+		 System.out.println("하이");
+		// 클래스 이름이 "PropertyCard"와 "PropertyCardItem"인 li 요소 찾기 (최대 10개)
+		List<WebElement> elements = wait_web.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@id='searchPageRightColumn']//ol[@class='hotel-list-container']/li[contains(@class,'PropertyCard')]")));
+		
+		
+		System.out.println("여기가 안넘어가져");
 
-		if (hotelListElements != null) {
-			 // 최대 10개의 요소만 가져오기
-		    int count = Math.min(hotelListElements.size(), 10);
-		    System.out.println("뭐가 들어있긴해");
-		    System.out.println(hotelListElements);
-		    for (int i = 0; i < count; i++) {
-		        WebElement element = hotelListElements.get(i);
-		        System.out.println("텍스트 값: " + element.getText());
-		    }
-		} else {
-			System.out.println("해당하는 <ol> 요소를 찾을 수 없습니다.");
-		}
+
 
 	}
 }
+
