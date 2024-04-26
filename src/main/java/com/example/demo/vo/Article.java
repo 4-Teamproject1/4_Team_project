@@ -24,8 +24,4 @@ public class Article {
 	private boolean userCanModify;
 	private boolean userCanDelete;
 
-	
-	//크롤링데이터가져오기
-	private String TrainName;
-	private String DepartureTime;
 }

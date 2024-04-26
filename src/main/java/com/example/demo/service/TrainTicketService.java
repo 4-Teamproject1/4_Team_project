@@ -11,23 +11,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.vo.Article;
+import com.example.demo.vo.Train;
 
 @Service
 public class TrainTicketService {
 
-	public List<Article> gettrainservice() {
+	public List<Train> gettrainservice() {
 		crawl crawler = new crawl();
 		return crawler.crawl();
 	}
 
 	static class crawl {
-		public List<Article> crawl() {
+		public List<Train> crawl() {
 			// 크롬 드라이버 경로 설정
 			System.setProperty("webdriver.chrome.driver",
 					"C:\\work\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
@@ -82,17 +79,19 @@ public class TrainTicketService {
 
 			// 기차 시간표 조회 결과 출력
 
-			List<Article> spanTexts = printTrainTimetable(driver);
-	        // 브라우저 닫기
-	        driver.quit();
+			List<Train> spanTexts = printTrainTimetable(driver);
+			// 브라우저 닫기
+			driver.quit();
 			return spanTexts; // 크롤링 결과를 반환하도록 수정해야 함
 		}
-		//버튼 클릭
+
+		// 버튼 클릭
 		private static void clickArrivalButton(WebDriverWait wait_web) {
 			WebElement arrivalButton = wait_web.until(ExpectedConditions
 					.elementToBeClickable(By.cssSelector("div.btn_area div.btn_box.direction button.btn_goal")));
 			arrivalButton.click();
 		}
+
 		//
 		private static void clickFindPathButton(WebDriverWait wait_web) {
 			WebElement findPathButton = wait_web.until(
@@ -109,7 +108,8 @@ public class TrainTicketService {
 			searchInput_start.sendKeys(searchText_start);
 			searchInput_start.sendKeys(Keys.ENTER);
 		}
-		//예매하기 찾기
+
+		// 예매하기 찾기
 		private static void clickTrainReservationButton(WebDriverWait wait_web) {
 			WebElement trainButton = wait_web.until(ExpectedConditions.elementToBeClickable(
 					By.cssSelector("div.item_btn ol.list_pubtrans_directions_step button.btn_pubtrans_reserve")));
@@ -117,7 +117,8 @@ public class TrainTicketService {
 			trainButton.sendKeys(Keys.ENTER);
 
 		}
-		//제대로 크롤링 하는지 보기위한 함수
+
+		// 제대로 크롤링 하는지 보기위한 함수
 		private static void printTrainTimetable(WebDriver driver, WebDriverWait wait_web) {
 			// 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
 
@@ -139,43 +140,64 @@ public class TrainTicketService {
 				System.out.println("li 요소를 찾지 못했습니다.");
 			}
 		}
-		//크롤링한 결과를 JSP로 넘기기 위한 함수 
-		private static List<Article> printTrainTimetable(WebDriver driver) {
-		    // 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
-		    String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa li";
 
-		    // 부모 요소 아래에 있는 모든 li 요소를 가져옵니다.
-		    List<WebElement> liElements = driver.findElements(By.cssSelector(cssSelector));
+		// 크롤링한 결과를 JSP로 넘기기 위한 함수
+		private static List<Train> printTrainTimetable(WebDriver driver) {
+			// 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
+			String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa li";
 
-		    // span 요소의 텍스트를 저장할 리스트 생성
-		    List<Article> spanTexts = new ArrayList<>();
+			// 부모 요소 아래에 있는 모든 li 요소를 가져옵니다.
+			List<WebElement> liElements = driver.findElements(By.cssSelector(cssSelector));
 
-		    // 각 li 요소에 대해 반복하여 span 태그의 정보를 저장합니다.
-		    for (WebElement liElement : liElements) {
-		        // li 요소에서 span 태그의 정보만을 가져옵니다.
-		        List<WebElement> spanElements = liElement.findElements(By.tagName("span"));
+			// span 요소의 텍스트를 저장할 리스트 생성
+			List<Train> spanTexts = new ArrayList<>();
 
-		        // Article 객체 생성
-		        Article article = new Article();
+			// 각 li 요소에 대해 반복하여 span 태그의 정보를 저장합니다.
+			for (WebElement liElement : liElements) {
+				// li 요소에서 span 태그의 정보만을 가져옵니다.
+				List<WebElement> spanElements = liElement.findElements(By.tagName("span"));
 
-		        // 각 span 요소에 대해 반복하여 정보를 저장합니다.
-		        for (WebElement spanElement : spanElements) {
-		            // span 태그의 클래스가 특정한 클래스인 경우에만 정보를 저장합니다.
-		            String spanClass = spanElement.getAttribute("class");
-		            if (spanClass.equals("H13fR_En7MQuoMExYcWk")) {
-		                // 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
-		                article.setTrainName(spanElement.getText());
-		            } else if (spanClass.equals("qkW1KAbn7fcP07KPJ9EA")) {
-		                // 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
-		                article.setDepartureTime(spanElement.getText());
-		            }
-		        }
+				// Train 객체 생성
+				Train trains = new Train();
 
-		        // Article 객체를 spanTexts 리스트에 추가합니다.
-		        spanTexts.add(article);
-		    }
+				// 각 span 요소에 대해 반복하여 정보를 저장합니다.
+				for (WebElement spanElement : spanElements) {
+					// span 태그의 클래스가 특정한 클래스인 경우에만 정보를 저장합니다.
+					String spanClass = spanElement.getAttribute("class");
+					if (spanClass.equals("H13fR_En7MQuoMExYcWk")) {
+						// 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
+						trains.setTrainName(spanElement.getText());
+					}
+					if (spanClass.equals("qkW1KAbn7fcP07KPJ9EA")) {
+						// 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
+						trains.setTrainNum(spanElement.getText());
+					}
+					if (spanClass.equals("J7J4mNqthSM_lLIOSckL")) {
+						// 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
+						trains.setDepartureTime(spanElement.getText());
+					}
+					if (spanClass.equals("Kbo2BHpqnQBH5gSRFqqa")) {
+						// 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
+						trains.setArrivalTime(spanElement.getText());
+					}
+					if (spanClass.equals("F2oBbtEf9sYyvLGIHf2T")) {
+						// 해당 span 요소의 텍스트를 Article 객체에 추가합니다.
+						trains.setTravelTime(spanElement.getText());
+					}
 
-		    return spanTexts;
+				}
+
+				// trains 객체를 spanTexts 리스트에 추가합니다.
+				// 모든 필드가 비어있지 않은 경우에만 데이터를 추가합니다.
+				if (trains.getTrainName() != null && trains.getTrainNum() != null 
+				    && trains.getDepartureTime() != null && trains.getArrivalTime() != null 
+				    && trains.getTravelTime() != null) {
+				    // Article 객체를 spanTexts 리스트에 추가합니다.
+				    spanTexts.add(trains);
+				}
+			}
+
+			return spanTexts;
 		}
 	}
 }

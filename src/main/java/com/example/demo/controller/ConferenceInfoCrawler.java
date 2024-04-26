@@ -2,16 +2,17 @@ package com.example.demo.controller;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+@Component
 public class ConferenceInfoCrawler {
 	private static WebDriver driver;
 	private static String url;

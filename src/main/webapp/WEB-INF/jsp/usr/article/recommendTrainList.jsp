@@ -1484,138 +1484,42 @@ media (max-width: 991px) { .train-info-col { width:100%;
 							<div class="train-info-row">
 								<div class="train-info-col">
 									<div class="train-info-details">
-										<div class="train-info-times">
-											<header class="train-info-header">
-												<div class="train-info-name">
-													<div class="train-name">KTX</div>
-													<div class="train-time">
-														<time class="departure-time">22:37</time>
-
-														<div class="outer-arrival-icon">
-															<div class="arrival-icon">→</div>
-														</div>
-
-													</div>
-												</div>
-												<div class="outer-arrival-time">
-													<time class="arrival-time">23:44</time>
-												</div>
-
-											</header>
-											<div class="train-class">
-												<div class="class-general">
-													<div class="class-general-label">일반</div>
-													<div class="class-general-status">예매가능</div>
-												</div>
-												<div class="class-special">
-													<div class="class-special-label">특</div>
-													<div class="class-special-status">예매가능</div>
-												</div>
-											</div>
-										</div>
-										<div class="outer-travel-time">
-											<div class="small-outer-travel-time">
-												<div class="travel-time">1시간 7분</div>
-											</div>
-
-										</div>
-
-									</div>
-								</div>
-
-								<div class="booking-col">
-									<div class="outer-booking-btn">
-										<button class="booking-btn">예매</button>
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-						<div class="divider"></div>
-
-					</section>
-				</div>
-
-				<div class="train-info-wrapper">
-					<section class="train-info">
-						<div class="train-info-container">
-							<div class="train-info-row">
-								<div class="train-info-col">
-									<div class="train-info-details">
-										<!-- Article 정보 출력 -->
-										<div class="train-info-times">
-											<header class="train-info-header">
-												<div class="train-info-name">
-													<c:if test="${not empty spanTexts}">
-														<c:forEach var="article" items="${spanTexts}">
+										<c:if test="${not empty spanTexts}">
+											<div class="train-info-times">
+												<c:forEach var="article" items="${spanTexts}">
+													<header class="train-info-header">
+														<div class="train-info-name">
 															<div class="train-name">${article.trainName}</div>
+															<div class="train-num">${article.trainNum}</div>
 															<div class="train-time">
 																<time class="departure-time">${article.departureTime}</time>
 																<div class="outer-arrival-icon">
 																	<div class="arrival-icon">→</div>
 																</div>
 															</div>
-														</c:forEach>
-													</c:if>
-												</div>
-												<div class="outer-arrival-time"></div>
-											</header>
-											<!-- 기타 정보 출력 -->
-											<!-- 예매 버튼 등 -->
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="divider"></div>
-					</section>
-				</div>
-
-			</div>
-			<div class="small-outer-content-box">
-				<div class="train-info-wrapper">
-					<section class="train-info">
-						<div class="train-info-container">
-							<div class="train-info-row">
-								<div class="train-info-col">
-									<div class="train-info-details">
-										<div class="train-info-times">
-											<header class="train-info-header">
-												<div class="train-info-name">
-													<div class="train-name">KTX</div>
-													<div class="train-time">
-														<time class="departure-time">22:37</time>
-
-														<div class="outer-arrival-icon">
-															<div class="arrival-icon">→</div>
+															<div class="outer-arrival-time">
+																<time class="arrival-time">${article.arrivalTime}</time>
+															</div>
 														</div>
-
+													</header>
+													<div class="train-class">
+														<div class="class-general">
+															<div class="class-general-label"></div>
+															<div class="class-general-status">예매</div>
+														</div>
+														<div class="class-special">
+															<div class="class-special-label"></div>
+															<div class="class-special-status">특예매</div>
+														</div>
 													</div>
-												</div>
-												<div class="outer-arrival-time">
-													<time class="arrival-time">23:44</time>
-												</div>
-
-											</header>
-											<div class="train-class">
-												<div class="class-general">
-													<div class="class-general-label">일반</div>
-													<div class="class-general-status">예매가능</div>
-												</div>
-												<div class="class-special">
-													<div class="class-special-label">특</div>
-													<div class="class-special-status">예매가능</div>
-												</div>
+													<div class="outer-travel-time">
+														<div class="small-outer-travel-time">
+															<div class="travel-time">${article.travelTime}</div>
+														</div>
+													</div>
+												</c:forEach>
 											</div>
-										</div>
-										<div class="outer-travel-time">
-											<div class="small-outer-travel-time">
-												<div class="travel-time">1시간 7분</div>
-											</div>
-
-										</div>
-
+										</c:if>
 									</div>
 								</div>
 
@@ -1632,33 +1536,7 @@ media (max-width: 991px) { .train-info-col { width:100%;
 
 					</section>
 				</div>
-
 			</div>
-
-
 		</div>
 
-	</div>
-
-	<!-- <script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var flightSearchDateText = document
-					.querySelector(".flight-search-date-text");
-			var calendar = document.getElementById("calendar");
-
-			// flight-search-date-text 요소를 클릭했을 때
-			flightSearchDateText.addEventListener("click", function() {
-				// 달력을 표시하거나 숨깁니다.
-				if (calendar.style.display === "none"
-						|| calendar.style.display === "") {
-					calendar.style.display = "block";
-					// 이번 달이 기본으로 설정된 달력을 표시하는 기능을 추가할 수 있습니다.
-				} else {
-					calendar.style.display = "none";
-				}
-			});
-		});
-	</script> -->
-
-
-	<%@ include file="../common/foot.jspf"%>
+		<%@ include file="../common/foot.jspf"%>
