@@ -44,7 +44,7 @@ public class UsrConferenceController {
 		return conferenceService.crawlAndSaveConferences();
 	}
 
-	@RequestMapping("/usr/article/academicEventDetail")
+	@RequestMapping("/usr/conference/academicEventDetail")
 	public String showAcademicEventDetail(HttpServletRequest req, Model model,
 			@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
@@ -57,10 +57,10 @@ public class UsrConferenceController {
 
 		/* model.addAttribute("articles", articles); */
 
-		return "usr/article/academicEventDetail";
+		return "usr/conference/academicEventDetail";
 	}
 
-	@RequestMapping("/usr/article/academicEventList")
+	@RequestMapping("/usr/conference/academicEventList")
 	public String ShowAcademicEventList(HttpServletRequest req, Model model,
 			@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
@@ -72,7 +72,7 @@ public class UsrConferenceController {
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("page", page);
 	
-		return "usr/article/academicEventList";
+		return "usr/conference/academicEventList";
 	}
 
 }

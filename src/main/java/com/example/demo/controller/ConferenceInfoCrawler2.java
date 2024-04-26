@@ -1,15 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.vo.Conference;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class ConferenceInfoCrawler2 {
     private static WebDriver driver;
 
@@ -62,13 +64,44 @@ public class ConferenceInfoCrawler2 {
 
                 // 학술행사에 대한 상세 페이지로 이동
                 driver.get(conferenceLink);
-
+                
+                
+                
+                String title = "";
+				/* String hitCount = ""; */
+                
+                String eventPeriod = "";
+				String applicationPeriod = "";
+				String entryFee = "";
+				String homepage = "";
+				String place = "";
+				String imageURL = "";
+				
+				
                 // 학회 정보 수집
                 Conference conference = extractConferenceInfo(driver, categoryId);
 
+                
+                // 결과 출력
+				System.out.println("categoryId: " + categoryId);
+				System.out.println("학회제목: " + title);
+//				System.out.println("조회수: " + hitCount);
+				System.out.println("행사기간: " + eventPeriod);
+				System.out.println("접수기간: " + applicationPeriod);
+				System.out.println("참가비: " + entryFee);
+				System.out.println("장소: " + place);
+				System.out.println("관련홈페이지: " + homepage);
+				/*
+				 * System.out.println("담당자 연락처: " + 담당자연락처); System.out.println("담당자 이메일: " +
+				 * 담당자이메일);
+				 */
+				System.out.println("이미지 URL: " + imageURL);
+				System.out.println("-----------------------------------");
+                
+                
                 // 리스트에 추가
                 conferenceList.add(conference);
-
+          
                 // 뒤로 가기
                 driver.navigate().back();
             } catch (Exception e) {
@@ -87,10 +120,11 @@ public class ConferenceInfoCrawler2 {
         String title = titleElement.getText();
         conference.setTitle(title);
 
-        // 학회의 조회수 추출
-        WebElement cntElement = driver.findElement(By.xpath("//li[@class='cnt']//span[@class='bold']"));
-        String count = cntElement.getText();
-        conference.setCount(count);
+		/*
+		 * // 학회의 조회수 추출 WebElement cntElement =
+		 * driver.findElement(By.xpath("//li[@class='cnt']//span[@class='bold']"));
+		 * String hitCount = cntElement.getText(); conference.setHitCount(hitCount);
+		 */
 
         // 행사기간 추출
         WebElement eventPeriodElement = driver.findElement(By.xpath("//td[@class='tdLabel' and text()='행사기간']/following-sibling::td"));
@@ -117,6 +151,22 @@ public class ConferenceInfoCrawler2 {
         String homepage = homepageElement.getAttribute("href");
         conference.setHomepage(homepage);
 
+        
+    	// 이미지 요소 찾기
+		WebElement imageElement = null;
+		try {
+			imageElement = driver.findElement(By.xpath("//div[@class='content cke_editable']//img"));
+		} catch (Exception e) {
+			// 이미지가 없는 경우
+			System.out.println("이미지를 찾을 수 없습니다.");
+		}
+
+		// 이미지가 있는 경우에만 URL 가져오기
+		String imageURL = "";
+		if (imageElement != null) {
+			imageURL = imageElement.getAttribute("src");
+		}
+        
         return conference;
     }
 
