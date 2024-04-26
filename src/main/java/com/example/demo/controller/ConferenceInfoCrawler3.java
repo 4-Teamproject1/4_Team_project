@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,17 +13,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.vo.Conference;
 
 @Component
-public class ConferenceInfoCrawler {
+public class ConferenceInfoCrawler3 {
 	private static WebDriver driver;
 	private static String url;
 
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
 
-	public List<Conference> crawlConference() {
+	public static void main(String[] args) {
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
 
 		// ChromeOptions 설정
@@ -47,9 +47,6 @@ public class ConferenceInfoCrawler {
 				.findElement(By.xpath("//a[@href='/research/researches/33/recruitments/112/recruits?listType=ING']"));
 		conferenceLink.click();
 		// categoryId 변수 초기화
-
-		String categoryCode = null;
-
 		int categoryId = 1;
 
 		// 각 카테고리를 순회하며 데이터 크롤링
@@ -62,17 +59,11 @@ public class ConferenceInfoCrawler {
 		crawlCategory("AF", categoryId++);
 		crawlCategory("C", categoryId++);
 		crawlCategory("ALLMJR", categoryId); // 전공불문
-
-		List<Conference> conferences = crawlCategory(categoryCode, categoryId);
-		System.err.println(conferences);
 		// WebDriver 종료
 		driver.quit();
-
-		return conferences;
 	}
 
-	private static List<Conference> crawlCategory(String categoryCode, int categoryId) {
-		List<Conference> conferences = new ArrayList<>();
+	private static void crawlCategory(String categoryCode, int categoryId) {
 		// 카테고리 클릭
 		WebElement categoryLink = driver
 				.findElement(By.xpath("//a[@href='/research/researches/33/recruitments/112/categories/MJR/categories/"
@@ -88,7 +79,6 @@ public class ConferenceInfoCrawler {
 
 		// 각 학술행사에 대해 반복문 실행
 		for (WebElement conferenceElement : conferenceElements) {
-
 			System.out.println(conferenceElement.getText());
 			// 각 학술행사의 링크를 가져옴
 			WebElement linkElement = conferenceElement.findElement(By.tagName("a"));
@@ -100,12 +90,12 @@ public class ConferenceInfoCrawler {
 			try {
 				// 상세페이지에서 학회의 제목 추출
 				WebElement titleElement = driver.findElement(By.xpath("//div[@class='titleWrap']/h4"));
-				String title = titleElement.getText();
+				String 학회제목 = titleElement.getText();
 
 				// 상세페이지에서 조회수 요소를 찾기 위해 <li> 태그의 클래스가 "cnt"인 요소를 찾고 그 안에 있는 <span> 태그의 클래스가
 				// "bold"인 요소를 찾습니다.
 				WebElement cntElement = driver.findElement(By.xpath("//li[@class='cnt']//span[@class='bold']"));
-				String hitCount = cntElement.getText();
+				String 조회수 = cntElement.getText();
 
 				// 테이블에서 행사기간, 접수기간, 참가비, 관련 홈페이지 정보 가져오기
 				WebElement table = driver.findElement(By.className("contentSummaryInfo"));
@@ -156,49 +146,24 @@ public class ConferenceInfoCrawler {
 				// 장소 정보 가져오기
 				WebElement 장소Element = driver.findElement(By
 						.xpath("//td[@class='tdLabel' and text()='장소']/following-sibling::td[@class='tdLong']//span"));
-				String place = 장소Element.getText();
+				String 장소 = 장소Element.getText();
 
-				Conference conference = new Conference();
 
-				conference.setCategoryId(categoryId);
-				conference.setTitle(title);
-				conference.setEventPeriod(eventPeriod);
-				conference.setApplcationPeriod(applcationPeriod);
-				conference.setEntryFee(entryFee);
-				conference.setPlace(place);
-				conference.setHomepage(homepage);
-
+				// 결과 출력
+				System.out.println("categoryId: " + categoryId);
+				System.out.println("학회제목: " + 학회제목);
+				System.out.println("조회수: " + 조회수);
+				System.out.println("행사기간: " + eventPeriod);
+				System.out.println("접수기간: " + applcationPeriod);
+				System.out.println("참가비: " + entryFee);
+				System.out.println("장소: " + 장소);
+				System.out.println("관련홈페이지: " + homepage);
 				/*
-				 * System.out.println("categoryId: " +conference.getCategoryId());
-				 * System.out.println("학회제목: " + conference.getTitle());
-				 * System.out.println("조회수: " + conference.getHitCount());
-				 * System.out.println("행사기간: " + conference.getEventPeriod());
-				 * System.out.println("접수기간: " + conference.getApplcationPeriod());
-				 * System.out.println("참가비: " + conference.getEntryFee());
-				 * System.out.println("장소: " + conference.getPlace());
-				 * System.out.println("관련홈페이지: " + conference.getHomepage());
-				 * 
 				 * System.out.println("담당자 연락처: " + 담당자연락처); System.out.println("담당자 이메일: " +
 				 * 담당자이메일);
-				 * 
-				 * System.out.println("이미지 URL: " + imageURL);
-				 * System.out.println("-----------------------------------");
-				 * 
-				 * // 결과 출력 System.out.println("categoryId: " + categoryId);
-				 * System.out.println("학회제목: " + title); System.out.println("조회수: " + hitCount);
-				 * System.out.println("행사기간: " + eventPeriod); System.out.println("접수기간: " +
-				 * applcationPeriod); System.out.println("참가비: " + entryFee);
-				 * System.out.println("장소: " + place); System.out.println("관련홈페이지: " +
-				 * homepage);
-				 * 
-				 * System.out.println("담당자 연락처: " + 담당자연락처); System.out.println("담당자 이메일: " +
-				 * 담당자이메일);
-				 * 
-				 * System.out.println("이미지 URL: " + imageURL);
-				 * System.out.println("-----------------------------------");
 				 */
-
-				conferences.add(conference);
+				System.out.println("이미지 URL: " + imageURL);
+				System.out.println("-----------------------------------");
 
 				// 상세페이지에서 뒤로 가기
 				driver.navigate().back();
@@ -207,7 +172,5 @@ public class ConferenceInfoCrawler {
 				e.printStackTrace();
 			}
 		}
-
-		return conferences;
 	}
 }

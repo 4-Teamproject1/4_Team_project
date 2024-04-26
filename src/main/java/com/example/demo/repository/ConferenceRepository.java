@@ -9,28 +9,20 @@ import com.example.demo.vo.Conference;
 public interface ConferenceRepository {
 
 	@Insert("""
-			INSERT INTO service_Conshop SET
-			         categoryId = #{categoryId},
-			         shopName = #{shopName},
-			         roadName = #{roadName},
-			         review = #{review},
-			         photoUrl1 = #{photoUrl1},
-			         photoUrl2 = #{photoUrl2},
-			         photoUrl3 = #{photoUrl3},
-			         photoUrl4 = #{photoUrl4},
-			         photoUrl5 = #{photoUrl5},
-			         phoneNum = #{phoneNum},
-			         con_availableTime = #{conAvailableTime},
-			         operateTime = #{operateTime},
-			         menu = #{menu},
-			         themeId = #{themeId},
-			         regDate = NOW(),
-			         updateDate = NOW(),
-			         delDate = #{delDate},
-			         delStatus = #{delStatus}
+			INSERT INTO `academy` SET
+			         id = #{id},
+			         title = #{title},
+			         hitCount = #{hitCount},
+			         eventPeriod = #{eventPeriod},
+			         applicationPeriod = #{applicationPeriod},
+			         entryFee = #{entryFee},
+			         place = #{place},
+			         homepage = #{homepage},
+			         imageURL = #{imageURL}
+			        
 			""")
-	public void insertShop(Conference ConferenceInfo);
-
-
 	public void insertConference(Conference conference);
+
+
+	
 }

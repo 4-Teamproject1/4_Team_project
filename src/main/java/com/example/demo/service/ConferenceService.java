@@ -21,12 +21,15 @@ public class ConferenceService {
 	    }
 
 	public List<Conference> crawlAndSaveConferences() {
-		ConferenceInfoCrawler2 crawler = new ConferenceInfoCrawler2();
+		ConferenceInfoCrawler crawler = new ConferenceInfoCrawler();
         // 크롤러를 호출하여 학회 데이터를 가져옵니다.
         List<Conference> conferences = crawler.crawlConference();
         
         // 각 학회를 데이터베이스에 저장합니다.
         for (Conference conference : conferences) {
+        	
+        	System.err.println(conference);
+        	System.err.println(conference);
             conferenceRepository.insertConference(conference);
         }
         

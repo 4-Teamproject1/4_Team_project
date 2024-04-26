@@ -43,6 +43,7 @@ public class UsrConferenceController {
 	public List<Conference> crawlConferences() {
 		return conferenceService.crawlAndSaveConferences();
 	}
+	
 
 	@RequestMapping("/usr/conference/academicEventDetail")
 	public String showAcademicEventDetail(HttpServletRequest req, Model model,

@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 public class Conference {
     private int id;
     private String title;
-    private String hitCount;
+    private int hitCount;
     private String eventPeriod;
     private String applcationPeriod;
     private String entryFee;
     private String place;
     private String homepage;
     private String imageURL;
+    private int categoryId;
+    
 }
