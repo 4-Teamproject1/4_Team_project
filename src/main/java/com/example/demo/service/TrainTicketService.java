@@ -87,13 +87,13 @@ public class TrainTicketService {
 	        driver.quit();
 			return spanTexts; // 크롤링 결과를 반환하도록 수정해야 함
 		}
-
+		//버튼 클릭
 		private static void clickArrivalButton(WebDriverWait wait_web) {
 			WebElement arrivalButton = wait_web.until(ExpectedConditions
 					.elementToBeClickable(By.cssSelector("div.btn_area div.btn_box.direction button.btn_goal")));
 			arrivalButton.click();
 		}
-
+		//
 		private static void clickFindPathButton(WebDriverWait wait_web) {
 			WebElement findPathButton = wait_web.until(
 					ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_direction.search.active")));
@@ -109,7 +109,7 @@ public class TrainTicketService {
 			searchInput_start.sendKeys(searchText_start);
 			searchInput_start.sendKeys(Keys.ENTER);
 		}
-
+		//예매하기 찾기
 		private static void clickTrainReservationButton(WebDriverWait wait_web) {
 			WebElement trainButton = wait_web.until(ExpectedConditions.elementToBeClickable(
 					By.cssSelector("div.item_btn ol.list_pubtrans_directions_step button.btn_pubtrans_reserve")));
@@ -117,7 +117,7 @@ public class TrainTicketService {
 			trainButton.sendKeys(Keys.ENTER);
 
 		}
-
+		//제대로 크롤링 하는지 보기위한 함수
 		private static void printTrainTimetable(WebDriver driver, WebDriverWait wait_web) {
 			// 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
 
@@ -139,7 +139,7 @@ public class TrainTicketService {
 				System.out.println("li 요소를 찾지 못했습니다.");
 			}
 		}
-
+		//크롤링한 결과를 JSP로 넘기기 위한 함수 
 		private static List<Article> printTrainTimetable(WebDriver driver) {
 		    // 시간표를 감싸는 부모 요소의 CSS 선택자를 수정합니다.
 		    String cssSelector = "ul.abL4sGipWTYELd9Stf9J.kcy2EjyNrFkhWNkqrioa li";
