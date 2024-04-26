@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 
+
 import java.util.ArrayList;
 import java.util.List;
 @Component
@@ -18,7 +19,6 @@ public class ConferenceInfoCrawler2 {
     public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
     public static String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
 
-    public static void main(String[] args) {
         System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
 
         // WebDriver 인스턴스 생성
