@@ -40,7 +40,7 @@ public class UsrConferenceController {
 
 	// 액션 메서드
 	@RequestMapping("usr/conference/crawl")
-	public List<Conference> crawlConferences() {
+	public List<Conference> crawlAndSaveConferences() {
 		return conferenceService.crawlAndSaveConferences();
 	}
 	

@@ -12,7 +12,7 @@ public class Conference {
     private String title;
     private int hitCount;
     private String eventPeriod;
-    private String applcationPeriod;
+    private String applicationPeriod;
     private String entryFee;
     private String place;
     private String homepage;
