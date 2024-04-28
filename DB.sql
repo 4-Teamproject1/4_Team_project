@@ -479,19 +479,19 @@ GROUP BY RP.relTypeCode,RP.relId
 
 #학회 테이블 생성
 CREATE TABLE `academy` (
-	`id` INT NOT NULL,
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	categoryId INT NOT NULL,
-	`title` CHAR NULL,
-	`hitCount`	INT	NOT NULL,
-	`eventPeriod`	CHAR NULL,
-	`applicationPeriod`	CHAR NULL,
-	`entryFee`	CHAR NULL ,
-	`place`	CHAR NULL,
-	`homepage`	CHAR NULL,
-	`imageURL`	CHAR NULL
+	`title`  VARCHAR(500) NULL,
+	`hitCount`	INT	NULL,
+	`eventPeriod` VARCHAR(500) NULL,
+	`applicationPeriod`	 VARCHAR(500) NULL,
+	`entryFee`	 VARCHAR(500) NULL ,
+	`place`	 VARCHAR(500) NULL,
+	`homepage`	 VARCHAR(500) NULL,
+	`imageURL`	 VARCHAR(500) NULL
 );
 
 SELECT *
 FROM `academy`;
 
-DROP TABLE `academy`;
+
