@@ -5,8 +5,8 @@
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="/usr/article/academicEventList" class="list-board-item" style="background-color: orange;">학술행사</a>
-		<a href="../exhibit/competitionList" class="list-board-item">공모전</a>
+		<a href="../conference/list" class="list-board-item" style="background-color: orange;">학술행사</a>
+		<a href="../competition/list" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -125,7 +125,7 @@
 								<td>${conference.id}</td>
 								<!-- 첫 번째 td에 학회의 ID -->
 								<td>
-									<a href="academicEventDetail?id=${conference.id}">${conference.title}</a>
+									<a href="detail?id=${conference.id}">${conference.title}</a>
 								</td>
 								<!-- 두 번째 td에 학회의 제목 -->
 								<td>${conference.eventPeriod}</td>

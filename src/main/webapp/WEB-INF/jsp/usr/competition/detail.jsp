@@ -32,21 +32,21 @@
 					<tbody>
 						<tr>
 							<td>접수기간</td>
-							<td>24.06.27 14:00 ~ 24.06.28 15:00</td>
+							<td>${competition.applicationPeriod}</td>
 							<td>관련 홈페이지</td>
-							<td><a href="">바로가기</a></td>
+						 <td><a href="${competition.homepage}">바로가기</a></td>
 						</tr>
 						<tr>
 							<td>총시상금</td>
-							<td>600만원</td>
+							<td>${competition.totalPrizeMoney}</td>
 							<td>1등시상금</td>
-							<td>500만원</td>
+							<td>${competition.firstPrizeMoney}</td>
 						</tr>
 						<tr>
 							<td>담당자 연락처</td>
-							<td><span>063-530-9432</span></td>
+							<td><span>${competition.contactNum}</span></td>
 							<td>담당자 이메일</td>
-							<td>hj1234@1894.or.kr</td>
+							<td>${competition.contactEmail}</td>
 						</tr>
 					</tbody>
 
@@ -56,9 +56,7 @@
 				</table>
 
 				<div class="competition-body">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
-						alt="" loading="lazy" />
+					  <img src="${competition.imageURL}" alt="" loading="lazy" />
 				</div>
 				<div class="bookmark">
 					<button class="bookmark-button">즐겨찾기</button>
@@ -147,6 +145,7 @@ tr {
 }
 
 .competition-body {
+margin-top: 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
