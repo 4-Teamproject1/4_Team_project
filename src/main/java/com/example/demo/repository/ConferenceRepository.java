@@ -23,9 +23,30 @@ public interface ConferenceRepository {
 			         entryFee = #{entryFee},
 			         place = #{place},
 			         homepage = #{homepage},
-			         imageURL = #{imageURL}   
+			         imageURL = #{imageURL},
+			         regDate = NOW()
 			""")
 	public void insertConference(Conference conference);
+
+	
+	@Select("""
+			<script>
+			SELECT *
+			FROM `academy`;
+			</script>
+			""")
+	public List<Conference> getShopsList();
+
+
+	
+	@Select("""
+			<script>
+			SELECT *
+			FROM `academy`
+			WHERE id = #{id};
+			</script>
+			""")
+	public Conference getEventById(int id);
 
 
 	

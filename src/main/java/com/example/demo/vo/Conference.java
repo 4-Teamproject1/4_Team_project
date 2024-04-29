@@ -1,5 +1,7 @@
 package com.example.demo.vo;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +20,6 @@ public class Conference {
     private String homepage;
     private String imageURL;
     private int categoryId;
+    private String regDate;
     
 }
