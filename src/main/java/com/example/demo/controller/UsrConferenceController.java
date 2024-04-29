@@ -43,36 +43,25 @@ public class UsrConferenceController {
 	public List<Conference> crawlAndSaveConferences() {
 		return conferenceService.crawlAndSaveConferences();
 	}
-	
 
 	@RequestMapping("/usr/conference/academicEventDetail")
-	public String showAcademicEventDetail(HttpServletRequest req, Model model,
-			@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
+	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-
-	
-
-
+		 Conference conference = conferenceService.getEventById(id);
 		/* model.addAttribute("articles", articles); */
-
+		 model.addAttribute("conference", conference);
 		return "usr/conference/academicEventDetail";
 	}
 
 	@RequestMapping("/usr/conference/academicEventList")
-	public String ShowAcademicEventList(HttpServletRequest req, Model model,
-			@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
-
+	public String ShowAcademicEventList(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("page", page);
-	
+		List<Conference> conferences = conferenceService.getShopsList();
+		System.err.println(conferences);
+		model.addAttribute("conferences", conferences);
+
 		return "usr/conference/academicEventList";
 	}
 

@@ -23,41 +23,34 @@
 					<ul class="top-bar-count">
 						<li>
 							조회수
-							<span>53</span>
+							<span>${conference.hitCount}</span>
 						</li>
-						<li>
-							즐겨찾기수
-							<span>3</span>
-						</li>
+						
 					</ul>
 					<ul class="                              ">즐겨찾기</ul>
 				</div>
 
 				<table class="table">
-					<tbody>
-						<tr>
-							<td>행사기간</td>
-							<td>24.06.27 14:00 ~ 24.06.28 15:00</td>
-							<td>접수기간</td>
-							<td>24.04.15 ~ 24.05.31 자정</td>
-						</tr>
-						<tr>
-							<td>참가비</td>
-							<td>무료</td>
-							<td>관련 홈페이지</td>
-							<td>
-								<a href="">바로가기</a>
-							</td>
-						</tr>
-						<tr>
-							<td>담당자 연락처</td>
-							<td>
-								<span>063-530-9432</span>
-							</td>
-							<td>담당자 이메일</td>
-							<td>hj1234@1894.or.kr</td>
-						</tr>
-					</tbody>
+					 <tbody>
+                        <tr>
+                            <td>행사기간</td>
+                            <td>${conference.eventPeriod}</td>
+                            <td>접수기간</td>
+                            <td>${conference.applicationPeriod}</td>
+                        </tr>
+                        <tr>
+                            <td>참가비</td>
+                            <td>${conference.entryFee}</td>
+                            <td>관련 홈페이지</td>
+                            <td><a href="${conference.homepage}">바로가기</a></td>
+                        </tr>
+                        <tr>
+                            <td>담당자 연락처</td>
+                            <td>전화번호</td>
+                            <td>담당자 이메일</td>
+                            <td>이메일 todo</td>
+                        </tr>
+                    </tbody>
 
 
 					<!-- 추가적인 데이터 행들을 여기에 추가 -->
@@ -66,9 +59,8 @@
 
 
 				<div class="competition-body">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
-						alt="" loading="lazy" />
+					  <img src="${conference.imageURL}" alt="" loading="lazy" />
+                </div>
 				</div>
 				<div class="bookmark">
 					<div class="place-box">

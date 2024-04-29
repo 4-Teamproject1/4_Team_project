@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.example.demo.controller.ConferenceInfoCrawler4;
+
+import com.example.demo.controller.ConferenceInfoCrawler5;
 import com.example.demo.repository.ConferenceRepository;
 import com.example.demo.vo.Conference;
 
@@ -15,15 +16,19 @@ public class ConferenceService {
 
 	@Autowired
 	private ConferenceRepository conferenceRepository;
+	/*
+	 * @Autowired private ConferenceInfoCrawler4 crawler;
+	 */
+	
 	@Autowired
-	private ConferenceInfoCrawler4 crawler;
+	private ConferenceInfoCrawler5 crawler;
 
 	public ConferenceService(ConferenceRepository conferenceRepository) {
 		this.conferenceRepository = conferenceRepository;
 	}
 
 	public List<Conference> crawlAndSaveConferences() {
-		ConferenceInfoCrawler4 crawler = new ConferenceInfoCrawler4();
+		ConferenceInfoCrawler5 crawler = new ConferenceInfoCrawler5();
 		// 크롤러를 호출하여 학회 데이터를 가져옵니다.
 		List<Conference> conferences = crawler.crawlConference();
 
@@ -37,5 +42,15 @@ public class ConferenceService {
 		}
 
 		return conferences;
+	}
+
+	public List<Conference> getShopsList() {
+		// TODO Auto-generated method stub
+		return conferenceRepository.getShopsList();
+	}
+
+	public Conference getEventById(int id) {
+		
+		return conferenceRepository.getEventById(id);
 	}
 }
