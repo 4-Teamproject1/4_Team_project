@@ -204,7 +204,8 @@ public class TrainTicketCrawler4_GUS {
 			WebElement hotelElement = hotelList.get(j);
 			// 여기서 element를 사용하여 작업 수행
 
-			WebElement linkElement = hotelElement.findElement(By.tagName("a"));
+//			WebElement hotelElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//your/xpath/for/hotelElement")));
+			WebElement linkElement = wait_web.until(ExpectedConditions.visibilityOf(hotelElement.findElement(By.tagName("a"))));
 			String hotelLink = linkElement.getAttribute("href");
 
 			// 학술행사에 대한 상세 페이지로 이동
@@ -225,15 +226,18 @@ public class TrainTicketCrawler4_GUS {
 				// 이미지가 없는 경우 imageURL을 공백으로 설정
 				imageUrl = "";
 			}
-			WebElement titleElement = driver.findElement(By.cssSelector("#property-main-content div:nth-child(1) > p"));
+			WebElement titleElement = wait_web.until(ExpectedConditions
+					.visibilityOfElementLocated(By.cssSelector("#property-main-content div:nth-child(1) > p")));
 			String 호텔이름 = titleElement.getText();
 
-			WebElement starElement = driver.findElement(By.cssSelector(
-					"#property-main-content > div.Box-sc-kv6pi1-0.cJiLOx.sc-higXBA.bnRlSb > div.HeaderCerebrum > div:nth-child(1) > div > span > div > div > div"));
+			WebElement starElement = wait_web.until(ExpectedConditions
+					.visibilityOfElementLocated(By.cssSelector(
+					"#property-main-content > div.Box-sc-kv6pi1-0.cJiLOx.sc-higXBA.bnRlSb > div.HeaderCerebrum > div:nth-child(1) > div > span > div > div > div")));
 			String 몇성 = starElement.getAttribute("aria-label");
 
-			WebElement mapElement = driver.findElement(By.cssSelector(
-					"#property-main-content span.Spanstyled__SpanStyled-sc-16tp9kb-0.gwICfd.kite-js-Span.HeaderCerebrum__Address"));
+			WebElement mapElement = wait_web.until(ExpectedConditions
+					.visibilityOfElementLocated(By.cssSelector(
+					"#property-main-content span.Spanstyled__SpanStyled-sc-16tp9kb-0.gwICfd.kite-js-Span.HeaderCerebrum__Address")));
 			String 호텔위치 = mapElement.getText();
 			System.out.println("번호 : " + i);
 			System.out.println("호텔이름 : " + 호텔이름);
@@ -243,28 +247,6 @@ public class TrainTicketCrawler4_GUS {
 			System.out.println("이미지 url : " + imageUrl);
 			i++;
 			driver.navigate().back();
-
-//				   // 요소를 찾을 때까지 반복적으로 시도
-//		        WebElement hotelElement123 = null;
-//		        for (int j = 0; j < 3; j++) { // 최대 3번 시도
-//		            try {
-//		                // 요소를 찾기
-//		            	hotelElement123 = wait_web.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[@class='PropertyCard PropertyCardItem']")));
-//		                break; // 성공하면 루프 종료
-//		            } catch (org.openqa.selenium.StaleElementReferenceException e) {
-//		                // StaleElementReferenceException 발생 시 다시 시도
-//		                System.out.println("StaleElementReferenceException 발생, 재시도...");
-//		            }
-//		        }
-//
-//		        // 요소가 찾아졌는지 확인
-//		        if (hotelElement != null) {
-//		            // 요소를 사용하여 원하는 작업 수행
-//		            System.out.println("요소를 성공적으로 찾았습니다.");
-//		        } else {
-//		            // 요소를 찾지 못한 경우 처리
-//		            System.out.println("요소를 찾지 못했습니다.");
-//		        }
 
 //			WebElement priceElement = driver.findElement(By.cssSelector("#hotelNavBar > div > div > div > span > div > span:nth-child(5)"));
 //			String 최저가 = priceElement.getText();
