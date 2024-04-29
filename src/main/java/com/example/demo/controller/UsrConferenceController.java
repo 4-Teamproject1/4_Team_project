@@ -39,9 +39,14 @@ public class UsrConferenceController {
 	}
 
 	// 액션 메서드
-	@RequestMapping("usr/conference/crawl")
-	public List<Conference> crawlConferences() {
-		return conferenceService.crawlAndSaveConferences();
+	@RequestMapping("/usr/conference/crawl")
+	public String crawlConferences() {
+		
+		List<Conference> conferences = conferenceService.crawlAndSaveConferences();
+		
+		System.out.println(conferences);
+		
+		return "usr/conference/crawl";
 	}
 	
 

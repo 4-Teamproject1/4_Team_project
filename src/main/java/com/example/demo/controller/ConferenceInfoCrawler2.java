@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.vo.Conference;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,44 +10,45 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.vo.Conference;
 
-import java.util.ArrayList;
-import java.util.List;
 @Component
 public class ConferenceInfoCrawler2 {
-    private static WebDriver driver;
+	
+	private static WebDriver driver;
 
-    public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
-    public static String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
+	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
+	public static String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
+	public static void main(String[] args) {
+	System.setProperty(WEB_DRIVER_ID,WEB_DRIVER_PATH);
 
-        System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+	// WebDriver 인스턴스 생성
+	ChromeOptions options = new ChromeOptions();
+	options.setCapability("ignoreProtectedModeSettings",true);
+	driver=new ChromeDriver(options);
 
-        // WebDriver 인스턴스 생성
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("ignoreProtectedModeSettings", true);
-        driver = new ChromeDriver(options);
+	// 학술행사 정보 페이지로 이동
+	driver.get("https://www.hibrain.net/research/researches/33/recruitments/112/recruits?listType=ING");
 
-        // 학술행사 정보 페이지로 이동
-        driver.get("https://www.hibrain.net/research/researches/33/recruitments/112/recruits?listType=ING");
+	List<Conference> conferenceList = new ArrayList<>();
 
-        List<Conference> conferenceList = new ArrayList<>();
+	// 카테고리 코드와 ID를 저장할 리스트 생성
+	List<String> categoryCodes = List.of("E", "P", "M", "H", "S", "AP", "AF", "C", "ALLMJR");
+	List<Integer> categoryIds = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-        // 카테고리 코드와 ID를 저장할 리스트 생성
-        List<String> categoryCodes = List.of("E", "P", "M", "H", "S", "AP", "AF", "C", "ALLMJR");
-        List<Integer> categoryIds = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+	// 각 카테고리별로 크롤링 진행
+	for(
+	int i = 0;i<categoryCodes.size();i++)
+	{
+		crawlCategory(categoryCodes.get(i), categoryIds.get(i), conferenceList);
+	}
 
-        // 각 카테고리별로 크롤링 진행
-        for (int i = 0; i < categoryCodes.size(); i++) {
-            crawlCategory(categoryCodes.get(i), categoryIds.get(i), conferenceList);
-        }
+	// WebDriver 종료
+	driver.quit();
 
-        // WebDriver 종료
-        driver.quit();
+	}
 
-   
-    }
-
-    private static void crawlCategory(String categoryCode, int categoryId, List<Conference> conferenceList) {
+	private static void crawlCategory(String categoryCode, int categoryId, List<Conference> conferenceList) {
         // 카테고리 클릭
         WebElement categoryLink = driver.findElement(By.xpath("//a[@href='/research/researches/33/recruitments/112/categories/MJR/categories/"
                 + categoryCode + "/recruits?sortType=AD&displayType=TIT&listType=ING&limit=25&siteid=1']"));
@@ -111,7 +113,7 @@ public class ConferenceInfoCrawler2 {
         }
     }
 
-    private static Conference extractConferenceInfo(WebDriver driver, int categoryId) {
+	private static Conference extractConferenceInfo(WebDriver driver, int categoryId) {
         // 학회 정보 객체 생성
         Conference conference = new Conference();
 

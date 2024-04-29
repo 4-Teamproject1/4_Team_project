@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.vo.Conference;
 
 @Component
 public class ConferenceInfoCrawler {
@@ -46,7 +47,7 @@ public class ConferenceInfoCrawler {
 				.findElement(By.xpath("//a[@href='/research/researches/33/recruitments/112/recruits?listType=ING']"));
 		conferenceLink.click();
 		// categoryId 변수 초기화
-
+		System.err.println("1");
 		String categoryCode = null;
 
 		int categoryId = 1;
@@ -63,7 +64,7 @@ public class ConferenceInfoCrawler {
 		crawlCategory("ALLMJR", categoryId); // 전공불문
 
 		List<Conference> conferences = crawlCategory(categoryCode, categoryId);
-		System.err.println(conferences);
+		System.err.println("3");
 		// WebDriver 종료
 		driver.quit();
 
@@ -84,18 +85,18 @@ public class ConferenceInfoCrawler {
 		// 모든 학술행사 목록을 가져옴
 		List<WebElement> conferenceElements = driver.findElements(
 				By.xpath("//div[@class='contentBody']//ul[@id='articleList']//li[@class='row sortRoot']"));
-
+		
 		// 각 학술행사에 대해 반복문 실행
 		for (WebElement conferenceElement : conferenceElements) {
 
-			System.out.println(conferenceElement.getText());
+//			System.out.println(conferenceElement.getText());
 			// 각 학술행사의 링크를 가져옴
 			WebElement linkElement = conferenceElement.findElement(By.tagName("a"));
 			String conferenceLink = linkElement.getAttribute("href");
 
 			// 학술행사에 대한 상세 페이지로 이동
 			driver.get(conferenceLink);
-
+			
 			try {
 				// 상세페이지에서 학회의 제목 추출
 				WebElement titleElement = driver.findElement(By.xpath("//div[@class='titleWrap']/h4"));
@@ -167,36 +168,37 @@ public class ConferenceInfoCrawler {
 				conference.setPlace(place);
 				conference.setHomepage(homepage);
 
-				/*
-				 * System.out.println("categoryId: " +conference.getCategoryId());
-				 * System.out.println("학회제목: " + conference.getTitle());
-				 * System.out.println("조회수: " + conference.getHitCount());
-				 * System.out.println("행사기간: " + conference.getEventPeriod());
-				 * System.out.println("접수기간: " + conference.getApplcationPeriod());
-				 * System.out.println("참가비: " + conference.getEntryFee());
-				 * System.out.println("장소: " + conference.getPlace());
-				 * System.out.println("관련홈페이지: " + conference.getHomepage());
-				 * 
-				 * System.out.println("담당자 연락처: " + 담당자연락처); System.out.println("담당자 이메일: " +
-				 * 담당자이메일);
-				 * 
-				 * System.out.println("이미지 URL: " + imageURL);
-				 * System.out.println("-----------------------------------");
-				 * 
-				 * // 결과 출력 System.out.println("categoryId: " + categoryId);
-				 * System.out.println("학회제목: " + title); System.out.println("조회수: " + hitCount);
-				 * System.out.println("행사기간: " + eventPeriod); System.out.println("접수기간: " +
-				 * applcationPeriod); System.out.println("참가비: " + entryFee);
-				 * System.out.println("장소: " + place); System.out.println("관련홈페이지: " +
-				 * homepage);
-				 * 
-				 * System.out.println("담당자 연락처: " + 담당자연락처); System.out.println("담당자 이메일: " +
-				 * 담당자이메일);
-				 * 
-				 * System.out.println("이미지 URL: " + imageURL);
-				 * System.out.println("-----------------------------------");
-				 */
+				System.out.println("categoryId: " + conference.getCategoryId());
+				System.out.println("학회제목: " + conference.getTitle());
+				System.out.println("조회수: " + conference.getHitCount());
+				System.out.println("행사기간: " + conference.getEventPeriod());
+				System.out.println("접수기간: " + conference.getApplcationPeriod());
+				System.out.println("참가비: " + conference.getEntryFee());
+				System.out.println("장소: " + conference.getPlace());
+				System.out.println("관련홈페이지: " + conference.getHomepage());
 
+//				System.out.println("담당자 연락처: " + 담당자연락처);
+//				System.out.println("담당자 이메일: " + 담당자이메일);
+
+				System.out.println("이미지 URL: " + imageURL);
+				System.out.println("-----------------------------------");
+
+				// 결과 출력 System.out.println("categoryId: " + categoryId);
+				System.out.println("학회제목: " + title);
+				System.out.println("조회수: " + hitCount);
+				System.out.println("행사기간: " + eventPeriod);
+				System.out.println("접수기간: " + applcationPeriod);
+				System.out.println("참가비: " + entryFee);
+				System.out.println("장소: " + place);
+				System.out.println("관련홈페이지: " + homepage);
+
+//				System.out.println("담당자 연락처: " + 담당자연락처);
+//				System.out.println("담당자 이메일: " + 담당자이메일);
+
+				System.out.println("이미지 URL: " + imageURL);
+				System.out.println("-----------------------------------");
+				
+				
 				conferences.add(conference);
 
 				// 상세페이지에서 뒤로 가기
@@ -206,7 +208,8 @@ public class ConferenceInfoCrawler {
 				e.printStackTrace();
 			}
 		}
-
+		System.err.println("4");
+		System.out.println(conferences);
 		return conferences;
 	}
 }
