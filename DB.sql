@@ -474,7 +474,7 @@ SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
-
+DROP TABLE `academy`;
 
 
 #학회 테이블 생성
@@ -488,10 +488,29 @@ CREATE TABLE `academy` (
 	`entryFee`	 VARCHAR(500) NULL ,
 	`place`	 VARCHAR(500) NULL,
 	`homepage`	 VARCHAR(500) NULL,
-	`imageURL`	 VARCHAR(500) NULL
+	`imageURL`	 VARCHAR(500) NULL,
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
 );
 
 SELECT *
 FROM `academy`;
 
+
+#공모전테이블 생성
+CREATE TABLE `competition` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`title`  VARCHAR(500) NULL,
+	`totalPrizeMoney` VARCHAR(500) NULL,
+	`firstPrizeMoney` VARCHAR(500) NULL,
+	`applicationPeriod`	 VARCHAR(500) NULL,
+	`homepage`	 VARCHAR(500) NULL,
+	`imageURL`	 VARCHAR(500) NULL,
+	`contactNum`	 VARCHAR(500) NULL,
+	`contactEmail`	 VARCHAR(500) NULL,
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
+);
+
+
+SELECT *
+FROM `competition`;
 

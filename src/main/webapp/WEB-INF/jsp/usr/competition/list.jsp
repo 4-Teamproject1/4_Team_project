@@ -5,8 +5,8 @@
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="/usr/article/academicEventList" class="list-board-item">학술행사</a>
-		<a href="/usr/article/competitionList" class="list-board-item" style="background-color: orange;">공모전</a>
+		<a href="../conference/list" class="list-board-item">학술행사</a>
+		<a href="../competition/list" class="list-board-item" style="background-color: orange;">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -82,133 +82,29 @@
 							<th>조회수</th>
 						</tr>
 					</thead>
+					
+					
 					<tbody>
-						<td>1</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
+						<c:forEach items="${competitions}" var="competition">
+							<tr>
+								<td>${competition.id}</td>
+								<!-- 첫 번째 td에 학회의 ID -->
+								<td>
+									<a href="detail?id=${competition.id}">${competition.title}</a>
+								</td>
+								<!-- 두 번째 td에 학회의 제목 -->
+								<td>${competition.applicationPeriod}</td>
+								<!-- 세 번째 td에 행사 기간 -->
+								<td>${competition.regDate}</td>
+								<!-- 네 번째 td에 등록/수정일 -->
+								<td>조회수</td>
+								<!-- 다섯 번째 td에 조회수 -->
+							</tr>
+						</c:forEach>
 					</tbody>
-					<tbody>
-						<td>2</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>3</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>4</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>5</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>6</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>7</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>8</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>9</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>9</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>10</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>11</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>12</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>13</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>14</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>15</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>16</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-					<tbody>
-						<td>17</td>
-						<td>한국비임상기술지원센터 웨비나</td>
-						<td>24.04.03 ~ 24.04.24</td>
-						<td>24.04.09</td>
-						<td>53</td>
-					</tbody>
-
+					
+					
+					
 				</table>
 			</div>
 		</div>

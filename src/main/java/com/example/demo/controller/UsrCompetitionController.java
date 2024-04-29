@@ -14,10 +14,12 @@ import com.example.demo.service.BoardService;
 import com.example.demo.service.ReactionPointService;
 import com.example.demo.service.ReplyService;
 import com.example.demo.service.TrainTicketService;
+import com.example.demo.service.CompetitionService;
 import com.example.demo.service.ConferenceService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
+import com.example.demo.vo.Competition;
 import com.example.demo.vo.Conference;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
@@ -26,43 +28,43 @@ import com.example.demo.vo.Rq;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class UsrConferenceController {
+public class UsrCompetitionController {
 
 	@Autowired
 	private Rq rq;
 
 	@Autowired
-	private ConferenceService conferenceService;
+	private CompetitionService competitionService;
 
-	public UsrConferenceController() {
+	public UsrCompetitionController() {
 
 	}
 
 	// 액션 메서드
-	@RequestMapping("usr/conference/crawl")
-	public List<Conference> crawlAndSaveConferences() {
-		return conferenceService.crawlAndSaveConferences();
+	@RequestMapping("usr/competition/crawl")
+	public List<Competition> crawlAndSaveConferences() {
+		return competitionService.crawlAndSaveCompetitions();
 	}
 
-	@RequestMapping("/usr/conference/detail")
+	@RequestMapping("/usr/competition/detail")
 	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
-		 Conference conference = conferenceService.getEventById(id);
+		Competition competition = competitionService.getEventById(id);
 		/* model.addAttribute("articles", articles); */
-		 model.addAttribute("conference", conference);
-		return "usr/conference/detail";
+		 model.addAttribute("competition", competition);
+		return "usr/competition/detail";
 	}
 
-	@RequestMapping("/usr/conference/list")
+	@RequestMapping("/usr/competition/list")
 	public String ShowAcademicEventList(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		List<Conference> conferences = conferenceService.getShopsList();
-		System.err.println(conferences);
-		model.addAttribute("conferences", conferences);
+		List<Competition> competitions = competitionService.getCompetitionsList();
+		System.err.println(competitions);
+		model.addAttribute("competitions", competitions);
 
-		return "usr/conference/list";
+		return "usr/competition/list";
 	}
 
 }
