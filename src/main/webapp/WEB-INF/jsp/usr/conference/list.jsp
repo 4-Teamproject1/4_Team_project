@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Conference List"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../path/to/your/javascript/file.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
 
 <header class="header">
 	<a href="../home/main">
@@ -43,23 +45,21 @@
 				<div class="sort-options">
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
-						<button type="button" onclick="selectRadio('option1')">
-							<a href="#">등록/수정일순</a>
-						</button>
+						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
 						<button type="button" onclick="selectRadio('option2')">
-							<a href="###">조회순</a>
+						조회순
 						</button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
 						<button type="button" onclick="selectRadio('option3')">
-							<a href="###">마감순</a>
+						마감순
 						</button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
 						<button type="button" onclick="selectRadio('option4')">
-							<a href="###">제목순</a>
+							제목순
 						</button>
 					</form>
 
@@ -92,7 +92,7 @@
 			<div class="category-filters">
 				<!-- Category Filters -->
 
-				<button class="total_conference">전체(9)</button>
+				<button class="conference-0">전체(9)</button>
 				<button class="conference-1">공학(3)</button>
 				<button class="conference-2">자연과학(2)</button>
 				<button class="conference-3">의약학(1)</button>
@@ -102,9 +102,6 @@
 				<button class="conference-7">농수해양(0)</button>
 				<button class="conference-8">복합학(0)</button>
 				<button class="conference-9">전공불문(0)</button>
-
-
-
 			</div>
 
 			<!-- Entry 2 -->
@@ -178,6 +175,7 @@
 </div>
 
 
+
 <script>
 	//라디오 버튼 선택 함수
 	function selectRadio(optionId) {
@@ -188,87 +186,62 @@
 
 
 <script>
-	//Ajax 호출을 통해 필터링된 학회 목록을 가져오는 함수
-	function getFilteredConferences(categoryId) {
-		// categoryId에 해당하는 데이터를 가져오는 Ajax 호출
-		$.ajax({
-			type : "GET",
-			url : "getConferencesByCategory",
-			data : {
-				categoryId : categoryId
-			}, // 서버로 전달할 데이터
-			success : function(data) {
-				drawConferences(data);
-				console.log(data);
-			},
-			error : function(xhr, status, error) {
-				// 에러 발생 시의 처리
-				console.error("Error:", error);
-			}
-		});
-	}
+$(document).ready(function() {
+    var selectedOption = ""; // 선택된 옵션 초기화
+    var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
 
-	// 각 버튼에 대한 클릭 이벤트 처리
-	$(document).ready(function() {
-		$(".total_conference").click(function() {
-			getFilteredConferences(0); // 전체 카테고리를 나타내는 categoryId를 전달
-		});
+    // 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
+    $(".sort-options button").click(function() {
+        selectedOption = $(this).text().trim();
+        $(".sort-options button").removeClass("btn-active");
+        $(this).addClass("btn-active");
+        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+        getFilteredConferences(selectedOption, selectedCategoryId);
+    });
 
-		$(".conference-1").click(function() {
-			getFilteredConferences(1); // categoryId 1을 가진 학회 데이터를 가져오기 위해 1을 전달
-		});
-		$(".conference-2").click(function() {
-			getFilteredConferences(2);
-		});
-		$(".conference-3").click(function() {
-			getFilteredConferences(3);
-		});
-		$(".conference-4").click(function() {
-			getFilteredConferences(4);
-		});
-		$(".conference-5").click(function() {
-			getFilteredConferences(5);
-		});
-		$(".conference-6").click(function() {
-			getFilteredConferences(6);
-		});
-		$(".conference-7").click(function() {
-			getFilteredConferences(7);
-		});
-		$(".conference-8").click(function() {
-			getFilteredConferences(8);
-		});
-		$(".conference-9").click(function() {
-			getFilteredConferences(9);
-		});
+    // 카테고리 버튼 클릭 이벤트
+    $(".category-filters button").click(function() {
+        selectedCategoryId = $(this).attr("class").split(" ")[0].split("-")[1];
+        $(".category-filters button").removeClass("btn-active");
+        $(this).addClass("btn-active");
+        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+        getFilteredConferences(selectedOption, selectedCategoryId);
+    });
 
-	});
+    // 선택된 옵션들을 기반으로 데이터를 가져오는 함수
+    function getFilteredConferences(option, categoryId) {
+        $.ajax({
+            type: "GET",
+            url: "getFilteredConferences",
+            data: { option: option, categoryId: categoryId },
+            success: function(data) {
+                drawConferences(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    // 학술행사 목록을 그리는 함수
+    function drawConferences(conferenceList) {
+        var html = '';
+        $.each(conferenceList, function(index, conference) {
+            html += '<tr>';
+            html += '<td>' + conference.id + '</td>';
+            html += '<td><a href="detail?id=' + conference.id + '">' + conference.title + '</a></td>';
+            html += '<td>' + conference.applicationPeriod + '</td>';
+            html += '<td>' + conference.regDate + '</td>';
+            html += '<td>' + conference.hitCount + '</td>';
+            html += '</tr>';
+        });
+        $('.table tbody').html(html);
+    }
+});
+
+
 </script>
 
-<script>
-	function drawConferences(conferenceList) {
-		console.log("Received conferenceList:", conferenceList); // conferenceList를 콘솔에 출력하여 확인
-
-		// 새로운 HTML을 생성하기 위한 변수를 선언합니다.
-		var html = '';
-
-		// conferenceList를 순회하면서 각 회의의 정보를 HTML에 추가합니다.
-		$.each(conferenceList, function(index, conference) {
-			// 각 회의에 대한 HTML을 생성하여 html에 추가합니다.
-			html += '<tr>';
-			html += '<td>' + conference.id + '</td>';
-			html += '<td><a href="detail?id=' + conference.id + '">'
-					+ conference.title + '</a></td>';
-			html += '<td>' + conference.eventPeriod + '</td>';
-			html += '<td>' + conference.regDate + '</td>';
-			html += '<td>' + conference.hitCount + '</td>';
-			html += '</tr>';
-		});
-
-		// 생성된 HTML을 테이블의 tbody에 추가합니다.
-		$('.table tbody').html(html);
-	}
-</script>
 
 
 
@@ -434,7 +407,7 @@ input[type="radio"]:checked {
 	border-top: 2px solid #878787;
 }
 
-.category-filters>span {
+.category-filters>button {
 	padding: 5px 10px;
 }
 
