@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import com.example.demo.vo.Conference;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -64,5 +67,25 @@ public class UsrConferenceController {
 
 		return "usr/conference/list";
 	}
+	
+	
+	
+
+	@GetMapping("usr/conference/getConferencesByCategory")
+	public ResponseEntity<?> getConferencesByCategory(@RequestParam("categoryId") int categoryId) {
+	    List<Conference> conferenceList; // 변수를 먼저 선언합니다.
+
+	    if(categoryId == 0) {
+	        conferenceList = conferenceService.getShopsList(); // if 블록 내에서 conferenceList에 값을 할당합니다.
+	    } else {
+	        conferenceList = conferenceService.getConferencesByCategory(categoryId); // else 블록 내에서 conferenceList에 값을 할당합니다.
+	    }
+
+	    return ResponseEntity.ok().body(conferenceList);
+	}
+
+	
+	
+	
 
 }

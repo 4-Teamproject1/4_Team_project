@@ -5,8 +5,8 @@
 <div class="list-container">
 	<div class="list-board">
 		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="#" class="list-board-item">학술행사</a>
-		<a href="#" class="list-board-item">공모전</a>
+		<a href="../conference/list" class="list-board-item" style="background-color: orange;">학술행사</a>
+		<a href="../competition/list" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -19,7 +19,7 @@
 			<div>
 				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
-					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터 웨비나</div>
+					<div style="font-size: 24px; margin-top: 10px;">${conference.title}</div>
 					<ul class="top-bar-count">
 						<li>
 							조회수
@@ -44,12 +44,12 @@
                             <td>관련 홈페이지</td>
                             <td><a href="${conference.homepage}">바로가기</a></td>
                         </tr>
-                        <tr>
+                      <!--   <tr>
                             <td>담당자 연락처</td>
                             <td>전화번호</td>
                             <td>담당자 이메일</td>
                             <td>이메일 todo</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
 
 
@@ -184,6 +184,7 @@ tr {
 }
 
 .competition-body {
+margin-top: 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

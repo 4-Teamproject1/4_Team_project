@@ -20,11 +20,10 @@
 			<div>
 				<div style="font-size: 20px; margin-bottom: 10px;">공모전</div>
 				<div class="detail-top-bar">
-					<div style="font-size: 24px; margin-top: 10px;">한국비임상기술지원센터
-						웨비나</div>
+					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
 					<ul class="top-bar-count">
 						<li>조회수<span>53</span></li>
-						<li>즐겨찾기수<span>3</span></li>
+						<!-- <li>즐겨찾기수<span>3</span></li> -->
 					</ul>
 				</div>
 

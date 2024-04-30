@@ -48,6 +48,15 @@ public interface ConferenceRepository {
 			""")
 	public Conference getEventById(int id);
 
+	@Select("""
+			<script>
+			SELECT *
+			FROM `academy`
+			WHERE categoryId = #{categoryId};
+			</script>
+			""")
+	public List<Conference> getConferencesByCategory(int categoryId);
+
 
 	
 }

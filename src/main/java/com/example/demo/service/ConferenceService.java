@@ -53,4 +53,10 @@ public class ConferenceService {
 		
 		return conferenceRepository.getEventById(id);
 	}
+
+	public List<Conference> getConferencesByCategory(int categoryId) {
+		return conferenceRepository.getConferencesByCategory(categoryId);
+	}
+
+	
 }

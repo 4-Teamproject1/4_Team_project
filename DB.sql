@@ -474,7 +474,7 @@ SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
-DROP TABLE `academy`;
+
 
 
 #학회 테이블 생성
