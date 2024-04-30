@@ -5,6 +5,7 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
 /* 메인 이미지 슬라이드 */
@@ -55,61 +56,47 @@
       moveRight();
     });
   });
-  
-  /* 검색 시 검색창 보여지는 */
+  </script>
+<script>
   document.addEventListener("DOMContentLoaded", function() {
-	  const searchBox = document.querySelector(".search_box .SearchBoxTextEditor");
-	  const searchResults = document.querySelector(".search_box .search_results");
-    // 데이터
-    const data = [
-      "한일차세대학술포럼",
-      "한국미디어문화학회 학술대회",
-      "국제성인역량조사(PIAAC) 학술대회",
-      "환태평양 정신의학회 학술대회",
-      "KT&G 상상실현 콘테스트",
-      "제6회 교육 공공데이터 분석·활용대회",
-      "CICA 미술관 국제전 “Drawing Now 2024” 공모",
-      "사하 수필공모전"
-    ];
- // JavaScript를 사용하여 SearchBoxTextEditor가 클릭되었을 때 search_results를 표시하는 기능
-    document.querySelector('.SearchBoxTextEditor').addEventListener('click', function() {
-        document.querySelector('.search_results').classList.add('visible');
-    });
+	    const searchData = [
+	        <c:forEach var="conference" items="${conferences}" varStatus="status">
+	            '${conference.title}'<c:if test="${!status.last}">,</c:if>
+	        </c:forEach>
+	    ];
 
-    // 검색 결과에 들어갈 샘플 데이터
-    const searchData = [
-        "한일차세대학술포럼",
-        "한국미디어문화학회 학술대회",
-        "국제성인역량조사(PIAAC) 학술대회",
-        "환태평양 정신의학회 학술대회",
-        "KT&G 상상실현 콘테스트",
-        "제6회 교육 공공데이터 분석·활용대회",
-        "CICA 미술관 국제전 “Drawing Now 2024” 공모",
-        "사하 수필공모전"
-    ];
+	    const searchResultsContainer = document.querySelector('.search_results');
+	    const searchInput = document.querySelector('.SearchBoxTextEditor'); // 검색 상자 선택
 
-    // 검색 결과를 채우는 함수
-    function populateSearchResults() {
-        const searchResultsContainer = document.querySelector('.search_results');
-        searchResultsContainer.innerHTML = ''; // 이전 결과를 지우기
-        searchData.forEach(item => {
-            const div = document.createElement('div');
-            div.textContent = item;
-            searchResultsContainer.appendChild(div);
-        });
-    }
+	    function populateSearchResults() {
+	        searchResultsContainer.innerHTML = ''; // 이전 결과를 지우기
+	        searchData.forEach(item => {
+	            const div = document.createElement('div');
+	            div.textContent = item;
+	            div.classList.add('search-result-item'); // CSS 스타일을 위한 클래스 추가
+	            div.addEventListener('click', function() {
+	                searchInput.value = this.textContent; // 검색 상자에 텍스트 설정
+	                searchResultsContainer.classList.remove('visible'); // 검색 결과 숨기기
+	            });
+	            searchResultsContainer.appendChild(div);
+	        });
+	    }
 
-    // 초기에 검색 결과를 데이터로 채우기
-    populateSearchResults();
-    
-    // Document body 클릭 시 검색 결과 숨김
-    document.body.addEventListener("click", function(event) {
-      if (!event.target.closest(".search_box")) {
-        searchResults.classList.remove("visible");
-      }
-    });
-  });
-</script>
+	    // 초기에 검색 결과를 데이터로 채우기
+	    populateSearchResults();
+
+	    document.querySelector('.SearchBoxTextEditor').addEventListener('click', function() {
+	        searchResultsContainer.classList.add('visible'); // 검색 결과를 보여주기
+	    });
+
+	    document.body.addEventListener("click", function(event) {
+	        if (!event.target.closest(".search_box")) {
+	            searchResultsContainer.classList.remove("visible"); // 검색 상자 바깥 클릭 시 결과 숨기기
+	        }
+	    });
+	});
+
+  </script>
 
 <div id="slider">
 	<a href="#" class="control_next">＞</a>
@@ -146,7 +133,7 @@
 </div>
 
 <div class="search_box">
-	<input type="text" class="SearchBoxTextEditor" placeholder="어디로 떠나시나요?" id="textInput" value="" />
+	<input type="text" class="SearchBoxTextEditor" placeholder="어디로 떠나시나요?" value="" />
 	<div class="search_results"></div>
 	<div class="search_box1">
 		<div class="search_box-1">
@@ -179,22 +166,14 @@
 		<button class="event-title">학술행사일정</button>
 	</a>
 	<div class="event-schedule-box">
-		<button class="event-description">
-			한일차세대학술포럼
-			<div class="event-date">04.05</div>
-		</button>
-		<button class="event-description">
-			한국미디어문화학회 학술대회
-			<div class="event-date">05.11</div>
-		</button>
-		<button class="event-description">
-			국제성인역량조사(PIAAC) 학술대회
-			<div class="event-date">06.28</div>
-		</button>
-		<button class="event-description">
-			환태평양 정신의학회 학술대회
-			<div class="event-date">11.18</div>
-		</button>
+		<c:forEach var="conference" items="${conferences}" varStatus="status">
+			<c:if test="${status.index < 3}">
+				<button class="event-description">
+					${conference.title}
+					<div class="event-date">${conference.eventPeriod}</div>
+				</button>
+			</c:if>
+		</c:forEach>
 		<a href="../conference/list" class="event-more-button">더보기</a>
 	</div>
 </div>
@@ -203,22 +182,14 @@
 		<button class="event-title">공모전일정</button>
 	</a>
 	<div class="event-schedule-box">
-		<button class="event-description">
-			KT&G 상상실현 콘테스트
-			<div class="event-date-2">04.21</div>
-		</button>
-		<button class="event-description">
-			제6회 교육 공공데이터 분석·활용대회
-			<div class="event-date-2">05.22</div>
-		</button>
-		<button class="event-description">
-			CICA 미술관 국제전 “Drawing Now 2024” 공모
-			<div class="event-date-2">10.05</div>
-		</button>
-		<button class="event-description">
-			사하 수필공모전
-			<div class="event-date-2">11.22</div>
-		</button>
+		<c:forEach var="competition" items="${competitions}" varStatus="status">
+			<c:if test="${status.index < 3}">
+				<button class="event-description">
+					${competition.title}
+					<div class="event-date">${competition.applicationPeriod}</div>
+				</button>
+			</c:if>
+		</c:forEach>
 		<a href="../competition/list" class="event-more-button">더보기</a>
 	</div>
 </div>
@@ -363,9 +334,15 @@ a.control_next {
 
 .SearchBoxTextEditor {
 	position: absolute;
-	top: -5px; left : 50%; width : 400px; height : 70px; padding : 10px;
-	font-size : 16px; border-radius : 32px; transform : translate( -50%,
-	-50%); background-color : orange;
+	top: -5px;
+	left: 50%;
+	width: 400px;
+	height: 70px;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 32px;
+	transform: translate(-50%, -50%);
+	background-color: orange;
 	z-index: 5;
 	left: 50%;
 	width: 400px;
@@ -385,21 +362,21 @@ a.control_next {
 .search_results {
 	position: absolute;
 	top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: black;
-    font-size: 16px;
-    width: 800px;
-    max-height: 400px;
-    z-index: 10;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    overflow-y: auto;
-    display: none; /* Initially hide it */
-    /* Hide scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+	left: 50%;
+	transform: translateX(-50%);
+	color: black;
+	font-size: 16px;
+	width: 800px;
+	max-height: 400px;
+	z-index: 10;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	overflow-y: auto;
+	display: none; /* Initially hide it */
+	/* Hide scrollbar */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
 }
 
 .search_results.visible {

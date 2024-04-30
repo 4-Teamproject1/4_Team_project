@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.controller.competitionInfoCrawler;
 import com.example.demo.repository.CompetitionRepository;
 import com.example.demo.vo.Competition;
+import com.example.demo.vo.Conference;
 
 @Service
 public class CompetitionService {
@@ -54,5 +55,24 @@ public class CompetitionService {
 	public List<Competition> getCompetitionsList() {
 		
 		return competitionRepository. getCompetitionsList();
+	}
+
+	public List<Competition> getCompetitionsByCategoryOrderByRegDate() {
+		
+		return competitionRepository.getCompetitionsByCategoryOrderByRegDate();
+	}
+
+	public List<Competition> getCompetitionsByCategoryOrderByhitCount() {
+		return competitionRepository.getCompetitionsByCategoryOrderByhitCount();
+	}
+
+	public List<Competition> getCompetitionsByCategoryOrderByfinDate() {
+		// TODO Auto-generated method stub
+		return competitionRepository.getCompetitionsByCategoryOrderByfinDate();
+	}
+
+	public List<Competition> getCompetitionsByCategoryOrderBytitle() {
+		// TODO Auto-generated method stub
+		return competitionRepository.getCompetitionsByCategoryOrderBytitle();
 	}
 }
