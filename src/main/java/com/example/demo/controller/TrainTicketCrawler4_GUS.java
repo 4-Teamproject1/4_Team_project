@@ -43,7 +43,7 @@ public class TrainTicketCrawler4_GUS {
 		WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
 
 		// WebDriverWait 인스턴스 생성
-		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 		// 검색창이 활성화될 때까지 기다림
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
@@ -194,48 +194,33 @@ public class TrainTicketCrawler4_GUS {
 		driver.switchTo().window(secondTabHandle);
 
 		System.out.println(0);
-
-		WebElement hotelNameElement = wait_web.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
-				"#contentContainer > div:nth-child(4) > ol > li:nth-child(1) > div > a > div > div.Itemstyled__Item-sc-12uga7p-0.ewNxOO.PropertyCard__Section.PropertyCard__Section--propertyInfo > div > header > div:nth-child(2) > h3")));
-		String hotelName = hotelNameElement.getText();
-		System.out.println(hotelName);
-
-//		WebElement imgElement1 = driver.findElement(By.xpath("//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]//a//div[@class='Overlay']//button//img"));
-
-		String imageUrl = "";
-		// 이미지의 src 속성값 가져오기
-		WebElement srcElement1 = null;
-		WebElement srcElement2 = null;
-		try {
-			srcElement1 = wait_web
-					.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".HeroImage.HeroImage--s")));
-			srcElement2 = wait_web
-					.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("sc-kstrdz.sc-hBEYos.kmUwlj")));
-		} catch (Exception e) {
-			// 이미지가 없는 경우 imageURL을 공백으로 설정
-			System.out.println("요소를 찾을 수 없습니다.");
-
-		}
-		if (srcElement2 == null) {
-			imageUrl = srcElement1.getAttribute("src");
-		} else {
-			imageUrl = srcElement2.getAttribute("src");
-		}
-		System.out.println("이미지 url : " + imageUrl);
-
-		// ol 태그 안의 li 태그를 모두 가져오기
+//
+//		List<WebElement> liElements = driver.findElements(By.xpath(
+//				"//div[contains(@class,'Gridstyled__GridStyled-sc-dfh2k0-0') and contains(@class,'kEJDDi') and contains(@class,'PropertyCard__Container')]"));
 		List<WebElement> liElements = driver.findElements(By.xpath(
 				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
 		System.out.println(liElements.size());
 		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 		for (WebElement liElement : liElements) {
+			System.out.println("순회 시작");
+			WebElement imgElement = liElement.findElement(By.xpath(
+					"//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
+			String imgUrl = imgElement.getAttribute("src");
+			WebElement hotelNameElement = liElement.findElement(By.xpath(
+					"//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
+			String hotelName = hotelNameElement.getText();
+			System.out.println("이미지 url : " + imgUrl);
+			System.out.println("호텔 이름 : " + hotelName);
 			// li 태그 안에서 클래스명이 ".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit"인 요소 찾기
-			WebElement starElement = liElement
-					.findElement(By.xpath(".//div[contains(@class,'a5bf9-box') and contains(@class,'a5bf9-fill-inherit') and contains(@class,'a5bf9-text-inherit')]"));
-		  System.out.println(starElement);
+			WebElement starElement = liElement.findElement(By.xpath(
+					".//div[contains(@class,'a5bf9-box') and contains(@class,'a5bf9-fill-inherit') and contains(@class,'a5bf9-text-inherit')]"));
+
 			// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
 			if (starElement != null) {
 				String ariaLabel = starElement.getAttribute("aria-label");
+				String text = starElement.getText();
+				String textRole = starElement.getAriaRole();
+
 				System.out.println("aria-label 값: " + ariaLabel);
 			}
 		}
