@@ -12,6 +12,8 @@ public class Bus {
 	    private String companyName;
 	    private String grade;
 	    private String remainingSeats;
-
+	    private String arrivePlace;
+	    private String departurePlace;
+	    private String takesumTime;
 	
 }

@@ -84,7 +84,7 @@
 .arrival-time {
 	color: #24262c;
 	margin-top: 20px;
-	width: 100%;
+	width: 80%;
 	font: 400 14px/130% Roboto, sans-serif;
 }
 
@@ -1568,6 +1568,35 @@ media (max-width: 991px) { .train-info-col { width:100%;
 		max-width: 100%;
 	}
 }
+
+/*출발,도착장소 css*/
+.place-box {
+	width: 50%;
+	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
+	border: 2px solid red;
+}
+
+.bus-place {
+	display: flex;
+	align-items: center;
+}
+
+.departure-place, .arrive-place {
+	font-weight: bold; /* 필요에 따라 텍스트 스타일 조절 */
+}
+
+.outer-arrow {
+	margin: 0 10px; /* 필요에 따라 화살표 좌우 여백 조절 */
+}
+
+.arrow {
+	font-size: 20px; /* 필요에 따라 화살표 크기 조절 */
+	color: #333; /* 필요에 따라 화살표 색상 조절 */
+}
+
+.bus-total-time {
+	margin-left: 10px; /* 필요에 따라 총 소요 시간과의 간격 조절 */
+}
 </style>
 
 <header class="header">
@@ -1752,11 +1781,26 @@ media (max-width: 991px) { .train-info-col { width:100%;
 			</div>
 		</div>
 
-		<div class="outer-content-box">
-			<div class="small-outer-content-box">
+		<c:if test="${not empty spanTexts}">
+			<section class="place-box">
+				<div class="bus-place">
+					<div class="departure-place">${spanTexts[0].departurePlace}</div>
+					<div class="outer-arrow">
+						<span class="arrow">→</span>
+					</div>
+					<div class="arrive-place">${spanTexts[0].arrivePlace}</div>
+					<div class="bus-type-duration">
+						<span class="bus-total-time">총시간: ${spanTexts[0].takesumTime}</span>
+					</div>
+					<span class="duration"></span>
+				</div>
+			</section>
+		</c:if>
 
-				<c:if test="${not empty spanTexts}">
-					<c:forEach var="spanText" items="${spanTexts}">
+		<c:if test="${not empty spanTexts}">
+			<c:forEach var="spanText" items="${spanTexts}">
+				<div class="outer-content-box">
+					<div class="small-outer-content-box">
 						<section class="bus-details">
 							<div class="bus-info">
 								<div class="bus-info-wrapper">
@@ -1764,20 +1808,10 @@ media (max-width: 991px) { .train-info-col { width:100%;
 										<header class="bus-info-header">
 											<div class="bus-type">
 												<span class="bus-speed">고속</span>
-												<span class="bus-class">프리미엄</span>
-											</div>
-											<div class="bus-timings">
-												<time class="departure-time">${spanText.startTime}</time>
-												<div class="outer-arrow">
-													<span class="arrow">→</span>
-												</div>
-
-												<time class="arrival-time"></time>
-												<span class="duration"></span>
+												<span class="bus-class">출발시간: ${spanText.startTime}</span>
 											</div>
 											<div class="bus-features">
 												<div class="bus-type-duration">
-													<span class="bus-type-label"></span>
 													<span class="bus-type-duration-value">${spanText.grade }</span>
 												</div>
 												<span class="bus-operator">${spanText.companyName}</span>
@@ -1794,13 +1828,10 @@ media (max-width: 991px) { .train-info-col { width:100%;
 							</div>
 							<hr class="separator" />
 						</section>
-					</c:forEach>
-				</c:if>
-			</div>
-
-
-
-		</div>
+					</div>
+				</div>
+			</c:forEach>
+		</c:if>
 
 	</div>
 
