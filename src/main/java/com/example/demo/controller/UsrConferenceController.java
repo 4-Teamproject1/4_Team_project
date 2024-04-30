@@ -70,19 +70,63 @@ public class UsrConferenceController {
 	
 	
 	
+	@GetMapping("/usr/conference/getFilteredConferences")
+	public ResponseEntity<?> getFilteredConferences(@RequestParam("option") String option, 
+	                                                @RequestParam("categoryId") int categoryId) {
+		System.err.println(option);
+	    List<Conference> conferenceList;
 
-	@GetMapping("usr/conference/getConferencesByCategory")
-	public ResponseEntity<?> getConferencesByCategory(@RequestParam("categoryId") int categoryId) {
-	    List<Conference> conferenceList; // 변수를 먼저 선언합니다.
-
-	    if(categoryId == 0) {
-	        conferenceList = conferenceService.getShopsList(); // if 블록 내에서 conferenceList에 값을 할당합니다.
+	    // 선택된 옵션에 따라 적절한 정렬 방식으로 conferenceList를 가져옵니다.
+	    if ("등록/수정일순".equals(option)) {
+	        if (categoryId == 0) {
+	            conferenceList = conferenceService.getConferencesOrderByRegDate(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	        } else {
+	            conferenceList = conferenceService.getConferencesByCategoryOrderByRegDate(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	        }
+	    } else if ("조회순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderByhitCount(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderByhitCount(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 조회순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
+	    } else if ("마감순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderByfinDate(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderByfinDate(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 마감순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
+	    } else if ("제목순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderBytitle(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderBytitle(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 제목순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
 	    } else {
-	        conferenceList = conferenceService.getConferencesByCategory(categoryId); // else 블록 내에서 conferenceList에 값을 할당합니다.
+	        // 정렬 옵션이 올바르지 않은 경우 예외 처리를 합니다.
+	        return ResponseEntity.badRequest().body("올바르지 않은 정렬 옵션입니다.");
 	    }
 
 	    return ResponseEntity.ok().body(conferenceList);
 	}
+
+	
+	
+	
+	/*
+	 * @GetMapping("usr/conference/getConferencesByCategory") public
+	 * ResponseEntity<?> getConferencesByCategory(@RequestParam("categoryId") int
+	 * categoryId) { List<Conference> conferenceList; // 변수를 먼저 선언합니다.
+	 * 
+	 * if(categoryId == 0) { conferenceList = conferenceService.getShopsList(); //
+	 * if 블록 내에서 conferenceList에 값을 할당합니다. } else { conferenceList =
+	 * conferenceService.getConferencesByCategory(categoryId); // else 블록 내에서
+	 * conferenceList에 값을 할당합니다. }
+	 * 
+	 * return ResponseEntity.ok().body(conferenceList); }
+	 */
 
 	
 	
