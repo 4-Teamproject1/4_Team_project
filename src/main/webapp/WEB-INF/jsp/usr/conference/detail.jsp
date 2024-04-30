@@ -42,7 +42,7 @@
 				<!-- Search form --> 
 				<!-- Your search form HTML here -->
 			</form>
-			<div>
+			<div class="list-items-section-box">
 				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${conference.title}</div>
@@ -53,7 +53,7 @@
 						</li>
 						
 					</ul>
-					<ul class="                              ">즐겨찾기</ul>
+					<ul class="">즐겨찾기</ul>
 				</div>
 
 				<table class="table">
@@ -184,6 +184,12 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
+.list-items-section-box {  
+	margin-left: 250px;
+	width : 1500px;
+    height: 2000px;
+}
 
   .list-items-container {
     flex: 4;

@@ -1,6 +1,241 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../common/head.jspf"%>
+<c:set var="pageTitle" value="RecommendBus List"></c:set>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<!-- daisy ui 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
+<header class="header">
+	<div class="logo">로고</div>
+	<div class="user-info">
+		<span class="username">
+			<span class="black-text">abc123</span>
+			<span class="black-text">님</span>
+		</span>
+		<div class="society-info">학회정보</div>
+		<div class="inquiries">문의사항</div>
+		<div class="logout">로그아웃</div>
+	</div>
+</header>
+
+<div class="outer-box">
+	<div class="searchClickBox">
+		<div class="container">
+			<div class="search-container">
+				<input type="text" class="search-text" placeholder="텍스트 검색">
+			</div>
+
+		</div>
+	</div>
+
+	<div>
+		<div class="outer-searchBox">
+			<div class="searchBox1">
+				<nav class="accommodation-nav">
+					<ul class="accommodation-nav-list">
+
+						<div class="accommodation-nav-item btn m-1">
+							<a href="../article/recommendlist">숙소</a>
+						</div>
+						<div class="dropdown">
+							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
+							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+								<li>
+									<a href="../article/recommendAirplaneList">항공</a>
+								</li>
+
+								<li>
+									<a href="../article/recommendTrainList">기차</a>
+								</li>
+								<li>
+									<a href="../article/recommendBusList">버스</a>
+								</li>
+							</ul>
+						</div>
+
+					</ul>
+				</nav>
+			</div>
+
+			<div class="searchBox2">
+
+				<div class="flight-search-container">
+					<header class="flight-search-header">
+						<div class="flight-search-content">
+
+							<div class="flight-route">
+								<div class="origin-airport">
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0fadc5e1d76844beefb51b89ef84518ea8035476fccb2578225cdc2cfc41524?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="Origin airport icon" class="airport-icon" />
+									<div class="origin-airport-code">
+										<select class="select select-ghost w-full max-w-xs">
+											<option disabled selected>청주(CJU)</option>
+											<option>Svelte</option>
+											<option>Vue</option>
+											<option>React</option>
+										</select>
+									</div>
+								</div>
+								<div class="destination-airport">
+									<div class="destination-airport-icons">
+										<div class="destination-airport-pin">
+											<!-- <img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/98c18b60e9f95eb96b6bf53e442854cccd679784f32787012fcce26fdb4cbecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="Destination pin icon" class="pin-icon" /> -->
+										</div>
+										<img
+											src="https://cdn.builder.io/api/v1/image/assets/TEMP/9924b81dad0fbf6a35b311cf1ec8f152b87ecb9c2f4337693e3fbc5bc4dad5da?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+											alt="Plane icon" class="plane-icon" />
+									</div>
+									<div class="destination-airport-code">
+										<select class="select select-ghost w-full max-w-xs">
+											<option disabled selected>부산 (PUS)</option>
+											<option>Svelte</option>
+											<option>Vue</option>
+											<option>React</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="flight-search-details">
+								<div class="flight-search-dates">
+									<div class="flight-search-date">
+										<!-- <div class="flight-search-date-icon">
+
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/36fa2c3b0a8961d87b50f228f68a2281f5fa3e5c753dc9b0a1181b340d9873b4?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" />
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b533c9792731d97f1f90a405a81d97c8ff6003c50cace4cf001954acb1f6363f?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="Calendar icon" />
+										</div> -->
+										<div class="flight-search-date-text">일, 28 4월</div>
+										<!-- <div id="calendar" > -->
+
+									</div>
+									<!-- <div class="flight-search-date">
+										<div class="flight-search-date-icon">
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f9b7796862a0f5136ed1e711686f04480ccf0ab3ca59e32418fb698a54a423b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" />
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6468715dfa7a8aaac104e143a35e1c1f8e93978a65f2a4a94056575230d7438a?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="Calendar icon" />
+										</div>
+										<div class="flight-search-date-text">화, 30 4월</div>
+									</div> -->
+									<!-- <div class="flight-search-duration">
+										<img
+											src="https://cdn.builder.io/api/v1/image/assets/TEMP/d4eaca586df01d2de36e8aa7bc9b4266b5739b251e12629b62f8daca305803e8?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+											alt="" />
+										<img
+											src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0440974fe5614d0211dee8350a8804486c0546f430b6ffd7f706b61334e2a49?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+											alt="Flight duration" />
+									</div> -->
+								</div>
+							</div>
+							<div class="flight-search-passengers">
+								<div class="flight-search-passenger-count">
+									<div class="flight-search-passenger-icon"></div>
+									<!-- <select class="select select-ghost w-full max-w-xs">
+										<option disabled selected><img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf324d7d075e3aa82dd4036f568d5ba7d5e3cac9abcc614363f794c2ec45721e?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" class="your-class-name" /><img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bae24e921b2dcee5986b9432576475b0dd7e006205a35cc4939303245ad33d5?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="Passenger icon" />인원
+										</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select> -->
+								</div>
+								<div class="flight-search-passenger-icon">
+									<!-- <img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/7984c315fb4720f7a8246883a4b750da404d00d9f2eb344e9b366f8a537d1c94?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="" />
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/9cb6cedd3cbfe98a89ab2bb9cd9b7c0c4d3c408172d761c631c5a3c86312c553?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="Passenger icon" /> -->
+								</div>
+							</div>
+							<div class="flight-search-class">
+								<div class="flight-search-class-details dropdown dropdown-open">
+									<div class="flight-search-class-name ">
+										<!-- <select class="select select-ghost w-full max-w-xs">
+											<option disabled selected>이코노미</option>
+											<option>Svelte</option>
+											<option>Vue</option>
+											<option>React</option>
+										</select> -->
+									</div>
+									<!-- <div class="flight-search-class-icon">
+
+										<img
+											src="https://cdn.builder.io/api/v1/image/assets/TEMP/38109152b681e7836e55edc85b3983b22ab1619f978ff9d8f391fdd52ae97b04?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+											alt="" />
+										<img
+											src="https://cdn.builder.io/api/v1/image/assets/TEMP/3e17e53102545c352d5947a690894268bb14489cc479de4328cc5b7b64c508cd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+											alt="Dropdown arrow" />
+									</div> -->
+								</div>
+								<div class="flight-search-button">검색하기</div>
+							</div>
+						</div>
+					</header>
+				</div>
+			</div>
+		</div>
+
+		<div class="outer-content-box">
+			<div class="small-outer-content-box">
+
+				<c:if test="${not empty spanTexts}">
+					<c:forEach var="spanText" items="${spanTexts}">
+						<section class="bus-details">
+							<div class="bus-info">
+								<div class="bus-info-wrapper">
+									<div class="bus-info-main">
+										<header class="bus-info-header">
+											<div class="bus-type">
+												<span class="bus-speed">고속</span>
+												<span class="bus-class">프리미엄</span>
+											</div>
+											<div class="bus-timings">
+												<time class="departure-time">${spanText.startTime}</time>
+												<div class="outer-arrow">
+													<span class="arrow">→</span>
+												</div>
+
+												<time class="arrival-time"></time>
+												<span class="duration"></span>
+											</div>
+											<div class="bus-features">
+												<div class="bus-type-duration">
+													<span class="bus-type-label"></span>
+													<span class="bus-type-duration-value">${spanText.grade }</span>
+												</div>
+												<span class="bus-operator">${spanText.companyName}</span>
+											</div>
+										</header>
+									</div>
+									<aside class="bus-info-price">
+										<div class="bus-price-details">
+											<span class="view-details">${spanText.remainingSeats }</span>
+											<span class="price">15,800원</span>
+										</div>
+									</aside>
+								</div>
+							</div>
+							<hr class="separator" />
+						</section>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+	</div>
 
 <style>
 .time-range {
@@ -1569,243 +1804,5 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 </style>
-
-<header class="header">
-	<div class="logo">로고</div>
-	<div class="user-info">
-		<span class="username">
-			<span class="black-text">abc123</span>
-			<span class="black-text">님</span>
-		</span>
-		<div class="society-info">학회정보</div>
-		<div class="inquiries">문의사항</div>
-		<div class="logout">로그아웃</div>
-	</div>
-</header>
-<div class="outer-box">
-	<div class="searchClickBox">
-		<div class="container">
-			<div class="search-container">
-				<input type="text" class="search-text" placeholder="텍스트 검색">
-			</div>
-
-		</div>
-	</div>
-
-	<div>
-		<div class="outer-searchBox">
-			<div class="searchBox1">
-				<nav class="accommodation-nav">
-					<ul class="accommodation-nav-list">
-
-						<div class="accommodation-nav-item btn m-1">
-							<a href="../article/recommendlist">숙소</a>
-						</div>
-						<div class="dropdown">
-							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
-							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li>
-									<a href="../article/recommendAirplaneList">항공</a>
-								</li>
-
-								<li>
-									<a href="../article/recommendTrainList">기차</a>
-								</li>
-								<li>
-									<a href="../article/recommendBusList">버스</a>
-								</li>
-							</ul>
-						</div>
-
-					</ul>
-				</nav>
-			</div>
-
-			<div class="searchBox2">
-
-				<div class="flight-search-container">
-					<header class="flight-search-header">
-						<div class="flight-search-content">
-
-							<div class="flight-route">
-								<div class="origin-airport">
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0fadc5e1d76844beefb51b89ef84518ea8035476fccb2578225cdc2cfc41524?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="Origin airport icon" class="airport-icon" />
-									<div class="origin-airport-code">
-										<select class="select select-ghost w-full max-w-xs">
-											<option disabled selected>청주(CJU)</option>
-											<option>Svelte</option>
-											<option>Vue</option>
-											<option>React</option>
-										</select>
-									</div>
-								</div>
-								<div class="destination-airport">
-									<div class="destination-airport-icons">
-										<div class="destination-airport-pin">
-											<!-- <img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/98c18b60e9f95eb96b6bf53e442854cccd679784f32787012fcce26fdb4cbecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Destination pin icon" class="pin-icon" /> -->
-										</div>
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/9924b81dad0fbf6a35b311cf1ec8f152b87ecb9c2f4337693e3fbc5bc4dad5da?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="Plane icon" class="plane-icon" />
-									</div>
-									<div class="destination-airport-code">
-										<select class="select select-ghost w-full max-w-xs">
-											<option disabled selected>부산 (PUS)</option>
-											<option>Svelte</option>
-											<option>Vue</option>
-											<option>React</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="flight-search-details">
-								<div class="flight-search-dates">
-									<div class="flight-search-date">
-										<!-- <div class="flight-search-date-icon">
-
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/36fa2c3b0a8961d87b50f228f68a2281f5fa3e5c753dc9b0a1181b340d9873b4?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" />
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b533c9792731d97f1f90a405a81d97c8ff6003c50cace4cf001954acb1f6363f?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Calendar icon" />
-										</div> -->
-										<div class="flight-search-date-text">일, 28 4월</div>
-										<!-- <div id="calendar" > -->
-
-									</div>
-									<!-- <div class="flight-search-date">
-										<div class="flight-search-date-icon">
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f9b7796862a0f5136ed1e711686f04480ccf0ab3ca59e32418fb698a54a423b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" />
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6468715dfa7a8aaac104e143a35e1c1f8e93978a65f2a4a94056575230d7438a?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Calendar icon" />
-										</div>
-										<div class="flight-search-date-text">화, 30 4월</div>
-									</div> -->
-									<!-- <div class="flight-search-duration">
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/d4eaca586df01d2de36e8aa7bc9b4266b5739b251e12629b62f8daca305803e8?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="" />
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0440974fe5614d0211dee8350a8804486c0546f430b6ffd7f706b61334e2a49?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="Flight duration" />
-									</div> -->
-								</div>
-							</div>
-							<div class="flight-search-passengers">
-								<div class="flight-search-passenger-count">
-									<div class="flight-search-passenger-icon"></div>
-									<!-- <select class="select select-ghost w-full max-w-xs">
-										<option disabled selected><img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf324d7d075e3aa82dd4036f568d5ba7d5e3cac9abcc614363f794c2ec45721e?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" class="your-class-name" /><img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bae24e921b2dcee5986b9432576475b0dd7e006205a35cc4939303245ad33d5?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Passenger icon" />인원
-										</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-									</select> -->
-								</div>
-								<div class="flight-search-passenger-icon">
-									<!-- <img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/7984c315fb4720f7a8246883a4b750da404d00d9f2eb344e9b366f8a537d1c94?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="" />
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/9cb6cedd3cbfe98a89ab2bb9cd9b7c0c4d3c408172d761c631c5a3c86312c553?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="Passenger icon" /> -->
-								</div>
-							</div>
-							<div class="flight-search-class">
-								<div class="flight-search-class-details dropdown dropdown-open">
-									<div class="flight-search-class-name ">
-										<!-- <select class="select select-ghost w-full max-w-xs">
-											<option disabled selected>이코노미</option>
-											<option>Svelte</option>
-											<option>Vue</option>
-											<option>React</option>
-										</select> -->
-									</div>
-									<!-- <div class="flight-search-class-icon">
-
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/38109152b681e7836e55edc85b3983b22ab1619f978ff9d8f391fdd52ae97b04?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="" />
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/3e17e53102545c352d5947a690894268bb14489cc479de4328cc5b7b64c508cd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="Dropdown arrow" />
-									</div> -->
-								</div>
-								<div class="flight-search-button">검색하기</div>
-							</div>
-						</div>
-					</header>
-				</div>
-			</div>
-		</div>
-
-		<div class="outer-content-box">
-			<div class="small-outer-content-box">
-
-				<c:if test="${not empty spanTexts}">
-					<c:forEach var="spanText" items="${spanTexts}">
-						<section class="bus-details">
-							<div class="bus-info">
-								<div class="bus-info-wrapper">
-									<div class="bus-info-main">
-										<header class="bus-info-header">
-											<div class="bus-type">
-												<span class="bus-speed">고속</span>
-												<span class="bus-class">프리미엄</span>
-											</div>
-											<div class="bus-timings">
-												<time class="departure-time">${spanText.startTime}</time>
-												<div class="outer-arrow">
-													<span class="arrow">→</span>
-												</div>
-
-												<time class="arrival-time"></time>
-												<span class="duration"></span>
-											</div>
-											<div class="bus-features">
-												<div class="bus-type-duration">
-													<span class="bus-type-label"></span>
-													<span class="bus-type-duration-value">${spanText.grade }</span>
-												</div>
-												<span class="bus-operator">${spanText.companyName}</span>
-											</div>
-										</header>
-									</div>
-									<aside class="bus-info-price">
-										<div class="bus-price-details">
-											<span class="view-details">${spanText.remainingSeats }</span>
-											<span class="price">15,800원</span>
-										</div>
-									</aside>
-								</div>
-							</div>
-							<hr class="separator" />
-						</section>
-					</c:forEach>
-				</c:if>
-			</div>
-
-
-
-		</div>
-
-	</div>
-
-
-
-
 
 	<%@ include file="../common/foot.jspf"%>
