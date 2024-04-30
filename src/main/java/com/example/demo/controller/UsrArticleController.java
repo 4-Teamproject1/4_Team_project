@@ -45,40 +45,6 @@ public class UsrArticleController {
 
 	}
 
-	// 액션 메서드
-	@RequestMapping("/usr/article/recommendBusList")
-	public String recommendBusList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		Board board = boardService.getBoardById(boardId);
-
-		if (board == null) {
-			return rq.historyBackOnView("없는 게시판이야");
-		}
-
-		// 한페이지에 글 10개씩이야
-		// 글 20개 -> 2 page
-		// 글 24개 -> 3 page
-		int itemsInAPage = 10;
-
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
-				searchKeyword);
-
-		model.addAttribute("board", board);
-		model.addAttribute("boardId", boardId);
-		model.addAttribute("page", page);
-		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("articles", articles);
-
-		return "usr/article/recommendBusList";
-	}
-
-
 	@RequestMapping("/usr/article/recommendAirplaneList")
 	public String recommendAirplaneList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
 			@RequestParam(defaultValue = "1") int page,
