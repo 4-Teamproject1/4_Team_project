@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,5 +68,40 @@ public class UsrCompetitionController {
 
 		return "usr/competition/list";
 	}
+	
+	
+
+	@GetMapping("/usr/competition/getFilteredCompetitions")
+	public ResponseEntity<?> getFilteredCompetitions(@RequestParam("option") String option) {
+		System.err.println(option);
+	    List<Competition> competitionList;
+
+	    // 선택된 옵션에 따라 적절한 정렬 방식으로 conferenceList를 가져옵니다.
+	    if ("등록/수정일순".equals(option)) {
+	      
+	    	competitionList = competitionService.getCompetitionsByCategoryOrderByRegDate(); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	     
+	    } else if ("조회순".equals(option)) {
+	    	
+	    	competitionList = competitionService.getCompetitionsByCategoryOrderByhitCount(); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		      
+	        
+	    } else if ("마감순".equals(option)) {
+	    	  
+	    	competitionList = competitionService.getCompetitionsByCategoryOrderByfinDate(); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		      
+	       
+	    } else if ("제목순".equals(option)) {
+	    	 
+	    	competitionList = competitionService.getCompetitionsByCategoryOrderBytitle(); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	     
+	    } else {
+	        // 정렬 옵션이 올바르지 않은 경우 예외 처리를 합니다.
+	        return ResponseEntity.badRequest().body("올바르지 않은 정렬 옵션입니다.");
+	    }
+
+	    return ResponseEntity.ok().body(competitionList);
+	}
+
 
 }

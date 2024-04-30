@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Competition List"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../path/to/your/javascript/file.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
 
 <header class="header">
 	<a href="../home/main">
@@ -42,23 +44,21 @@
 				<div class="sort-options">
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
-						<button type="button" onclick="selectRadio('option1')">
-							<a href="#">등록/수정일순</a>
-						</button>
+						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
 						<button type="button" onclick="selectRadio('option2')">
-							<a href="###">조회순</a>
+						조회순
 						</button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
 						<button type="button" onclick="selectRadio('option3')">
-							<a href="###">마감순</a>
+						마감순
 						</button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
 						<button type="button" onclick="selectRadio('option4')">
-							<a href="###">제목순</a>
+							제목순
 						</button>
 					</form>
 
@@ -161,6 +161,65 @@
 	</div>
 </div>
 
+
+
+
+<script>
+	//라디오 버튼 선택 함수
+	function selectRadio(optionId) {
+		document.getElementById(optionId).checked = true;
+	}
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+    var selectedOption = ""; // 선택된 옵션 초기화
+
+    $(".sort-options button").click(function() {
+        selectedOption = $(this).text().trim(); // 버튼의 텍스트가 서버 측에서 예상하는 옵션과 정확히 일치해야 합니다.
+        $(".sort-options button").removeClass("btn-active");
+        $(this).addClass("btn-active");
+
+        // AJAX 호출을 위한 함수 이름 수정
+        getFilteredCompetitions(selectedOption); // 서버 측 컨트롤러와 일치하도록 함수 이름 수정
+    });
+
+    // 필터링된 데이터를 가져오는 AJAX 함수
+    function getFilteredCompetitions(option) {
+        $.ajax({
+            type: "GET",
+            url: "/usr/competition/getFilteredCompetitions", // 서버 측 URL과 일치하는지 확인
+            data: { option: option },
+            success: function(data) {
+                drawCompetitions(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    // 대회 정보를 화면에 그리는 함수
+    function drawCompetitions(competitionList) {
+        var html = '';
+        $.each(competitionList, function(index, competition) {
+            html += '<tr>';
+            html += '<td>' + competition.id + '</td>';
+            html += '<td><a href="detail?id=' + competition.id + '">' + competition.title + '</a></td>';
+            html += '<td>' + competition.applicationPeriod + '</td>';
+            html += '<td>' + competition.regDate + '</td>';
+            html += '<td>' + competition.hitCount + '</td>';
+            html += '</tr>';
+        });
+        $('.table tbody').html(html);
+    }
+});
+
+
+
+</script>
 
 
 

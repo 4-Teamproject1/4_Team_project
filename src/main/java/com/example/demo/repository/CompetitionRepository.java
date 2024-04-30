@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.demo.vo.Competition;
+import com.example.demo.vo.Conference;
 
 
 @Mapper
@@ -51,6 +52,49 @@ public interface CompetitionRepository {
 			</script>
 			""")
 	public List<Competition> getCompetitionsList();
+
+
+	 @Select("""
+	            <script>
+	            SELECT *
+	            FROM `competition`
+	            ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC
+	            </script>
+	            """)
+	public List<Competition> getCompetitionsByCategoryOrderByRegDate();
+
+
+
+	 @Select("""
+	            <script>
+	            SELECT *
+	            FROM `competition`
+	            ORDER BY hitCount DESC
+	            </script>
+	            """)
+	public List<Competition> getCompetitionsByCategoryOrderByhitCount();
+
+
+
+	 @Select("""
+	            <script>
+	            SELECT *
+	            FROM `competition`
+	            ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC
+	            </script>
+	            """)
+	public List<Competition> getCompetitionsByCategoryOrderByfinDate();
+
+
+
+	 @Select("""
+	            <script>
+	            SELECT *
+	            FROM `competition`
+	            ORDER BY title ASC
+	            </script>
+	            """)
+	public List<Competition> getCompetitionsByCategoryOrderBytitle();
 
 
 	
