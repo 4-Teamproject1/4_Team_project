@@ -413,25 +413,25 @@
 	})();
 </script>
 
-<header class="header_logo">
-	<a href="../home/main">
-		<button class="logo">로고</button>
-	</a>
-	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
-		<a href="../article/competitionList">
-			<button class="hd_info">학회 정보</button>
-		</a>
-		<a href="../article/competitionList">
-			<button class="hd_contest">공모전</button>
-		</a>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
-		</a>
-		<button class="hd_logout">로그아웃</button>
-	</nav>
+<header class="header">
+  <a href="../home/main">
+    <button class="logo">로고</button>
+  </a>
+  <nav class="header_menu">
+    <a href="../member/myInfo">
+      <button class="username">abc123님</button>
+    </a>
+    <a href="../conference/list">
+      <button class="hd_info">학회 정보</button>
+    </a>
+    <a href="../competition/list">
+      <button class="hd_contest">공모전</button>
+    </a>
+    <a href="../member/myQuestion">
+      <button class="hd_question">문의사항</button>
+    </a>
+    <button class="hd_logout">로그아웃</button>
+  </nav>
 </header>
 
 <div class="img"></div>
