@@ -7,6 +7,143 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+<script>
+	let submitJoinFormDone = false;
+	let validLoginId = "";
+
+	function submitJoinForm(form) {
+		if (submitJoinFormDone) {
+			alert('처리중입니다');
+			return;
+		}
+		form.loginId.value = form.loginId.value.trim();
+		if (form.loginId.value == 0) {
+			alert('아이디를 입력해주세요');
+			return;
+		}
+
+		if (form.loginId.value != validLoginId) {
+			alert('사용할 수 없는 아이디야');
+			form.loginId.focus();
+			return;
+		}
+		if (validLoginId == form.loginId.value) {
+			return;
+		}
+
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value == 0) {
+			alert('비밀번호를 입력해주세요');
+			return;
+		}
+		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+		if (form.loginPwConfirm.value == 0) {
+			alert('비밀번호 확인을 입력해주세요');
+			return;
+		}
+		if (form.loginPwConfirm.value != form.loginPw.value) {
+			alert('비밀번호가 일치하지 않습니다');
+			form.loginPw.focus();
+			return;
+		}
+		form.name.value = form.name.value.trim();
+		if (form.name.value == 0) {
+			alert('이름을 입력해주세요');
+			return;
+		}
+		form.nickname.value = form.nickname.value.trim();
+		if (form.nickname.value == 0) {
+			alert('닉네임을 입력해주세요');
+			return;
+		}
+		form.email.value = form.email.value.trim();
+		if (form.email.value == 0) {
+			alert('이메일을 입력해주세요');
+			return;
+		}
+		form.cellphoneNum.value = form.cellphoneNum.value.trim();
+		if (form.cellphoneNum.value == 0) {
+			alert('전화번호를 입력해주세요');
+			return;
+		}
+		submitJoinFormDone = true;
+		form.submit();
+	}
+
+	function checkLoginIdDup(el) {
+		$('.checkDup-msg').empty();
+		const form = $(el).closest('form').get(0);
+		if (form.loginId.value.length == 0) {
+			validLoginId = '';
+			return;
+		}
+		$.get('../member/getLoginIdDup', {
+			isAjax : 'Y',
+			loginId : form.loginId.value
+		}, function(data) {
+			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
+			if (data.success) {
+				validLoginId = data.data1;
+			} else {
+				validLoginId = '';
+			}
+		}, 'json');
+	}
+
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);
+</script>
+
+<div class="background_img"></div>
+<header class="header">
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+</header>
+<main class="signup-container">
+	<div class="input-field">
+		<form method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+			<div class="input-group">
+				<span class="material-symbols-outlined">person</span>
+				<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId" class="input input_id mb-4 max-w-xs"
+					placeholder="아이디를 입력해주세요" autocomplete="off" />
+			</div>
+			<div class="checkDup-msg mb-4"></div>
+			<div class="input-group">
+				<span class="material-symbols-outlined">lock</span>
+				<input class="input input_pw max-w-xs mb-4" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
+			</div>
+			<!-- input-primary를 쓰면 파란색 테두리생김 -->
+			<div>
+				<div class="input-group">
+					<span class="material-symbols-outlined"> edit </span>
+					<input class="input input_name mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이름을 입력해주세요" name="name" />
+				</div>
+				<div class="input-group">
+					<span class="material-symbols-outlined"> draw </span>
+					<input class="input input_nikname mb-4  max-w-xs" autocomplete="off" type="text" placeholder="닉네임을 입력해주세요"
+						name="nickname" />
+				</div>
+				<div class="input-group">
+					<span class="material-symbols-outlined">phone_iphone</span>
+					<input class="input input_pnum mb-4  max-w-xs" autocomplete="off" type="text" placeholder="전화번호를 입력해주세요"
+						name="cellphoneNum" />
+				</div>
+				<div class="input-group input-group-email">
+					<span class="material-symbols-outlined"> alternate_email </span>
+					<input class="input input_email mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이메일을 입력해주세요"
+						name="email" />
+				</div>
+			</div>
+		</form>
+		<div class="btns">
+			<button class="signup-button" type="button" onclick="history.back();">뒤로가기</button>
+			<input class="signup-button" type="submit" value="가입" />
+		</div>
+	</div>
+</main>
+
 
 <style>
 body {
@@ -162,142 +299,3 @@ body {
 	}
 }
 </style>
-
-
-<!-- lodash debounce -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-<script>
-	let submitJoinFormDone = false;
-	let validLoginId = "";
-
-	function submitJoinForm(form) {
-		if (submitJoinFormDone) {
-			alert('처리중입니다');
-			return;
-		}
-		form.loginId.value = form.loginId.value.trim();
-		if (form.loginId.value == 0) {
-			alert('아이디를 입력해주세요');
-			return;
-		}
-
-		if (form.loginId.value != validLoginId) {
-			alert('사용할 수 없는 아이디야');
-			form.loginId.focus();
-			return;
-		}
-		if (validLoginId == form.loginId.value) {
-			return;
-		}
-
-		form.loginPw.value = form.loginPw.value.trim();
-		if (form.loginPw.value == 0) {
-			alert('비밀번호를 입력해주세요');
-			return;
-		}
-		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
-		if (form.loginPwConfirm.value == 0) {
-			alert('비밀번호 확인을 입력해주세요');
-			return;
-		}
-		if (form.loginPwConfirm.value != form.loginPw.value) {
-			alert('비밀번호가 일치하지 않습니다');
-			form.loginPw.focus();
-			return;
-		}
-		form.name.value = form.name.value.trim();
-		if (form.name.value == 0) {
-			alert('이름을 입력해주세요');
-			return;
-		}
-		form.nickname.value = form.nickname.value.trim();
-		if (form.nickname.value == 0) {
-			alert('닉네임을 입력해주세요');
-			return;
-		}
-		form.email.value = form.email.value.trim();
-		if (form.email.value == 0) {
-			alert('이메일을 입력해주세요');
-			return;
-		}
-		form.cellphoneNum.value = form.cellphoneNum.value.trim();
-		if (form.cellphoneNum.value == 0) {
-			alert('전화번호를 입력해주세요');
-			return;
-		}
-		submitJoinFormDone = true;
-		form.submit();
-	}
-
-	function checkLoginIdDup(el) {
-		$('.checkDup-msg').empty();
-		const form = $(el).closest('form').get(0);
-		if (form.loginId.value.length == 0) {
-			validLoginId = '';
-			return;
-		}
-		$.get('../member/getLoginIdDup', {
-			isAjax : 'Y',
-			loginId : form.loginId.value
-		}, function(data) {
-			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
-			if (data.success) {
-				validLoginId = data.data1;
-			} else {
-				validLoginId = '';
-			}
-		}, 'json');
-	}
-
-	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);
-</script>
-
-<div class="background_img"></div>
-<header class="header">
-	<a href="../home/main">
-		<button class="logo">로고</button>
-	</a>
-</header>
-<main class="signup-container">
-	<div class="input-field">
-		<form method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
-			<div class="input-group">
-				<span class="material-symbols-outlined">person</span>
-				<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId" class="input input_id mb-4 max-w-xs"
-					placeholder="아이디를 입력해주세요" autocomplete="off" />
-			</div>
-			<div class="checkDup-msg mb-4"></div>
-			<div class="input-group">
-				<span class="material-symbols-outlined">lock</span>
-				<input class="input input_pw max-w-xs mb-4" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
-			</div>
-			<!-- input-primary를 쓰면 파란색 테두리생김 -->
-			<div>
-				<div class="input-group">
-					<span class="material-symbols-outlined"> edit </span>
-					<input class="input input_name mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이름을 입력해주세요" name="name" />
-				</div>
-				<div class="input-group">
-					<span class="material-symbols-outlined"> draw </span>
-					<input class="input input_nikname mb-4  max-w-xs" autocomplete="off" type="text" placeholder="닉네임을 입력해주세요"
-						name="nickname" />
-				</div>
-				<div class="input-group">
-					<span class="material-symbols-outlined">phone_iphone</span>
-					<input class="input input_pnum mb-4  max-w-xs" autocomplete="off" type="text" placeholder="전화번호를 입력해주세요"
-						name="cellphoneNum" />
-				</div>
-				<div class="input-group input-group-email">
-					<span class="material-symbols-outlined"> alternate_email </span>
-					<input class="input input_email mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이메일을 입력해주세요"
-						name="email" />
-				</div>
-			</div>
-		</form>
-		<div class="btns">
-			<button class="signup-button" type="button" onclick="history.back();">뒤로가기</button>
-			<input class="signup-button" type="submit" value="가입" />
-		</div>
-	</div>
-</main>
-
