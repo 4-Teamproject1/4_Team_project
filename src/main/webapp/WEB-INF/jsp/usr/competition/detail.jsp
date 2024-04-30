@@ -36,12 +36,11 @@
 
 	<div class="list-items-container">
 		<div class="list-items-section">
-
 			<form class="search-form">
 				<!-- Search form -->
 				<!-- Your search form HTML here -->
 			</form>
-			<div>
+			<div class="list-items-section-box">
 				<div style="font-size: 20px; margin-bottom: 10px;">공모전</div>
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
@@ -50,7 +49,6 @@
 						<!-- <li>즐겨찾기수<span>3</span></li> -->
 					</ul>
 				</div>
-
 				<table class="table">
 					<tbody>
 						<tr>
@@ -143,6 +141,11 @@
     margin-right: 10px;
   }
 
+.list-items-section-box {  
+	margin-left: 250px;
+	width : 1100px;
+    height: 1400px;
+}
   .list-items-container {
     flex: 4;
     margin: 20px;
