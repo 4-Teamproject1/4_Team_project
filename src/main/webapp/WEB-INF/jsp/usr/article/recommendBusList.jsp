@@ -319,7 +319,7 @@
 .arrival-time {
 	color: #24262c;
 	margin-top: 20px;
-	width: 100%;
+	width: 80%;
 	font: 400 14px/130% Roboto, sans-serif;
 }
 
@@ -1803,6 +1803,34 @@ media (max-width: 991px) { .train-info-col { width:100%;
 		max-width: 100%;
 	}
 }
-</style>
 
+/*출발,도착장소 css*/
+.place-box {
+	width: 50%;
+	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
+	border: 2px solid red;
+}
+
+.bus-place {
+	display: flex;
+	align-items: center;
+}
+
+.departure-place, .arrive-place {
+	font-weight: bold; /* 필요에 따라 텍스트 스타일 조절 */
+}
+
+.outer-arrow {
+	margin: 0 10px; /* 필요에 따라 화살표 좌우 여백 조절 */
+}
+
+.arrow {
+	font-size: 20px; /* 필요에 따라 화살표 크기 조절 */
+	color: #333; /* 필요에 따라 화살표 색상 조절 */
+}
+
+.bus-total-time {
+	margin-left: 10px; /* 필요에 따라 총 소요 시간과의 간격 조절 */
+}
+</style>
 	<%@ include file="../common/foot.jspf"%>
