@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Conference List"></c:set>
+<c:set var="pageTitle" value="AcademicEvent List"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -14,10 +14,10 @@
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
 		</a>
-		<a href="../conference/list">
+		<a href="../article/academicEventList">
 			<button class="hd_info">학회 정보</button>
 		</a>
-		<a href="../competition/list">
+		<a href="../article/competitionList">
 			<button class="hd_contest">공모전</button>
 		</a>
 		<a href="../member/myQuestion">
@@ -27,11 +27,11 @@
 	</nav>
 </header>
 
-
 <div class="list-container">
 	<div class="list-board">
-
-		<a href="../competition/list" class="list-board-item">공모전</a>
+		<a href="#" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+		<a href="/usr/article/academicEventList" class="list-board-item">학술행사</a>
+		<a href="/usr/article/competitionList" class="list-board-item" >공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -42,31 +42,20 @@
 				<div class="sort-options">
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
-
-				
+						<button type="button" onclick="selectRadio('option1')">
+							<a href="#">등록/수정일순</a>
+						</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
-						<button type="button" onclick="selectRadio('option2')">
-						조회순
-						</button>
+						<button type="button" onclick="selectRadio('option2')"><a href="###">조회순</a></button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
-						<button type="button" onclick="selectRadio('option3')">
-						마감순
-						</button>
+						<button type="button" onclick="selectRadio('option3')"><a href="###">마감순</a></button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
-						<button type="button" onclick="selectRadio('option4')">
-							제목순
-						</button>
+						<button type="button" onclick="selectRadio('option4')"><a href="###">제목순</a></button>
 					</form>
 
-				<!-- 	<script>
-						function selectRadio(optionId) {
-							document.getElementById(optionId).checked = true;
-						}
-					</script>
-
 					<script>
 						function selectRadio(optionId) {
 							document.getElementById(optionId).checked = true;
@@ -77,7 +66,13 @@
 						function selectRadio(optionId) {
 							document.getElementById(optionId).checked = true;
 						}
-					</script> -->
+					</script>
+
+					<script>
+						function selectRadio(optionId) {
+							document.getElementById(optionId).checked = true;
+						}
+					</script>
 				</div>
 
 
@@ -89,18 +84,37 @@
 
 			<div class="category-filters">
 				<!-- Category Filters -->
-
-				<button class="conference-0">전체(9)</button>
-				<button class="conference-1">공학(3)</button>
-				<button class="conference-2">자연과학(2)</button>
-				<button class="conference-3">의약학(1)</button>
-				<button class="conference-4">인문학(2)</button>
-				<button class="conference-5">사회과학(0)</button>
-				<button class="conference-6">예술체육(1)</button>
-				<button class="conference-7">농수해양(0)</button>
-				<button class="conference-8">복합학(0)</button>
-				<button class="conference-9">전공불문(0)</button>
-
+				<!-- Your category filters HTML here -->
+				<span>
+					<a href="" style="font-size: 16px;">전체(9)</a>
+				</span>
+				<span>
+					<a href="">공학(3)</a>
+				</span>
+				<span>
+					<a href="">자연과학(2)</a>
+				</span>
+				<span>
+					<a href="">의약학(1)</a>
+				</span>
+				<span>
+					<a href="">인문학(2)</a>
+				</span>
+				<span>
+					<a href="">사회과학(0)</a>
+				</span>
+				<span>
+					<a href="">예술체육(1)</a>
+				</span>
+				<span>
+					<a href="">농수해양(0)</a>
+				</span>
+				<span>
+					<a href="">복합학(0)</a>
+				</span>
+				<span>
+					<a href="">전공불문(0)</a>
+				</span>
 
 
 			</div>
@@ -125,24 +139,131 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${conferences}" var="conference">
-							<tr>
-								<td>${conference.id}</td>
-								<!-- 첫 번째 td에 학회의 ID -->
-								<td>
-									<a href="detail?id=${conference.id}">${conference.title}</a>
-								</td>
-								<!-- 두 번째 td에 학회의 제목 -->
-								<td>${conference.applicationPeriod}</td>
-								<!-- 세 번째 td에 행사 기간 -->
-								<td>${conference.regDate}</td>
-								<!-- 네 번째 td에 등록/수정일 -->
-								<td>${conference.hitCount}</td>
-								<!-- 다섯 번째 td에 조회수 -->
-							</tr>
-						</c:forEach>
+						<td>1</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
 					</tbody>
-
+					<tbody>
+						<td>2</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>3</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>4</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>5</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>6</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>7</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>8</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>9</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>9</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>10</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>11</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>12</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>13</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>14</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>15</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>16</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
+					<tbody>
+						<td>17</td>
+						<td>한국비임상기술지원센터 웨비나</td>
+						<td>24.04.03 ~ 24.04.24</td>
+						<td>24.04.09</td>
+						<td>53</td>
+					</tbody>
 
 				</table>
 			</div>
@@ -176,21 +297,11 @@
 </div>
 
 
-<script>
-	//라디오 버튼 선택 함수
-	function selectRadio(optionId) {
-		document.getElementById(optionId).checked = true;
-	}
-</script>
-
-
-
-
-
 
 
 
 <style>
+
 body {
 	width: 100%;
 	hight: 130%;
@@ -239,8 +350,7 @@ body {
 
 /* 버튼에 마우스를 올렸을 때와 클릭했을 때의 스타일 */
 .list-board-item:hover, .list-board-item:active {
-	background-color: #7E9DD9;
-	/* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+	background-color: #7E9DD9; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
 	color: white;
 }
 
@@ -254,7 +364,6 @@ body {
 .main-list {
 	font-size: 24px;
 }
-
 /* side bar container */
 .side-bar-container {
 	flex: 1;
@@ -264,7 +373,6 @@ body {
 .info-img {
 	margin-top: 100px;
 }
-
 /* Sorting Options */
 .sort-options-container {
 	display: flex;
@@ -278,26 +386,19 @@ body {
 
 /* 사용자 정의 라디오 버튼 */
 input[type="radio"] {
-	-webkit-appearance: none;
-	/* 웹킷 브라우저의 기본 모양 제거 */
-	-moz-appearance: none;
-	/* 모질라 파이어폭스의 기본 모양 제거 */
-	appearance: none;
-	/* 다른 브라우저의 기본 모양 제거 */
-	width: 13px;
-	/* 원 모양을 만들기 위해 너비와 높이 설정 */
+	-webkit-appearance: none; /* 웹킷 브라우저의 기본 모양 제거 */
+	-moz-appearance: none; /* 모질라 파이어폭스의 기본 모양 제거 */
+	appearance: none; /* 다른 브라우저의 기본 모양 제거 */
+	width: 13px; /* 원 모양을 만들기 위해 너비와 높이 설정 */
 	height: 13px;
-	border-radius: 50%;
-	/* 원 모양으로 만들기 */
-	border: 1px solid #00256c;
-	/* 라디오 버튼 동그라미의 테두리 색상 */
+	border-radius: 50%; /* 원 모양으로 만들기 */
+	border: 1px solid #00256c; /* 라디오 버튼 동그라미의 테두리 색상 */
 	outline: none;
 }
 
 /* 라디오 버튼 선택됐을 때 */
 input[type="radio"]:checked {
-	background-color: #7E9DD9;
-	/* 선택됐을 때 라디오 버튼 동그라미의 색상 채우기 */
+	background-color: #7E9DD9; /* 선택됐을 때 라디오 버튼 동그라미의 색상 채우기 */
 	border: 2px solid white;
 	outline: 1px solid #00256c;
 }
@@ -400,7 +501,6 @@ input[type="radio"]:checked {
 .list-table th {
 	text-align: center;
 }
-
 /* 중앙 정렬을 위한 CSS */
 .table td {
 	text-align: center;

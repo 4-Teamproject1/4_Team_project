@@ -3,7 +3,6 @@
 <%@ include file="../common/head.jspf"%>
 
 <style>
-
 .time-range {
 	display: flex;
 	max-width: 233px;
@@ -35,7 +34,7 @@
 	margin-top: 20px;
 	width: 80%;
 	font: 400 14px/130% Roboto, sans-serif;
-/* 	border: 3px solid; */
+	/* 	border: 3px solid; */
 }
 
 .departure-time-range {
@@ -527,15 +526,15 @@
 	width: 100%;
 	height: 400px;
 	flex-direction: column; /* 요소들을 세로로 배치합니다. */
-/* 	margin-top: 10px; */
-/* 	 border: 2px solid; */
+	/* 	margin-top: 10px; */
+	/* 	 border: 2px solid; */
 }
 
 .small-outer-content-box {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-/* 	border: 3px solid; */
+	/* 	border: 3px solid; */
 }
 
 .outer-searchBox {
@@ -1133,12 +1132,11 @@ media (max-width: 991px) { .train-info-col { width:100%;
 }
 
 .small-outer-travel-time {
-/* 	border: 3px solid green; */
+	/* 	border: 3px solid green; */
 	margin-top: 35px;
 	height: 50px;
 	display: flex;
 	align-items: end;
-	
 }
 
 .outer-travel-time {
@@ -1295,296 +1293,289 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	/* border: 3px solid; */
 }
 
-
-
 /* 예매가능 버스 목록 */
-
-  .bus-details {
-    display: flex;
-    max-width: 603px;
-    flex-direction: column;
-  }
-
-  .bus-info {
-    width: 100%;
-  }
-
-  @media (max-width: 991px) {
-    .bus-info {
-      max-width: 100%;
-    }
-  }
-
-  .bus-info-wrapper {
-    display: flex;
-    gap: 20px;
-  }
-
-  @media (max-width: 991px) {
-    .bus-info-wrapper {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-    }
-  }
-
-  .bus-info-main {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 84%;
-    margin-left: 0;
-  }
-
-  @media (max-width: 991px) {
-    .bus-info-main {
-      width: 100%;
-    }
-  }
-
-  .bus-info-header {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: start;
-    text-align: center;
- /*    border: 3px solid; */
-    width: 700px;
-  }
-
-  @media (max-width: 991px) {
-    .bus-info-header {
-      max-width: 100%;
-    }
-  }
-
-  .bus-type {
-    display: flex;
-    gap: 10px;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 991px) {
-    .bus-type {
-      white-space: initial;
-    }
-  }
-
-  .bus-speed {
-    border-radius: 5px;
-    background-color: #f30e0e;
-    color: #fff;
-    justify-content: center;
-    padding: 5px 13px;
-    font: 700 10px Inter, sans-serif;
-  }
-
-  @media (max-width: 991px) {
-    .bus-speed {
-      white-space: initial;
-    }
-  }
-
-  .bus-class {
-    background-color: #fff;
-    color: #e70815;
-    justify-content: center;
-    padding: 3px 6px;
-    font: 500 15px Inter, sans-serif;
-  }
-
-  @media (max-width: 991px) {
-    .bus-class {
-      white-space: initial;
-    }
-  }
-
-  .bus-timings {
-    background-color: #fff;
-    align-self: stretch;
-    display: flex;
-    gap: 17px;
-    font-size: 34px;
-    color: #000;
-    padding: 15px 20px 0 0;
-/*     border: 3px solid; */
-    width: 500px;
-  }
-
-  @media (max-width: 991px) {
-    .bus-timings {
-      flex-wrap: wrap;
-    }
-  }
-
-  .departure-time {
-    font-family: Inter, sans-serif;
-    font-weight: 700;
-  }
-
-.outer-arrow{
-
-  height: 100px;
-  display: flex;
-  align-items:center;
-  
+.bus-details {
+	display: flex;
+	max-width: 603px;
+	flex-direction: column;
 }
-  .arrow {
-    color: #525252;
-    font: 600 29px Inter, sans-serif;
-/*     border: 3px solid; */
-    height: 50px;
-  }
 
-  .arrival-time {
-    font-family: Inter, sans-serif;
-    font-weight: 300;
-  }
+.bus-info {
+	width: 100%;
+}
 
-  .duration {
-    flex-grow: 1;
-    flex-basis: auto;
-    margin: auto 0;
-    font: 400 20px Inter, sans-serif;
-/*     border: 3px solid; */
-    width: 300px;
-  }
+@media ( max-width : 991px) {
+	.bus-info {
+		max-width: 100%;
+	}
+}
 
-  .bus-features {
-    display: flex;
-  /*   margin-top: 5px; */
-    gap: 20px;
-    font-size: 15px;
-/* border: 3px solid; */
-  }
+.bus-info-wrapper {
+	display: flex;
+	gap: 20px;
+}
 
-  .bus-type-duration {
-    display: flex;
-    gap: 5px;
-    flex: 1;
-  }
+@media ( max-width : 991px) {
+	.bus-info-wrapper {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+}
 
-  .bus-type-label {
-    font-family: Inter, sans-serif;
-    border-radius: 5px;
-    background-color: #d9d9d9;
-    color: #fff;
-    font-weight: 700;
-    white-space: nowrap;
-    justify-content: center;
-    padding: 7px;
-    height: 30px;
-/*     margin-top: 30px; */
-  }
+.bus-info-main {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	width: 84%;
+	margin-left: 0;
+}
 
-  @media (max-width: 991px) {
-    .bus-type-label {
-      white-space: initial;
-    }
-  }
+@media ( max-width : 991px) {
+	.bus-info-main {
+		width: 100%;
+	}
+}
 
-  .bus-type-duration-value {
-    color: #000;
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-    margin: auto 0;
-    width: 100px;
-  }
+.bus-info-header {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	align-items: start;
+	text-align: center;
+	/*    border: 3px solid; */
+	width: 700px;
+}
 
-  .bus-operator {
-    color: #000;
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-    flex-grow: 1;
-    flex-basis: auto;
-    margin: auto 0;
-  }
+@media ( max-width : 991px) {
+	.bus-info-header {
+		max-width: 100%;
+	}
+}
 
-  .bus-info-price {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 16%;
-    margin-left: 20px;
-  }
+.bus-type {
+	display: flex;
+	gap: 10px;
+	white-space: nowrap;
+}
 
-  @media (max-width: 991px) {
-    .bus-info-price {
-      width: 100%;
-    }
-  }
+@media ( max-width : 991px) {
+	.bus-type {
+		white-space: initial;
+	}
+}
 
-  .bus-price-details {
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    color: #000;
-    font-weight: 400;
-    white-space: nowrap;
-    text-align: center;
-    margin: auto 0;
-  }
+.bus-speed {
+	border-radius: 5px;
+	background-color: #f30e0e;
+	color: #fff;
+	justify-content: center;
+	padding: 5px 13px;
+	font: 700 10px Inter, sans-serif;
+}
 
-  @media (max-width: 991px) {
-    .bus-price-details {
-      margin-top: 12px;
-      white-space: initial;
-    }
-  }
+@media ( max-width : 991px) {
+	.bus-speed {
+		white-space: initial;
+	}
+}
 
-  .view-details {
-    background-color: #fff;
-    justify-content: center;
-    padding: 10px 16px;
-    font: 13px Inter, sans-serif;
-  }
+.bus-class {
+	background-color: #fff;
+	color: #e70815;
+	justify-content: center;
+	padding: 3px 6px;
+	font: 500 15px Inter, sans-serif;
+}
 
-  @media (max-width: 991px) {
-    .view-details {
-      white-space: initial;
-    }
-  }
+@media ( max-width : 991px) {
+	.bus-class {
+		white-space: initial;
+	}
+}
 
-  .price {
-    border-radius: 10px;
-    background-color: #fff;
-    justify-content: center;
-    padding: 11px 9px;
-    font: 20px Inter, sans-serif;
-  }
+.bus-timings {
+	background-color: #fff;
+	align-self: stretch;
+	display: flex;
+	gap: 17px;
+	font-size: 34px;
+	color: #000;
+	padding: 15px 20px 0 0;
+	/*     border: 3px solid; */
+	width: 500px;
+}
 
-  @media (max-width: 991px) {
-    .price {
-      white-space: initial;
-    }
-  }
+@media ( max-width : 991px) {
+	.bus-timings {
+		flex-wrap: wrap;
+	}
+}
 
-  .separator {
-    border-color: rgba(0, 0, 0, 1);
-    border-style: solid;
-    border-width: 1px;
-    background-color: #000;
-    min-height: 1px;
-    margin-top: 25px;
-    width: 640px;
-  }
+.departure-time {
+	font-family: Inter, sans-serif;
+	font-weight: 700;
+}
 
-  @media (max-width: 991px) {
-    .separator {
-      max-width: 100%;
-    }
-  }
+.outer-arrow {
+	height: 100px;
+	display: flex;
+	align-items: center;
+}
 
+.arrow {
+	color: #525252;
+	font: 600 29px Inter, sans-serif;
+	/*     border: 3px solid; */
+	height: 50px;
+}
 
+.arrival-time {
+	font-family: Inter, sans-serif;
+	font-weight: 300;
+}
 
+.duration {
+	flex-grow: 1;
+	flex-basis: auto;
+	margin: auto 0;
+	font: 400 20px Inter, sans-serif;
+	/*     border: 3px solid; */
+	width: 300px;
+}
 
+.bus-features {
+	display: flex;
+	/*   margin-top: 5px; */
+	gap: 20px;
+	font-size: 15px;
+	/* border: 3px solid; */
+}
 
+.bus-type-duration {
+	display: flex;
+	gap: 5px;
+	flex: 1;
+}
+
+.bus-type-label {
+	font-family: Inter, sans-serif;
+	border-radius: 5px;
+	background-color: #d9d9d9;
+	color: #fff;
+	font-weight: 700;
+	white-space: nowrap;
+	justify-content: center;
+	padding: 7px;
+	height: 30px;
+	/*     margin-top: 30px; */
+}
+
+@media ( max-width : 991px) {
+	.bus-type-label {
+		white-space: initial;
+	}
+}
+
+.bus-type-duration-value {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	margin: auto 0;
+	width: 100px;
+}
+
+.bus-operator {
+	color: #000;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	flex-grow: 1;
+	flex-basis: auto;
+	margin: auto 0;
+}
+
+.bus-info-price {
+	display: flex;
+	flex-direction: column;
+	line-height: normal;
+	width: 16%;
+	margin-left: 20px;
+}
+
+@media ( max-width : 991px) {
+	.bus-info-price {
+		width: 100%;
+	}
+}
+
+.bus-price-details {
+	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+	color: #000;
+	font-weight: 400;
+	white-space: nowrap;
+	text-align: center;
+	margin: auto 0;
+}
+
+@media ( max-width : 991px) {
+	.bus-price-details {
+		margin-top: 12px;
+		white-space: initial;
+	}
+}
+
+.view-details {
+	background-color: #fff;
+	justify-content: center;
+	padding: 10px 16px;
+	font: 13px Inter, sans-serif;
+}
+
+@media ( max-width : 991px) {
+	.view-details {
+		white-space: initial;
+	}
+}
+
+.price {
+	border-radius: 10px;
+	background-color: #fff;
+	justify-content: center;
+	padding: 11px 9px;
+	font: 20px Inter, sans-serif;
+}
+
+@media ( max-width : 991px) {
+	.price {
+		white-space: initial;
+	}
+}
+
+.separator {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: solid;
+	border-width: 1px;
+	background-color: #000;
+	min-height: 1px;
+	margin-top: 25px;
+	width: 640px;
+}
+
+@media ( max-width : 991px) {
+	.separator {
+		max-width: 100%;
+	}
+}
 </style>
 
 <header class="header">
 	<div class="logo">로고</div>
 	<div class="user-info">
-		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
+		<span class="username">
+			<span class="black-text">abc123</span>
+			<span class="black-text">님</span>
 		</span>
 		<div class="society-info">학회정보</div>
 		<div class="inquiries">문의사항</div>
@@ -1613,10 +1604,16 @@ media (max-width: 991px) { .train-info-col { width:100%;
 						<div class="dropdown">
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
+								<li>
+									<a href="../article/recommendAirplaneList">항공</a>
+								</li>
 
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								<li><a href="../article/recommendBusList">버스</a></li>
+								<li>
+									<a href="../article/recommendTrainList">기차</a>
+								</li>
+								<li>
+									<a href="../article/recommendBusList">버스</a>
+								</li>
 							</ul>
 						</div>
 
@@ -1758,52 +1755,56 @@ media (max-width: 991px) { .train-info-col { width:100%;
 		<div class="outer-content-box">
 			<div class="small-outer-content-box">
 
+				<c:if test="${not empty spanTexts}">
+					<c:forEach var="spanText" items="${spanTexts}">
+						<section class="bus-details">
+							<div class="bus-info">
+								<div class="bus-info-wrapper">
+									<div class="bus-info-main">
+										<header class="bus-info-header">
+											<div class="bus-type">
+												<span class="bus-speed">고속</span>
+												<span class="bus-class">프리미엄</span>
+											</div>
+											<div class="bus-timings">
+												<time class="departure-time">${spanText.startTime}</time>
+												<div class="outer-arrow">
+													<span class="arrow">→</span>
+												</div>
 
-			<section class="bus-details">
-  <div class="bus-info">
-    <div class="bus-info-wrapper">
-      <div class="bus-info-main">
-        <header class="bus-info-header">
-          <div class="bus-type">
-            <span class="bus-speed">고속</span>
-            <span class="bus-class">프리미엄</span>
-          </div>
-          <div class="bus-timings">
-            <time class="departure-time">22:37</time>
-            <div class="outer-arrow">     <span class="arrow">→</span></div>
-       
-            <time class="arrival-time">23:44</time>
-            <span class="duration">1시간 7분</span>
-          </div>
-          <div class="bus-features">
-            <div class="bus-type-duration">
-              <span class="bus-type-label">직통</span>
-              <span class="bus-type-duration-value">1시간 40분</span>
-            </div>
-            <span class="bus-operator">금호익스프레스(주)</span>
-          </div>
-        </header>
-      </div>
-      <aside class="bus-info-price">
-        <div class="bus-price-details">
-          <span class="view-details">운행상세&gt;</span>
-          <span class="price">15,800원</span>
-        </div>
-      </aside>
-    </div>
-  </div>
-  <hr class="separator" />
-</section>
-
+												<time class="arrival-time"></time>
+												<span class="duration"></span>
+											</div>
+											<div class="bus-features">
+												<div class="bus-type-duration">
+													<span class="bus-type-label"></span>
+													<span class="bus-type-duration-value">${spanText.grade }</span>
+												</div>
+												<span class="bus-operator">${spanText.companyName}</span>
+											</div>
+										</header>
+									</div>
+									<aside class="bus-info-price">
+										<div class="bus-price-details">
+											<span class="view-details">${spanText.remainingSeats }</span>
+											<span class="price">15,800원</span>
+										</div>
+									</aside>
+								</div>
+							</div>
+							<hr class="separator" />
+						</section>
+					</c:forEach>
+				</c:if>
 			</div>
-		
+
 
 
 		</div>
 
 	</div>
 
-	
+
 
 
 

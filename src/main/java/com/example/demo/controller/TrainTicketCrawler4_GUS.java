@@ -312,4 +312,4 @@ public class TrainTicketCrawler4_GUS {
 //			System.out.println(최저가);
 
 	}
-}
+

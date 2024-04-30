@@ -8,6 +8,36 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+<!-- <div class="background_img"> -->
+<!-- 	<img src="https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png" alt="" /> -->
+<!-- </div> -->
+<div class="background_img"></div>
+<header class="header">
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+</header>
+<main class="login-container">
+	<form action="../member/doLogin" method="POST">
+		<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri }" />
+		<div class="input-group">
+			<span class="material-symbols-outlined">person</span>
+			<input class="username-input max-w-xs" autocomplete="off" type="text" placeholder="아이디를 입력해주세요" name="loginId" />
+		</div>
+		<div class="input-group">
+			<span class="material-symbols-outlined">lock</span>
+			<input class="password-input max-w-xs" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
+		</div>
+		<input class="login_button" type="submit" value="로그인" />
+	</form>
+	<a href="#" class="forgot-password">아이디 찾기 / 비밀번호 찾기</a>
+	<section class="signup-section">
+		<p class="signup-text">아직 회원이 아니신가요?</p>
+		<a href="../member/join" class="signup-link">회원가입</a>
+		<button class="signup-link back" type="button" onclick="history.back();">뒤로가기</button>
+	</section>
+</main>
+
 <style>
 body {
 	font-size: 16px;
@@ -189,36 +219,3 @@ body {
 	}
 }
 </style>
-
-<!-- <div class="background_img"> -->
-<!-- 	<img src="https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png" alt="" /> -->
-<!-- </div> -->
-<div class="background_img"></div>
-<header class="header">
-	<a href="../home/main">
-		<button class="logo">로고</button>
-	</a>
-</header>
-<main class="login-container">
-	<form action="../member/doLogin" method="POST">
-		<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri }" />
-		<div class="input-group">
-			<span class="material-symbols-outlined">person</span>
-			<input class="username-input max-w-xs" autocomplete="off" type="text" placeholder="아이디를 입력해주세요" name="loginId" />
-		</div>
-		<div class="input-group">
-			<span class="material-symbols-outlined">lock</span>
-			<input class="password-input max-w-xs" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
-		</div>
-		<input class="login_button" type="submit" value="로그인" />
-	</form>
-	<a href="#" class="forgot-password">아이디 찾기 / 비밀번호 찾기</a>
-	<section class="signup-section">
-		<p class="signup-text">아직 회원이 아니신가요?</p>
-		<a href="../member/join" class="signup-link">회원가입</a>
-		<button class="signup-link back" type="button" onclick="history.back();">뒤로가기</button>
-	</section>
-</main>
-
-
-
