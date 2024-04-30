@@ -421,10 +421,10 @@
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
 		</a>
-		<a href="../article/competitionList">
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
-		<a href="../article/competitionList">
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
 		</a>
 		<a href="../member/myQuestion">

@@ -58,5 +58,43 @@ public class ConferenceService {
 		return conferenceRepository.getConferencesByCategory(categoryId);
 	}
 
+	public List<Conference> getConferencesOrderByRegDate() {
+		
+		return conferenceRepository.getConferencesOrderByRegDate();
+	}
+
+	public List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId) {
+		// TODO Auto-generated method stub
+		return conferenceRepository.getConferencesByCategoryOrderByRegDate(categoryId);
+	}
+
+	public List<Conference> getConferencesOrderByhitCount() {
+		return conferenceRepository.getConferencesOrderByhitCount();
+	}
+
+	public List<Conference> getConferencesByCategoryOrderByhitCount(int categoryId) {
+		
+		return conferenceRepository.getConferencesByCategoryOrderByhitCount(categoryId);
+	}
+
+	public List<Conference> getConferencesOrderByfinDate() {
+		return conferenceRepository.getConferencesOrderByfinDate();
+	}
+
+	public List<Conference> getConferencesByCategoryOrderByfinDate(int categoryId) {
+		
+		return conferenceRepository.getConferencesByCategoryOrderByfinDate(categoryId);
+	}
+
+	public List<Conference> getConferencesOrderBytitle() {
+		return conferenceRepository.getConferencesOrderBytitle();
+	}
+
+	public List<Conference> getConferencesByCategoryOrderBytitle(int categoryId) {
+		return conferenceRepository.getConferencesByCategoryOrderBytitle(categoryId);
+	}
+
+	
+
 	
 }
