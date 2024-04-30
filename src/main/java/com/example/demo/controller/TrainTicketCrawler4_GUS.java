@@ -43,7 +43,7 @@ public class TrainTicketCrawler4_GUS {
 		WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
 
 		// WebDriverWait 인스턴스 생성
-		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(100));
+		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		// 검색창이 활성화될 때까지 기다림
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
@@ -193,66 +193,123 @@ public class TrainTicketCrawler4_GUS {
 		// 두 번째 탭으로 전환
 		driver.switchTo().window(secondTabHandle);
 
-//		WebElement hotelList1 = driver.findElement(By.xpath("//li[@class='PropertyCard PropertyCardItem']"));
+		System.out.println(0);
 
-		System.out.println(1);
+		WebElement hotelNameElement = wait_web.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+				"#contentContainer > div:nth-child(4) > ol > li:nth-child(1) > div > a > div > div.Itemstyled__Item-sc-12uga7p-0.ewNxOO.PropertyCard__Section.PropertyCard__Section--propertyInfo > div > header > div:nth-child(2) > h3")));
+		String hotelName = hotelNameElement.getText();
+		System.out.println(hotelName);
+
+//		WebElement imgElement1 = driver.findElement(By.xpath("//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]//a//div[@class='Overlay']//button//img"));
+
+		String imageUrl = "";
+		// 이미지의 src 속성값 가져오기
+		WebElement srcElement1 = null;
+		WebElement srcElement2 = null;
+		try {
+			srcElement1 = wait_web
+					.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".HeroImage.HeroImage--s")));
+			srcElement2 = wait_web
+					.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("sc-kstrdz.sc-hBEYos.kmUwlj")));
+		} catch (Exception e) {
+			// 이미지가 없는 경우 imageURL을 공백으로 설정
+			System.out.println("요소를 찾을 수 없습니다.");
+
+		}
+		if (srcElement2 == null) {
+			imageUrl = srcElement1.getAttribute("src");
+		} else {
+			imageUrl = srcElement2.getAttribute("src");
+		}
+		System.out.println("이미지 url : " + imageUrl);
+
+		// ol 태그 안의 li 태그를 모두 가져오기
+		List<WebElement> liElements = driver.findElements(By.xpath(
+				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
+		System.out.println(liElements.size());
+		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
+		for (WebElement liElement : liElements) {
+			// li 태그 안에서 클래스명이 ".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit"인 요소 찾기
+			WebElement starElement = liElement
+					.findElement(By.xpath(".//div[contains(@class,'a5bf9-box') and contains(@class,'a5bf9-fill-inherit') and contains(@class,'a5bf9-text-inherit')]"));
+		  System.out.println(starElement);
+			// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
+			if (starElement != null) {
+				String ariaLabel = starElement.getAttribute("aria-label");
+				System.out.println("aria-label 값: " + ariaLabel);
+			}
+		}
+
+		List<WebElement> elements = driver
+				.findElements(By.cssSelector(".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit      "));
+
+		System.out.println(elements);
+		System.out.println(elements.size());
+		// 요소가 존재할 경우 첫 번째 요소의 aria-label 속성값 출력
+		if (!elements.isEmpty()) {
+			WebElement element = elements.get(0);
+			String ariaLabel = element.getAttribute("aria-label");
+			System.out.println("aria-label 값: " + ariaLabel);
+		} else {
+			System.out.println("해당 클래스를 가진 요소를 찾을 수 없습니다.");
+		}
+
+		System.out.println(2);
 		List<WebElement> hotelList = driver.findElements(By.xpath(
 				"//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]"));
 		System.out.println(hotelList.size());
 		System.out.println(hotelList);
-		for (int j = 0; j < hotelList.size(); j++) {
-			WebElement hotelElement = hotelList.get(j);
-			// 여기서 element를 사용하여 작업 수행
 
-//			WebElement hotelElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//your/xpath/for/hotelElement")));
-			WebElement linkElement = wait_web.until(ExpectedConditions.visibilityOf(hotelElement.findElement(By.tagName("a"))));
-			String hotelLink = linkElement.getAttribute("href");
-
-			// 학술행사에 대한 상세 페이지로 이동
-			driver.get(hotelLink);
-
-//			WebElement titleImgElement = driver.findElement(By.xpath(
-//					"//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'Mosaic__Sq1')and contains(@class,'Mosaic__Sq1--7')]"));
-
-			// CSS 선택자를 사용하여 요소 찾기
-			WebElement srcElement = wait_web.until(ExpectedConditions
-					.visibilityOfElementLocated(By.cssSelector("#property-critical-root div.Mosaic__Container > img")));
-
-			String imageUrl = "";
-			// 요소의 src 속성값 가져오기
-			try {
-				imageUrl = srcElement.getAttribute("src");
-			} catch (NoSuchElementException e) {
-				// 이미지가 없는 경우 imageURL을 공백으로 설정
-				imageUrl = "";
-			}
-			WebElement titleElement = wait_web.until(ExpectedConditions
-					.visibilityOfElementLocated(By.cssSelector("#property-main-content div:nth-child(1) > p")));
-			String 호텔이름 = titleElement.getText();
-
-			WebElement starElement = wait_web.until(ExpectedConditions
-					.visibilityOfElementLocated(By.cssSelector(
-					"#property-main-content > div.Box-sc-kv6pi1-0.cJiLOx.sc-higXBA.bnRlSb > div.HeaderCerebrum > div:nth-child(1) > div > span > div > div > div")));
-			String 몇성 = starElement.getAttribute("aria-label");
-
-			WebElement mapElement = wait_web.until(ExpectedConditions
-					.visibilityOfElementLocated(By.cssSelector(
-					"#property-main-content span.Spanstyled__SpanStyled-sc-16tp9kb-0.gwICfd.kite-js-Span.HeaderCerebrum__Address")));
-			String 호텔위치 = mapElement.getText();
-			System.out.println("번호 : " + i);
-			System.out.println("호텔이름 : " + 호텔이름);
-			System.out.println(몇성 + "호텔");
-			System.out.println("호텔위치 : " + 호텔위치);
-
-			System.out.println("이미지 url : " + imageUrl);
-			i++;
-			driver.navigate().back();
+//		for (int j = 0; j < hotelList.size(); j++) {
+//			WebElement hotelElement = hotelList.get(j);
+//			// 여기서 element를 사용하여 작업 수행
+//
+////			WebElement hotelElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//your/xpath/for/hotelElement")));
+//			WebElement linkElement = wait_web
+//					.until(ExpectedConditions.visibilityOf(hotelElement.findElement(By.tagName("a"))));
+//			String hotelLink = linkElement.getAttribute("href");
+//
+//			// 학술행사에 대한 상세 페이지로 이동
+//			driver.get(hotelLink);
+//
+////			WebElement titleImgElement = driver.findElement(By.xpath(
+////					"//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'Mosaic__Sq1')and contains(@class,'Mosaic__Sq1--7')]"));
+//
+//			// CSS 선택자를 사용하여 요소 찾기
+////			WebElement srcElement = wait_web.until(ExpectedConditions
+////					.visibilityOfElementLocated(By.cssSelector("#property-critical-root div.Mosaic__Container > img")));
+////
+////			String imageUrl = "";
+//			// 요소의 src 속성값 가져오기
+////			try {
+////				imageUrl = srcElement.getAttribute("src");
+////			} catch (NoSuchElementException e) {
+////				// 이미지가 없는 경우 imageURL을 공백으로 설정
+////				imageUrl = "";
+////			}
+//			WebElement titleElement = wait_web.until(ExpectedConditions
+//					.visibilityOfElementLocated(By.cssSelector("#property-main-content div:nth-child(1) > p")));
+//			String 호텔이름 = titleElement.getText();
+//
+//			WebElement starElement = wait_web.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+//					"#property-main-content > div.Box-sc-kv6pi1-0.cJiLOx.sc-higXBA.bnRlSb > div.HeaderCerebrum > div:nth-child(1) > div > span > div > div > div")));
+//			String 몇성 = starElement.getAttribute("aria-label");
+//
+//			WebElement mapElement = wait_web.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+//					"#property-main-content span.Spanstyled__SpanStyled-sc-16tp9kb-0.gwICfd.kite-js-Span.HeaderCerebrum__Address")));
+//			String 호텔위치 = mapElement.getText();
+//			System.out.println("번호 : " + i);
+//			System.out.println("호텔이름 : " + 호텔이름);
+//			System.out.println(몇성 + "호텔");
+//			System.out.println("호텔위치 : " + 호텔위치);
+//
+//			System.out.println("이미지 url : " + imageUrl);
+//			i++;
+//			driver.navigate().back();
 
 //			WebElement priceElement = driver.findElement(By.cssSelector("#hotelNavBar > div > div > div > span > div > span:nth-child(5)"));
 //			String 최저가 = priceElement.getText();
 //			System.out.println(최저가);
 
-		}
 	}
-
 }

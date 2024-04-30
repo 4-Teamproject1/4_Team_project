@@ -475,7 +475,7 @@ FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
 
-
+DROP TABLE `academy`;
 
 #학회 테이블 생성
 CREATE TABLE `academy` (
@@ -491,6 +491,19 @@ CREATE TABLE `academy` (
 	`imageURL`	 VARCHAR(500) NULL,
 	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
 );
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
+VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
+VALUES (7, 'test학회ㅈ', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY));
+
+
+SELECT *
+FROM `academy`
+WHERE categoryId = 2
+ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC;
+
 
 SELECT *
 FROM `academy`;
