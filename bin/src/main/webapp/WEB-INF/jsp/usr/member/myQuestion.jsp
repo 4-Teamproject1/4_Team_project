@@ -7,18 +7,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <header class="header">
-	<button class="logo">로고</button>
-	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
-		<button class="hd_info">학회 정보</button>
-		<button class="hd_contest">공모전</button>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
-		</a>
-		<button class="hd_logout">로그아웃</button>
-	</nav>
+  <a href="../home/main">
+    <button class="logo">로고</button>
+  </a>
+  <nav class="header_menu">
+    <a href="../member/myInfo">
+      <button class="username">abc123님</button>
+    </a>
+    <a href="../conference/list">
+      <button class="hd_info">학회 정보</button>
+    </a>
+    <a href="../competition/list">
+      <button class="hd_contest">공모전</button>
+    </a>
+    <a href="../member/myQuestion">
+      <button class="hd_question">문의사항</button>
+    </a>
+    <button class="hd_logout">로그아웃</button>
+  </nav>
 </header>
 
 <div class="img"></div>
@@ -86,14 +92,15 @@ body {
 	left: 0px;
 	top: 57px;
 	background:
-		url('https://velog.velcdn.com/images/vrslxowe/post/1ddba4e8-b0c3-4c29-8ed7-332eb6c06820/image.jpg')
+		url('https://velog.velcdn.com/images/vrslxowe/post/ba2f5fd8-3c2c-4a9a-baa4-2d31c48be056/image.jpg')
 		no-repeat;
 	background-size: cover;
 }
 
 .menu_box1, .menu_box2 {
 	border-radius: 18px;
-	background: #f9b563;
+	background: #00256c;
+	color: white;
 	text-align: center;
 	display: inline-block;
 	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -138,7 +145,8 @@ body {
 .Ques1 {
 	width: 160px;
 	height: 87px;
-	background: #ffe4cb;
+	background: #7E9DD9;
+	color: white;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -169,7 +177,6 @@ body {
 	top: -90%;
 }
 
-
 .file_attachment {
 	height: 30px;
 	border: 1px solid black;
@@ -183,7 +190,8 @@ body {
 	height: 38px;
 	font-size: 12.5px;
 	border-radius: 10px;
-	background: #ffe4cb;
+	background: #7E9DD9;
+	color: white;
 	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -196,8 +204,9 @@ body {
 	transform: translateX(-50%);
 	bottom: 3%;
 	border-radius: 18px;
-	background: #f9b563;
+	background: #00256c;
 	text-align: center;
+	color: white;
 	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>

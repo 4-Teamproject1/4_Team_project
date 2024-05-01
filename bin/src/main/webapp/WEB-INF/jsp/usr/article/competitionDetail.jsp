@@ -1,21 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../common/head.jspf"%>
+<c:set var="pageTitle" value="Competition Detail"></c:set>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<!-- daisy ui 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
+<header class="header">
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+	<nav class="header_menu">
+		<a href="../member/myInfo">
+			<button class="username">abc123님</button>
+		</a>
+		<a href="../article/academicEventList">
+			<button class="hd_info">학회 정보</button>
+		</a>
+		<a href="../article/competitionList">
+			<button class="hd_contest">공모전</button>
+		</a>
+		<a href="../member/myQuestion">
+			<button class="hd_question">문의사항</button>
+		</a>
+		<button class="hd_logout">로그아웃</button>
+	</nav>
+</header>
 
 <div class="list-container">
 	<div class="list-board">
-		<a href="#" class="list-board-item" style="background-color: #F9B563;">학술연구정보</a>
-		<a href="#" class="list-board-item">학술행사</a> <a href="#"
-			class="list-board-item">공모전</a>
+		<a href="#" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+		<a href="#" class="list-board-item">학술행사</a>
+		<a href="#" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
 		<div class="list-items-section">
 
 			<form class="search-form">
-				<!-- Search form -->
-				<!-- Your search form HTML here -->
 			</form>
 			<div>
 				<div style="font-size: 20px; margin-bottom: 10px;">공모전</div>
@@ -49,12 +71,7 @@
 							<td>hj1234@1894.or.kr</td>
 						</tr>
 					</tbody>
-
-
-					<!-- 추가적인 데이터 행들을 여기에 추가 -->
-
 				</table>
-
 				<div class="competition-body">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d0c542028057f20f2d45c75ba4004ec4f7ee9ad64ae8306ab3b4296555b3e30?apiKey=5f9b07e7533e43b894b4d1dc88cef4e5&"
@@ -75,6 +92,41 @@
 
 
 <style>
+
+body {
+	width: 100%;
+	hight: 130%;
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
+}
+
+.logo {
+	text-align: center;
+}
+
+.header_menu {
+	display: flex;
+	gap: 20px;
+}
+
+.hd_logout {
+	font-size: 12.5px;
+}
+
+.username {
+	flex-grow: 1;
+}
+
 /* flex */
 .list-container {
 	display: flex;
@@ -82,6 +134,9 @@
 
 .list-board {
 	flex: 0.5;
+	margin-top: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .list-items-container {
@@ -90,7 +145,8 @@
 }
 
 .list-board-item:hover, .list-board-item:active {
-	background-color: orange; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+	background-color: #7E9DD9; /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+	color: white;
 }
 
 .list-board-item {
@@ -114,7 +170,7 @@
 }
 
 .detail-top-bar {
-	border-top: solid 2px black;
+	border-top: solid 2px #878787;
 }
 
 .top-bar-count {
@@ -169,7 +225,8 @@ tr {
 }
 
 .bookmark-button:hover {
-	background-color: #F7C566;
+	background-color: #7E9DD9;
+	color: white;
 }
 </style>
 
