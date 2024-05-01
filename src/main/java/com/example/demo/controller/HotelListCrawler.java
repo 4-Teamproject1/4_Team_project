@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -192,8 +193,20 @@ public class HotelListCrawler {
 		// 두 번째 탭으로 전환
 		driver.switchTo().window(secondTabHandle);
 
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		for (int i = 0; i < 3; i++) {
+			js.executeScript("window.scrollBy(0, 2000);");
+
+			// 추가 콘텐츠가 로드되기를 기다림
+			try {
+				Thread.sleep(2000); // 2초간 대기
+			} catch (InterruptedException e) {
+				// InterruptedException 처리
+				e.printStackTrace(); // 예외 정보 출력
+			}
+		}
 		List<Hotel> hotelList = new ArrayList<>();
-		Hotel hotel = new Hotel();
 
 		List<WebElement> liElements = driver.findElements(By.xpath(
 				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
@@ -202,53 +215,56 @@ public class HotelListCrawler {
 		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 		System.out.println("순회 시작");
 		int i = 1;
+
 		for (WebElement liElement : liElements) {
 //		for (int i = 0; i <= 10; i++) {
 //			WebElement liElement = liElements.get(i);
 			int lastId = i;
-			WebElement imgElement = liElement.findElement(By.xpath(
-					".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
-			String imgUrl = imgElement.getAttribute("src");
-			WebElement hotelNameElement = liElement.findElement(By.xpath(
-					".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
-			String hotelName = hotelNameElement.getText();
+			try {
+				WebElement imgElement = liElement.findElement(By.xpath(
+						".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
+				String imgUrl = imgElement.getAttribute("src");
+				WebElement hotelNameElement = liElement.findElement(By.xpath(
+						".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
+				String hotelName = hotelNameElement.getText();
 
-			// role이 img인 div 요소를 찾습니다.
-			WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
-			// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
-			String hotelGrade = starElement.getAttribute("aria-label");
-			if (starElement == null) {
-				System.out.println("등급 없음");
+				// role이 img인 div 요소를 찾습니다.
+				WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
+				// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
+				String hotelGrade = starElement.getAttribute("aria-label");
+				if (starElement == null) {
+					System.out.println("등급 없음");
 
+				}
+				WebElement priceElement = liElement
+						.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
+				String price = priceElement.getText();
+
+				System.out.println("번호 : " + lastId);
+				System.out.println("이미지 url : " + imgUrl);
+				System.out.println("호텔 이름 : " + hotelName);
+				System.out.println("호텔 등급 : " + hotelGrade);
+				System.out.println("가격 : " + price);
+				Hotel hotel = new Hotel();
+				hotel.setId(lastId);
+				hotel.setImgUrl(imgUrl);
+				hotel.setHotelName(hotelName);
+				hotel.setGrade(hotelGrade);
+				hotel.setPrice(price);
+
+				System.out.println(hotel);
+				System.out.println(hotelList);
+				i++;
+				hotelList.add(hotel);
+
+			} catch (NoSuchElementException e) {
+				System.out.println("요소를 찾을 수 없습니다. 루프를 종료합니다.");
+				break; // 요소를 찾을 수 없으면 루프를 종료합니다.
 			}
-			WebElement priceElement = liElement
-					.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
-			String price = priceElement.getText();
-
-			System.out.println("번호 : " + lastId);
-			System.out.println("이미지 url : " + imgUrl);
-			System.out.println("호텔 이름 : " + hotelName);
-			System.out.println("호텔 등급 : " + hotelGrade);
-			System.out.println("가격 : " + price);
-
-			hotel.setId(lastId);
-			hotel.setImgUrl(imgUrl);
-			hotel.setHotelName(hotelName);
-			hotel.setGrade(hotelGrade);
-			hotel.setPrice(price);
-			
-			System.out.println(hotel);
-			System.out.println(hotelList);
-			i++;
-			hotelList.add(hotel);
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("window.scrollTo(0, 1000)"); // 수직 스크롤을 1000px 아래로 이동
-
 		}
 		driver.quit();
 
 		return hotelList;
 
 	}
-
 }
