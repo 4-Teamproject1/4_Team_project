@@ -1,8 +1,354 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../common/head.jspf"%>
+<c:set var="pageTitle" value="Recommend List"></c:set>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<!-- daisy ui 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
+<header class="header">
+	<div class="logo">로고</div>
+	<div class="user-info">
+		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
+		</span>
+		<div class="society-info">학회정보</div>
+		<div class="inquiries">문의사항</div>
+		<div class="logout">로그아웃</div>
+	</div>
+</header>
+<div class="outer-box">
+	<div class="searchClickBox">
+		<div class="container">
+
+			<div class="search-container">
+				<input type="text" class="search-text" placeholder="텍스트 검색">
+			</div>
+
+			<div class="accommodation-type">숙소 종류</div>
+
+			<div class="accommodation-list">
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">아파트먼트 (50)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">서비스 아파트먼트 (4)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">호텔 (51)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">게스트하우스 / 비앤비 (5)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">모텔 (66)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">호스텔 (2)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">펜션 (9)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">프라이빗 하우스 (21)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">프라이빗 빌라 (4)</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accommodation-type">숙소 거리 기준</div>
+
+			<div class="accommodation-list">
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">역 근거리 기준 (50)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">버스정류장 근거리 기준 (4)</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">터미널 근거리 기준 (51)</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="accommodation-type">숙소 성급 기준</div>
+
+			<div class="accommodation-list">
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">
+							<div class="image-wrapper1">
+								<img
+									src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+									alt="" class="image" /> (50)
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">
+							<div class="image-wrapper2">
+								<img
+									src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+									alt="Decorative image" class="decorative-image" />
+							</div>
+							(4)
+						</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="image-container">
+							<img
+								src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+								alt="Product Image" class="product-image" loading="lazy" /> (4)
+						</div>
+					</div>
+				</div>
+
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">
+							<div class="image-wrapper4">
+								<img
+									src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+									alt="Decorative image" class="image" /> (51)
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accommodation-item">
+					<div class="accommodation-option">
+						<input type="checkbox" class="checkbox" />
+						<div class="accommodation-name">
+							<div class="image-wrapper5">
+								<img
+									src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+									alt="" class="image" /> (51)
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+
+
+	<div>
+		<div class="outer-searchBox">
+			<div class="searchBox1">
+				<nav class="accommodation-nav">
+					<ul class="accommodation-nav-list">
+
+						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">숙소</div>
+						<div class="dropdown">
+							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
+							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+								<li><a href="../article/recommendAirplaneList">항공</a></li>
+
+								<li><a href="../article/recommendTrainList">기차</a></li>
+								<li><a href="../article/recommendBusList">버스</a></li>
+							</ul>
+						</div>
+
+					</ul>
+				</nav>
+			</div>
+
+			<div class="searchBox2">
+				<div class="container2">
+					<div class="box1">
+						<div class="sort-criteria">
+							<div class="sort-label">정렬 기준</div>
+							<div class="best-match">BEST 매치</div>
+							<div class="divider"></div>
+						</div>
+					</div>
+					<div class="box2">
+						<div class="guest-rating">투숙객 평점순</div>
+						<div class="lowest-price">낮은 요금 먼저</div>
+
+						<div class="special-deal">초특가 상품!</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="outer-content-box">
+			<div class="hotel-card">
+				<div class="hotel-card-content">
+					<div class="hotel-info">
+						<div class="hotel-info-content">
+							<div class="hotel-images">
+								<div class="main-image-container">
+									<div class="main-image-wrapper">
+										<div class="main-image">
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/0269ff624f7164c7efb1603b2d706bf08a3def40cdb6fefbb47a0d9c037ee81b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="Main hotel image" />
+
+										</div>
+
+									</div>
+								</div>
+								<div class="hotel-details">
+									<div class="hotel-name">
+										<div class="hotel-name-text">엘디스 리젠트 호텔 (Eldis Regent</div>
+										<div class="hotel-name-text">Hotel)</div>
+										<div class="hotel-location">
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf923710bd513aeca2a5aedf434ab4ab9075b0725f987c0a6192f40623e31af?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" class="hotel-location-icon" /> <img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7f976c6a5f12fe8e38e626913755498f0e8896d59b84c7c5973be1170c3a4dd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" class="hotel-location-icon" />
+											<div class="hotel-location-text">대구시내, 대구 - 도심에 위치</div>
+										</div>
+										<div class="hotel-amenities-title">숙소 제공 사항</div>
+										<div class="hotel-amenities">
+											<div class="hotel-amenity">조식</div>
+											<div class="hotel-amenity">피트니스 센터</div>
+											<div class="hotel-amenity">주차</div>
+											<div class="hotel-amenity">무료 Wi-Fi</div>
+										</div>
+										<div class="hotel-popularity">
+											<img
+												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7dd0252b796495ed29789b677c69d764fecfd53da152aef74b9c5441d2560ff?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+												alt="" class="hotel-popularity-icon" />
+											<div class="hotel-popularity-text">현재 인기 2시간 전 예약됨</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="hotel-rating-price">
+						<div class="hotel-rating">
+							<img
+								src="https://cdn.builder.io/api/v1/image/assets/TEMP/18d8990427cc7ac525aa734abaaf3e6853634987e2662880d8927c29267db16b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+								alt="" class="hotel-rating-icon" />
+							<div class="hotel-rating-details">
+								<div class="hotel-rating-score">
+									<div class="hotel-rating-text">우수</div>
+									<div class="hotel-rating-value">8.2</div>
+								</div>
+								<div class="hotel-reviews">3,962 건의 이용후기</div>
+								<div class="hotel-price">
+									<div class="hotel-discount">* TODAY * 57% 할인</div>
+									<div class="hotel-price-details">1박당 요금(세금 및 봉사료 제외)</div>
+									<div class="hotel-original-price">192,941</div>
+									<div class="hotel-discounted-price">
+										<div class="hotel-price-currency">₩</div>
+										<div class="hotel-price-value">82,645</div>
+									</div>
+									<div class="hotel-free-cancellation">+ 예약 무료 취소</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <style>
+
+body {
+	width: 100%;
+	hight: 130%;
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
+}
+
+.logo {
+	text-align: center;
+}
+
+.header_menu {
+	display: flex;
+	gap: 20px;
+}
+
+.hd_logout {
+	font-size: 12.5px;
+}
+
+.username {
+	flex-grow: 1;
+}
+
 .hotel-card {
 	justify-content: center;
 	border-radius: 8px;
@@ -857,325 +1203,5 @@
 	margin: auto 0;
 }
 </style>
-
-
-
-
-<header class="header">
-	<div class="logo">로고</div>
-	<div class="user-info">
-		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
-		</span>
-		<div class="society-info">학회정보</div>
-		<div class="inquiries">문의사항</div>
-		<div class="logout">로그아웃</div>
-	</div>
-</header>
-<div class="outer-box">
-	<div class="searchClickBox">
-		<div class="container">
-
-			<div class="search-container">
-				<input type="text" class="search-text" placeholder="텍스트 검색">
-			</div>
-
-			<div class="accommodation-type">숙소 종류</div>
-
-			<div class="accommodation-list">
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">아파트먼트 (50)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">서비스 아파트먼트 (4)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">호텔 (51)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">게스트하우스 / 비앤비 (5)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">모텔 (66)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">호스텔 (2)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">펜션 (9)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">프라이빗 하우스 (21)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">프라이빗 빌라 (4)</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="accommodation-type">숙소 거리 기준</div>
-
-			<div class="accommodation-list">
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">역 근거리 기준 (50)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">버스정류장 근거리 기준 (4)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">터미널 근거리 기준 (51)</div>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="accommodation-type">숙소 성급 기준</div>
-
-			<div class="accommodation-list">
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">
-							<div class="image-wrapper1">
-								<img
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="" class="image" /> (50)
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">
-							<div class="image-wrapper2">
-								<img
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="Decorative image" class="decorative-image" />
-							</div>
-							(4)
-						</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="image-container">
-							<img
-								src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-								alt="Product Image" class="product-image" loading="lazy" /> (4)
-						</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">
-							<div class="image-wrapper4">
-								<img
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="Decorative image" class="image" /> (51)
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">
-							<div class="image-wrapper5">
-								<img
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="" class="image" /> (51)
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-		</div>
-	</div>
-
-
-
-
-	<div>
-		<div class="outer-searchBox">
-			<div class="searchBox1">
-				<nav class="accommodation-nav">
-					<ul class="accommodation-nav-list">
-
-						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">숙소</div>
-						<div class="dropdown">
-							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
-							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
-
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								<li><a href="../article/recommendBusList">버스</a></li>
-							</ul>
-						</div>
-
-					</ul>
-				</nav>
-			</div>
-
-			<div class="searchBox2">
-				<div class="container2">
-					<div class="box1">
-						<div class="sort-criteria">
-							<div class="sort-label">정렬 기준</div>
-							<div class="best-match">BEST 매치</div>
-							<div class="divider"></div>
-						</div>
-					</div>
-					<div class="box2">
-						<div class="guest-rating">투숙객 평점순</div>
-						<div class="lowest-price">낮은 요금 먼저</div>
-
-						<div class="special-deal">초특가 상품!</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-
-
-		<div class="outer-content-box">
-			<div class="hotel-card">
-				<div class="hotel-card-content">
-					<div class="hotel-info">
-						<div class="hotel-info-content">
-							<div class="hotel-images">
-								<div class="main-image-container">
-									<div class="main-image-wrapper">
-										<div class="main-image">
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/0269ff624f7164c7efb1603b2d706bf08a3def40cdb6fefbb47a0d9c037ee81b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Main hotel image" />
-
-										</div>
-
-									</div>
-								</div>
-								<div class="hotel-details">
-									<div class="hotel-name">
-										<div class="hotel-name-text">엘디스 리젠트 호텔 (Eldis Regent</div>
-										<div class="hotel-name-text">Hotel)</div>
-										<div class="hotel-location">
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf923710bd513aeca2a5aedf434ab4ab9075b0725f987c0a6192f40623e31af?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" class="hotel-location-icon" /> <img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7f976c6a5f12fe8e38e626913755498f0e8896d59b84c7c5973be1170c3a4dd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" class="hotel-location-icon" />
-											<div class="hotel-location-text">대구시내, 대구 - 도심에 위치</div>
-										</div>
-										<div class="hotel-amenities-title">숙소 제공 사항</div>
-										<div class="hotel-amenities">
-											<div class="hotel-amenity">조식</div>
-											<div class="hotel-amenity">피트니스 센터</div>
-											<div class="hotel-amenity">주차</div>
-											<div class="hotel-amenity">무료 Wi-Fi</div>
-										</div>
-										<div class="hotel-popularity">
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7dd0252b796495ed29789b677c69d764fecfd53da152aef74b9c5441d2560ff?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="" class="hotel-popularity-icon" />
-											<div class="hotel-popularity-text">현재 인기 2시간 전 예약됨</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="hotel-rating-price">
-						<div class="hotel-rating">
-							<img
-								src="https://cdn.builder.io/api/v1/image/assets/TEMP/18d8990427cc7ac525aa734abaaf3e6853634987e2662880d8927c29267db16b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-								alt="" class="hotel-rating-icon" />
-							<div class="hotel-rating-details">
-								<div class="hotel-rating-score">
-									<div class="hotel-rating-text">우수</div>
-									<div class="hotel-rating-value">8.2</div>
-								</div>
-								<div class="hotel-reviews">3,962 건의 이용후기</div>
-								<div class="hotel-price">
-									<div class="hotel-discount">* TODAY * 57% 할인</div>
-									<div class="hotel-price-details">1박당 요금(세금 및 봉사료 제외)</div>
-									<div class="hotel-original-price">192,941</div>
-									<div class="hotel-discounted-price">
-										<div class="hotel-price-currency">₩</div>
-										<div class="hotel-price-value">82,645</div>
-									</div>
-									<div class="hotel-free-cancellation">+ 예약 무료 취소</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
 
 <%@ include file="../common/foot.jspf"%>
