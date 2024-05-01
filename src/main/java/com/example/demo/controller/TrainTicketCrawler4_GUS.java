@@ -193,8 +193,6 @@ public class TrainTicketCrawler4_GUS {
 		// 두 번째 탭으로 전환
 		driver.switchTo().window(secondTabHandle);
 
-		System.out.println(0);
-//
 //		List<WebElement> liElements = driver.findElements(By.xpath(
 //				"//div[contains(@class,'Gridstyled__GridStyled-sc-dfh2k0-0') and contains(@class,'kEJDDi') and contains(@class,'PropertyCard__Container')]"));
 		List<WebElement> liElements = driver.findElements(By.xpath(
@@ -204,17 +202,16 @@ public class TrainTicketCrawler4_GUS {
 		for (WebElement liElement : liElements) {
 			System.out.println("순회 시작");
 			WebElement imgElement = liElement.findElement(By.xpath(
-					"//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
+					".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
 			String imgUrl = imgElement.getAttribute("src");
 			WebElement hotelNameElement = liElement.findElement(By.xpath(
-					"//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
+					".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
 			String hotelName = hotelNameElement.getText();
 			System.out.println("이미지 url : " + imgUrl);
 			System.out.println("호텔 이름 : " + hotelName);
 			// li 태그 안에서 클래스명이 ".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit"인 요소 찾기
 			WebElement starElement = liElement.findElement(By.xpath(
 					".//div[contains(@class,'a5bf9-box') and contains(@class,'a5bf9-fill-inherit') and contains(@class,'a5bf9-text-inherit')]"));
-
 			// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
 			if (starElement != null) {
 				String ariaLabel = starElement.getAttribute("aria-label");
@@ -225,25 +222,27 @@ public class TrainTicketCrawler4_GUS {
 			}
 		}
 
-		List<WebElement> elements = driver
-				.findElements(By.cssSelector(".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit      "));
+	}
 
-		System.out.println(elements);
-		System.out.println(elements.size());
-		// 요소가 존재할 경우 첫 번째 요소의 aria-label 속성값 출력
-		if (!elements.isEmpty()) {
-			WebElement element = elements.get(0);
-			String ariaLabel = element.getAttribute("aria-label");
-			System.out.println("aria-label 값: " + ariaLabel);
-		} else {
-			System.out.println("해당 클래스를 가진 요소를 찾을 수 없습니다.");
-		}
-
-		System.out.println(2);
-		List<WebElement> hotelList = driver.findElements(By.xpath(
-				"//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]"));
-		System.out.println(hotelList.size());
-		System.out.println(hotelList);
+//		List<WebElement> elements = driver
+//				.findElements(By.cssSelector(".a5bf9-box.a5bf9-fill-inherit.a5bf9-text-inherit      "));
+//
+//		System.out.println(elements);
+//		System.out.println(elements.size());
+//		// 요소가 존재할 경우 첫 번째 요소의 aria-label 속성값 출력
+//		if (!elements.isEmpty()) {
+//			WebElement element = elements.get(0);
+//			String ariaLabel = element.getAttribute("aria-label");
+//			System.out.println("aria-label 값: " + ariaLabel);
+//		} else {
+//			System.out.println("해당 클래스를 가진 요소를 찾을 수 없습니다.");
+//		}
+//
+//		System.out.println(2);
+//		List<WebElement> hotelList = driver.findElements(By.xpath(
+//				"//div[contains(@class,'Box-sc-kv6pi1-0')and contains(@class,'hRUYUu')and contains(@class,'JacketContent')and contains(@class,'JacketContent--Empty')]"));
+//		System.out.println(hotelList.size());
+//		System.out.println(hotelList);
 
 //		for (int j = 0; j < hotelList.size(); j++) {
 //			WebElement hotelElement = hotelList.get(j);
@@ -296,5 +295,4 @@ public class TrainTicketCrawler4_GUS {
 //			String 최저가 = priceElement.getText();
 //			System.out.println(최저가);
 
-	}
 }
