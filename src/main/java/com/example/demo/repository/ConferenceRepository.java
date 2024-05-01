@@ -21,6 +21,7 @@ public interface ConferenceRepository {
                      applicationPeriod = #{applicationPeriod},
                      entryFee = #{entryFee},
                      place = #{place},
+                     address = #{address},
                      homepage = #{homepage},
                      imageURL = #{imageURL},
                      regDate = NOW()
@@ -131,4 +132,19 @@ public interface ConferenceRepository {
             </script>
             """)
     public List<Conference> getConferencesByCategoryOrderBytitle(int categoryId);
+
+    @Select("""
+    	    <script>
+    	    SELECT title,place,
+    	           CONCAT(
+    	               DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d'),
+    	               ' ~ ',
+    	               DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', -1), '%y.%m.%d')
+    	           ) AS eventPeriod,
+    	           address
+    	    FROM `academy`;
+    	    </script>
+    	""")
+    	public List<Conference> getShopsList2();
+
 }

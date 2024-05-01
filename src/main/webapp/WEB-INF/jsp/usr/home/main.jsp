@@ -7,6 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <script>
 /* 메인 이미지 슬라이드 */
   jQuery(document).ready(function($) {
@@ -58,43 +59,136 @@
   });
   </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-	    const searchData = [
-	        <c:forEach var="conference" items="${conferences}" varStatus="status">
-	            '${conference.title}'<c:if test="${!status.last}">,</c:if>
-	        </c:forEach>
-	    ];
+document.addEventListener("DOMContentLoaded", function() {
+    const searchData = [
+        <c:forEach var="conference" items="${conferences}" varStatus="status">
+            '${conference.title}'<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
 
-	    const searchResultsContainer = document.querySelector('.search_results');
-	    const searchInput = document.querySelector('.SearchBoxTextEditor'); // 검색 상자 선택
+    const searchResultsContainer = document.querySelector('.search_results');
+    const searchInput = document.querySelector('.SearchBoxTextEditor'); // 검색 상자 선택
+    const boxDateInput = document.querySelector('.box_date'); // 가는날 input 선택
 
-	    function populateSearchResults() {
-	        searchResultsContainer.innerHTML = ''; // 이전 결과를 지우기
-	        searchData.forEach(item => {
-	            const div = document.createElement('div');
-	            div.textContent = item;
-	            div.classList.add('search-result-item'); // CSS 스타일을 위한 클래스 추가
-	            div.addEventListener('click', function() {
-	                searchInput.value = this.textContent; // 검색 상자에 텍스트 설정
-	                searchResultsContainer.classList.remove('visible'); // 검색 결과 숨기기
-	            });
-	            searchResultsContainer.appendChild(div);
-	        });
-	    }
+    const conferenceTitles = [
+        <c:forEach var="conference" items="${conferences}" varStatus="status">
+            '${conference.title}',
+        </c:forEach>
+    ];
 
-	    // 초기에 검색 결과를 데이터로 채우기
-	    populateSearchResults();
+    const conferenceEventPeriods = [
+        <c:forEach var="conference" items="${conferences}" varStatus="status">
+            '${conference.eventPeriod}',
+        </c:forEach>
+    ];
 
-	    document.querySelector('.SearchBoxTextEditor').addEventListener('click', function() {
-	        searchResultsContainer.classList.add('visible'); // 검색 결과를 보여주기
-	    });
+    const conferenceAddresses = [
+        <c:forEach var="conference" items="${conferences}" varStatus="status">
+            <c:choose>
+                <c:when test="${not empty conference.address}">
+                    '${conference.address}',
+                </c:when>
+                <c:otherwise>
+                    '', // null인 경우는 공백을 할당합니다.
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    ];
 
-	    document.body.addEventListener("click", function(event) {
-	        if (!event.target.closest(".search_box")) {
-	            searchResultsContainer.classList.remove("visible"); // 검색 상자 바깥 클릭 시 결과 숨기기
-	        }
-	    });
-	});
+    // 이 부분에 JavaScript 변수를 선언하고 JSP에서 넘겨준 데이터를 할당합니다.
+    const conferenceAddressesJS = [
+        <c:forEach var="conference" items="${conferences}" varStatus="status">
+            <c:choose>
+                <c:when test="${not empty conference.address}">
+                    '${conference.address}',
+                </c:when>
+                <c:otherwise>
+                    '', // null인 경우는 공백을 할당합니다.
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    ];
+
+
+    function populateSearchResults() {
+        searchResultsContainer.innerHTML = ''; // 이전 결과를 지우기
+        searchData.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.textContent = item;
+            div.classList.add('search-result-item'); // CSS 스타일을 위한 클래스 추가
+            div.addEventListener('click', function() {
+                searchInput.value = this.textContent; // 검색 상자에 텍스트 설정
+                searchResultsContainer.classList.remove('visible'); // 검색 결과 숨기기
+
+                // 클릭한 항목의 인덱스 가져오기
+                const selectedIndex = conferenceTitles.indexOf(this.textContent);
+                
+                // 해당하는 학회의 eventPeriod 가져오기
+                const eventPeriod = conferenceEventPeriods[selectedIndex];
+
+                // 해당하는 학회의 address 가져오기
+                const address = conferenceAddresses[selectedIndex];
+
+                // box_date 클래스를 가진 입력 필드에 eventPeriod 설정
+                boxDateInput.value = eventPeriod;
+
+                // box_end 클래스를 가진 입력 필드에 address 설정
+                document.querySelector('.box_end').value = address;
+            });
+            searchResultsContainer.appendChild(div);
+        });
+    }
+
+    // 초기에 검색 결과를 데이터로 채우기
+    populateSearchResults();
+
+    document.querySelector('.SearchBoxTextEditor').addEventListener('click', function() {
+        searchResultsContainer.classList.add('visible'); // 검색 결과를 보여주기
+    });
+
+    document.body.addEventListener("click", function(event) {
+        if (!event.target.closest(".search_box")) {
+            searchResultsContainer.classList.remove("visible"); // 검색 상자 바깥 클릭 시 결과 숨기기
+        }
+    });
+});
+
+
+  </script>
+  
+  <script>
+//DOMContentLoaded 이벤트 리스너 내부에서 작성된 코드라고 가정합니다.
+  document.querySelectorAll('.search-result-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+          searchInput.value = this.textContent; // 검색 입력값 설정
+          searchResultsContainer.classList.remove('visible'); // 검색 결과 숨김
+
+          // 클릭한 항목의 인덱스 가져오기
+          const index = searchData.indexOf(this.textContent);
+          
+          // 해당하는 학회의 eventPeriod 가져오기
+          const eventPeriod = "${conferences.get(index).eventPeriod}";
+
+          // box_date 클래스를 가진 입력 필드에 eventPeriod 설정
+          document.querySelector('.box_date').value = eventPeriod;
+      });
+  });
+
+  </script>
+  
+  
+  <script>
+  function formatDate(dateString) {
+	    // 날짜와 시간을 공백을 기준으로 분할합니다.
+	    var parts = dateString.split(" ");
+	    // 시작일과 종료일을 "-"로 분할합니다.
+	    var startEndDate = parts[0].split("~");
+	    // 시작일과 종료일의 시간을 제외한 부분을 가져옵니다.
+	    var startDate = startEndDate[0];
+	    var endDate = startEndDate[1];
+	    // 변환된 날짜 형식을 반환합니다.
+	    return startDate + " ~ " + endDate;
+	}
 
   </script>
 
@@ -138,22 +232,22 @@
 	<div class="search_box1">
 		<div class="search_box-1">
 			<input type="text" class="box_start" placeholder="출발장소" id="textInput" value="" />
-			<input type="text" class="box_end" placeholder="도착장소" id="textInput" value="" />
+			<input type="text" class="box_end" placeholder="도착장소" id="textInput" value="${conferenceService.extractCityFromAddress(conference.address)}" />
 		</div>
 		<div class="search_box-2">
-			<input type="text" class="box_date" placeholder="가는날" id="textInput" value="" />
+			<input type="text" class="box_date" placeholder="가는날" id="textInput" value=" " />
 			<div class="select_box">
-				<select class="select select-bordered  w-32 max-w-xs">
-					<option disabled selected>인원 수</option>
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					<option>8</option>
-				</select>
+				<select class="select select-bordered w-32 max-w-xs">
+    <option disabled>인원 수</option>
+    <option selected>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+</select>
 			</div>
 		</div>
 		<div class="search_btn btn">
@@ -166,6 +260,7 @@
 		<button class="event-title">학술행사일정</button>
 	</a>
 	<div class="event-schedule-box">
+
 		<c:forEach var="conference" items="${conferences}" varStatus="status">
 			<c:if test="${status.index < 3}">
 				<button class="event-description">
@@ -174,6 +269,7 @@
 				</button>
 			</c:if>
 		</c:forEach>
+
 		<a href="../conference/list" class="event-more-button">더보기</a>
 	</div>
 </div>
@@ -348,7 +444,6 @@ a.control_next {
 	width: 400px;
 	height: 70px;
 	padding: 10px;
-	font-size: 16px;
 	border-radius: 32px;
 	transform: translate(-50%, -50%);
 	background-color: orange;
@@ -452,10 +547,10 @@ a.control_next {
 /* main페이지 하단 정보요약글 */
 .event-schedule {
 	vertical-align: top;
-	width: 500px;
+	width: 700px;
 	height: 350px;
 	margin-top: 5%;
-	margin-left: 15%;
+	margin-left: 8.3%;
 	display: inline-block;
 	color: E1E1E1;
 	background-color: #4E597C;
@@ -504,9 +599,9 @@ a.control_next {
 	position: relative;
 	color: #ABABAB;
 	top: -9px;
-	width: 45px;
+	width: 300px;
 	height: 25px;
-	margin-left: 90%;
+	margin-left: 77%;
 }
 
 .event-more-button {

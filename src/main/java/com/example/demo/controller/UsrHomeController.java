@@ -22,8 +22,8 @@ public class UsrHomeController {
 
 	@RequestMapping("/usr/home/main")
 	public String showMain( Model model) {
-		List<Conference> conferences = conferenceService.getShopsList();
-		List<Competition> competitions = competitionService.getCompetitionsList();
+		List<Conference> conferences = conferenceService.getShopsList2();
+		List<Competition> competitions = competitionService.getCompetitionsList2();
 		
 		model.addAttribute("conferences", conferences);
 		model.addAttribute("competitions", competitions);

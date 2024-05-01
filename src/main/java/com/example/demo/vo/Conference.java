@@ -10,16 +10,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Conference {
-    private int id;
-    private String title;
-    private int hitCount;
-    private String eventPeriod;
-    private String applicationPeriod;
-    private String entryFee;
-    private String place;
-    private String homepage;
-    private String imageURL;
-    private int categoryId;
-    private String regDate;
-    
+	private int id;
+	private String title;
+	private int hitCount;
+	private String eventPeriod;
+	private String applicationPeriod;
+	private String entryFee;
+	private String place;
+	private String address;
+	private String homepage;
+	private String imageURL;
+	private int categoryId;
+	private String regDate;
+
 }
