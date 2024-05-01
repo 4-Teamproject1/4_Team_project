@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -13,17 +14,21 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
 
 import com.example.demo.vo.Hotel;
 
-public class TrainTicketCrawler4_GUS {
-	public static void main(String[] args) {
+@Component
+public class HotelListCrawler {
+
+	public List<Hotel> crawlHotelList() {
 
 		System.setProperty("webdriver.chrome.driver",
 				"C:/work/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe");
@@ -31,7 +36,7 @@ public class TrainTicketCrawler4_GUS {
 		// WebDriver 인스턴스 생성
 		WebDriver driver = new ChromeDriver();
 
-		// 네이버 기차표 검색 페이지 URL
+		// 아고다 검색 페이지 URL
 		String url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&device=c&network=g&adid=695788229412&rand=2893338334644664789&expid=&adpos=&aud=kwd-304551434341&gclid=Cj0KCQjw_qexBhCoARIsAFgBlevSo6nth5UoZYtTjxbyMdsMGb9e5H1wMGNKOHqatzyxXCnCCISQUGEaApAaEALw_wcB&checkIn=2024-05-10&checkOut=2024-05-18&adults=1&rooms=1&pslc=1&ds=pWGoz1iyjxyzPJEv";
 
 		// 아고다 검색 페이지로 이동
@@ -188,53 +193,78 @@ public class TrainTicketCrawler4_GUS {
 		// 두 번째 탭으로 전환
 		driver.switchTo().window(secondTabHandle);
 
-		
-		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		for (int i = 0; i < 3; i++) {
+			js.executeScript("window.scrollBy(0, 2000);");
+
+			// 추가 콘텐츠가 로드되기를 기다림
+			try {
+				Thread.sleep(2000); // 2초간 대기
+			} catch (InterruptedException e) {
+				// InterruptedException 처리
+				e.printStackTrace(); // 예외 정보 출력
+			}
+		}
+		List<Hotel> hotelList = new ArrayList<>();
+
 		List<WebElement> liElements = driver.findElements(By.xpath(
 				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
 		System.out.println(liElements.size());
 
-		
 		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 		System.out.println("순회 시작");
 		int i = 1;
+
 		for (WebElement liElement : liElements) {
 //		for (int i = 0; i <= 10; i++) {
 //			WebElement liElement = liElements.get(i);
-			int lastId = i + 1;
-			WebElement imgElement = liElement.findElement(By.xpath(
-					".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
-			String imgUrl = imgElement.getAttribute("src");
-			WebElement hotelNameElement = liElement.findElement(By.xpath(
-					".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
-			String hotelName = hotelNameElement.getText();
+			int lastId = i;
+			try {
+				WebElement imgElement = liElement.findElement(By.xpath(
+						".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
+				String imgUrl = imgElement.getAttribute("src");
+				WebElement hotelNameElement = liElement.findElement(By.xpath(
+						".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
+				String hotelName = hotelNameElement.getText();
 
-			// role이 img인 div 요소를 찾습니다.
-			WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
-			// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
-			String ariaLabel = starElement.getAttribute("aria-label");
-			if (starElement == null) {
-				System.out.println("등급 없음");
+				// role이 img인 div 요소를 찾습니다.
+				WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
+				// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
+				String hotelGrade = starElement.getAttribute("aria-label");
+				if (starElement == null) {
+					System.out.println("등급 없음");
 
+				}
+				WebElement priceElement = liElement
+						.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
+				String price = priceElement.getText();
+
+				System.out.println("번호 : " + lastId);
+				System.out.println("이미지 url : " + imgUrl);
+				System.out.println("호텔 이름 : " + hotelName);
+				System.out.println("호텔 등급 : " + hotelGrade);
+				System.out.println("가격 : " + price);
+				Hotel hotel = new Hotel();
+				hotel.setId(lastId);
+				hotel.setImgUrl(imgUrl);
+				hotel.setHotelName(hotelName);
+				hotel.setGrade(hotelGrade);
+				hotel.setPrice(price);
+
+				System.out.println(hotel);
+				System.out.println(hotelList);
+				i++;
+				hotelList.add(hotel);
+
+			} catch (NoSuchElementException e) {
+				System.out.println("요소를 찾을 수 없습니다. 루프를 종료합니다.");
+				break; // 요소를 찾을 수 없으면 루프를 종료합니다.
 			}
-			WebElement priceElement = liElement
-					.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
-			String price = priceElement.getText();
-
-			System.out.println("번호 : " + lastId);
-			System.out.println("이미지 url : " + imgUrl);
-			System.out.println("호텔 이름 : " + hotelName);
-			System.out.println("호텔 등급 : " + ariaLabel);
-			System.out.println("가격 : " + price);
-			
-			
-			
-
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("window.scrollTo(0, 1000)"); // 수직 스크롤을 1000px 아래로 이동
-
 		}
+		driver.quit();
+
+		return hotelList;
 
 	}
-
 }
