@@ -97,6 +97,22 @@ public interface CompetitionRepository {
 	public List<Competition> getCompetitionsByCategoryOrderBytitle();
 
 
+
+
+	 @Select("""
+			    <script>
+			    SELECT title,
+			           CONCAT(
+			               DATE_FORMAT(SUBSTRING_INDEX(applicationPeriod, ' ~ ', 1), '%y.%m.%d'),
+			               ' ~ ',
+			               DATE_FORMAT(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d')
+			           ) AS applicationPeriod
+			    FROM `competition`;
+			    </script>
+			""")
+			public List<Competition> getCompetitionsList2();
+
+
 	
 
 
