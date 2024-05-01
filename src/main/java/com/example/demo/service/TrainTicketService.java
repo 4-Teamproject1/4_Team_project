@@ -26,8 +26,10 @@ public class TrainTicketService {
 	static class crawl {
 		public List<Train> crawl() {
 			// 크롬 드라이버 경로 설정
+//			System.setProperty("webdriver.chrome.driver",
+//					"C:\\work\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\work\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
 
 			// WebDriver 인스턴스 생성
 			WebDriver driver = new ChromeDriver();
@@ -189,11 +191,10 @@ public class TrainTicketService {
 
 				// trains 객체를 spanTexts 리스트에 추가합니다.
 				// 모든 필드가 비어있지 않은 경우에만 데이터를 추가합니다.
-				if (trains.getTrainName() != null && trains.getTrainNum() != null 
-				    && trains.getDepartureTime() != null && trains.getArrivalTime() != null 
-				    && trains.getTravelTime() != null) {
-				    // Article 객체를 spanTexts 리스트에 추가합니다.
-				    spanTexts.add(trains);
+				if (trains.getTrainName() != null && trains.getTrainNum() != null && trains.getDepartureTime() != null
+						&& trains.getArrivalTime() != null && trains.getTravelTime() != null) {
+					// Article 객체를 spanTexts 리스트에 추가합니다.
+					spanTexts.add(trains);
 				}
 			}
 

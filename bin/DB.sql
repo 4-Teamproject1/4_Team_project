@@ -474,3 +474,55 @@ SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
+
+
+#학회 테이블 생성
+CREATE TABLE `academy` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	categoryId INT NOT NULL,
+	`title`  VARCHAR(500) NULL,
+	`hitCount`	INT	NULL,
+	`eventPeriod` VARCHAR(500) NULL,
+	`applicationPeriod`	 VARCHAR(500) NULL,
+	`entryFee`	 VARCHAR(500) NULL ,
+	`place`	 VARCHAR(500) NULL,
+	`homepage`	 VARCHAR(500) NULL,
+	`imageURL`	 VARCHAR(500) NULL,
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
+);
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
+VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
+VALUES (7, 'test학회ㅈ', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY));
+
+
+SELECT *
+FROM `academy`
+WHERE categoryId = 2
+ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC;
+
+
+SELECT *
+FROM `academy`;
+
+
+#공모전테이블 생성
+CREATE TABLE `competition` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`title`  VARCHAR(500) NULL,
+	`totalPrizeMoney` VARCHAR(500) NULL,
+	`firstPrizeMoney` VARCHAR(500) NULL,
+	`applicationPeriod`	 VARCHAR(500) NULL,
+	`homepage`	 VARCHAR(500) NULL,
+	`imageURL`	 VARCHAR(500) NULL,
+	`contactNum`	 VARCHAR(500) NULL,
+	`contactEmail`	 VARCHAR(500) NULL,
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
+);
+
+
+SELECT *
+FROM `competition`;
+

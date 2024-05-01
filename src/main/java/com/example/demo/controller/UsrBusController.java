@@ -21,13 +21,13 @@ public class UsrBusController {
 	@RequestMapping("/usr/article/recommendBusList")
 	public String recommendTrainList(HttpServletRequest req, Model model) {
 
-		List<Bus> spanTexts = butTicketService2.getBusservice();
+		List<Bus> busLists = butTicketService2.getBusservice();
 
 		 // 여기서 spanTexts를 이용하여 모델에 추가
-		  for (Bus text : spanTexts) {
+		  for (Bus text : busLists) {
               System.out.println("텍스트: " + text);
           }
-        model.addAttribute("spanTexts", spanTexts);
+        model.addAttribute("busLists", busLists);
 
         return "usr/article/recommendBusList"; 
 	}
