@@ -474,7 +474,7 @@ SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
-
+DROP TABLE 
 
 #학회 테이블 생성
 CREATE TABLE `academy` (
@@ -486,6 +486,7 @@ CREATE TABLE `academy` (
 	`applicationPeriod`	 VARCHAR(500) NULL,
 	`entryFee`	 VARCHAR(500) NULL ,
 	`place`	 VARCHAR(500) NULL,
+	`address`	 VARCHAR(500) NULL,
 	`homepage`	 VARCHAR(500) NULL,
 	`imageURL`	 VARCHAR(500) NULL,
 	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
