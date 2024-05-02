@@ -526,3 +526,16 @@ CREATE TABLE `competition` (
 SELECT *
 FROM `competition`;
 
+#호텔 테이블 생성
+CREATE TABLE `hotel` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`imgURL` VARCHAR(500) NOT NULL,
+	hotelName VARCHAR(500) NOT NULL,
+	grade CHAR(100) NOT NULL,
+	price CHAR(100) NOT NULL
+);
+
+DROP TABLE `hotel`;
+
+SELECT *
+FROM `hotel`;

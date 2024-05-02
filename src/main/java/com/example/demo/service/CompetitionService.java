@@ -52,9 +52,9 @@ public class CompetitionService {
 		return competitionRepository.getEventById(id);
 	}
 
-	public List<Competition> getCompetitionsList() {
+	public List<Competition> getCompetitionsList2() {
 		
-		return competitionRepository. getCompetitionsList();
+		return competitionRepository. getCompetitionsList2();
 	}
 
 	public List<Competition> getCompetitionsByCategoryOrderByRegDate() {
@@ -74,5 +74,9 @@ public class CompetitionService {
 	public List<Competition> getCompetitionsByCategoryOrderBytitle() {
 		// TODO Auto-generated method stub
 		return competitionRepository.getCompetitionsByCategoryOrderBytitle();
+	}
+
+	public List<Competition> getCompetitionsList() {
+		return competitionRepository. getCompetitionsList();
 	}
 }
