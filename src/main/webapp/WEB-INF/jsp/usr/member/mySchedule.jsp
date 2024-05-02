@@ -733,7 +733,11 @@ body {
 
 /* 이벤트 목록 */
 .events {
+/* position: relative;
+    top: -20px; /* 위로 올리고 싶은 만큼의 값 */
+    right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
 	height: auto;
+	width: auto;
 	padding: 7px 0;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -741,6 +745,7 @@ body {
 	/* 스크롤바 숨김 */
 	-ms-overflow-style: none;
 	/* Firefox IE 10+ */
+/* 	border: 3px solid red; */
 }
 
 /* 이벤트 목록 입장 애니메이션 */

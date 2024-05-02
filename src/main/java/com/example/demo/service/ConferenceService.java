@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.controller.ConferenceInfoCrawler5;
 import com.example.demo.repository.ConferenceRepository;
 import com.example.demo.vo.Conference;
+import com.example.demo.vo.ResultData;
 
 
 
@@ -145,6 +146,31 @@ public class ConferenceService {
 
         return conferences;
     }
+
+	public ResultData increaseGoodReactionPoint(int relId) {
+		int affectedRow = conferenceRepository.increaseGoodReactionPoint(relId);
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시물");
+		}
+
+		return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
+	}
+
+	public ResultData decreaseGoodReactionPoint(int relId) {
+		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(relId);
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시물");
+		}
+
+		return ResultData.from("S-1", "좋아요 감소", "affectedRow", affectedRow);
+	}
+
+	public int getGoodRP(int relId) {
+		
+		return conferenceRepository.getGoodRP(relId);
+	}
 
 	
 }
