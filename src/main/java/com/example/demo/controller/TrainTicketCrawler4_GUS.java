@@ -26,7 +26,7 @@ public class TrainTicketCrawler4_GUS {
 	public static void main(String[] args) {
 
 		System.setProperty("webdriver.chrome.driver",
-				"C:/work/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe");
+				"C:/work/chromedriver.exe");
 
 		// WebDriver 인스턴스 생성
 		WebDriver driver = new ChromeDriver();
@@ -47,7 +47,7 @@ public class TrainTicketCrawler4_GUS {
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 
 		// 검색어 입력
-		String searchText = "서울";
+		String searchText = "";
 		activatedSearchInput.sendKeys(searchText);
 
 //		// 엔터 입력 (검색 실행)
