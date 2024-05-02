@@ -129,7 +129,7 @@
 								<td>${conference.id}</td>
 								<!-- 첫 번째 td에 학회의 ID -->
 								<td>
-									<a href="detail?id=${conference.id}">${conference.title}</a>
+									<a href="detail?themeId=${conference.themeId}&id=${conference.id}">${conference.title}</a>
 								</td>
 								<!-- 두 번째 td에 학회의 제목 -->
 								<td>${conference.eventPeriod}</td>

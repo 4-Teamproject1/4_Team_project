@@ -21,6 +21,7 @@ public class Conference {
 	private String homepage;
 	private String imageURL;
 	private int categoryId;
+	private int themeId;
 	private String regDate;
-
+	private String goodReactionPoint;
 }

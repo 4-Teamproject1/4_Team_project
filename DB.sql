@@ -474,11 +474,12 @@ SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
 GROUP BY RP.relTypeCode,RP.relId
 
-DROP TABLE 
+
 
 #학회 테이블 생성
 CREATE TABLE `academy` (
 	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
 	categoryId INT NOT NULL,
 	`title`  VARCHAR(500) NULL,
 	`hitCount`	INT	NULL,
@@ -489,8 +490,13 @@ CREATE TABLE `academy` (
 	`address`	 VARCHAR(500) NULL,
 	`homepage`	 VARCHAR(500) NULL,
 	`imageURL`	 VARCHAR(500) NULL,
-	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
+	`goodReactionPoint` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩수'
+	
 );
+
+SELECT *
+FROM `academy`;
 
 INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
 VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
@@ -540,3 +546,22 @@ DROP TABLE `hotel`;
 
 SELECT *
 FROM `hotel`;
+
+
+CREATE TABLE scrap
+(   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `regDate` DATETIME NOT NULL COMMENT '찜 날짜', 
+    `updateDate` DATETIME NOT NULL,
+    `deleteDate` DATETIME NULL, 
+    `memberId` INT(10) UNSIGNED NOT NULL COMMENT '회원 번호', 
+    `academyId` INT(10) UNSIGNED NOT NULL  COMMENT '학회 번호', 
+    `point` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩 상태 찜 여부 (0=찜 취소, 1= 찜)'
+);
+
+
+
+
+DROP TABLE scrap;
+
+SELECT *
+FROM Scrap;

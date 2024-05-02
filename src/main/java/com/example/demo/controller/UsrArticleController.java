@@ -122,12 +122,6 @@ public class UsrArticleController {
 	}
 	
 	
-	
-	
-	
-	
-	   
-	
 
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
