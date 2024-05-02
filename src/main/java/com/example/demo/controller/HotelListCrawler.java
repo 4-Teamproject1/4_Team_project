@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -30,8 +31,7 @@ public class HotelListCrawler {
 
 	public List<Hotel> crawlHotelList() {
 
-		System.setProperty("webdriver.chrome.driver",
-				"C:/work/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
 		// WebDriver 인스턴스 생성
 		WebDriver driver = new ChromeDriver();
@@ -236,22 +236,45 @@ public class HotelListCrawler {
 					System.out.println("등급 없음");
 
 				}
+				// 정규표현식을 사용하여 숫자와 문자열을 분리
+				String[] parts = hotelGrade.split("(?<=\\d)(?=\\D)");
+
+				String number = parts[0]; // 숫자 부분
+				String text1 = parts[1]; // 문자열 부분
+
+				int starScore = Integer.parseInt(number);
 				WebElement priceElement = liElement
 						.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
 				String price = priceElement.getText();
+				List<String> serviceTexts = new ArrayList<>();
+
+				List<WebElement> serviceElements = liElement
+						.findElements(By.xpath(".//div[@data-selenium='pill-container']//div//span"));
+
+				for (WebElement serviceElement : serviceElements) {
+					String text = serviceElement.getText();
+					serviceTexts.add(text);
+				}
+				String serviceAsString = String.join(",", serviceTexts);
+
+				WebElement aTagElement = liElement.findElement(By.tagName("a"));
+				String href = aTagElement.getAttribute("href");
+				System.out.println("Href : " + href);
 
 				System.out.println("번호 : " + lastId);
 				System.out.println("이미지 url : " + imgUrl);
 				System.out.println("호텔 이름 : " + hotelName);
-				System.out.println("호텔 등급 : " + hotelGrade);
+				System.out.println("호텔 등급 : " + starScore);
 				System.out.println("가격 : " + price);
+				System.out.println("숙소 제공사항 : " + serviceAsString);
 				Hotel hotel = new Hotel();
 				hotel.setId(lastId);
 				hotel.setImgUrl(imgUrl);
 				hotel.setHotelName(hotelName);
-				hotel.setGrade(hotelGrade);
+				hotel.setGrade(starScore);
 				hotel.setPrice(price);
-
+				hotel.setService(serviceAsString);
+				hotel.setHref(href);
 				System.out.println(hotel);
 				System.out.println(hotelList);
 				i++;

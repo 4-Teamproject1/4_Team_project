@@ -1,19 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="Recommend List"></c:set>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100'
-	rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <header class="header">
 	<div class="logo">로고</div>
 	<div class="user-info">
-		<span class="username"> <span class="black-text">abc123</span>
+		<span class="username">
+			<span class="black-text">abc123</span>
 			<span class="black-text">님</span>
 		</span>
 		<div class="society-info">학회정보</div>
@@ -27,73 +24,6 @@
 
 			<div class="search-container">
 				<input type="text" class="search-text" placeholder="텍스트 검색">
-			</div>
-
-			<div class="accommodation-type">숙소 종류</div>
-
-			<div class="accommodation-list">
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">아파트먼트 (50)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">서비스 아파트먼트 (4)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">호텔 (51)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">게스트하우스 / 비앤비 (5)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">모텔 (66)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">호스텔 (2)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">펜션 (9)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">프라이빗 하우스 (21)</div>
-					</div>
-				</div>
-
-				<div class="accommodation-item">
-					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">프라이빗 빌라 (4)</div>
-					</div>
-				</div>
 			</div>
 
 			<div class="accommodation-type">숙소 거리 기준</div>
@@ -132,7 +62,7 @@
 							<div class="image-wrapper1">
 								<img
 									src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="" class="image" /> (50)
+									alt="" class="image" />
 							</div>
 						</div>
 					</div>
@@ -147,7 +77,7 @@
 									src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 									alt="Decorative image" class="decorative-image" />
 							</div>
-							(4)
+
 						</div>
 					</div>
 				</div>
@@ -158,7 +88,7 @@
 						<div class="image-container">
 							<img
 								src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-								alt="Product Image" class="product-image" loading="lazy" /> (4)
+								alt="Product Image" class="product-image" loading="lazy" />
 						</div>
 					</div>
 				</div>
@@ -170,7 +100,7 @@
 							<div class="image-wrapper4">
 								<img
 									src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="Decorative image" class="image" /> (51)
+									alt="Decorative image" class="image" />
 							</div>
 						</div>
 					</div>
@@ -182,7 +112,7 @@
 							<div class="image-wrapper5">
 								<img
 									src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-									alt="" class="image" /> (51)
+									alt="" class="image" />
 							</div>
 						</div>
 					</div>
@@ -198,119 +128,89 @@
 
 
 	<div>
+		<!-- search-box -->
 		<div class="outer-searchBox">
 			<div class="searchBox1">
 				<nav class="accommodation-nav">
 					<ul class="accommodation-nav-list">
 
-						<div tabindex="0" role="button"
-							class="accommodation-nav-item btn m-1">숙소</div>
+						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">숙소</div>
 						<div class="dropdown">
-							<div tabindex="0" role="button"
-								class="accommodation-nav-item btn m-1">교통</div>
-							<ul tabindex="0"
-								class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
+							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
+							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+								<li>
+									<a href="../article/recommendAirplaneList">항공</a>
+								</li>
 
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								<li><a href="../article/recommendBusList">버스</a></li>
+								<li>
+									<a href="../article/recommendTrainList">기차</a>
+								</li>
+								<li>
+									<a href="../article/recommendBusList">버스</a>
+								</li>
 							</ul>
 						</div>
 
 					</ul>
 				</nav>
 			</div>
-
-			<div class="searchBox2">
-				<div class="container2">
-					<div class="box1">
-						<div class="sort-criteria">
-							<div class="sort-label">정렬 기준</div>
-							<div class="best-match">BEST 매치</div>
-							<div class="divider"></div>
-						</div>
-					</div>
-					<div class="box2">
-						<div class="guest-rating">투숙객 평점순</div>
-						<div class="lowest-price">낮은 요금 먼저</div>
-
-						<div class="special-deal">초특가 상품!</div>
-					</div>
-
-				</div>
-			</div>
 		</div>
-
-
 
 		<div class="outer-content-box">
-			<div class="hotel-card">
-				<div class="hotel-card-content">
-					<div class="hotel-info">
-						<div class="hotel-info-content">
-							<div class="hotel-images">
-								<div class="main-image-container">
-									<div class="main-image-wrapper">
+
+			<c:forEach items="${hotelList}" var="hotel">
+				<a href="${hotel.href }" class="hotel-link">
+					<div class="hotel-card-content">
+						<div class="hotel-info">
+							<div class="hotel-info-content">
+								<div class="hotel-imageANDdetail">
+
+									<div class="main-image-container">
+
 										<div class="main-image">
-											<img
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/0269ff624f7164c7efb1603b2d706bf08a3def40cdb6fefbb47a0d9c037ee81b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-												alt="Main hotel image" />
-
+											<img class="hotel-img" src="${hotel.imgUrl }" alt="Main hotel image" />
 										</div>
 
 									</div>
-								</div>
-								<div class="hotel-details">
-									<c:forEach items="${hotelList}" var="hotel">
-	
-											<div class="hotel-name">
-													${hotel.hotelName }										
-										
-	
-											<!-- <div class="hotel-location">
-												<img
-													src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf923710bd513aeca2a5aedf434ab4ab9075b0725f987c0a6192f40623e31af?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-													alt="" class="hotel-location-icon" /> <img
-													src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7f976c6a5f12fe8e38e626913755498f0e8896d59b84c7c5973be1170c3a4dd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-													alt="" class="hotel-location-icon" />
-												<div class="hotel-location-text">대구시내, 대구 - 도심에 위치</div>
-											</div> -->
-							
-											
+									<div class="hotel-details">
+										<div class="hotel-name">${hotel.hotelName }</div>
+										<div class="hotel-grade">
+											<c:forEach var="i" begin="1" end="${hotel.grade}">
+												<img class="star-score"
+													src="https://png.pngtree.com/png-clipart/20221206/ourmid/pngtree-yellow-star-3d-icon-png-image_6511591.png"
+													alt="star" />
+											</c:forEach>
 										</div>
-									</c:forEach>
+										<div class="hotel-service">
+											<div class="services">숙소 제공사항</div>
+											<div class="service-name">${hotel.service}</div>
+										</div>
+									</div>
+									<div style="margin-top: 250px;margin-left: 50px;">상세보기</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="hotel-rating-price">
+							<div class="hotel-rating">
+
+								<div class="hotel-rating-details">
+									<div class="hotel-price">
+										<div class="hotel-price-details">1박당 요금</div>
+										<div class="hotel-price-value">${hotel.price }</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="hotel-rating-price">
-						<div class="hotel-rating">
-							<img
-								src="https://cdn.builder.io/api/v1/image/assets/TEMP/18d8990427cc7ac525aa734abaaf3e6853634987e2662880d8927c29267db16b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-								alt="" class="hotel-rating-icon" />
-							<div class="hotel-rating-details">
-								<div class="hotel-rating-score">
-									<div class="hotel-rating-text">우수</div>
-									<div class="hotel-rating-value">8.2</div>
-								</div>
-								<div class="hotel-reviews">3,962 건의 이용후기</div>
-								<div class="hotel-price">
-									<div class="hotel-discount">* TODAY * 57% 할인</div>
-									<div class="hotel-price-details">1박당 요금(세금 및 봉사료 제외)</div>
-									<div class="hotel-original-price">192,941</div>
-									<div class="hotel-discounted-price">
-										<div class="hotel-price-currency">₩</div>
-										<div class="hotel-price-value">82,645</div>
-									</div>
-									<div class="hotel-free-cancellation">+ 예약 무료 취소</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+				</a>
+				<div class="empty-place"></div>
+			</c:forEach>
+
 		</div>
 	</div>
+</div>
 
 </div>
 
@@ -349,19 +249,15 @@ body {
 	flex-grow: 1;
 }
 
-.hotel-card {
-	justify-content: center;
-	border-radius: 8px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-	border: 1px solid rgba(221, 223, 226, 1);
-	background-color: rgba(255, 255, 255, 0);
-	max-width: 965px;
-	padding-right: 9px;
-}
-
 .hotel-card-content {
 	display: flex;
-	gap: 20px;
+	border: solid 1px black;
+	border-radius: 10px;
+	margin-right: 300px; 
+	box-shadow : 2px 2px 5px rgba( 0, 0, 0, 0.4);
+	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
+	background-color: #77B0AA;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 @media ( max-width : 991px) {
@@ -376,7 +272,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	width: 80%;
+	width: 75%;
 	margin-left: 0;
 }
 
@@ -397,13 +293,14 @@ body {
 	}
 }
 
-.hotel-images {
+.hotel-imageANDdetail {
 	display: flex;
 	gap: 20px;
+	border-right: solid 1px black;
 }
 
 @media ( max-width : 991px) {
-	.hotel-images {
+	.hotel-imageANDdetail {
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0;
@@ -412,10 +309,8 @@ body {
 
 .main-image-container {
 	display: flex;
-	flex-direction: column;
 	line-height: normal;
-	width: 44%;
-	margin-left: 0;
+	border-radius: 20px;
 }
 
 @media ( max-width : 991px) {
@@ -425,9 +320,7 @@ body {
 }
 
 .main-image-wrapper {
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
+	
 }
 
 .main-image {
@@ -436,13 +329,17 @@ body {
 	overflow: hidden;
 	position: relative;
 	aspect-ratio: 1.5;
-	width: 100%;
 	align-items: end;
-	padding: 12px 60px 80px;
-	margin-left: 10px;
-	margin-top: 5px;
-	width: 300px;
-	height: 250px;
+	width: 330px;
+	height: 280px;
+}
+
+.hotel-img {
+	border-radius: 10px;
+}
+
+.empty-place {
+	flex: 1;
 }
 
 @media ( max-width : 991px) {
@@ -458,14 +355,6 @@ body {
 	width: 100%;
 	object-fit: cover;
 	object-position: center;
-}
-
-.main-image-overlay {
-	aspect-ratio: 1;
-	object-fit: auto;
-	object-position: center;
-	width: 40px;
-	margin-bottom: 24px;
 }
 
 .thumbnail-images {
@@ -504,12 +393,11 @@ body {
 	padding: 15px 11px;
 }
 
+/* 호텔 리스트 */
 .hotel-details {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	width: 56%;
-	margin-left: 20px;
 }
 
 @media ( max-width : 991px) {
@@ -518,17 +406,15 @@ body {
 	}
 }
 
+/* 호텔 이름 css*/
 .hotel-name {
-	border-right: 1px solid rgba(221, 223, 226, 1);
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-	align-items: start;
-	font-size: 12px;
+	margin-top: 50px;
 	color: #24262c;
-	font-weight: 600;
 	line-height: 125%;
-	padding: 14px 41px 60px 12px;
+	font-size: 20px;
+	margin-right: 50px;
+	font-weight: bold;
+	font: sans-serif;
 }
 
 @media ( max-width : 991px) {
@@ -539,6 +425,34 @@ body {
 
 .hotel-name-text {
 	font: 20px/120% Inter, sans-serif;
+}
+
+/* 호텔 등급 css*/
+.hotel-grade {
+	
+}
+
+.star-score {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+}
+
+/* 숙소 제공사항 css */
+.hotel-service {
+	
+}
+
+.services {
+	
+}
+
+.service-name {
+	display: inline-block;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-radius: 2px;
+	border: solid 1px black;
 }
 
 .hotel-location {
@@ -621,8 +535,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	width: 20%;
-	margin-left: 20px;
+	margin-left: 150px;
+	margin-top: 100px;
 }
 
 @media ( max-width : 991px) {
@@ -1046,7 +960,7 @@ body {
 	display: flex;
 	justify-content: center; /* 수평 가운데 정렬 */
 	width: 100%;
-	height: 400px;
+	height: 100%;
 	flex-direction: column; /* 요소들을 세로로 배치합니다. */
 }
 
