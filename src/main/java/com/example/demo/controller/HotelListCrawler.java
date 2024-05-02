@@ -31,7 +31,7 @@ public class HotelListCrawler {
 	public List<Hotel> crawlHotelList() {
 
 		System.setProperty("webdriver.chrome.driver",
-				"C:/work/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe");
+				"C:/work/chromedriver.exe");
 
 		// WebDriver 인스턴스 생성
 		WebDriver driver = new ChromeDriver();
