@@ -6,6 +6,9 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+<!-- 제이쿼리 불러오기 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <header class="header">
 	<div class="logo">로고</div>
 	<div class="user-info">
@@ -26,27 +29,42 @@
 				<input type="text" class="search-text" placeholder="텍스트 검색">
 			</div>
 
+			<p class="accommodation-type">1박당 요금</p>
+
+			<div class="slidecontainer">
+				<input type="range" min="0" max="1000000" value="0" class="slider" id="range">
+				<span>
+					Min:
+					<span id="minValue">0</span>
+				</span>
+				<span>
+					Max:
+					<input type="number" id="maxValue" value="1000000">
+				</span>
+			</div>
+
+
 			<div class="accommodation-type">숙소 거리 기준</div>
 
 			<div class="accommodation-list">
 				<div class="accommodation-item">
 					<div class="accommodation-option">
 						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">역 근거리 기준 (50)</div>
+						<div class="accommodation-name">역 근거리 기준</div>
 					</div>
 				</div>
 
 				<div class="accommodation-item">
 					<div class="accommodation-option">
 						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">버스정류장 근거리 기준 (4)</div>
+						<div class="accommodation-name">버스정류장 근거리 기준</div>
 					</div>
 				</div>
 
 				<div class="accommodation-item">
 					<div class="accommodation-option">
 						<input type="checkbox" class="checkbox" />
-						<div class="accommodation-name">터미널 근거리 기준 (51)</div>
+						<div class="accommodation-name">터미널 근거리 기준</div>
 					</div>
 				</div>
 
@@ -57,7 +75,7 @@
 			<div class="accommodation-list">
 				<div class="accommodation-item">
 					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
+						<input type="checkbox" class="checkbox" id="number5" />
 						<div class="accommodation-name">
 							<div class="image-wrapper1">
 								<img
@@ -70,7 +88,7 @@
 
 				<div class="accommodation-item">
 					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
+						<input type="checkbox" class="checkbox" id="number4" />
 						<div class="accommodation-name">
 							<div class="image-wrapper2">
 								<img
@@ -84,7 +102,7 @@
 
 				<div class="accommodation-item">
 					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
+						<input type="checkbox" class="checkbox" id="number3" />
 						<div class="image-container">
 							<img
 								src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
@@ -95,7 +113,7 @@
 
 				<div class="accommodation-item">
 					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
+						<input type="checkbox" class="checkbox" id="number2" />
 						<div class="accommodation-name">
 							<div class="image-wrapper4">
 								<img
@@ -107,7 +125,7 @@
 				</div>
 				<div class="accommodation-item">
 					<div class="accommodation-option">
-						<input type="checkbox" class="checkbox" />
+						<input type="checkbox" class="checkbox" id="number1" />
 						<div class="accommodation-name">
 							<div class="image-wrapper5">
 								<img
@@ -160,7 +178,7 @@
 
 			<c:forEach items="${hotelList}" var="hotel">
 				<a href="${hotel.href }" class="hotel-link">
-					<div class="hotel-card-content">
+					<div class="hotel-card-content number${hotel.grade }">
 						<div class="hotel-info">
 							<div class="hotel-info-content">
 								<div class="hotel-imageANDdetail">
@@ -175,18 +193,40 @@
 									<div class="hotel-details">
 										<div class="hotel-name">${hotel.hotelName }</div>
 										<div class="hotel-grade">
-											<c:forEach var="i" begin="1" end="${hotel.grade}">
-												<img class="star-score"
-													src="https://png.pngtree.com/png-clipart/20221206/ourmid/pngtree-yellow-star-3d-icon-png-image_6511591.png"
-													alt="star" />
-											</c:forEach>
+											<c:choose>
+												<c:when test="${hotel.grade == 5}">
+													<img id="image1" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 4}">
+													<img id="image2" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 3}">
+													<img id="image3" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 2}">
+													<img id="image4" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 1}">
+													<img id="image5" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+											</c:choose>
 										</div>
 										<div class="hotel-service">
 											<div class="services">숙소 제공사항</div>
 											<div class="service-name">${hotel.service}</div>
 										</div>
 									</div>
-									<div style="margin-top: 250px;margin-left: 50px;">상세보기</div>
+
 								</div>
 							</div>
 						</div>
@@ -212,7 +252,7 @@
 	</div>
 </div>
 
-</div>
+
 
 <style>
 body {
@@ -253,8 +293,8 @@ body {
 	display: flex;
 	border: solid 1px black;
 	border-radius: 10px;
-	margin-right: 300px; 
-	box-shadow : 2px 2px 5px rgba( 0, 0, 0, 0.4);
+	margin-right: 300px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
 	background-color: #77B0AA;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
@@ -434,8 +474,8 @@ body {
 
 .star-score {
 	display: inline-block;
-	width: 15px;
-	height: 15px;
+	width: 45px;
+	height: 40px;
 }
 
 /* 숙소 제공사항 css */
@@ -1034,7 +1074,6 @@ body {
 	justify-content: center;
 	align-items: start;
 	border-radius: 7px 0 0 7px;
-	border-right: 1px solid rgba(221, 223, 226, 1);
 	background-color: #f8f7f9;
 	color: #737373;
 	padding: 16px;
@@ -1116,6 +1155,226 @@ body {
 	flex-basis: auto;
 	margin: auto 0;
 }
+
+.slidecontainer {
+	width: 90%;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	background: linear-gradient(to right, #4CAF50 0%, #4CAF50 0%, #d3d3d3 0%);
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+	background: linear-gradient(to right, #4CAF50 0%, #4CAF50 calc(( var(--slider-value)-
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 var(--min-value))* 1%), #d3d3d3 calc(( var(--slider-value)- var(--min-value))*
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 1%), #d3d3d3 100%);
+}
+
+.slider::-moz-range-track {
+	background: linear-gradient(to right, #4CAF50 0%, #4CAF50 calc(( var(--slider-value)-
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 var(--min-value))* 1%), #d3d3d3 calc(( var(--slider-value)- var(--min-value))*
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 1%), #d3d3d3 100%);
+}
 </style>
+
+<script>
+	// 슬라이드 바 
+	var slider = document.getElementById("range");
+	var minValue = document.getElementById("minValue");
+	var maxValue = document.getElementById("maxValue");
+
+	minValue.innerHTML = slider.min;
+	maxValue.value = slider.value;
+
+	slider.oninput = function() {
+		minValue.innerHTML = this.min;
+		maxValue.value = this.value;
+		this.style.setProperty('--slider-value',
+				(this.value / (this.max - this.min)) * 100 + '%');
+	}
+
+	maxValue.addEventListener('input', function() {
+		slider.max = this.value;
+		slider.dispatchEvent(new Event('input'));
+	});
+
+	// JavaScript 코드
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// 모든 체크박스 요소를 가져옵니다.
+		var checkboxes = document.querySelectorAll('.checkbox');
+
+		checkboxes.forEach(function(checkbox) {
+			checkbox.addEventListener('change', function() {
+				// 현재 선택된 체크박스의 id를 가져옵니다.
+				var id = this.id;
+
+				// 다른 체크박스를 해제합니다.
+				checkboxes.forEach(function(otherCheckbox) {
+					if (otherCheckbox !== checkbox) {
+						otherCheckbox.checked = false;
+					}
+				});
+
+				// 모든 요소를 보이게 설정합니다.
+				var elementsToShow = document
+						.querySelectorAll('.hotel-card-content');
+				elementsToShow.forEach(function(element) {
+					element.style.visibility = 'visible';
+					element.style.display = 'flex';
+				});
+
+				// 선택된 체크박스 이외의 요소들을 숨깁니다.
+				if (this.checked) {
+					var elementsToHide = document
+							.querySelectorAll('.hotel-card-content:not(.' + id
+									+ ')');
+					elementsToHide.forEach(function(element) {
+						element.style.visibility = 'hidden';
+						element.style.display = 'none';
+					});
+				}
+			});
+		});
+	});
+
+	// 슬라이드바 요소 가져오기
+	var slider = document.getElementById("range");
+
+	// 슬라이드바 값이 변경될 때 호출되는 함수
+	slider.addEventListener("mouseup", function() {
+		// 현재 슬라이드바 값
+		var sliderValue = this.value;
+
+		// 모든 호텔 요소 가져오기
+		var hotelList = document.getElementsByClassName("hotel-card-content");
+
+		// 초기에 모든 호텔을 보이도록 설정
+		for (var i = 0; i < hotelList.length; i++) {
+			hotelList[i].style.display = "flex";
+		}
+
+		// 각 호텔 요소에 대해 반복
+		for (var i = 0; i < hotelList.length; i++) {
+			// 호텔 가격 요소 가져오기
+			var priceElement = hotelList[i]
+					.getElementsByClassName("hotel-price-value")[0];
+			// 호텔 가격 값
+			var hotelPrice = parseInt(priceElement.textContent);
+
+			// 호텔 가격이 슬라이드바 값보다 작은 경우
+			if (hotelPrice >= sliderValue) {
+				// 해당 호텔을 화면에서 숨김
+				hotelList[i].style.display = "none";
+			}
+		}
+	});
+</script>
 
 <%@ include file="../common/foot.jspf"%>

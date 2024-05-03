@@ -31,12 +31,15 @@ public interface ConferenceRepository {
 	public void insertConference(Conference conference);
 
 	@Select("""
-			<script>
-			SELECT *
-			FROM `academy`;
-			</script>
-			""")
-	public List<Conference> getShopsList();
+		    <script>
+		    SELECT * 
+		    FROM `academy` 
+		    WHERE 1
+		        AND ( title LIKE CONCAT('%', '${searchKeyword}', '%'))
+		    </script>
+		""")
+		public List<Conference> getShopsList(int categoryId, String searchKeyword);
+          
 
 	@Select("""
 			<script>
@@ -47,6 +50,12 @@ public interface ConferenceRepository {
 			""")
 	public Conference getEventById(int id);
 
+			WHERE categoryId = #{categoryId};
+			</script>
+			""")
+	public List<Conference> getConferencesByCategory(int categoryId);
+
+
 	@Select("""
 			<script>
 			SELECT *
@@ -56,7 +65,7 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategory(int categoryId);
 
-	@Select("""
+@Select("""
 			<script>
 			SELECT *
 			FROM `academy`
@@ -75,10 +84,7 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId);
 
-	@Select("""
-			<script>
-			SELECT *
-			FROM `academy`
+
 			ORDER BY hitCount DESC
 			</script>
 			""")
@@ -145,7 +151,7 @@ public interface ConferenceRepository {
 			    </script>
 			""")
 	public List<Conference> getShopsList2();
-
+          
 	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint + 1

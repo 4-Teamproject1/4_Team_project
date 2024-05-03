@@ -130,9 +130,4 @@ public class UsrConferenceController {
 	 * 
 	 * return ResponseEntity.ok().body(conferenceList); }
 	 */
-
-	
-	
-	
-
 }

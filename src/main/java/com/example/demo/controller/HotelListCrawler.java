@@ -245,7 +245,7 @@ public class HotelListCrawler {
 				int starScore = Integer.parseInt(number);
 				WebElement priceElement = liElement
 						.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
-				String price = priceElement.getText();
+				String priceStr = priceElement.getText();
 				List<String> serviceTexts = new ArrayList<>();
 
 				List<WebElement> serviceElements = liElement
@@ -257,6 +257,16 @@ public class HotelListCrawler {
 				}
 				String serviceAsString = String.join(",", serviceTexts);
 
+				String[] priceStrings = priceStr.split(",");
+				// 분리된 문자열을 합쳐서 하나의 문자열로 만듦
+				StringBuilder stringBuilder = new StringBuilder();
+				for (String s : priceStrings) {
+					stringBuilder.append(s);
+				}
+
+				String priceString = stringBuilder.toString();
+				
+				int price = Integer.parseInt(priceString);
 				WebElement aTagElement = liElement.findElement(By.tagName("a"));
 				String href = aTagElement.getAttribute("href");
 				System.out.println("Href : " + href);
