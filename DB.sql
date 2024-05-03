@@ -345,7 +345,7 @@ SELECT * FROM `reply`;
 
 SELECT goodReactionPoint
 FROM article 
-WHERE id = 1
+WHERE id = 1;
 
 INSERT INTO article
 (
@@ -373,9 +373,9 @@ UPDATE article
 SET title = '제목45'
 WHERE id = 7;
 
-SELECT FLOOR(RAND() * 2) + 2
+SELECT FLOOR(RAND() * 2) + 2;
 
-SELECT FLOOR(RAND() * 3) + 1
+SELECT FLOOR(RAND() * 3) + 1;
 
 
 SHOW FULL COLUMNS FROM `member`;
@@ -394,7 +394,7 @@ WHERE 1
 			AND A.title LIKE CONCAT('%','0000','%')
 			OR A.body LIKE CONCAT('%','0000','%')
 
-ORDER BY id DESC
+ORDER BY id DESC;
 
 SELECT COUNT(*)
 FROM article AS A
@@ -402,7 +402,7 @@ WHERE 1
 AND boardId = 1
 AND A.title LIKE CONCAT('%','0000','%')
 OR A.body LIKE CONCAT('%','0000','%')
-ORDER BY id DESC
+ORDER BY id DESC;
 
 
 SELECT hitCount
@@ -411,13 +411,13 @@ WHERE id = 374;
 
 SELECT A.*
 FROM article AS A
-WHERE A.id = 1
+WHERE A.id = 1;
 
 SELECT A.*, M.nickname AS extra__writer
 FROM article AS A
 INNER JOIN `member` AS M
 ON A.memberId = M.id
-WHERE A.id = 1
+WHERE A.id = 1;
 
 # LEFT JOIN
 SELECT A.*, M.nickname AS extra__writer, RP.point
@@ -461,18 +461,18 @@ ORDER BY A.id DESC;
 
 SELECT *, COUNT(*)
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 SELECT IF(RP.point > 0, '큼','작음')
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 # 각 게시물의 좋아요, 싫어요 갯수
 SELECT RP.relTypeCode, RP.relId,
 SUM(IF(RP.point > 0,RP.point,0)) AS goodReactionPoint,
 SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 
 
@@ -499,12 +499,45 @@ CREATE TABLE `academy` (
 	
 );
 
+
+# 로그인 멤버가 스크랩한 리스트만 가져오도록
+SELECT a.title, POINT
+	FROM `academy` AS a
+	INNER JOIN scrap AS s 
+	ON a.id = s.academyId AND a.themeId = s.themeId
+	WHERE s.memberId = 2
+	  AND s.point = 1; 
+	  
+	  
+	SELECT s.*, POINT
+	FROM scrap AS s
+	INNER JOIN `academy` AS a 
+	ON a.id = s.academyId AND a.themeId = s.themeId
+	WHERE s.memberId = 2
+	AND s.point = 1; 
+	    
+	  
+	  
   SELECT goodReactionPoint
     	    FROM `academy`
     	    WHERE id = 10
     	    AND themeId =1;
 SELECT *
 FROM `academy`;
+
+SELECT *
+FROM `scrap`;
+
+SELECT IFNULL(SUM(S.point),0)
+			FROM scrap AS S
+			WHERE S.academyId = 3
+			AND S.memberId = 2
+			AND S.themeId = 1;
+			
+			DELETE FROM scrap
+			WHERE memberId = 2
+			AND academyId = 3
+			AND themeId = 1;
 
 INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
 VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
@@ -518,10 +551,14 @@ FROM `academy`
 WHERE categoryId = 2
 ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC;
 
+SELECT IFNULL(SUM(S.point),0)
+			FROM scrap AS S
+			WHERE S.academyId = 1
+			AND S.memberId =1
+			AND S.themeId = 1;
 
 SELECT *
 FROM `academy`;
-
 
 #공모전테이블 생성
 CREATE TABLE `competition` (
@@ -573,7 +610,4 @@ CREATE TABLE scrap
 
 SELECT *
 FROM scrap;
-
-
-DROP TABLE scrap;
 

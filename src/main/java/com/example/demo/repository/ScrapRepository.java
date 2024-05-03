@@ -9,13 +9,17 @@ import org.apache.ibatis.annotations.Select;
 public interface ScrapRepository {
 
 	@Select("""
-			SELECT IFNULL(SUM(S.point),0)
-			FROM scrap AS S
-			WHERE S.academyId = #{academyId}
-			AND S.memberId = #{memberId}
-			AND S.themeId = #{themeId}
+			SELECT IFNULL(SUM(point),0)
+			FROM scrap
+			WHERE academyId = #{academyId}
+			AND memberId = #{loginedMemberId}
+			AND themeId = #{themeId}
 			""")
+<<<<<<< HEAD
+	public int getSumReactionPoint(int loginedMemberId, int themeId, int academyId);
+=======
 	public int getSumReactionPoint(int academyId, int memberId, int themeId);
+>>>>>>> 6eb69d3e7d42d5cb46f3b26b428f9ae1e4bad0d6
 
 	@Insert("""
 			INSERT INTO scrap
@@ -26,7 +30,7 @@ public interface ScrapRepository {
 			themeId = #{themeId},
 			`point` = 1
 			""")
-	public int addGoodReactionPoint(int memberId, int academyId, int themeId);
+	public int addGoodReactionPoint(int memberId, int themeId, int academyId);
 
 	/*
 	 * @Insert(""" INSERT INTO scrap SET regDate = NOW(), updateDate = NOW(), relId
@@ -40,7 +44,7 @@ public interface ScrapRepository {
 			AND academyId = #{academyId}
 			AND themeId = #{themeId}
 			""")
-	public void deleteReactionPoint(int memberId, int academyId, int themeId );
+	public void deleteReactionPoint(int memberId, int themeId,  int academyId );
 
 	
 	

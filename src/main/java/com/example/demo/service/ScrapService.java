@@ -9,7 +9,6 @@ import com.example.demo.vo.ResultData;
 @Service
 public class ScrapService {
 
-
 	@Autowired
 	private ConferenceService ConferenceService;
 
@@ -20,17 +19,20 @@ public class ScrapService {
 		this.scrapRepository = scrapRepository;
 	}
 
-	
-
-	public ResultData usersReaction(int loginedMemberId, int academyId, int themeId) {
+	public ResultData usersReaction(int loginedMemberId, int themeId, int academyId) {
 
 		if (loginedMemberId == 0) {
 			return ResultData.from("F-L", "로그인 하고 써야해");
 		}
 
-		int sumReactionPointByMemberId = scrapRepository.getSumReactionPoint(loginedMemberId,
-				academyId, themeId);
+		int sumReactionPointByMemberId = scrapRepository.getSumReactionPoint(loginedMemberId, themeId, academyId);
 
+		System.err.println("sumReactionPointByMemberId : " + sumReactionPointByMemberId);
+		System.err.println("sumReactionPointByMemberId : " + scrapRepository.getSumReactionPoint(loginedMemberId, themeId, academyId));
+		System.err.println("loginedMemberId : " + loginedMemberId);
+		System.err.println("themeId : " + themeId);
+		System.err.println("academyId : " + academyId);
+		
 		if (sumReactionPointByMemberId != 0) {
 			return ResultData.from("F-1", "추천 불가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 		}
@@ -38,19 +40,17 @@ public class ScrapService {
 		return ResultData.from("S-1", "추천 가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 	}
 
-	public ResultData addGoodReactionPoint(int loginedMemberId, int academyId, int themeId) {
+	public ResultData addGoodReactionPoint(int loginedMemberId, int themeId, int academyId) {
 
-		int affectedRow = scrapRepository.addGoodReactionPoint(loginedMemberId,  themeId, academyId);
-		
-		System.err.println(affectedRow);
-		
+		int affectedRow = scrapRepository.addGoodReactionPoint(loginedMemberId, themeId, academyId);
+
+		System.err.println("affectedRow : " + affectedRow);
+
 		if (affectedRow != 1) {
 			return ResultData.from("F-1", "좋아요 실패");
 		}
 
-
-			ConferenceService.increaseGoodReactionPoint(academyId, themeId);
-	
+		ConferenceService.increaseGoodReactionPoint(academyId, themeId);
 
 		return ResultData.from("S-1", "좋아요!");
 	}
@@ -67,12 +67,11 @@ public class ScrapService {
 	 * 
 	 * return ResultData.from("S-1", "싫어요!"); }
 	 */
-	public ResultData deleteGoodReactionPoint(int loginedMemberId, int academyId, int themeId) {
-		scrapRepository.deleteReactionPoint(loginedMemberId, academyId, themeId);
+	public ResultData deleteGoodReactionPoint(int loginedMemberId, int themeId, int academyId) {
+		scrapRepository.deleteReactionPoint(loginedMemberId, themeId, academyId);
 
-	
-		ConferenceService.decreaseGoodReactionPoint(academyId, themeId);
-		
+		ConferenceService.decreaseGoodReactionPoint(themeId, academyId);
+
 		return ResultData.from("S-1", "좋아요 취소 됨");
 
 	}
@@ -97,24 +96,20 @@ public class ScrapService {
 		return false;
 	}
 
-
-
 	public ResultData usersScrap(int loginedMemberId, int academyId, int themeId) {
 
-
-			if (loginedMemberId == 0) {
-				return ResultData.from("F-L", "로그인 하고 써야해");
-			}
-
-			int sumScrapByMemberId = scrapRepository.getSumScrapCount(loginedMemberId, academyId, themeId);
-
-			if (sumScrapByMemberId != 0) {
-				return ResultData.from("F-1", "찜 불가능", "sumScrapByMemberId", sumScrapByMemberId);
-			}
-
-			return ResultData.from("S-1", "찜 가능", "sumScrapByMemberId", sumScrapByMemberId);
+		if (loginedMemberId == 0) {
+			return ResultData.from("F-L", "로그인 하고 써야해");
 		}
 
+		int sumScrapByMemberId = scrapRepository.getSumScrapCount(loginedMemberId, academyId, themeId);
+
+		if (sumScrapByMemberId != 0) {
+			return ResultData.from("F-1", "찜 불가능", "sumScrapByMemberId", sumScrapByMemberId);
+		}
+
+		return ResultData.from("S-1", "찜 가능", "sumScrapByMemberId", sumScrapByMemberId);
+	}
 
 	/*
 	 * public boolean isAlreadyAddBadRp(int memberId, int relId) { int
@@ -125,9 +120,5 @@ public class ScrapService {
 	 * 
 	 * return false; }
 	 */
-
-
-
-	
 
 }

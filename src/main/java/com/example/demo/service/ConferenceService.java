@@ -157,8 +157,8 @@ public class ConferenceService {
 		return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
 	}
 
-	public ResultData decreaseGoodReactionPoint(int academyId, int themeId) {
-		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(academyId, themeId);
+	public ResultData decreaseGoodReactionPoint( int themeId, int academyId) {
+		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(themeId, academyId);
 
 		if (affectedRow == 0) {
 			return ResultData.from("F-1", "없는 게시물");
@@ -171,6 +171,11 @@ public class ConferenceService {
 		System.err.println(themeId);
 		System.err.println( academyId);
 		return conferenceRepository.getGoodRP(themeId, academyId);
+	}
+
+	public List<Conference> getscrapShopsList(int memberId) {
+		
+		return conferenceRepository.getscrapShopsList(memberId);
 	}
 
 	
