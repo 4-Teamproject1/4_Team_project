@@ -39,4 +39,9 @@ public class HotelListService {
 		return hotelList;
 	}
 
+	public List<Hotel> getHotelList() {
+		
+		return hotelListRepository.getHotelList();
+	}
+
 }

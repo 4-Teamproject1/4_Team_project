@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Conference;
 
@@ -15,6 +16,7 @@ public interface ConferenceRepository {
     @Insert("""
             INSERT INTO `academy` SET
                      categoryId = #{categoryId},
+                     themeId = 1,
                      title = #{title},
                      hitCount = #{hitCount},
                      eventPeriod = #{eventPeriod},
@@ -146,5 +148,32 @@ public interface ConferenceRepository {
     	    </script>
     	""")
     	public List<Conference> getShopsList2();
+
+    @Update("""
+			UPDATE `academy`
+			SET goodReactionPoint = goodReactionPoint + 1
+			WHERE id = #{academyId}
+			""")
+	public int increaseGoodReactionPoint(int academyId);
+
+    @Update("""
+			UPDATE `academy`
+			SET goodReactionPoint = goodReactionPoint - 1
+			WHERE id = #{academyId}
+			""")
+	public int decreaseGoodReactionPoint(int academyId);
+
+    
+    @Select("""
+			SELECT goodReactionPoint
+			FROM `academy`
+			WHERE id = #{academyId}
+			""")
+	public int getGoodRP(int academyId);
+
+
+	
+
+   
 
 }

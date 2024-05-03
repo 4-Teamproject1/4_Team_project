@@ -37,7 +37,7 @@ public class UsrHotelListController {
 	public String showHotelList(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		List<Hotel> hotelList = crawlAndSaveHotelList();
+		List<Hotel> hotelList = hotelListService.getHotelList();
 		model.addAttribute("hotelList", hotelList);
 		
 		return "usr/hotel/list";

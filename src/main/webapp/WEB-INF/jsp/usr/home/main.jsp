@@ -125,12 +125,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 // 해당하는 학회의 eventPeriod 가져오기
                 const eventPeriod = conferenceEventPeriods[selectedIndex];
+                const startDate = eventPeriod.split(' ~ ')[0]; // 물결 기호(~) 앞의 날짜만 추출
+
+                // box_date 클래스를 가진 입력 필드에 startDate 설정
+                boxDateInput.value = startDate;
 
                 // 해당하는 학회의 address 가져오기
                 const address = conferenceAddresses[selectedIndex];
-
-                // box_date 클래스를 가진 입력 필드에 eventPeriod 설정
-                boxDateInput.value = eventPeriod;
 
                 // box_end 클래스를 가진 입력 필드에 address 설정
                 document.querySelector('.box_end').value = address;
@@ -138,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
             searchResultsContainer.appendChild(div);
         });
     }
+
 
     // 초기에 검색 결과를 데이터로 채우기
     populateSearchResults();
@@ -189,6 +191,32 @@ document.addEventListener("DOMContentLoaded", function() {
 	    // 변환된 날짜 형식을 반환합니다.
 	    return startDate + " ~ " + endDate;
 	}
+
+  </script>
+  
+  <script>
+  document.querySelector('.box_date').addEventListener('click', function() {
+	    // 현재 검색 상자에 입력된 텍스트를 가져옵니다.
+	    const searchText = document.querySelector('.SearchBoxTextEditor').value;
+	    
+	    // 해당 텍스트와 일치하는 학회의 인덱스를 찾습니다.
+	    const index = searchData.indexOf(searchText);
+	    
+	    if (index !== -1) { // 일치하는 학회가 있다면
+	        const eventPeriod = conferenceEventPeriods[index];
+	        // eventPeriod 형식 "24.05.20 ~ 24.05.21" 을 "24.05.20" 와 "24.05.21" 로 분리
+	        const dates = eventPeriod.split(' ~ ');
+
+	        // 날짜를 두 줄로 표시하기 위한 줄바꿈 적용
+	        if (dates.length === 2) {
+	            this.value = `${dates[0]}\n${dates[1]}`;
+	        } else {
+	            this.value = '날짜 형식 오류';
+	        }
+	    } else {
+	        this.value = '일치하는 학회 없음';
+	    }
+	});
 
   </script>
 
@@ -251,8 +279,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 		</div>
 		<div class="search_btn btn">
-			<button>검색</button>
-		</div>
+    <a href="../article/recommendlist" class="button-style">검색</a>
+</div>
+
 	</div>
 </div>
 <div class="event-schedule">

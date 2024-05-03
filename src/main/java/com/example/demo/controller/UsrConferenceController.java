@@ -9,22 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.service.ArticleService;
-import com.example.demo.service.BoardService;
-import com.example.demo.service.ReactionPointService;
-import com.example.demo.service.ReplyService;
-import com.example.demo.service.TrainTicketService;
 import com.example.demo.service.ConferenceService;
-import com.example.demo.util.Ut;
-import com.example.demo.vo.Article;
-import com.example.demo.vo.Board;
+import com.example.demo.service.ScrapService;
 import com.example.demo.vo.Conference;
-import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -36,6 +26,10 @@ public class UsrConferenceController {
 
 	@Autowired
 	private ConferenceService conferenceService;
+	
+
+	@Autowired
+	private ScrapService scrapService;
 
 	public UsrConferenceController() {
 
@@ -52,6 +46,15 @@ public class UsrConferenceController {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		 Conference conference = conferenceService.getEventById(id);
+		 
+		 ResultData usersScrapRd = scrapService.usersCafeScrap(rq.getLoginedMemberId(), id);
+
+			if (usersScrapRd.isSuccess()) {
+				model.addAttribute("userCanScrap", usersScrapRd.isSuccess());
+			}
+		 
+			model.addAttribute("isAlreadyAddGoodRp",
+					scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(), id));
 		/* model.addAttribute("articles", articles); */
 		 model.addAttribute("conference", conference);
 		return "usr/conference/detail";

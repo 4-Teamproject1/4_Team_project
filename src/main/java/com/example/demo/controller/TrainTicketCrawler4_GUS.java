@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -25,8 +26,7 @@ import com.example.demo.vo.Hotel;
 public class TrainTicketCrawler4_GUS {
 	public static void main(String[] args) {
 
-		System.setProperty("webdriver.chrome.driver",
-				"C:/work/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
 		// WebDriver 인스턴스 생성
 		WebDriver driver = new ChromeDriver();
@@ -47,7 +47,7 @@ public class TrainTicketCrawler4_GUS {
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 
 		// 검색어 입력
-		String searchText = "";
+		String searchText = "서울";
 		activatedSearchInput.sendKeys(searchText);
 
 //		// 엔터 입력 (검색 실행)
@@ -188,13 +188,10 @@ public class TrainTicketCrawler4_GUS {
 		// 두 번째 탭으로 전환
 		driver.switchTo().window(secondTabHandle);
 
-		
-		
 		List<WebElement> liElements = driver.findElements(By.xpath(
 				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
 		System.out.println(liElements.size());
 
-		
 		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 		System.out.println("순회 시작");
 		int i = 1;
@@ -221,14 +218,24 @@ public class TrainTicketCrawler4_GUS {
 					.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
 			String price = priceElement.getText();
 
+			List<String> serviceTexts = new ArrayList<>();
+			
+			List<WebElement> serviceElements = liElement
+					.findElements(By.xpath(".//div[@data-selenium='pill-container']//div//span"));
+			
+			for (WebElement serviceElement : serviceElements) {
+			    String text = serviceElement.getText();
+			    serviceTexts.add(text);
+			}
+			for (String text : serviceTexts) {
+			
+			}
 			System.out.println("번호 : " + lastId);
 			System.out.println("이미지 url : " + imgUrl);
 			System.out.println("호텔 이름 : " + hotelName);
 			System.out.println("호텔 등급 : " + ariaLabel);
 			System.out.println("가격 : " + price);
-			
-			
-			
+			System.out.println("숙소 제공사항 : " + serviceTexts);
 
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("window.scrollTo(0, 1000)"); // 수직 스크롤을 1000px 아래로 이동
