@@ -147,8 +147,8 @@ public class ConferenceService {
         return conferences;
     }
 
-	public ResultData increaseGoodReactionPoint(int relId) {
-		int affectedRow = conferenceRepository.increaseGoodReactionPoint(relId);
+	public ResultData increaseGoodReactionPoint(int academyId, int themeId) {
+		int affectedRow = conferenceRepository.increaseGoodReactionPoint(academyId,themeId );
 
 		if (affectedRow == 0) {
 			return ResultData.from("F-1", "없는 게시물");
@@ -157,8 +157,8 @@ public class ConferenceService {
 		return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
 	}
 
-	public ResultData decreaseGoodReactionPoint(int relId) {
-		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(relId);
+	public ResultData decreaseGoodReactionPoint(int academyId, int themeId) {
+		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(academyId, themeId);
 
 		if (affectedRow == 0) {
 			return ResultData.from("F-1", "없는 게시물");
@@ -167,10 +167,15 @@ public class ConferenceService {
 		return ResultData.from("S-1", "좋아요 감소", "affectedRow", affectedRow);
 	}
 
-	public int getGoodRP(int relId) {
-		
-		return conferenceRepository.getGoodRP(relId);
+	public int getGoodRP(int themeId, int academyId ) {
+		System.err.println(themeId);
+		System.err.println( academyId);
+		return conferenceRepository.getGoodRP(themeId, academyId);
 	}
+
+	
+
+	
 
 	
 }

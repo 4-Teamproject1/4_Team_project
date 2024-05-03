@@ -22,14 +22,14 @@ public class ScrapService {
 
 	
 
-	public ResultData usersReaction(int loginedMemberId, int academyId) {
+	public ResultData usersReaction(int loginedMemberId, int academyId, int themeId) {
 
 		if (loginedMemberId == 0) {
 			return ResultData.from("F-L", "로그인 하고 써야해");
 		}
 
 		int sumReactionPointByMemberId = scrapRepository.getSumReactionPoint(loginedMemberId,
-				academyId);
+				academyId, themeId);
 
 		if (sumReactionPointByMemberId != 0) {
 			return ResultData.from("F-1", "추천 불가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
@@ -38,9 +38,9 @@ public class ScrapService {
 		return ResultData.from("S-1", "추천 가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 	}
 
-	public ResultData addGoodReactionPoint(int loginedMemberId, int academyId) {
+	public ResultData addGoodReactionPoint(int loginedMemberId, int academyId, int themeId) {
 
-		int affectedRow = scrapRepository.addGoodReactionPoint(loginedMemberId,  academyId);
+		int affectedRow = scrapRepository.addGoodReactionPoint(loginedMemberId,  themeId, academyId);
 		
 		System.err.println(affectedRow);
 		
@@ -49,7 +49,7 @@ public class ScrapService {
 		}
 
 
-			ConferenceService.increaseGoodReactionPoint(academyId);
+			ConferenceService.increaseGoodReactionPoint(academyId, themeId);
 	
 
 		return ResultData.from("S-1", "좋아요!");
@@ -67,11 +67,11 @@ public class ScrapService {
 	 * 
 	 * return ResultData.from("S-1", "싫어요!"); }
 	 */
-	public ResultData deleteGoodReactionPoint(int loginedMemberId, int academyId) {
-		scrapRepository.deleteReactionPoint(loginedMemberId, academyId);
+	public ResultData deleteGoodReactionPoint(int loginedMemberId, int academyId, int themeId) {
+		scrapRepository.deleteReactionPoint(loginedMemberId, academyId, themeId);
 
 	
-		ConferenceService.decreaseGoodReactionPoint(academyId);
+		ConferenceService.decreaseGoodReactionPoint(academyId, themeId);
 		
 		return ResultData.from("S-1", "좋아요 취소 됨");
 
@@ -87,8 +87,8 @@ public class ScrapService {
 	 * ResultData.from("S-1", "싫어요 취소 됨"); }
 	 */
 
-	public boolean isAlreadyAddGoodRp(int memberId, int academyId) {
-		int getPointTypeCodeByMemberId = scrapRepository.getSumReactionPoint(memberId, academyId);
+	public boolean isAlreadyAddGoodRp(int memberId, int academyId, int themeId) {
+		int getPointTypeCodeByMemberId = scrapRepository.getSumReactionPoint(memberId, academyId, themeId);
 
 		if (getPointTypeCodeByMemberId > 0) {
 			return true;
@@ -99,14 +99,14 @@ public class ScrapService {
 
 
 
-	public ResultData usersCafeScrap(int loginedMemberId, int id) {
+	public ResultData usersScrap(int loginedMemberId, int academyId, int themeId) {
 
 
 			if (loginedMemberId == 0) {
 				return ResultData.from("F-L", "로그인 하고 써야해");
 			}
 
-			int sumScrapByMemberId = scrapRepository.getSumScrapCount(loginedMemberId, id);
+			int sumScrapByMemberId = scrapRepository.getSumScrapCount(loginedMemberId, academyId, themeId);
 
 			if (sumScrapByMemberId != 0) {
 				return ResultData.from("F-1", "찜 불가능", "sumScrapByMemberId", sumScrapByMemberId);

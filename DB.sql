@@ -495,10 +495,14 @@ CREATE TABLE `academy` (
 	`homepage`	 VARCHAR(500) NULL,
 	`imageURL`	 VARCHAR(500) NULL,
 	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
-	`goodReactionPoint` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩수'
+	`goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수'
 	
 );
 
+  SELECT goodReactionPoint
+    	    FROM `academy`
+    	    WHERE id = 10
+    	    AND themeId =1;
 SELECT *
 FROM `academy`;
 
@@ -523,6 +527,7 @@ FROM `academy`;
 CREATE TABLE `competition` (
 	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`title`  VARCHAR(500) NULL,
+	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
 	`totalPrizeMoney` VARCHAR(500) NULL,
 	`firstPrizeMoney` VARCHAR(500) NULL,
 	`applicationPeriod`	 VARCHAR(500) NULL,
@@ -530,8 +535,11 @@ CREATE TABLE `competition` (
 	`imageURL`	 VARCHAR(500) NULL,
 	`contactNum`	 VARCHAR(500) NULL,
 	`contactEmail`	 VARCHAR(500) NULL,
-	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜'
+	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
+	`goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수'
 );
+
+
 
 
 SELECT *
@@ -557,15 +565,15 @@ CREATE TABLE scrap
     `regDate` DATETIME NOT NULL COMMENT '찜 날짜', 
     `updateDate` DATETIME NOT NULL,
     `deleteDate` DATETIME NULL, 
-    `memberId` INT(10) UNSIGNED NOT NULL COMMENT '회원 번호', 
+    `memberId` INT(10) UNSIGNED NOT NULL COMMENT '회원 번호',
+     themeId  INT(10) UNSIGNED NOT NULL  COMMENT '테마(학회/공모전) 번호',
     `academyId` INT(10) UNSIGNED NOT NULL  COMMENT '학회 번호', 
     `point` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩 상태 찜 여부 (0=찜 취소, 1= 찜)'
 );
 
-
+SELECT *
+FROM scrap;
 
 
 DROP TABLE scrap;
 
-SELECT *
-FROM Scrap;
