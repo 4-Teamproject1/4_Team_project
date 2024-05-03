@@ -9,9 +9,7 @@
 <header class="header">
 	<div class="logo">로고</div>
 	<div class="user-info">
-		<span class="username">
-			<span class="black-text">abc123</span>
-			<span class="black-text">님</span>
+		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
 		</span>
 		<div class="society-info">학회정보</div>
 		<div class="inquiries">문의사항</div>
@@ -40,17 +38,11 @@
 						<div class="dropdown">
 							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li>
-									<a href="../article/recommendAirplaneList">항공</a>
-								</li>
+								<li><a href="../article/recommendAirplaneList">항공</a></li>
 
-								<li>
-									<a href="../article/recommendTrainList">기차</a>
-								</li>
+								<li><a href="../article/recommendTrainList">기차</a></li>
 
-								<li>
-									<a href="../article/recommendBusList">버스</a>
-								</li>
+								<li><a href="../article/recommendBusList">버스</a></li>
 
 							</ul>
 						</div>
@@ -190,65 +182,56 @@
 			</div>
 		</div>
 
-<c:if test="${not empty spanTexts}">
-    <c:forEach var="spanText" items="${spanTexts}">
-        <div class="outer-content-box">
-            <div class="small-outer-content-box">
-                <div class="train-info-wrapper">
-                    <section class="train-info">
-                        <div class="train-info-container">
-                            <div class="train-info-row">
-                                <div class="train-info-col">
-                                    <div class="train-info-details">
-                                        <div class="train-info-times">
-                                            <header class="train-info-header">
-                                                <div class="train-info-name">
-                                                    <div class="train-name">${spanText.trainName}</div>
-                                                    <div class="train-num">${spanText.trainNum}</div>
-                                                </div>
-                                                <div class="train-time">
-                                                    <div class="outer-arrival-icon">
-                                                        <time class="departure-time">${spanText.departureTime}</time>
-                                                        <div class="arrival-icon">→</div>
-                                                        <time class="arrival-time">${spanText.arrivalTime}</time>
-                                                    </div>
-                                                </div>
-                                                <div class="outer-travel-time">
-                                                    <div class="small-outer-travel-time">
-                                                        <div class="travel-time">총시간:${spanText.travelTime}</div>
-                                                    </div>
-                                                </div>
-                                            </header>
-                                            <div class="train-class">
-                                                <div class="class-general">
-                                                    <div class="class-general-label">일반</div>
-                                                    <div class="class-general-status">예매</div>
-                                                </div>
-                                                <div class="class-special">
-                                                    <div class="class-special-label">특</div>
-                                                    <div class="class-special-status">예매</div>
-                                                </div>
-                                                <div class="booking-col">
-                                                    <div class="outer-booking-btn">
-                                                        <button class="booking-btn">예매</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="divider"></div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </c:forEach>
-</c:if>
+		<c:if test="${not empty spanTexts}">
+			<c:forEach var="spanText" items="${spanTexts}">
+				<div class="outer-content-box">
+					<div class="small-outer-content-box">
+						<div class="train-info-wrapper">
+							<section class="train-info">
+								<div class="train-info-container">
+									<div class="train-info-row">
+										<div class="train-info-col">
+											<div class="train-info-details">
+												<div class="train-info-times">
+													<header class="train-info-header">
+														<div class="train-info-name">
+															<div class="train-name">${spanText.trainName}</div>
+															<div class="train-num">${spanText.trainNum}</div>
+														</div>
+														<div class="train-time">
+															<div class="outer-arrival-icon">
+																<time class="departure-time">${spanText.departureTime}</time>
+																<div class="arrival-icon">→</div>
+																<time class="arrival-time">${spanText.arrivalTime}</time>
+															</div>
+														</div>
+														<div class="outer-travel-time">
+															<div class="small-outer-travel-time">
+																<div class="travel-time">총시간:${spanText.travelTime}</div>
+															</div>
+														</div>
+													</header>
+													<div class="train-class">
+														<div class="booking-col">
+															<div class="outer-booking-btn">
+																<button class="booking-btn">예매</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="divider"></div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</c:if>
 
-<style>
-
+		<style>
 body {
 	width: 100%;
 	hight: 130%;
@@ -807,14 +790,13 @@ body {
 	height: 300px;
 	flex-direction: column; /* 요소들을 세로로 배치합니다. */
 	margin-top: 10px;
-/* 	border: 2px solid green;  */
+	/* 	border: 2px solid green;  */
 }
 
 .small-outer-content-box {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	
 }
 
 .outer-searchBox {
@@ -1189,19 +1171,19 @@ body {
 	align-items: center;
 	width: 70%;
 	margin-bottom: 20px; /* 아래쪽 여백을 20px로 설정 */
-/* 	border: 3px solid blue; */
+	/* 	border: 3px solid blue; */
 }
 
 .train-info {
-    display: flex;
-    flex-direction: column;
-    max-width: 598px;
-    /* 그라데이션 추가 */
-    background: linear-gradient(135deg, #ffffff, #e0e0e0);
-    /* 테두리 추가 */
-    border: 2px solid #cccccc; /* 회색 테두리 */
-    border-radius: 8px; /* 테두리의 깍임을 부드럽게 만듦 */
-    padding: 10px; /* 내부 여백 추가 */
+	display: flex;
+	flex-direction: column;
+	max-width: 598px;
+	/* 그라데이션 추가 */
+	background: linear-gradient(135deg, #ffffff, #e0e0e0);
+	/* 테두리 추가 */
+	border: 2px solid #cccccc; /* 회색 테두리 */
+	border-radius: 8px; /* 테두리의 깍임을 부드럽게 만듦 */
+	padding: 10px; /* 내부 여백 추가 */
 }
 
 .train-info-container {
@@ -1234,13 +1216,12 @@ body {
 	margin-left: 0;
 }
 
-@media (max-width: 991px) { 
-	.train-info-col { 
-	width:100%;
-	
+@media ( max-width : 991px) {
+	.train-info-col {
+		width: 100%;
+	}
 }
 
-}
 .train-info-details {
 	display: flex;
 	flex-grow: 1;
@@ -1449,7 +1430,8 @@ body {
 	display: flex;
 	line-height: normal;
 	width: 18%;
-	margin-left: 20px;
+	margin-left: auto; /* 요소를 왼쪽으로부터 최대한 멀리 배치하여 오른쪽으로 이동 */
+	margin-right: 80px; /* 추가적인 오른쪽 여백 제공 */
 	/* 	border: 3px solid red; */
 	align-items: center;
 }
@@ -1540,7 +1522,6 @@ body {
 	display: flex;
 	gap: 5px;
 }
-
 
 .pin-icon {
 	width: 16px;
