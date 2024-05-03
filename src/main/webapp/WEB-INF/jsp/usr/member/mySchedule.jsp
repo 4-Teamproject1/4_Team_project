@@ -272,7 +272,7 @@
 			this.el.appendChild(scrollContainer);
 		};
 
-		// 날짜를 클릭했을 때 상세 정보를 표시하는 함수
+		/* // 날짜를 클릭했을 때 상세 정보를 표시하는 함수
 		Calendar.prototype.openDay = function(el) {
 			var details;
 			var dayNumber = +el.querySelector(".day-number").innerText
@@ -307,7 +307,7 @@
 				// 클릭된 날짜의 이벤트 렌더링
 				this.renderEvents(todaysEvents, eventsWrapper);
 			}
-		};
+		}; */
 		// 이벤트 렌더링 함수
 		Calendar.prototype.renderEvents = function(events, ele) {
 			// 현재 상세 정보 요소에 있는 이벤트 제거

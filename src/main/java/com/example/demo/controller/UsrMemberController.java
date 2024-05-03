@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -171,10 +172,12 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/mySchedule")
-	public String mySchedule(HttpServletRequest req) {
+	public String mySchedule(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		List<Conference> conferences = conferenceService.getscrapShopsList(rq.getLoginedMemberId());
+		model.addAttribute("conferences", conferences);
+
 		System.err.println("conferences" + conferences);
 		return "/usr/member/mySchedule";
 	}

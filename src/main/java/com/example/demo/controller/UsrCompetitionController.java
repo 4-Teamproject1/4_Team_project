@@ -15,6 +15,7 @@ import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.ReactionPointService;
 import com.example.demo.service.ReplyService;
+import com.example.demo.service.ScrapService;
 import com.example.demo.service.TrainTicketService;
 import com.example.demo.service.CompetitionService;
 import com.example.demo.service.ConferenceService;
@@ -34,7 +35,9 @@ public class UsrCompetitionController {
 
 	@Autowired
 	private Rq rq;
-
+	@Autowired
+	private ScrapService scrapService;
+	
 	@Autowired
 	private CompetitionService competitionService;
 
@@ -49,10 +52,18 @@ public class UsrCompetitionController {
 	}
 
 	@RequestMapping("/usr/competition/detail")
-	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id) {
+	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id,  int themeId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		Competition competition = competitionService.getEventById(id);
+		ResultData usersScrapRd = scrapService.usersScrap(rq.getLoginedMemberId(), themeId, id);
+
+		if (usersScrapRd.isSuccess()) {
+			model.addAttribute("userCanScrap", usersScrapRd.isSuccess());
+		}
+	 
+		model.addAttribute("isAlreadyAddGoodRp",
+				scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(),themeId, id));
 		/* model.addAttribute("articles", articles); */
 		model.addAttribute("competition", competition);
 		return "usr/competition/detail";

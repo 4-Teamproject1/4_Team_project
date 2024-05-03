@@ -118,7 +118,7 @@
 								<td>${competition.id}</td>
 								<!-- 첫 번째 td에 학회의 ID -->
 								<td>
-									<a href="detail?id=${competition.id}">${competition.title}</a>
+									<a href="detail?themeId=${competition.themeId}&id=${competition.id}">${competition.title}</a>
 								</td>
 								<!-- 두 번째 td에 학회의 제목 -->
 								<td>${competition.applicationPeriod}</td>
