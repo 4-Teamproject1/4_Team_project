@@ -1,13 +1,17 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.ConferenceService;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Conference;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -23,6 +27,11 @@ public class UsrMemberController {
 	@Autowired
 	private MemberService memberService;
 
+	
+
+	@Autowired
+	private ConferenceService conferenceService;
+	
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId) {
@@ -162,8 +171,11 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/mySchedule")
-	public String mySchedule() {
-
+	public String mySchedule(HttpServletRequest req) {
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		List<Conference> conferences = conferenceService.getscrapShopsList(rq.getLoginedMemberId());
+		System.err.println("conferences" + conferences);
 		return "/usr/member/mySchedule";
 	}
 	

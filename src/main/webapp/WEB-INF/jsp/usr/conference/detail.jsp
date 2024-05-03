@@ -17,7 +17,7 @@
 	console.log(params);
 	console.log(params.memberId);
 	console.log(params.themeId);
-
+	console.log(params.id);
 	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
 </script>
 
