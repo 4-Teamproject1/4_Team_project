@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../path/to/your/javascript/file.js"></script>
+<!-- <script src="../path/to/your/javascript/file.js"></script> -->
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
@@ -48,19 +48,13 @@
 						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
-						<button type="button" onclick="selectRadio('option2')">
-						조회순
-						</button>
+						<button type="button" onclick="selectRadio('option2')">조회순</button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
-						<button type="button" onclick="selectRadio('option3')">
-						마감순
-						</button>
+						<button type="button" onclick="selectRadio('option3')">마감순</button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
-						<button type="button" onclick="selectRadio('option4')">
-							제목순
-						</button>
+						<button type="button" onclick="selectRadio('option4')">제목순</button>
 					</form>
 
 					<script>
@@ -81,12 +75,15 @@
 						}
 					</script>
 				</div>
-
-
-				<form class="search-form">
-					<input type="text" placeholder="검색어를 입력하세요." />
-					<button>검색</button>
+				<!-- 				<form class="search-form" action="/usr/conference/list" method="GET"> -->
+				<form action="/usr/conference/list" method="get">
+					<select name="searchKeywordTypeCode">
+						<option value="title">제목</option>
+					</select>
+					<input type="text" name="searchKeyword" value="${searchKeyword}"class="input-sm input input-bordered w-48 max-w-xs">
+					<button class="btn btn-ghost btn-sm" type="submit">검색</button>
 				</form>
+
 			</div>
 
 			<div class="category-filters">
@@ -186,60 +183,70 @@
 
 
 <script>
-$(document).ready(function() {
-    var selectedOption = ""; // 선택된 옵션 초기화
-    var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
+	$(document).ready(
+			function() {
+				var selectedOption = ""; // 선택된 옵션 초기화
+				var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
 
-    // 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
-    $(".sort-options button").click(function() {
-        selectedOption = $(this).text().trim();
-        $(".sort-options button").removeClass("btn-active");
-        $(this).addClass("btn-active");
-        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-        getFilteredConferences(selectedOption, selectedCategoryId);
-    });
+				// 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
+				$(".sort-options button").click(function() {
+					selectedOption = $(this).text().trim();
+					$(".sort-options button").removeClass("btn-active");
+					$(this).addClass("btn-active");
+					// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+					getFilteredConferences(selectedOption, selectedCategoryId);
+				});
 
-    // 카테고리 버튼 클릭 이벤트
-    $(".category-filters button").click(function() {
-        selectedCategoryId = $(this).attr("class").split(" ")[0].split("-")[1];
-        $(".category-filters button").removeClass("btn-active");
-        $(this).addClass("btn-active");
-        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-        getFilteredConferences(selectedOption, selectedCategoryId);
-    });
+				// 카테고리 버튼 클릭 이벤트
+				$(".category-filters button").click(
+						function() {
+							selectedCategoryId = $(this).attr("class").split(
+									" ")[0].split("-")[1];
+							$(".category-filters button").removeClass(
+									"btn-active");
+							$(this).addClass("btn-active");
+							// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+							getFilteredConferences(selectedOption,
+									selectedCategoryId);
+						});
 
-    // 선택된 옵션들을 기반으로 데이터를 가져오는 함수
-    function getFilteredConferences(option, categoryId) {
-        $.ajax({
-            type: "GET",
-            url: "getFilteredConferences",
-            data: { option: option, categoryId: categoryId },
-            success: function(data) {
-                drawConferences(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
+				// 선택된 옵션들을 기반으로 데이터를 가져오는 함수
+				function getFilteredConferences(option, categoryId) {
+					$.ajax({
+						type : "GET",
+						url : "getFilteredConferences",
+						data : {
+							option : option,
+							categoryId : categoryId
+						},
+						success : function(data) {
+							drawConferences(data);
+						},
+						error : function(xhr, status, error) {
+							console.error("Error:", error);
+						}
+					});
+				}
 
-    // 학술행사 목록을 그리는 함수
-    function drawConferences(conferenceList) {
-        var html = '';
-        $.each(conferenceList, function(index, conference) {
-            html += '<tr>';
-            html += '<td>' + conference.id + '</td>';
-            html += '<td><a href="detail?id=' + conference.id + '">' + conference.title + '</a></td>';
-            html += '<td>' + conference.applicationPeriod + '</td>';
-            html += '<td>' + conference.regDate + '</td>';
-            html += '<td>' + conference.hitCount + '</td>';
-            html += '</tr>';
-        });
-        $('.table tbody').html(html);
-    }
-});
-
-
+				// 학술행사 목록을 그리는 함수
+				function drawConferences(conferenceList) {
+					var html = '';
+					$.each(conferenceList,
+							function(index, conference) {
+								html += '<tr>';
+								html += '<td>' + conference.id + '</td>';
+								html += '<td><a href="detail?id='
+										+ conference.id + '">'
+										+ conference.Atitle + '</a></td>';
+								html += '<td>' + conference.applicationPeriod
+										+ '</td>';
+								html += '<td>' + conference.regDate + '</td>';
+								html += '<td>' + conference.hitCount + '</td>';
+								html += '</tr>';
+							});
+					$('.table tbody').html(html);
+				}
+			});
 </script>
 
 

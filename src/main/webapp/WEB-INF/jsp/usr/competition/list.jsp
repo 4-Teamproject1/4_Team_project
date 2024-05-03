@@ -82,9 +82,12 @@
 				</div>
 
 
-				<form class="search-form">
-					<input type="text" placeholder="검색어를 입력하세요." />
-					<button>검색</button>
+				<form action="/usr/competition/list" method="get">
+					<select name="searchKeywordTypeCode">
+						<option value="title">제목</option>
+					</select>
+					<input type="text" name="searchKeyword" value="${searchKeyword}"class="input-sm input input-bordered w-48 max-w-xs">
+					<button class="btn btn-ghost btn-sm" type="submit">검색</button>
 				</form>
 			</div>
 
