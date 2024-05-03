@@ -76,7 +76,7 @@ public class CompetitionService {
 		return competitionRepository.getCompetitionsByCategoryOrderBytitle();
 	}
 
-	public List<Competition> getCompetitionsList() {
-		return competitionRepository. getCompetitionsList();
+	public List<Competition> getCompetitionsList(String searchKeyword) {
+		return competitionRepository. getCompetitionsList(searchKeyword);
 	}
 }

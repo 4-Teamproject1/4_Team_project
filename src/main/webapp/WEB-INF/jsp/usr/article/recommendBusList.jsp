@@ -747,7 +747,7 @@ JSP
 	display: flex;
 	justify-content: center; /* 수평 가운데 정렬 */
 	width: 100%;
-	height: 400px;
+	height: 800px;
 	flex-direction: column; /* 요소들을 세로로 배치합니다. */
 	/*    margin-top: 10px; */
 	/*     border: 2px solid; */
@@ -1791,6 +1791,7 @@ media (max-width: 991px) { .train-info-col { width:100%;
 /*좌측 출발 도착 장소 메뉴*/
 .place-box {
 	width: 17%;
+	margin-top: 30px;
 	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
 	text-align: center;
 	border: 2px solid red;

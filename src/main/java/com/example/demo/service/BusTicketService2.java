@@ -26,7 +26,9 @@ public class BusTicketService2 {
 	static class buscrawl {
 		public List<Bus> buscrawl() {
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
+					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+//			System.setProperty("webdriver.chrome.driver",
+//					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
 			WebDriver driver = new ChromeDriver();
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
@@ -45,11 +47,30 @@ public class BusTicketService2 {
 					.until(ExpectedConditions.elementToBeClickable(By.id("terminalSearch")));
 			String searchText2 = "대전복합";
 			activatedSearchInput2.sendKeys(searchText2);
-
+			
+			//출발장소, 도착장소 모달창 닫기
 			WebElement closeButton = wait.until(ExpectedConditions
 					.elementToBeClickable(By.cssSelector("div.remodal-wrapper.full.remodal-is-opened")));
 			closeButton.click();
+			
+			  // 날짜를 선택하기 위해 달력클래스 상위 영역 요소 찾기
+	        WebElement datePickerWrap = wait.until(ExpectedConditions.elementToBeClickable(By.className("date_picker_wrap")));
 
+	        // 상위 영역 클릭
+	        datePickerWrap.click();
+			
+			
+			//날짜 선택
+			String targetNumber = "24"; // 클릭하고 싶은 날짜의 숫자
+			List<WebElement> dateLinks = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@class='ui-datepicker-calendar']//a[@class='ui-state-default']")));
+			for (WebElement dateLink : dateLinks) {
+			    if (dateLink.getText().equals(targetNumber)) {
+			        dateLink.click();
+			        break; // 클릭 후 반복문 종료
+			    }
+			}
+			
+			//조회버튼
 			WebElement clickableElement3 = wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.cssSelector("div.route_box div.tab_cont.clear p.check button.btn_confirm.noHover")));
 			clickableElement3.click();

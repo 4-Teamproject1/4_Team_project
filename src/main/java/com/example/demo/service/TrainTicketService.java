@@ -27,7 +27,8 @@ public class TrainTicketService {
 		public List<Train> crawl() {
 			// 크롬 드라이버 경로 설정
 
-			System.setProperty("webdriver.chrome.driver", "C:\\work\\chromedriver-win64 (1)\\chromedriver-win64/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
 
 			// WebDriver 인스턴스 생성
 			WebDriver driver = new ChromeDriver();
@@ -72,6 +73,28 @@ public class TrainTicketService {
 
 			// iframe으로 전환
 			driver.switchTo().frame(iframeElement);
+
+			// 특정 날짜선택을 위한 달력 클릭
+			WebElement calendarButton = wait_web.until(ExpectedConditions
+					.elementToBeClickable(By.cssSelector("div.GCHKKatvIDUwtDhc6Gpi div[title='변경하기']")));
+			calendarButton.click();
+
+			// 달력에서 특정 날짜 클릭
+			String targetNumber = "21"; // 클릭하고 싶은 날짜의 숫자
+			WebElement numberElement = driver.findElement(By.xpath(
+					"//button[contains(@class, 'UCpJLMzaonwRmF6xEQOv')]//strong[text()='" + targetNumber + "']"));
+			numberElement.click();
+			System.out.println("클릭한 날짜: " + numberElement.getText());
+
+			// 적용 버튼을 클릭하기 위해 필요한 코드
+			WebElement applyButton = driver
+					.findElement(By.cssSelector("div.bLvYl4MQXPo0xE34e6AC button.FlIU_KywuA_u7z1YgjIW"));
+			// 적용 버튼 클릭
+			applyButton.click();
+
+			// 페이지가 로드될 때까지 대기
+			wait_web.until(ExpectedConditions.invisibilityOfElementLocated(
+					By.cssSelector("div.bLvYl4MQXPo0xE34e6AC button.FlIU_KywuA_u7z1YgjIW")));
 
 			// 기차 시간표 조회 결과 출력
 
