@@ -487,7 +487,11 @@ CREATE TABLE `academy` (
 	`applicationPeriod`	 VARCHAR(500) NULL,
 	`entryFee`	 VARCHAR(500) NULL ,
 	`place`	 VARCHAR(500) NULL,
+<<<<<<< Updated upstream
 	`address`	 VARCHAR(500) NULL,
+=======
+	`address`	    VARCHAR(500) NULL,
+>>>>>>> Stashed changes
 	`homepage`	 VARCHAR(500) NULL,
 	`imageURL`	 VARCHAR(500) NULL,
 	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',

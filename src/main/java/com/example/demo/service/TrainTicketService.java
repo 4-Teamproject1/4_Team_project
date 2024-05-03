@@ -18,16 +18,29 @@ import com.example.demo.vo.Train;
 @Service
 public class TrainTicketService {
 
-	public List<Train> gettrainservice() {
-		crawl crawler = new crawl();
+	public List<Train> gettrainservice(String departureTrain, String arriveTrain, String ondate) {
+		crawl crawler = new crawl(departureTrain, arriveTrain, ondate);
 		return crawler.crawl();
 	}
 
 	static class crawl {
+
+		private String departureTrain;
+		private String arriveTrain;
+		private String ondate;
+
+		// 생성자를 추가하여 매개변수들을 받아옵니다.
+		public crawl(String departureTrain, String arriveTrain, String ondate) {
+			this.departureTrain = departureTrain;
+			this.arriveTrain = arriveTrain;
+			this.ondate = ondate;
+		}
+
 		public List<Train> crawl() {
 			// 크롬 드라이버 경로 설정
 
-			System.setProperty("webdriver.chrome.driver", "C:\\work\\chromedriver-win64 (1)\\chromedriver-win64/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
 
 			// WebDriver 인스턴스 생성
 			WebDriver driver = new ChromeDriver();
@@ -48,7 +61,7 @@ public class TrainTicketService {
 			WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 
 			// 검색어 입력
-			String searchText = "서울 용산구 한강대로 405";
+			String searchText = departureTrain;
 			activatedSearchInput.sendKeys(searchText);
 
 			// 엔터 입력 (검색 실행)
@@ -58,7 +71,7 @@ public class TrainTicketService {
 			clickArrivalButton(wait_web);
 
 			// 출발지 입력
-			enterDepartureLocation(wait_web);
+			enterDepartureLocation(wait_web, arriveTrain);
 
 			// 길찾기 버튼 클릭
 			clickFindPathButton(wait_web);
@@ -72,6 +85,28 @@ public class TrainTicketService {
 
 			// iframe으로 전환
 			driver.switchTo().frame(iframeElement);
+
+			// 특정 날짜선택을 위한 달력 클릭
+			WebElement calendarButton = wait_web.until(ExpectedConditions
+					.elementToBeClickable(By.cssSelector("div.GCHKKatvIDUwtDhc6Gpi div[title='변경하기']")));
+			calendarButton.click();
+
+			// 달력에서 특정 날짜 클릭
+			String targetNumber = ondate; // 클릭하고 싶은 날짜의 숫자
+			WebElement numberElement = driver.findElement(By.xpath(
+					"//button[contains(@class, 'UCpJLMzaonwRmF6xEQOv')]//strong[text()='" + targetNumber + "']"));
+			numberElement.click();
+			System.out.println("클릭한 날짜: " + numberElement.getText());
+
+			// 적용 버튼을 클릭하기 위해 필요한 코드
+			WebElement applyButton = driver
+					.findElement(By.cssSelector("div.bLvYl4MQXPo0xE34e6AC button.FlIU_KywuA_u7z1YgjIW"));
+			// 적용 버튼 클릭
+			applyButton.click();
+
+			// 페이지가 로드될 때까지 대기
+			wait_web.until(ExpectedConditions.invisibilityOfElementLocated(
+					By.cssSelector("div.bLvYl4MQXPo0xE34e6AC button.FlIU_KywuA_u7z1YgjIW")));
 
 			// 기차 시간표 조회 결과 출력
 
@@ -99,12 +134,12 @@ public class TrainTicketService {
 			findPathButton.click();
 		}
 
-		private static void enterDepartureLocation(WebDriverWait wait_web) {
+		private static void enterDepartureLocation(WebDriverWait wait_web, String arriveTrain) {
 			WebElement searchInput_start = wait_web.until(ExpectedConditions
 					.elementToBeClickable(By.cssSelector("div.search_input_wrap div.search_input input.input_search")));
 			searchInput_start.click();
 			searchInput_start.clear(); // 입력란을 비웁니다.
-			String searchText_start = "대전역";
+			String searchText_start = arriveTrain;
 			searchInput_start.sendKeys(searchText_start);
 			searchInput_start.sendKeys(Keys.ENTER);
 		}

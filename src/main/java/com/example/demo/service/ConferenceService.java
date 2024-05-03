@@ -47,8 +47,8 @@ public class ConferenceService {
 		return conferences;
 	}
 
-	public List<Conference> getShopsList() {
-        List<Conference> conferenceList = conferenceRepository.getShopsList();
+	public List<Conference> getShopsList(int categoryId,  String searchKeyword) {
+        List<Conference> conferenceList = conferenceRepository.getShopsList(categoryId,  searchKeyword);
 
 		/*
 		 * // Conference 객체의 주소 정보에서 시 정보를 추출하여 설정합니다. for (Conference conference :
