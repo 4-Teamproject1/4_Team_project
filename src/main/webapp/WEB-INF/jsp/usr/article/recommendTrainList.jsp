@@ -85,94 +85,129 @@
 
 <div class="searchBox">
 	<header class="search-header">
-		<div class="search-content">
-			<div class="flight-route">
-				<div class="origin-airport">
-					<span class="material-symbols-outlined train_icon">train</span>
-					<div class="origin-airport-code">
-						<select class="select select-ghost w-full max-w-xs">
-							<option>서울</option>
-							<option>강릉</option>
-							<option>경산</option>
-							<option>경주</option>
-							<option>광명</option>
-							<option>광주송정</option>
-							<option>구포</option>
-							<option>김천구미</option>
-							<option>논산</option>
-							<option>대전</option>
-							<option>동대구</option>
-							<option>마산</option>
-							<option>목포</option>
-							<option>밀양</option>
-							<option>부산</option>
-							<option>서대전</option>
-							<option>서울</option>
-							<option>수원</option>
-							<option>순천</option>
-							<option>여수EXPO(구,여수역)</option>
-							<option>영등포</option>
-							<option>오송</option>
-							<option>용산</option>
-							<option>울산(통도사)</option>
-							<option>익산</option>
-							<option>전주</option>
-							<option>정동진</option>
-							<option>정읍</option>
-							<option>천안아산</option>
-							<option>창원중앙</option>
-							<option>청량리</option>
-							<option>포항</option>
-							<option>행신</option>
-						</select>
+		<form action="/usr/article/recommendTrainList" method="get">
+			<div class="search-content">
+				<div class="flight-route">
+					<div class="origin-airport">
+						<span class="material-symbols-outlined train_icon">train</span>
+						<div class="origin-airport-code">
+							<select class="select select-ghost w-full max-w-xs" name="departureTrain">
+								<option value="">기차역선택</option>
+								<option value="서울">서울</option>
+								<option value="강릉">강릉</option>
+								<option value="경산">경산</option>
+								<option value="경주">경주</option>
+								<option value="광명">광명</option>
+								<option value="광주송정">광주송정</option>
+								<option value="구포">구포</option>
+								<option value="김천구미">김천구미</option>
+								<option value="논산">논산</option>
+								<option value="대전">대전</option>
+								<option value="동대구">동대구</option>
+								<option value="마산">마산</option>
+								<option value="목포">목포</option>
+								<option value="밀양">밀양</option>
+								<option value="부산">부산</option>
+								<option value="서대전">서대전</option>
+								<option value="서울">서울</option>
+								<option value="수원">수원</option>
+								<option value="순천">순천</option>
+								<option value="여수EXPO(구,여수역)">여수EXPO(구,여수역)</option>
+								<option value="영등포">영등포</option>
+								<option value="오송">오송</option>
+								<option value="용산">용산</option>
+								<option value="울산(통도사)">울산(통도사)</option>
+								<option value="익산">익산</option>
+								<option value="전주">전주</option>
+								<option value="정동진">정동진</option>
+								<option value="정읍">정읍</option>
+								<option value="천안아산">천안아산</option>
+								<option value="창원중앙">창원중앙</option>
+								<option value="청량리">청량리</option>
+								<option value="포항">포항</option>
+								<option value="행신">행신</option>
+							</select>
+						</div>
+					</div>
+					<div class="destination-airport">
+						<div class="destination-airport-code">
+							<select class="select select-ghost w-full max-w-xs" name="arriveTrain">
+								<option value="">기차역선택</option>
+								<option value="부산">부산</option>
+								<option value="김천">김천</option>
+								<option value="나주">나주</option>
+								<option value="남원">남원</option>
+								<option value="남춘천">남춘천</option>
+								<option value="대구">대구</option>
+								<option value="대천">대천</option>
+								<option value="동해">동해</option>
+								<option value="부전">부전</option>
+								<option value="신탄진">신탄진</option>
+								<option value="신창">신창</option>
+								<option value="아산">아산</option>
+								<option value="여천">여천</option>
+								<option value="영동">영동</option>
+								<option value="왜관">왜관</option>
+								<option value="원주">원주</option>
+								<option value="익산">익산</option>
+								<option value="인천">인천</option>
+								<option value="정읍">정읍</option>
+								<option value="제천">제천</option>
+								<option value="조치원">조치원</option>
+								<option value="천안">천안</option>
+								<option value="춘천">춘천</option>
+								<option value="태화강">태화강</option>
+								<option value="평택">평택</option>
+								<option value="홍성">홍성</option>
+							</select>
+						</div>
 					</div>
 				</div>
-				<div class="destination-airport">
-					<div class="destination-airport-code">
-						<select class="select select-ghost w-full max-w-xs">
-							<option>부산</option>
-							<option>김천</option>
-							<option>나주</option>
-							<option>남원</option>
-							<option>남춘천</option>
-							<option>대구</option>
-							<option>대천</option>
-							<option>동해</option>
-							<option>부전</option>
-							<option>신탄진</option>
-							<option>신창</option>
-							<option>아산</option>
-							<option>여천</option>
-							<option>영동</option>
-							<option>왜관</option>
-							<option>원주</option>
-							<option>익산</option>
-							<option>인천</option>
-							<option>정읍</option>
-							<option>제천</option>
-							<option>조치원</option>
-							<option>천안</option>
-							<option>춘천</option>
-							<option>태화강</option>
-							<option>평택</option>
-							<option>홍성</option>
-						</select>
-					</div>
-				</div>
+				<select class="search-date-text" name="ondate">
+					<option value="">가는날</option>
+					<option value="2">2일</option>
+					<option value="3">3일</option>
+					<option value="4">4일</option>
+					<option value="5">5일</option>
+					<option value="6">6일</option>
+					<option value="7">7일</option>
+					<option value="8">8일</option>
+					<option value="9">9일</option>
+					<option value="10">10일</option>
+					<option value="11">11일</option>
+					<option value="12">12일</option>
+					<option value="13">13일</option>
+					<option value="14">14일</option>
+					<option value="15">15일</option>
+					<option value="16">16일</option>
+					<option value="17">17일</option>
+					<option value="18">18일</option>
+					<option value="19">19일</option>
+					<option value="20">20일</option>
+					<option value="21">21일</option>
+					<option value="22">22일</option>
+					<option value="23">23일</option>
+					<option value="24">24일</option>
+					<option value="25">25일</option>
+					<option value="26">26일</option>
+					<option value="27">27일</option>
+					<option value="28">28일</option>
+					<option value="29">29일</option>
+					<option value="30">30일</option>
+				</select>
+				<select class="select select_people">
+					<option>1명</option>
+					<option>2명</option>
+					<option>3명</option>
+					<option>4명</option>
+					<option>5명</option>
+					<option>6명</option>
+					<option>7명</option>
+					<option>8명</option>
+				</select>
+				<button class="search-button btn" type="submit">검색하기</button>
 			</div>
-			<button class="search-date-text">5월 2일(목)</button>
-			<select class="select select_people">
-				<option>1명</option>
-				<option>2명</option>
-				<option>3명</option>
-				<option>4명</option>
-				<option>5명</option>
-				<option>6명</option>
-				<option>7명</option>
-				<option>8명</option>
-			</select>
-			<button class="search-button btn">검색하기</button>
-		</div>
+		</form>
 	</header>
 </div>
 
@@ -373,6 +408,7 @@
 	border-radius: 4px 22px 22px 4px;
 	background-color: #edf0f9;
 	margin-right: 10px;
+	border-radius: 4px 22px 22px 4px;
 }
 
 .origin-airport {

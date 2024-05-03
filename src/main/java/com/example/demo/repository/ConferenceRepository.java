@@ -16,6 +16,7 @@ public interface ConferenceRepository {
 			INSERT INTO `academy` SET
 			         categoryId = #{categoryId},
 			         title = #{title},
+			         themeId = 1,
 			         hitCount = #{hitCount},
 			         eventPeriod = #{eventPeriod},
 			         applicationPeriod = #{applicationPeriod},
@@ -168,7 +169,7 @@ public interface ConferenceRepository {
     	    WHERE id = #{academyId}
     	    AND themeId = #{themeId}
     	    """)
-    	public int getGoodRP(int themeId, int academyId);
+    	public int getGoodRP(int themeId , int academyId);
 
 
 
