@@ -7,20 +7,21 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+
 <script>
-	const params = {'${param.themeId}'};
+	const params = {};
 	params.id = parseInt('${param.id}');
 	params.themeId = parseInt('${param.themeId}');
 	params.memberId = parseInt('${loginedMemberId}');
 	
 	console.log(params);
 	console.log(params.memberId);
-	
-	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
+	console.log(params.themeId);
 
-	
-	
+	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
 </script>
+
+
 
 
 <header class="header">
@@ -140,7 +141,7 @@
 						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 						// marker.setMap(null);
 					</script>
-					<button id="likeButton" class="bookmark-button"  onclick="doGoodReaction(${param.id})">즐겨찾기</button>
+					<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
 		<%-- 			<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">좋아요</button> --%>
 					
 				</div>
@@ -162,7 +163,7 @@ function checkRP() {
 	}
 }
 
-function doGoodReaction(academyId) {
+function doGoodReaction(themeId, academyId) {
 if(isNaN(params.memberId) == true){
 		if(confirm('로그인 해야해. 로그인 페이지로 가실???')){
 			var currentUri = encodeURIComponent(window.location.href);
@@ -170,11 +171,11 @@ if(isNaN(params.memberId) == true){
 		}
 		return;
 	} 
-console.log("academyId": academyId , "themeId" : themeId); // 콘솔에 academyId 출력
+
 	$.ajax({
 		url: '/usr/scrap/doGoodReaction',
 		type: 'GET',
-		data: {academyId: academyId},
+		data: {themeId: themeId, academyId: academyId},
 		dataType: 'json',
 		success: function(data){
 			console.log(data);

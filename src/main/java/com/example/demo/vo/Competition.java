@@ -19,6 +19,8 @@ public class Competition {
     private String imageURL;
     private String contactNum;
     private String contactEmail;
+    private int themeId;
     private String regDate;
+    private String goodReactionPoint;
     
 }

@@ -42,21 +42,26 @@ public class UsrConferenceController {
 	}
 
 	@RequestMapping("/usr/conference/detail")
-	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id) {
+	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id, int themeId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		 ResultData usersScrapRd = scrapService.usersCafeScrap(rq.getLoginedMemberId(), id);
+		 Conference conference = conferenceService.getEventById(id);
+		 
+		 ResultData usersScrapRd = scrapService.usersScrap(rq.getLoginedMemberId(), themeId, id);
+
+
+		
 
 			if (usersScrapRd.isSuccess()) {
 				model.addAttribute("userCanScrap", usersScrapRd.isSuccess());
 			}
 		 
-			model.addAttribute("isAlreadyAddGoodRp",
-					scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(), id));
+			model.addAttribute("isAlreadyAddGoodRp",scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(),themeId, id));
 
-		Conference conference = conferenceService.getEventById(id);
+			
 
+	
 		/* model.addAttribute("articles", articles); */
 		model.addAttribute("conference", conference);
 		return "usr/conference/detail";
