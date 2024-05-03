@@ -32,6 +32,7 @@ public interface CompetitionRepository {
 	@Insert("""
 			INSERT INTO `competition` SET
 			         title = #{title},
+			         themeId = 2,
 			         totalPrizeMoney = #{totalPrizeMoney},
 			         firstPrizeMoney = #{firstPrizeMoney},
 			         applicationPeriod = #{applicationPeriod},

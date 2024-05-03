@@ -153,23 +153,30 @@ public interface ConferenceRepository {
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint + 1
 			WHERE id = #{academyId}
+			AND themeId = #{themeId}
 			""")
-	public int increaseGoodReactionPoint(int academyId);
+	public int increaseGoodReactionPoint(int academyId, int themeId);
 
     @Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint - 1
 			WHERE id = #{academyId}
+			AND themeId = #{themeId} 
 			""")
-	public int decreaseGoodReactionPoint(int academyId);
+	public int decreaseGoodReactionPoint(int academyId, int themeId);
 
     
     @Select("""
-			SELECT goodReactionPoint
-			FROM `academy`
-			WHERE id = #{academyId}
-			""")
-	public int getGoodRP(int academyId);
+    	    SELECT goodReactionPoint
+    	    FROM `academy`
+    	    WHERE id = #{academyId}
+    	    AND themeId = #{themeId}
+    	    """)
+    	public int getGoodRP(int themeId, int academyId);
+
+
+
+
 
 
 	

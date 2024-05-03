@@ -27,15 +27,16 @@ public class UsrScrapController {
 
 	@RequestMapping("/usr/scrap/doGoodReaction")
 	@ResponseBody
-	public ResultData doGoodReaction( int academyId, String replaceUri) {
+	public ResultData doGoodReaction(int themeId, int academyId,  String replaceUri) {
 
-		ResultData usersReactionRd = scrapService.usersReaction(rq.getLoginedMemberId(), academyId);
+		ResultData usersReactionRd = scrapService.usersReaction(rq.getLoginedMemberId(), themeId, academyId);
 
 		int usersReaction = (int) usersReactionRd.getData1();
 
 		if (usersReaction == 1) {
-			ResultData rd = scrapService.deleteGoodReactionPoint(rq.getLoginedMemberId(), academyId);
-			int goodRP = ConferenceService.getGoodRP(academyId);
+			/* System.err.println(11111111111111111111); */
+			ResultData rd = scrapService.deleteGoodReactionPoint(rq.getLoginedMemberId(), themeId, academyId);
+			int goodRP = ConferenceService.getGoodRP(themeId,academyId);
 			/* int badRP = articleService.getBadRP(relId); */
 			return ResultData.from("S-1", "좋아요 취소", "goodRP", goodRP);
 		} /*
@@ -48,13 +49,13 @@ public class UsrScrapController {
 			 * return ResultData.from("S-2", "싫어요 눌렀잖어", "goodRP", goodRP, "badRP", badRP);
 			 * }
 			 */
-		ResultData reactionRd = scrapService.addGoodReactionPoint(rq.getLoginedMemberId(), academyId);
+		ResultData reactionRd = scrapService.addGoodReactionPoint(rq.getLoginedMemberId(),themeId, academyId);
 
 		if (reactionRd.isFail()) {
 			return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg());
 		}
-
-		int goodRP = ConferenceService.getGoodRP(academyId);
+System.err.println("111111111111111111122222222222222222222111");
+		int goodRP = ConferenceService.getGoodRP(themeId,academyId);
 //		int badRP = articleService.getBadRP(relId);
 
 		return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg(), "goodRP", goodRP);
