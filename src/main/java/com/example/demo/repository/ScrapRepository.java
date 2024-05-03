@@ -15,7 +15,7 @@ public interface ScrapRepository {
 			AND S.memberId = #{memberId}
 			AND S.themeId = #{themeId}
 			""")
-	public int getSumReactionPoint(int memberId, int academyId, int themeId);
+	public int getSumReactionPoint(int academyId, int memberId, int themeId);
 
 	@Insert("""
 			INSERT INTO scrap
