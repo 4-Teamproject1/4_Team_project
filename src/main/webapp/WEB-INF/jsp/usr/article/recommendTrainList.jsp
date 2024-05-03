@@ -173,6 +173,7 @@
 			</select>
 			<button class="search-button btn">검색하기</button>
 		</div>
+	</header>
 </div>
 
 <div class="ticket_box">
@@ -372,7 +373,6 @@
 	border-radius: 4px 22px 22px 4px;
 	background-color: #edf0f9;
 	margin-right: 10px;
-	border-radius: 4px 22px 22px 4px;
 }
 
 .origin-airport {
@@ -536,13 +536,11 @@ body {
 	}
 }
  */
-
 .outer-arrival-icon {
 	/* 	border: 3px solid blue; */
 	display: flex;
 	align-items: end;
 }
-
 </style>
 
 <%@ include file="../common/foot.jspf"%>
