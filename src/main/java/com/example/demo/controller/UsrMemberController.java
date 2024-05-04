@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.CompetitionService;
 import com.example.demo.service.ConferenceService;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Competition;
 import com.example.demo.vo.Conference;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
@@ -28,7 +30,8 @@ public class UsrMemberController {
 	@Autowired
 	private MemberService memberService;
 
-	
+	@Autowired
+	private CompetitionService competitionService;
 
 	@Autowired
 	private ConferenceService conferenceService;
@@ -176,8 +179,11 @@ public class UsrMemberController {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		List<Conference> conferences = conferenceService.getscrapShopsList(rq.getLoginedMemberId());
+		
+		List<Competition> competitions = competitionService.getscrapShopsList(rq.getLoginedMemberId());
+		
 		model.addAttribute("conferences", conferences);
-
+		model.addAttribute("competitions", competitions);
 		System.err.println("conferences" + conferences);
 		return "/usr/member/mySchedule";
 	}
