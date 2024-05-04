@@ -97,7 +97,6 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsList2();
 
-	
 	@Update("""
 			UPDATE `competition`
 			SET goodReactionPoint = goodReactionPoint + 1
@@ -105,7 +104,7 @@ public interface CompetitionRepository {
 			AND themeId = #{themeId}
 			""")
 	public int increaseGoodReactionPoint(int academyId, int themeId);
-	
+
 	@Update("""
 			UPDATE `competition`
 			SET goodReactionPoint = goodReactionPoint - 1
@@ -121,5 +120,19 @@ public interface CompetitionRepository {
 			AND themeId = #{themeId}
 			""")
 	public int getGoodRP(int themeId, int academyId);
+
+	@Select("""
+			<script>
+			SELECT title,
+			DATE_FORMAT(SUBSTRING_INDEX(applicationPeriod, ' ~ ', 1), '%y.%m.%d') AS applicationPeriod
+			FROM `competition`
+			WHERE id IN (
+			SELECT academyId
+			FROM scrap
+			WHERE memberId = #{memberId} AND POINT = 1 AND themeId = 2
+			);
+			</script>
+			""")
+	public List<Competition> getscrapShopsList(int memberId);
 
 }

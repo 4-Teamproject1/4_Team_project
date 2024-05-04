@@ -104,4 +104,8 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return competitionRepository.getGoodRP(themeId, academyId);
 	}
+
+	public List<Competition> getscrapShopsList(int memberId) {
+		return competitionRepository.getscrapShopsList(memberId);
+	}
 }

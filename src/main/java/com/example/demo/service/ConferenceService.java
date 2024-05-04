@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.ConferenceInfoCrawler5;
+import com.example.demo.repository.CompetitionRepository;
 import com.example.demo.repository.ConferenceRepository;
 import com.example.demo.vo.Conference;
 import com.example.demo.vo.ResultData;
@@ -22,6 +23,9 @@ public class ConferenceService {
 	/*
 	 * @Autowired private ConferenceInfoCrawler4 crawler;
 	 */
+	
+	@Autowired
+	private CompetitionRepository competitionRepository;
 	
 	@Autowired
 	private ConferenceInfoCrawler5 crawler;
@@ -148,19 +152,31 @@ public class ConferenceService {
         return conferences;
     }
 
-	public ResultData increaseGoodReactionPoint(int academyId, int themeId) {
-		int affectedRow = conferenceRepository.increaseGoodReactionPoint(academyId,themeId );
+    public ResultData increaseGoodReactionPoint(int academyId, int themeId) {
+        int affectedRow = 0; // Declare affectedRow here to make it accessible throughout the method
+        
+        if (themeId == 1) {
+            affectedRow = conferenceRepository.increaseGoodReactionPoint(academyId, themeId);
+        } else {
+            affectedRow = competitionRepository.increaseGoodReactionPoint(academyId, themeId);
+        }
+        if (affectedRow == 0) {
+            return ResultData.from("F-1", "없는 게시물");
+        }
 
-		if (affectedRow == 0) {
-			return ResultData.from("F-1", "없는 게시물");
-		}
+        return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
+    }
 
-		return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
-	}
 
 	public ResultData decreaseGoodReactionPoint( int themeId, int academyId) {
-		int affectedRow = conferenceRepository.decreaseGoodReactionPoint(themeId, academyId);
-
+		
+		 int affectedRow = 0; // Declare affectedRow here to make it accessible throughout the method
+	        
+	        if (themeId == 1) {
+		affectedRow = conferenceRepository.decreaseGoodReactionPoint(themeId, academyId);
+	        } else {
+	            affectedRow = competitionRepository.increaseGoodReactionPoint(academyId, themeId);
+	        }
 		if (affectedRow == 0) {
 			return ResultData.from("F-1", "없는 게시물");
 		}

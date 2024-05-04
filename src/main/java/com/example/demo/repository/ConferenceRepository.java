@@ -178,19 +178,20 @@ public interface ConferenceRepository {
 
 	
 	@Select("""
-		    <script>
-		    SELECT title, place,
-		           DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d') AS eventPeriod,
-		           address
-		    FROM `academy`
-		    WHERE id IN (
-		        SELECT academyId
-		        FROM scrap
-		        WHERE memberId = #{memberId} AND point = 1
-		    );
-		    </script>
-		""")
-		public List<Conference> getscrapShopsList(int memberId);
+	        <script>
+	        SELECT title, place,
+	               DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d') AS eventPeriod,
+	               address
+	        FROM `academy`
+	        WHERE id IN (
+	            SELECT academyId
+	            FROM scrap
+	            WHERE memberId = #{memberId} AND point = 1 AND themeId = 1
+	        );
+	        </script>
+	    """)
+	public List<Conference> getscrapShopsList(int memberId);
+
 
 
 
