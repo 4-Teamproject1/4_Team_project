@@ -61,10 +61,13 @@ public class UsrConferenceController {
 	}
 
 	@RequestMapping("/usr/conference/list")
-	public String ShowAcademicEventList(HttpServletRequest req, Model model) {
+	public String ShowAcademicEventList(HttpServletRequest req, Model model,
+			@RequestParam(defaultValue = "1") int categoryId,
+//			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		List<Conference> conferences = conferenceService.getShopsList();
+		List<Conference> conferences = conferenceService.getShopsList(categoryId, searchKeyword);
 		System.err.println(conferences);
 		model.addAttribute("conferences", conferences);
 
