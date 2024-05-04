@@ -13,6 +13,9 @@ public class ScrapService {
 	private ConferenceService ConferenceService;
 
 	@Autowired
+	private CompetitionService CompetitionService;
+
+	@Autowired
 	private ScrapRepository scrapRepository;
 
 	public ScrapService(ScrapRepository reactionPointRepository) {
@@ -28,11 +31,12 @@ public class ScrapService {
 		int sumReactionPointByMemberId = scrapRepository.getSumReactionPoint(loginedMemberId, themeId, academyId);
 
 		System.err.println("sumReactionPointByMemberId : " + sumReactionPointByMemberId);
-		System.err.println("sumReactionPointByMemberId : " + scrapRepository.getSumReactionPoint(loginedMemberId, themeId, academyId));
+		System.err.println("sumReactionPointByMemberId : "
+				+ scrapRepository.getSumReactionPoint(loginedMemberId, themeId, academyId));
 		System.err.println("loginedMemberId : " + loginedMemberId);
 		System.err.println("themeId : " + themeId);
 		System.err.println("academyId : " + academyId);
-		
+
 		if (sumReactionPointByMemberId != 0) {
 			return ResultData.from("F-1", "추천 불가능", "sumReactionPointByMemberId", sumReactionPointByMemberId);
 		}
@@ -49,8 +53,11 @@ public class ScrapService {
 		if (affectedRow != 1) {
 			return ResultData.from("F-1", "좋아요 실패");
 		}
-
-		ConferenceService.increaseGoodReactionPoint(academyId, themeId);
+		if (themeId == 1) {
+			ConferenceService.increaseGoodReactionPoint(academyId, themeId);
+		} else {
+			CompetitionService.increaseGoodReactionPoint(academyId, themeId);
+		}
 
 		return ResultData.from("S-1", "좋아요!");
 	}
@@ -69,9 +76,11 @@ public class ScrapService {
 	 */
 	public ResultData deleteGoodReactionPoint(int loginedMemberId, int themeId, int academyId) {
 		scrapRepository.deleteReactionPoint(loginedMemberId, themeId, academyId);
-
-		ConferenceService.decreaseGoodReactionPoint(themeId, academyId);
-
+		if (themeId == 1) {
+			ConferenceService.decreaseGoodReactionPoint(themeId, academyId);
+		} else {
+			CompetitionService.decreaseGoodReactionPoint(themeId, academyId);
+		}
 		return ResultData.from("S-1", "좋아요 취소 됨");
 
 	}

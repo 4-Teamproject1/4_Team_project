@@ -11,6 +11,7 @@ import com.example.demo.controller.competitionInfoCrawler;
 import com.example.demo.repository.CompetitionRepository;
 import com.example.demo.vo.Competition;
 import com.example.demo.vo.Conference;
+import com.example.demo.vo.ResultData;
 
 @Service
 public class CompetitionService {
@@ -67,16 +68,40 @@ public class CompetitionService {
 	}
 
 	public List<Competition> getCompetitionsByCategoryOrderByfinDate() {
-		// TODO Auto-generated method stub
 		return competitionRepository.getCompetitionsByCategoryOrderByfinDate();
 	}
 
 	public List<Competition> getCompetitionsByCategoryOrderBytitle() {
-		// TODO Auto-generated method stub
 		return competitionRepository.getCompetitionsByCategoryOrderBytitle();
 	}
 
 	public List<Competition> getCompetitionsList(String searchKeyword) {
 		return competitionRepository. getCompetitionsList(searchKeyword);
+	}
+
+	public ResultData increaseGoodReactionPoint(int academyId, int themeId) {
+		int affectedRow = competitionRepository.increaseGoodReactionPoint(academyId,themeId );
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시물");
+		}
+
+		return ResultData.from("S-1", "좋아요 증가", "affectedRow", affectedRow);
+		
+	}
+
+	public ResultData decreaseGoodReactionPoint(int themeId, int academyId) {
+		int affectedRow = competitionRepository.decreaseGoodReactionPoint(themeId, academyId);
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "없는 게시물");
+		}
+
+		return ResultData.from("S-1", "좋아요 감소", "affectedRow", affectedRow);
+	}
+
+	public int getGoodRP(int themeId, int academyId) {
+		// TODO Auto-generated method stub
+		return competitionRepository.getGoodRP(themeId, academyId);
 	}
 }

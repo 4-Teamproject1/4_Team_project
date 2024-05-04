@@ -1,10 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Competition Detail"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="../path/to/your/javascript/file.js"></script> -->
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
+
+<script>
+	const params = {};
+	params.id = parseInt('${param.id}');
+	params.themeId = parseInt('${param.themeId}');
+	params.memberId = parseInt('${loginedMemberId}');
+	
+	
+	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
+	
+</script>
+
 
 <header class="header">
 	<a href="../home/main">
@@ -80,7 +94,7 @@
 					  <img src="${competition.imageURL}" alt="" loading="lazy" />
 				</div>
 				<div class="bookmark">
-					<button class="bookmark-button">즐겨찾기</button>
+						<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
 				</div>
 			</div>
 		</div>
@@ -90,6 +104,70 @@
 </div>
 
 
+<script>
+
+<!-- 좋아요 싫어요 버튼	-->
+function checkRP() {
+	if(isAlreadyAddGoodRp == true){
+		$('#likeButton').toggleClass('btn-outline');
+	}else {
+		return;
+	}
+}
+
+function doGoodReaction(themeId, academyId) {
+if(isNaN(params.memberId) == true){
+		if(confirm('로그인 해야해. 로그인 페이지로 가실???')){
+			var currentUri = encodeURIComponent(window.location.href);
+			window.location.href = '../member/login?afterLoginUri=' + currentUri; // 로그인 페이지에 원래 페이지의 uri를 같이 보냄
+		}
+		return;
+	} 
+
+	$.ajax({
+		url: '/usr/scrap/doGoodReaction',
+		type: 'GET',
+		data: {themeId: themeId, academyId: academyId},
+		dataType: 'json',
+		success: function(data){
+			console.log(data);
+			console.log('data.data1Name : ' + data.data1Name);
+			console.log('data.data1 : ' + data.data1);
+/* 			console.log('data.data2Name : ' + data.data2Name);
+			console.log('data.data2 : ' + data.data2); */
+			if(data.resultCode.startsWith('S-')){
+				var likeButton = $('#likeButton');
+				var likeCount = $('#likeCount');
+			/* 	var DislikeButton = $('#DislikeButton');
+				var DislikeCount = $('#DislikeCount'); */
+				
+				if(data.resultCode == 'S-1'){
+					likeButton.toggleClass('btn-outline');
+					likeCount.text(data.data1);
+				}else if(data.resultCode == 'S-2'){
+				/* 	DislikeButton.toggleClass('btn-outline');
+					DislikeCount.text(data.data2); */
+					likeButton.toggleClass('btn-outline');
+					likeCount.text(data.data1);
+				}else {
+					likeButton.toggleClass('btn-outline');
+					likeCount.text(data.data1);
+				}
+				
+			}else {
+				alert(data.msg);
+			}
+	
+		},
+		error: function(jqXHR,textStatus,errorThrown) {
+			alert('좋아요 오류 발생 : ' + textStatus);
+
+		}
+		
+	});
+}
+
+</script>
 
 
 

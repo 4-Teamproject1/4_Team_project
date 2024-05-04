@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,6 +16,7 @@ public interface ConferenceRepository {
 	@Insert("""
 			INSERT INTO `academy` SET
 			         categoryId = #{categoryId},
+			         themeId = 1,
 			         title = #{title},
 			         hitCount = #{hitCount},
 			         eventPeriod = #{eventPeriod},
@@ -37,6 +39,8 @@ public interface ConferenceRepository {
 		    </script>
 		""")
 		public List<Conference> getShopsList(int categoryId, String searchKeyword);
+          
+
 	@Select("""
 			<script>
 			SELECT *
@@ -45,6 +49,12 @@ public interface ConferenceRepository {
 			</script>
 			""")
 	public Conference getEventById(int id);
+
+			WHERE categoryId = #{categoryId};
+			</script>
+			""")
+	public List<Conference> getConferencesByCategory(int categoryId);
+
 
 	@Select("""
 			<script>
@@ -55,7 +65,7 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategory(int categoryId);
 
-	@Select("""
+@Select("""
 			<script>
 			SELECT *
 			FROM `academy`
@@ -74,10 +84,7 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId);
 
-	@Select("""
-			<script>
-			SELECT *
-			FROM `academy`
+
 			ORDER BY hitCount DESC
 			</script>
 			""")
@@ -144,8 +151,8 @@ public interface ConferenceRepository {
 			    </script>
 			""")
 	public List<Conference> getShopsList2();
-
-    @Update("""
+          
+	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint + 1
 			WHERE id = #{academyId}
@@ -153,24 +160,24 @@ public interface ConferenceRepository {
 			""")
 	public int increaseGoodReactionPoint(int academyId, int themeId);
 
-    @Update("""
+	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint - 1
 			WHERE id = #{academyId}
-			AND themeId = #{themeId} 
+			AND themeId = #{themeId}
 			""")
-	public int decreaseGoodReactionPoint(int academyId, int themeId);
+	public int decreaseGoodReactionPoint(int themeId, int academyId);
 
-    
-    @Select("""
-    	    SELECT goodReactionPoint
-    	    FROM `academy`
-    	    WHERE id = #{academyId}
-    	    AND themeId = #{themeId}
-    	    """)
-    	public int getGoodRP(int themeId, int academyId);
+	@Select("""
+			SELECT goodReactionPoint
+			FROM `academy`
+			WHERE id = #{academyId}
+			AND themeId = #{themeId}
+			""")
+	public int getGoodRP(int themeId, int academyId);
 
-    @Select("""
+	
+	@Select("""
 		    <script>
 		    SELECT title, place,
 		           DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d') AS eventPeriod,
@@ -186,9 +193,5 @@ public interface ConferenceRepository {
 		public List<Conference> getscrapShopsList(int memberId);
 
 
-
-	
-
-   
 
 }

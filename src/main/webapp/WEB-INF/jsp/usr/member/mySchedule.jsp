@@ -8,343 +8,409 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <script>
-    // moment.js 라이브러리를 사용하여 날짜 및 시간을 쉽게 다룰 수 있습니다.
-    // 이 자바스크립트 코드는 달력을 생성하고 이벤트를 표시하는 기능을 구현합니다.
-    // Calendar 객체를 생성합니다.
-    // selector는 캘린더를 표시할 DOM 요소를 지정합니다.
-    // events는 캘린더에 표시할 이벤트 목록입니다.
-    function Calendar(selector, events) {
-        // 캘린더를 표시할 DOM 요소를 선택합니다.
-        this.el = document.querySelector(selector);
-        // 이벤트 목록을 저장합니다.
-        this.events = events;
-        // 현재 날짜를 기준으로 moment 객체를 생성합니다.
-        this.current = moment().date(1);
-        // 캘린더를 그립니다.
-        this.draw();
-        // 현재 날짜를 표시하는 요소를 찾습니다.
-        var current = document.querySelector(".today");
-        if (current) {
-            var self = this;
-            // 페이지 로드 후 500ms 지연 후 현재 날짜의 이벤트를 표시합니다.
-            window.setTimeout(function () {
-                self.openDay(current);
-            }, 500);
-        }
-        // 페이지 로드 시 모든 이벤트를 표시합니다.
-        this.showAllEvents();
-        // 스크롤 가능한 컨테이너 요소를 선택합니다.
-        this.scrollContainer = this.el.querySelector(".scroll-container")
-    }
+	!(function() {
+		var today = moment();
+		// 캘린더 생성자 함수 정의
+		function Calendar(selector, events) {
+			this.el = document.querySelector(selector);
+			this.events = events;
+			this.current = moment().date(1);
+			this.draw();
+			var current = document.querySelector(".today");
+			if (current) {
+				var self = this;
+				window.setTimeout(function() {
+					self.openDay(current);
+				}, 500);
+			}
+			// 페이지 로드 시 이벤트를 모두 표시하는 함수 호출
+			this.showAllEvents();
+			// 스크롤 가능한 컨테이너 요소
+			this.scrollContainer = this.el.querySelector(".scroll-container")
+		}
+		// 캘린더 다음 달로 이동 함수
+		Calendar.prototype.nextMonth = function() {
+			this.current.add("months", 1);
+			this.next = true;
+			this.draw();
+			this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
+		};
+		// 캘린더 이전 달로 이동 함수
+		Calendar.prototype.prevMonth = function() {
+			this.current.subtract("months", 1);
+			this.next = false;
+			this.draw();
+			this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
+		};
+		// 스크롤 컨테이너 위치 조정 함수
+		Calendar.prototype.adjustScrollContainerPosition = function() {
+			var self = this;
+			// 월 전환 애니메이션이 완료된 후 조정되도록 지연
+			setTimeout(function() {
+				// 현재 월의 위치를 기반으로 새로운 위치 계산
+				var calendarRect = self.el.getBoundingClientRect();
+				var scrollContainerRect = self.scrollContainer
+						.getBoundingClientRect();
+				var newTop = scrollContainerRect.top - calendarRect.top;
+				// 스크롤 컨테이너의 새로운 상단 위치 설정
+				self.scrollContainer.style.top = newTop + "px";
+			}, 500); // 애니메이션 기간에 맞춰 지연 조정
+		};
+		// 캘린더 그리기 함수
+		Calendar.prototype.draw = function() {
+			// 헤더 생성
+			this.drawHeader();
+			// 달 그리기
+			this.drawMonth();
+			// 스크롤 컨테이너의 내용을 지우기
+			this.scrollContainer.innerHTML = '';
+			// 현재 달의 이벤트들을 그리고 스크롤 컨테이너에 추가
+			this.showAllEvents();
+		};
+		// 헤더 그리기 함수
+		Calendar.prototype.drawHeader = function() {
+			var self = this;
+			if (!this.header) {
+				// 헤더 요소 생성
+				this.header = createElement("div", "header");
+				this.header.className = "header";
+				this.title = createElement("h1");
+				var right = createElement("div", "right");
+				right.addEventListener("click", function() {
+					self.nextMonth();
+				});
+				var left = createElement("div", "left");
+				left.addEventListener("click", function() {
+					self.prevMonth();
+				});
+				// 요소 추가
+				this.header.appendChild(this.title);
+				this.header.appendChild(right);
+				this.header.appendChild(left);
+				this.el.appendChild(this.header);
+				// 주단위 요일 이름 그리기 (추가)
+				this.drawWeekdays();
+			}
+			this.title.innerHTML = this.current.format("MMM YYYY");
+		};
+		// 달 그리기 함수
+		Calendar.prototype.drawMonth = function() {
+			var self = this;
+			// 이벤트를 각 날짜에 랜덤하게 배치
+			this.events.forEach(function(ev) {
+				ev.date = self.current.clone().date(
+						Math.random() * (29 - 1) + 1);
+			});
+			// 이미 존재하는 경우 이전 달에 대한 처리
+			if (this.month) {
+				this.oldMonth = this.month;
+				this.oldMonth.className = "month out "
+						+ (self.next ? "next" : "prev");
+				this.oldMonth
+						.addEventListener(
+								"webkitAnimationEnd",
+								function() {
+									self.oldMonth.parentNode
+											.removeChild(self.oldMonth);
+									self.month = createElement("div", "month");
+									self.backFill();
+									self.currentMonth();
+									self.fowardFill();
+									self.el.appendChild(self.month);
+									window
+											.setTimeout(
+													function() {
+														self.month.className = "month in "
+																+ (self.next ? "next"
+																		: "prev");
+													}, 16);
+								});
+			} else {
+				// 새로운 달 생성
+				this.month = createElement("div", "month");
+				this.el.appendChild(this.month);
+				this.backFill();
+				this.currentMonth();
+				this.fowardFill();
+				this.month.className = "month new";
+			}
+		};
+		// 이전 달 채우기 함수
+		Calendar.prototype.backFill = function() {
+			var clone = this.current.clone();
+			var dayOfWeek = clone.day();
+			if (!dayOfWeek) {
+				return;
+			}
+			clone.subtract("days", dayOfWeek + 1);
+			for (var i = dayOfWeek; i > 0; i--) {
+				this.drawDay(clone.add("days", 1));
+			}
+		};
+		// 다음 달 채우기 함수
+		Calendar.prototype.fowardFill = function() {
+			var clone = this.current.clone().add("months", 1).subtract("days",
+					1);
+			var dayOfWeek = clone.day();
+			if (dayOfWeek === 6) {
+				return;
+			}
+			for (var i = dayOfWeek; i < 6; i++) {
+				this.drawDay(clone.add("days", 1));
+			}
+		};
+		// 현재 달을 그리는 함수
+		Calendar.prototype.currentMonth = function() {
+			var clone = this.current.clone();
+			while (clone.month() === this.current.month()) {
+				this.drawDay(clone);
+				clone.add("days", 1);
+			}
+		};
+		// 주 단위 요소를 생성하는 함수
+		Calendar.prototype.getWeek = function(day) {
+			if (!this.week || day.day() === 0) {
+				this.week = createElement("div", "week");
+				this.month.appendChild(this.week);
+			}
+		};
+		// 주단위 요일 이름 배열
+		var weekdays = [ "일", "월", "화", "수", "목", "금", "토" ];
+		// 요일 레이블을 그리는 함수
+		Calendar.prototype.drawWeekdays = function() {
+			// 요일 행 요소 생성
+			var weekdaysRow = createElement("div", "weekdays-row");
+			// 각 요일에 대해 반복
+			weekdays.forEach(function(weekday) {
+				// 요일 레이블 요소 생성
+				var weekdayLabel = createElement("div", "weekday-label",
+						weekday);
+				// 요일 행에 요일 레이블 추가
+				weekdaysRow.appendChild(weekdayLabel);
+			});
+			// 캘린더 요소에 요일 행 추가
+			this.el.appendChild(weekdaysRow);
+		};
+		// 날짜를 그리는 함수
+		Calendar.prototype.drawDay = function(day) {
+			var self = this;
+			this.getWeek(day);
+			// 날짜 외부 요소 생성
+			var outer = createElement("div", this.getDayClass(day));
+			outer.addEventListener("click", function() {
+				self.openDay(this);
+			});
+			// 날짜
+			var number = createElement("div", "day-number", day.format("DD"));
+			// 이벤트
+			var events = createElement("div", "day-events");
+			this.drawEvents(day, events);
+			outer.appendChild(number);
+			outer.appendChild(events);
+			this.week.appendChild(outer);
+		};
+		// 날짜에 해당하는 이벤트를 그리는 함수
+		Calendar.prototype.drawEvents = function(day, element) {
+			if (day.month() === this.current.month()) {
+				var todaysEvents = this.events.reduce(function(memo, ev) {
+					if (ev.date.isSame(day, "day")) {
+						memo.push(ev);
+					}
+					return memo;
+				}, []);
+				todaysEvents.forEach(function(ev) {
+					var evSpan = createElement("span", ev.color);
+					var eventNameSpan = createElement("span", "event-name",
+							ev.eventName); // 이벤트 이름을 포함하는 요소 생성
+					evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
+					element.appendChild(evSpan);
+				});
+			}
+		};
+		// 날짜에 따라 클래스를 설정하는 함수
+		Calendar.prototype.getDayClass = function(day) {
+			classes = [ "day" ];
+			if (day.month() !== this.current.month()) {
+				classes.push("other");
+			} else if (today.isSame(day, "day")) {
+				classes.push("today");
+			}
+			return classes.join(" ");
+		};
+		// 페이지가 로드될 때 모든 이벤트를 표시하는 함수
+		Calendar.prototype.showAllEvents = function() {
+			var self = this;
+			// 스크롤 가능한 컨테이너 생성
+			var scrollContainer = createElement("div", "scroll-container");
+			// 현재 월의 각 날짜에 대해 반복
+			var daysInMonth = this.current.daysInMonth();
+			for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+				var day = this.current.clone().date(dayNumber);
+				var todaysEvents = this.events.filter(function(ev) {
+					return ev.date.isSame(day, "day");
+				});
+				// 전체 월에 대한 이벤트 표시
+				if (todaysEvents.length > 0) {
+					// 날짜에 해당하는 이벤트를 함께 표시하기 위해 scrollContainer에 날짜도 추가
+					var dayElement = createElement("div",
+							"day-events-container");
+					var dayNumberElement = createElement("div", "day-number",
+							day.format("DD일"));
+					dayElement.appendChild(dayNumberElement);
+					self.renderEvents(todaysEvents, dayElement);
+					scrollContainer.appendChild(dayElement);
+					// 날짜 요소에 선 추가
+					dayNumberElement.style.borderBottom = "1px solid #ccc";
+					// 날짜 요소에 더 많은 상단과 하단 여백 추가
+					dayNumberElement.style.paddingTop = "20px";
+					dayNumberElement.style.paddingBottom = "20px";
+					dayNumberElement.style.marginTop = "20px";
+					dayNumberElement.style.marginBottom = "20px";
+				}
+			}
+			// scrollContainer를 캘린더 요소의 자식 요소로 삽입
+			this.el.appendChild(scrollContainer);
+		};
 
-    // Calendar 객체의 다음 달로 이동하는 메서드입니다.
-    Calendar.prototype.nextMonth = function () {
-        this.current.add("months", 1);
-        this.next = true;
-        this.draw();
-        this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
-    };
+		/* // 날짜를 클릭했을 때 상세 정보를 표시하는 함수
+		Calendar.prototype.openDay = function(el) {
+			var details;
+			var dayNumber = +el.querySelector(".day-number").innerText
+					|| +el.querySelector(".day-number").textContent;
+			var day = this.current.clone().date(dayNumber);
+			// 현재 열려 있는 디테일 창을 찾고 없으면 null 반환
+			var currentOpened = document.querySelector(".details");
+			// 클릭된 날짜에 디테일 창이 열려 있지 않은 경우에만 디테일 창 열기
+			if (!currentOpened || currentOpened.parentNode !== el.parentNode) {
+				// 이전에 열려 있던 디테일 창 있다면 닫기
+				if (currentOpened) {
+					//애니메이션이 종료시 디테일 창 제거
+					currentOpened.addEventListener("animationend",
+							function() {
+								if (currentOpened.parentNode) {
+									currentOpened.parentNode
+											.removeChild(currentOpened);
+								}
+							});
+					currentOpened.className = "details out";
+				}
+				// 새로운 디테일 창을 생성
+				details = createElement("div", "details in");
+				var eventsWrapper = createElement("div", "events");
+				details.appendChild(eventsWrapper);
+				// 디테일 창을 body 요소에 추가
+				document.body.appendChild(details);
+				// 클릭된 날짜에 해당하는 이벤트 찾기
+				var todaysEvents = this.events.filter(function(ev) {
+					return ev.date.isSame(day, "day");
+				});
+				// 클릭된 날짜의 이벤트 렌더링
+				this.renderEvents(todaysEvents, eventsWrapper);
+			}
+		}; */
+		// 이벤트 렌더링 함수
+		Calendar.prototype.renderEvents = function(events, ele) {
+			// 현재 상세 정보 요소에 있는 이벤트 제거
+			var currentWrapper = ele.querySelector(".events");
+			var wrapper = createElement("div", "events in"
+					+ (currentWrapper ? " new" : ""));
+			events
+					.forEach(function(ev) {
+						var div = createElement("div", "event");
+						var square = createElement("div", "event-category "
+								+ ev.color);
+						var span = createElement("span", "", ev.eventName);
+						div.appendChild(square);
+						div.appendChild(span);
+						wrapper.appendChild(div);
+					});
+			if (!events.length) {
+				var div = createElement("div", "event empty");
+				var span = createElement("span", "", "오늘 일정이 없습니다");
+				div.appendChild(span);
+				wrapper.appendChild(div);
+			}
+			if (currentWrapper) {
+				currentWrapper.className = "events out";
+				currentWrapper.addEventListener("animationend", function() {
+					if (currentWrapper.parentNode) {
+						currentWrapper.parentNode.removeChild(currentWrapper);
+					}
+				});
+			}
+			ele.appendChild(wrapper);
+		};
+		// 다음 달로 이동 함수
+		Calendar.prototype.nextMonth = function() {
+			this.current.add("months", 1);
+			this.next = true;
+			this.draw();
+		};
+		// 이전 달로 이동 함수
+		Calendar.prototype.prevMonth = function() {
+			this.current.subtract("months", 1);
+			this.next = false;
+			this.draw();
+		};
+		window.Calendar = Calendar;
 
-    // Calendar 객체의 이전 달로 이동하는 메서드입니다.
-    Calendar.prototype.prevMonth = function () {
-        this.current.subtract("months", 1);
-        this.next = false;
-        this.draw();
-        this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
-    };
+		function createElement(tagName, className, innerText) {
+			var ele = document.createElement(tagName);
+			if (className) {
+				ele.className = className;
+			}
+			if (innerText) {
+				ele.innerText = ele.textContent = innerText;
+			}
+			return ele;
+		}
+	})();
+	!(function() {
+		var data = [ {
+			eventName : "한일차세대학세미나",
+			calendar : "conference",
+			color : "blue"
+		}, {
+			eventName : "한국미디어문화학회 학술대회",
+			calendar : "conference",
+			color : "blue"
+		}, {
+			eventName : "국제성인역량조사(PIAAC) 학술대회",
+			calendar : "conference",
+			color : "blue"
+		}, {
+			eventName : "환태평양 정신의학회 학술대회",
+			calendar : "conference",
+			color : "blue"
+		}, {
+			eventName : "KT&G 상상실현 콘테스트",
+			calendar : "contest",
+			color : "gray"
+		}, {
+			eventName : "제6회 교육 공공데이터 분석·활용대회",
+			calendar : "contest",
+			color : "gray"
+		}, {
+			eventName : "CICA 미술관 국제전 “Drawing Now 2024” 공모",
+			calendar : "contest",
+			color : "gray"
+		}, {
+			eventName : "사하 수필공모전",
+			calendar : "contest",
+			color : "gray"
+		} ];
 
-    // 스크롤 컨테이너의 위치를 조정하는 메서드입니다.
-    Calendar.prototype.adjustScrollContainerPosition = function () {
-        var self = this;
-        // 월 전환 애니메이션이 완료된 후 조정되도록 지연
-        setTimeout(function () {
-            // 현재 월의 위치를 기반으로 새로운 위치 계산
-            var calendarRect = self.el.getBoundingClientRect();
-            var scrollContainerRect = self.scrollContainer.getBoundingClientRect();
-            var newTop = scrollContainerRect.top - calendarRect.top;
-            // 스크롤 컨테이너의 새로운 상단 위치를 설정합니다.
-            self.scrollContainer.style.top = newTop + "px";
-        }, 500); // 애니메이션 기간에 맞춰 지연 조정
-    };
-
-    // 캘린더를 그리는 메서드입니다.
-    Calendar.prototype.draw = function () {
-        // 헤더를 생성합니다.
-        this.drawHeader();
-        // 달을 그립니다.
-        this.drawMonth();
-        // 스크롤 컨테이너의 내용을 지웁니다.
-        this.scrollContainer.innerHTML = '';
-        // 현재 달의 이벤트를 그리고 스크롤 컨테이너에 추가합니다.
-        this.showAllEvents();
-    };
-
-    // 헤더를 그리는 메서드입니다.
-    Calendar.prototype.drawHeader = function () {
-        var self = this;
-        if (!this.header) {
-            // 헤더 요소를 생성합니다.
-            this.header = createElement("div", "header");
-            this.header.className = "header";
-            this.title = createElement("h1");
-            var right = createElement("div", "right");
-            right.addEventListener("click", function () {
-                self.nextMonth();
-            });
-            var left = createElement("div", "left");
-            left.addEventListener("click", function () {
-                self.prevMonth();
-            });
-            // 요소를 추가합니다.
-            this.header.appendChild(this.title);
-            this.header.appendChild(right);
-            this.header.appendChild(left);
-            this.el.appendChild(this.header);
-            // 주단위 요일 이름을 그립니다.
-            this.drawWeekdays();
-        }
-        this.title.innerHTML = this.current.format("MMM YYYY");
-    };
-
-    // 달을 그리는 메서드입니다.
-    Calendar.prototype.drawMonth = function () {
-        var self = this;
-        // 이벤트를 각 날짜에 랜덤하게 배치합니다.
-        this.events.forEach(function (ev) {
-            ev.date = self.current.clone().date(Math.random() * (29 - 1) + 1);
-        });
-        // 이미 존재하는 경우 이전 달에 대한 처리를 합니다.
-        if (this.month) {
-            this.oldMonth = this.month;
-            this.oldMonth.className = "month out " + (self.next ? "next" : "prev");
-            this.oldMonth.addEventListener("webkitAnimationEnd", function () {
-                self.oldMonth.parentNode.removeChild(self.oldMonth);
-                self.month = createElement("div", "month");
-                self.backFill();
-                self.currentMonth();
-                self.fowardFill();
-                self.el.appendChild(self.month);
-                window.setTimeout(function () {
-                    self.month.className = "month in " + (self.next ? "next" : "prev");
-                }, 16);
-            });
-        } else {
-            // 새로운 달을 생성합니다.
-            this.month = createElement("div", "month");
-            this.el.appendChild(this.month);
-            this.backFill();
-            this.currentMonth();
-            this.fowardFill();
-            this.month.className = "month new";
-        }
-    };
-
-    // 이전 달을 채우는 메서드입니다.
-    Calendar.prototype.backFill = function () {
-        var clone = this.current.clone();
-        var dayOfWeek = clone.day();
-        if (!dayOfWeek) {
-            return;
-        }
-        clone.subtract("days", dayOfWeek + 1);
-        for (var i = dayOfWeek; i > 0; i--) {
-            this.drawDay(clone.add("days", 1));
-        }
-    };
-
-    // 다음 달을 채우는 메서드입니다.
-    Calendar.prototype.fowardFill = function () {
-        var clone = this.current.clone().add("months", 1).subtract("days", 1);
-        var dayOfWeek = clone.day();
-        if (dayOfWeek === 6) {
-            return;
-        }
-        for (var i = dayOfWeek; i < 6; i++) {
-            this.drawDay(clone.add("days", 1));
-        }
-    };
-
-    // 현재 달을 그리는 메서드입니다.
-    Calendar.prototype.currentMonth = function () {
-        var clone = this.current.clone();
-        while (clone.month() === this.current.month()) {
-            this.drawDay(clone);
-            clone.add("days", 1);
-        }
-    };
-
-    // 주 단위 요소를 생성하는 메서드입니다.
-    Calendar.prototype.getWeek = function (day) {
-        if (!this.week || day.day() === 0) {
-            this.week = createElement("div", "week");
-            this.month.appendChild(this.week);
-        }
-    };
-
-    // 요일 레이블을 그리는 메서드입니다.
-    Calendar.prototype.drawWeekdays = function () {
-        var weekdaysRow = createElement("div", "weekdays-row");
-        weekdays.forEach(function (weekday) {
-            var weekdayLabel = createElement("div", "weekday-label", weekday);
-            weekdaysRow.appendChild(weekdayLabel);
-        });
-        this.el.appendChild(weekdaysRow);
-    };
-
-    // 날짜를 그리는 메서드입니다.
-    Calendar.prototype.drawDay = function (day) {
-        var self = this;
-        this.getWeek(day);
-        var outer = createElement("div", this.getDayClass(day));
-        outer.addEventListener("click", function () {
-            self.openDay(this);
-        });
-        var number = createElement("div", "day-number", day.format("DD"));
-        var events = createElement("div", "day-events");
-        this.drawEvents(day, events);
-        outer.appendChild(number);
-        outer.appendChild(events);
-        this.week.appendChild(outer);
-    };
-
-    // 날짜에 해당하는 이벤트를 그리는 메서드입니다.
-    Calendar.prototype.drawEvents = function (day, element) {
-        if (day.month() === this.current.month()) {
-            var todaysEvents = this.events.reduce(function (memo, ev) {
-                if (ev.date.isSame(day, "day")) {
-                    memo.push(ev);
-                }
-                return memo;
-            }, []);
-            todaysEvents.forEach(function (ev) {
-                var evSpan = createElement("span", ev.color);
-                var eventNameSpan = createElement("span", "event-name", ev.eventName);
-                evSpan.appendChild(eventNameSpan);
-                element.appendChild(evSpan);
-            });
-        }
-    };
-
-    // 날짜에 따라 클래스를 설정하는 메서드입니다.
-    Calendar.prototype.getDayClass = function (day) {
-        classes = ["day"];
-        if (day.month() !== this.current.month()) {
-            classes.push("other");
-        } else if (today.isSame(day, "day")) {
-            classes.push("today");
-        }
-        return classes.join(" ");
-    };
-
-    // 페이지가 로드될 때 모든 이벤트를 표시하는 메서드입니다.
-    Calendar.prototype.showAllEvents = function () {
-        var self = this;
-        var scrollContainer = createElement("div", "scroll-container");
-        var daysInMonth = this.current.daysInMonth();
-        for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
-            var day = this.current.clone().date(dayNumber);
-            var todaysEvents = this.events.filter(function (ev) {
-                return ev.date.isSame(day, "day");
-            });
-            if (todaysEvents.length > 0) {
-                var dayElement = createElement("div", "day-events-container");
-                var dayNumberElement = createElement("div", "day-number", day.format("DD일"));
-                dayElement.appendChild(dayNumberElement);
-                self.renderEvents(todaysEvents, dayElement);
-                scrollContainer.appendChild(dayElement);
-                dayNumberElement.style.borderBottom = "1px solid #ccc";
-                dayNumberElement.style.paddingTop = "20px";
-                dayNumberElement.style.paddingBottom = "20px";
-                dayNumberElement.style.marginTop = "20px";
-                dayNumberElement.style.marginBottom = "20px";
-            }
-        }
-        this.el.appendChild(scrollContainer);
-    };
-
-    // 날짜를 클릭했을 때 상세 정보를 표시하는 메서드입니다.
-    Calendar.prototype.openDay = function (el) {
-        var details;
-        var dayNumber = +el.querySelector(".day-number").innerText || +el.querySelector(".day-number").textContent;
-        var day = this.current.clone().date(dayNumber);
-        var currentOpened = document.querySelector(".details");
-        if (!currentOpened || currentOpened.parentNode !== el.parentNode) {
-            if (currentOpened) {
-                currentOpened.addEventListener("animationend", function () {
-                    if (currentOpened.parentNode) {
-                        currentOpened.parentNode.removeChild(currentOpened);
-                    }
-                });
-                currentOpened.className = "details out";
-            }
-            details = createElement("div", "details in");
-            var eventsWrapper = createElement("div", "events");
-            details.appendChild(eventsWrapper);
-            document.body.appendChild(details);
-            var todaysEvents = this.events.filter(function (ev) {
-                return ev.date.isSame(day, "day");
-            });
-            this.renderEvents(todaysEvents, eventsWrapper);
-        }
-    };
-
-    // 이벤트를 렌더링하는 메서드입니다.
-    Calendar.prototype.renderEvents = function (events, ele) {
-        var currentWrapper = ele.querySelector(".events");
-        var wrapper = createElement("div", "events in" + (currentWrapper ? " new" : ""));
-        events.forEach(function (ev) {
-            var div = createElement("div", "event");
-            var square = createElement("div", "event-category " + ev.color);
-            var span = createElement("span", "", ev.eventName);
-            div.appendChild(square);
-            div.appendChild(span);
-            wrapper.appendChild(div);
-        });
-        if (!events.length) {
-            var div = createElement("div", "event empty");
-            var span = createElement("span", "", "오늘 일정이 없습니다");
-            div.appendChild(span);
-            wrapper.appendChild(div);
-        }
-        if (currentWrapper) {
-            currentWrapper.className = "events out";
-            currentWrapper.addEventListener("animationend", function () {
-                if (currentWrapper.parentNode) {
-                    currentWrapper.parentNode.removeChild(currentWrapper);
-                }
-            });
-        }
-        ele.appendChild(wrapper);
-    };
-
-    // 다음 달로 이동하는 메서드입니다.
-    Calendar.prototype.nextMonth = function () {
-        this.current.add("months", 1);
-        this.next = true;
-        this.draw();
-    };
-
-    // 이전 달로 이동하는 메서드입니다.
-    Calendar.prototype.prevMonth = function () {
-        this.current.subtract("months", 1);
-        this.next = false;
-        this.draw();
-    };
-
-    // DOM 요소를 생성하는 도우미 함수입니다.
-    function createElement(tagName, className, innerText) {
-        var ele = document.createElement(tagName);
-        if (className) {
-            ele.className = className;
-        }
-        if (innerText) {
-            ele.innerText = ele.textContent = innerText;
-        }
-        return ele;
-    }
-
-    // Calendar 객체를 생성합니다.
-    var calendar = new Calendar("#calendar", data);
+		function addDate(ev) {
+		}
+		// draw 함수 내부
+		Calendar.prototype.draw = function() {
+			// 먼저 헤더를 표시
+			this.drawHeader();
+			// 그다음, 달을 표시
+			this.drawMonth();
+		};
+		var calendar = new Calendar("#calendar", data);
+	})();
 </script>
 
 <header class="header_logo">

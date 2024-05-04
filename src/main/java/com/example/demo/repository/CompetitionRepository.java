@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Competition;
 import com.example.demo.vo.Conference;
@@ -95,5 +96,30 @@ public interface CompetitionRepository {
 			    </script>
 			""")
 	public List<Competition> getCompetitionsList2();
+
+	
+	@Update("""
+			UPDATE `competition`
+			SET goodReactionPoint = goodReactionPoint + 1
+			WHERE id = #{academyId}
+			AND themeId = #{themeId}
+			""")
+	public int increaseGoodReactionPoint(int academyId, int themeId);
+	
+	@Update("""
+			UPDATE `competition`
+			SET goodReactionPoint = goodReactionPoint - 1
+			WHERE id = #{academyId}
+			AND themeId = #{themeId}
+			""")
+	public int decreaseGoodReactionPoint(int themeId, int academyId);
+
+	@Select("""
+			SELECT goodReactionPoint
+			FROM `competition`
+			WHERE id = #{academyId}
+			AND themeId = #{themeId}
+			""")
+	public int getGoodRP(int themeId, int academyId);
 
 }

@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.CompetitionService;
 import com.example.demo.service.ConferenceService;
 import com.example.demo.service.ScrapService;
+import com.example.demo.vo.Competition;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -22,6 +24,9 @@ public class UsrScrapController {
 
 	@Autowired
 	private ConferenceService ConferenceService;
+
+	@Autowired
+	private CompetitionService CompetitionService;
 
 	@RequestMapping("/usr/scrap/doGoodReaction")
 	@ResponseBody
@@ -39,7 +44,12 @@ public class UsrScrapController {
 		if (usersReaction == 1) {
 			/* System.err.println(11111111111111111111); */
 			ResultData rd = scrapService.deleteGoodReactionPoint(rq.getLoginedMemberId(), themeId, academyId);
-			int goodRP = ConferenceService.getGoodRP(themeId, academyId);
+			if(themeId == 1) {
+				int goodRP = ConferenceService.getGoodRP(themeId, academyId);
+			}
+				int goodRP = CompetitionService.getGoodRP(themeId, academyId);		
+		
+		
 			/* int badRP = articleService.getBadRP(relId); */
 			return ResultData.from("S-1", "좋아요 취소", "goodRP", goodRP);
 		} /*
