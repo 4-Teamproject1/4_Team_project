@@ -50,10 +50,7 @@ public interface ConferenceRepository {
 			""")
 	public Conference getEventById(int id);
 
-			WHERE categoryId = #{categoryId};
-			</script>
-			""")
-	public List<Conference> getConferencesByCategory(int categoryId);
+
 
 
 	@Select("""
@@ -84,7 +81,10 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId);
 
-
+	@Select("""
+			<script>
+			SELECT *
+			FROM `academy`
 			ORDER BY hitCount DESC
 			</script>
 			""")

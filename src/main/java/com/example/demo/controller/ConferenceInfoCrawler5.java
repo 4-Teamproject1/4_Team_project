@@ -22,7 +22,7 @@ public class ConferenceInfoCrawler5 {
 	private WebDriver driver;
 
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static final String WEB_DRIVER_PATH = "C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe";
+	public static final String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
 	public static final String BASE_URL = "https://www.hibrain.net/";
 
 	public List<Conference> crawlConference() {
