@@ -17,7 +17,7 @@ public class competitionInfoCrawler2 {
 	private String url;
 
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static String WEB_DRIVER_PATH = "C:/work/chromedriver.exe";
+	public static String WEB_DRIVER_PATH = "C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64/chromedriver.exe";
 
 	public static void main(String[] args) {
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);

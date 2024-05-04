@@ -10,6 +10,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Service;
@@ -18,19 +19,38 @@ import com.example.demo.vo.Bus;
 
 @Service
 public class BusTicketService2 {
-	public List<Bus> getBusservice() {
-		buscrawl buscrawler = new buscrawl();
+	public List<Bus> getBusservice(String departureBus, String arriveBus) {
+		
+		 System.err.println("Departure Bus: " + departureBus);
+		 System.err.println("arriveBus Bus: " + arriveBus);
+		buscrawl buscrawler = new buscrawl(departureBus, arriveBus);
 		return buscrawler.buscrawl();
 	}
-
+	
+	private static void handlePopup(WebDriverWait wait) {
+	    try {
+	        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+	        alert.accept();
+	    } catch (Exception e) {
+	        // 팝업이 나타나지 않는 경우 무시
+	    }
+	}
 	static class buscrawl {
+		private String departureBus;
+		private String arriveBus;
+		
+		public buscrawl(String departureBus, String arriveBus) {
+			this.departureBus = departureBus;
+			this.arriveBus = arriveBus;
+		}
+
 		public List<Bus> buscrawl() {
-			System.setProperty("webdriver.chrome.driver",
-					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
 //			System.setProperty("webdriver.chrome.driver",
-//					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
+//					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
 			WebDriver driver = new ChromeDriver();
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			String url = "https://www.kobus.co.kr/mrs/rotinf.do";
 			driver.get(url);
@@ -39,29 +59,26 @@ public class BusTicketService2 {
 			searchInput.click();
 			WebElement activatedSearchInput = wait
 					.until(ExpectedConditions.elementToBeClickable(By.id("terminalSearch")));
-			String searchText = "동서울";
+
+			String searchText = departureBus;
 			activatedSearchInput.sendKeys(searchText);
 			activatedSearchInput.sendKeys(Keys.ENTER);
 
 			WebElement activatedSearchInput2 = wait
 					.until(ExpectedConditions.elementToBeClickable(By.id("terminalSearch")));
-			String searchText2 = "대전복합";
+			
+			String searchText2 = arriveBus;
 			activatedSearchInput2.sendKeys(searchText2);
+			activatedSearchInput2.sendKeys(Keys.ENTER);
 			
-			//출발장소, 도착장소 모달창 닫기
-			WebElement closeButton = wait.until(ExpectedConditions
-					.elementToBeClickable(By.cssSelector("div.remodal-wrapper.full.remodal-is-opened")));
-			closeButton.click();
-			
-			  // 날짜를 선택하기 위해 달력클래스 상위 영역 요소 찾기
-	        WebElement datePickerWrap = wait.until(ExpectedConditions.elementToBeClickable(By.className("date_picker_wrap")));
-
-	        // 상위 영역 클릭
-	        datePickerWrap.click();
+			// 날짜를 선택하기 위해 달력 클래스 상위 영역 요소 찾기
+			WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(By.className("text_date")));
+			// 요소 클릭
+			dateElement.click();
 			
 			
 			//날짜 선택
-			String targetNumber = "24"; // 클릭하고 싶은 날짜의 숫자
+			String targetNumber = "10"; // 클릭하고 싶은 날짜의 숫자
 			List<WebElement> dateLinks = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@class='ui-datepicker-calendar']//a[@class='ui-state-default']")));
 			for (WebElement dateLink : dateLinks) {
 			    if (dateLink.getText().equals(targetNumber)) {
@@ -69,12 +86,13 @@ public class BusTicketService2 {
 			        break; // 클릭 후 반복문 종료
 			    }
 			}
-			
-			//조회버튼
-			WebElement clickableElement3 = wait.until(ExpectedConditions.visibilityOfElementLocated(
-					By.cssSelector("div.route_box div.tab_cont.clear p.check button.btn_confirm.noHover")));
-			clickableElement3.click();
+		
 
+			// 조회 버튼 클릭
+			WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.route_box div.tab_cont.clear p.check button.btn_confirm.noHover")));
+			nextButton.click();
+				
+			
 			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 			alert.accept();
 

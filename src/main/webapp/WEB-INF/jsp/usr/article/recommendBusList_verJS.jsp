@@ -8,6 +8,116 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 
+<script>
+	document.addEventListener(
+					"DOMContentLoaded",
+					function() {
+						const departureBox = document
+								.querySelector('.departure_box');
+						const arrivalBox = document
+								.querySelector('.arrival_box');
+						const departurePopup = document.createElement('div');
+						const arrivalPopup = document.createElement('div');
+						departurePopup.classList.add('popup');
+						arrivalPopup.classList.add('popup');
+
+						// Departure terminal list
+						const departureAreas = [ "경주", "구리", "광주<br>(유·스퀘어)",
+								"남원", "나주", "대전복합", "대전도룡", "대전청사<br>(샘머리)",
+								"유성", "동대구", "동서울", "센트럴시티<br>(서울)", "목포",
+								"부산", "부산사상", "서울경부", "성남(분당)", "세종시청",
+								"세종연구단지", "세종청사", "세종터미널", "순천", "시흥", "수원",
+								"죽전", "전북혁신", "전주", "제천", "진해", "창원역", "천안",
+								"청주(센트럴)", "청주공항", "청주북부", "충주", "충주<br>고속터미널",
+								"포항", "포항시청", "여수", "용인", "용인신갈", "의정부", "이천",
+								"인천공항T1", "인천공항T2", "자치인재원" ];
+
+						// Arrival terminal list
+						const arrivalAreas = [ "경주", "구리", "광주<br>(유·스퀘어)",
+								"남원", "나주", "대전복합", "대전도룡", "대전청사<br>(샘머리)",
+								"유성", "동대구", "동서울", "센트럴시티<br>(서울)", "목포",
+								"부산", "부산사상", "서울경부", "성남(분당)", "세종시청",
+								"세종연구단지", "세종청사", "세종터미널", "순천", "시흥", "수원",
+								"죽전", "전북혁신", "전주", "제천", "진해", "창원역", "천안",
+								"청주(센트럴)", "청주공항", "청주북부", "충주", "충주<br>고속터미널",
+								"포항", "포항시청", "여수", "용인", "용인신갈", "의정부", "이천",
+								"인천공항T1", "인천공항T2", "자치인재원" ];
+
+						// Add event listeners for departure areas
+						departureAreas.forEach(function(area) {
+							const areaElement = document.createElement('div');
+							areaElement.innerHTML = area;
+							areaElement.classList.add('area');
+							areaElement.addEventListener('click',
+									function() {
+										departureBox.value = area.replace(
+												/<br>/g, ' '); // Set the value of the departure input field to the selected area
+										departurePopup.style.display = 'none'; // Hide the departure popup after selecting an area
+									});
+							departurePopup.appendChild(areaElement);
+						});
+
+						// Add event listeners for arrival areas
+						arrivalAreas.forEach(function(area) {
+							const areaElement = document.createElement('div');
+							areaElement.innerHTML = area;
+							areaElement.classList.add('area');
+							areaElement.addEventListener('click', function() {
+								arrivalBox.value = area.replace(/<br>/g, ' '); // Set the value of the arrival input field to the selected area
+								arrivalPopup.style.display = 'none'; // Hide the arrival popup after selecting an area
+							});
+							arrivalPopup.appendChild(areaElement);
+						});
+
+						// Event listener to display departure popup
+						departureBox.addEventListener('click', function(event) {
+							event.stopPropagation(); // Prevent click event propagation to the document body
+							departurePopup.style.display = 'block';
+						});
+
+						// Event listener to display arrival popup
+						arrivalBox.addEventListener('click', function(event) {
+							event.stopPropagation(); // Prevent click event propagation to the document body
+							arrivalPopup.style.display = 'block';
+						});
+
+						// Event listener to close departure popup when clicking outside
+						document.addEventListener('click', function(event) {
+							if (!departurePopup.contains(event.target)) {
+								departurePopup.style.display = 'none';
+							}
+						});
+
+						// Event listener to close arrival popup when clicking outside
+						document.addEventListener('click', function(event) {
+							if (!arrivalPopup.contains(event.target)) {
+								arrivalPopup.style.display = 'none';
+							}
+						});
+						// Append popups to the body
+						document.body.appendChild(departurePopup);
+						document.body.appendChild(arrivalPopup);
+						
+						const searchButton = document.getElementById('bus_searchbutton');
+						const searchForm = document.getElementById('bus_searchform');
+
+						searchButton.addEventListener('click', function() {
+						    // 폼에 출발지와 도착지 입력란의 값 설정
+						    document.getElementById('departure_box_input').value = departureBox.value;
+						    document.getElementById('arrival_box_input').value = arrivalBox.value;
+						    // 폼 서브밋
+						    searchForm.submit();
+						});
+					});
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('arrival_box_input').value = '';
+    });
+</script>
+
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -46,93 +156,24 @@
 
 
 <form id="bus_searchform" action="/usr/article/recommendBusList" method="GET">
-	<div class="sort_bar">
-		<select class="select select-ghost w-full max-w-xs" name="departureBus" id="">
-			<option value="">버스역선택</option>
-			<option value="강릉">강릉</option>
-			<option value="강진">강진</option>
-			<option value="경북도청">경북도청</option>
-			<option value="경주">경주</option>
-			<option value="경포해변">경포해변</option>
-			<option value="고대조치원">고대조치원</option>
-			<option value="고양백석">고양백석</option>
-			<option value="고창">고창</option>
-			<option value="고흥">고흥</option>
-			<option value="공주">공주</option>
-			<option value="광양">광양</option>
-			<option value="구리">구리</option>
-			<option value="논산">논산</option>
-			<option value="대구용계">대구용계</option>
-			<option value="대전도룡">대전도룡</option>
-			<option value="대전복합">대전복합</option>
-			<option value="대전청사(샘머리)">대전청사(샘머리)</option>
-			<option value="덕산스파">덕산스파</option>
-			<option value="동대구">동대구</option>
-			<option value="동서울">동서울</option>
-			<option value="동해">동해</option>
-			<option value="마산">마산</option>
-			<option value="목포">목포</option>
-			<option value="무안">무안</option>
-			<option value="벌교">벌교</option>
-			<option value="보성">보성</option>
-			<option value="부산">부산</option>
-			<option value="성남">성남</option>
-			<option value="세종청사">세종청사</option>
-			<option value="세종터미널">세종터미널</option>
-			<option value="서울경부">서울경부</option>
-			<option value="여수">여수</option>
-			<option value="인천">인천</option>
-		</select> <select class="select select-ghost w-full max-w-xs" name="arriveBus" id="">
-			<option value="">버스역선택</option>
-			<option value="강릉">강릉</option>
-			<option value="강진">강진</option>
-			<option value="경북도청">경북도청</option>
-			<option value="경주">경주</option>
-			<option value="경포해변">경포해변</option>
-			<option value="고대조치원">고대조치원</option>
-			<option value="고양백석">고양백석</option>
-			<option value="고창">고창</option>
-			<option value="고흥">고흥</option>
-			<option value="공주">공주</option>
-			<option value="광양">광양</option>
-			<option value="구리">구리</option>
-			<option value="논산">논산</option>
-			<option value="대구용계">대구용계</option>
-			<option value="대전도룡">대전도룡</option>
-			<option value="대전복합">대전복합</option>
-			<option value="대전청사(샘머리)">대전청사(샘머리)</option>
-			<option value="덕산스파">덕산스파</option>
-			<option value="동대구">동대구</option>
-			<option value="동서울">동서울</option>
-			<option value="동해">동해</option>
-			<option value="마산">마산</option>
-			<option value="목포">목포</option>
-			<option value="무안">무안</option>
-			<option value="벌교">벌교</option>
-			<option value="보성">보성</option>
-			<option value="부산">부산</option>
-			<option value="성남">성남</option>
-			<option value="세종청사">세종청사</option>
-			<option value="세종터미널">세종터미널</option>
-			<option value="서울경부">서울경부</option>
-			<option value="여수">여수</option>
-			<option value="인천">인천</option>
-		</select>
-		<div class="date_start">
-			2024년 5월 3일 <br> 금요일
-		</div>
-		<select class="select people_sort_bar">
-			<option>1명</option>
-			<option>2명</option>
-			<option>3명</option>
-			<option>4명</option>
-			<option>5명</option>
-			<option>6명</option>
-			<option>7명</option>
-			<option>8명</option>
-		</select>
-		<button id="bus_searchbutton" class="btn_sort_bar btn" type="submit">검색하기</button>
-	</div>
+    <div class="sort_bar">
+        <input id="arrival_box_input" name="arriveBus" class="terminal_box arrival_box" type="text" placeholder="줄발지"  autocomplete="off">
+        <input id="departure_box_input" name="departureBus" class="terminal_box departure_box" type="text" placeholder="도착지"  autocomplete="off">
+        <div class="date_start">
+            2024년 5월 3일 <br> 금요일
+        </div>
+        <select class="select people_sort_bar">
+            <option>1명</option>
+            <option>2명</option>
+            <option>3명</option>
+            <option>4명</option>
+            <option>5명</option>
+            <option>6명</option>
+            <option>7명</option>
+            <option>8명</option>
+        </select>
+        <button id="bus_searchbutton" class="btn_sort_bar btn" type="button">검색하기</button>
+    </div>
 </form>
 
 <div class="place-box">
