@@ -19,11 +19,11 @@ import com.example.demo.vo.Bus;
 
 @Service
 public class BusTicketService2 {
-	public List<Bus> getBusservice(String departureBus, String arriveBus) {
+	public List<Bus> getBusservice(String departureBus, String arriveBus, String ondate) {
 		
 		 System.err.println("Departure Bus: " + departureBus);
 		 System.err.println("arriveBus Bus: " + arriveBus);
-		buscrawl buscrawler = new buscrawl(departureBus, arriveBus);
+		buscrawl buscrawler = new buscrawl(departureBus, arriveBus, ondate);
 		return buscrawler.buscrawl();
 	}
 	
@@ -38,10 +38,12 @@ public class BusTicketService2 {
 	static class buscrawl {
 		private String departureBus;
 		private String arriveBus;
+		private String ondate;
 		
-		public buscrawl(String departureBus, String arriveBus) {
+		public buscrawl(String departureBus, String arriveBus, String ondate) {
 			this.departureBus = departureBus;
 			this.arriveBus = arriveBus;
+			this.ondate = ondate;
 		}
 
 		public List<Bus> buscrawl() {
@@ -62,7 +64,23 @@ public class BusTicketService2 {
 
 			String searchText = departureBus;
 			activatedSearchInput.sendKeys(searchText);
-			activatedSearchInput.sendKeys(Keys.ENTER);
+			// Actions 클래스 가져오기
+			Actions actions = new Actions(driver);
+
+			// 키 입력 전에 대기할 시간 설정
+			long waitTimeInMillis = 500;
+			try {
+			    // 키 입력 전에 대기
+			    Thread.sleep(waitTimeInMillis);
+
+			    // ENTER 키 입력
+			    actions.sendKeys(Keys.ENTER).perform();
+
+			    // 대기
+			    Thread.sleep(waitTimeInMillis);
+			} catch (InterruptedException e) {
+			    e.printStackTrace();
+			}
 
 			WebElement activatedSearchInput2 = wait
 					.until(ExpectedConditions.elementToBeClickable(By.id("terminalSearch")));
@@ -78,7 +96,7 @@ public class BusTicketService2 {
 			
 			
 			//날짜 선택
-			String targetNumber = "10"; // 클릭하고 싶은 날짜의 숫자
+			String targetNumber = ondate; // 클릭하고 싶은 날짜의 숫자
 			List<WebElement> dateLinks = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@class='ui-datepicker-calendar']//a[@class='ui-state-default']")));
 			for (WebElement dateLink : dateLinks) {
 			    if (dateLink.getText().equals(targetNumber)) {
@@ -92,7 +110,7 @@ public class BusTicketService2 {
 			WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.route_box div.tab_cont.clear p.check button.btn_confirm.noHover")));
 			nextButton.click();
 				
-			
+		
 			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 			alert.accept();
 
