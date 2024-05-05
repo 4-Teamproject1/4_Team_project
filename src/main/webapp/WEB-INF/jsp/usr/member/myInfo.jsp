@@ -45,30 +45,31 @@
 
 <div class="info_box info_name">
 	<div class="info1">이름</div>
-	<div class="info2">길동이</div>
+	<div class="info2">${rq.loginedMember.name }</div>
 </div>
 
 <div class="info_box info_id">
 	<div class="info1">아이디</div>
-	<div class="info2">abc123</div>
+	<div class="info2">${rq.loginedMember.loginId }</div>
 </div>
 
 <div class="info_box info_pw">
 	<div class="info1">비밀번호</div>
-	<button class="info2 pw_btn">변경하기</button>
+	<button class="info2 pw_btn"><a href="../member/checkPw" >변경하기</a></button>
 </div>
 
 <div class="info_box info_pn">
 	<div class="info1">핸드폰 번호</div>
-	<div class="info2">010-1111-1111</div>
+	<div class="info2">${rq.loginedMember.cellphoneNum }</div>
 </div>
 
 <div class="info_box info_email">
 	<div class="info1">이메일</div>
-	<div class="info2">abc123@gmail.com</div>
+	<div class="info2">${rq.loginedMember.email }</div>
 </div>
 
-<button class="modify_btn">수정하기</button>
+
+<button class="modify_btn"><a href="../member/checkPw" >수정하기</a></button>
 
 <style>
 body {

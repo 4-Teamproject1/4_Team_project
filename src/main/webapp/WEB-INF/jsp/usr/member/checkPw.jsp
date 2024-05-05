@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="checkPw"></c:set>
 <%@ include file="../common/head.jspf"%>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <style>
 .background_img {
 	background-image:
-		url('https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png');
+		url('https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png'); 
 	background-size: cover;
 	background-position: center;
 	width: 100%;
@@ -19,7 +20,7 @@
 .signup-container {
 	border-radius: 30px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	background-color: rgba(249, 181, 99, 0.8);
+	background-color: #7E9DD9;;
 	display: flex;
 	max-width: 550px;
 	flex-direction: column;
@@ -44,7 +45,7 @@
 	font-family: Inter, sans-serif;
 	border-radius: 10px;
 	border: 2px solid rgba(0, 0, 0, 0.2);
-	background-color: rgba(249, 181, 99, 0.8);
+	background-color: white;
 	align-items: start;
 	justify-content: center;
 	padding: 21px 30px;
@@ -77,7 +78,7 @@
 .signup-button {
 	font-family: Inter, sans-serif;
 	border-radius: 5px;
-	background-color: #9a6c4b;
+	background-color: white;
 	align-self: center;
 	margin-top: 47px;
 	width: 300px;
@@ -96,6 +97,8 @@
 	}
 }
 </style>
+
+
 <div class="background_img"></div>
 <section class="signup-container">
 	<div class="mx-auto">
