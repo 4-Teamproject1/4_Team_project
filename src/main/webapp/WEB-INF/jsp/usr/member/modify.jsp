@@ -20,7 +20,7 @@
 .signup-container {
 	border-radius: 30px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	background-color: rgba(249, 181, 99, 0.8);
+	background-color: #7E9DD9;
 	display: flex;
 	max-width: 550px;
 	flex-direction: column;
@@ -45,11 +45,15 @@
 	font-family: Inter, sans-serif;
 	border-radius: 10px;
 	border: 2px solid rgba(0, 0, 0, 0.2);
-	background-color: rgba(249, 181, 99, 0.8);
+	background-color: #7E9DD9;
 	align-items: start;
 	justify-content: center;
 	padding: 21px 60px;
 }
+
+  .input-field div {
+        color: white;  /* 글씨 색을 하얀색으로 설정 */
+    }
 
 @media ( max-width : 991px) {
 	.input-field {
@@ -77,7 +81,7 @@
 .signup-button {
 	font-family: Inter, sans-serif;
 	border-radius: 5px;
-	background-color: #9a6c4b;
+	background-color: white;
 	align-self: center;
 	margin-top: 47px;
 	width: 300px;
@@ -138,8 +142,9 @@
 						<div>${rq.loginedMember.regDate }</div>
 					</div>
 					<div class="input-field">
-						<th>아이디</th>
+						<div><th>아이디</th>
 						<td>${rq.loginedMember.loginId }</td>
+						</div>
 					</div>
 					<div class="user-info-container">
 					<div class="">

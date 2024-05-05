@@ -169,8 +169,9 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/myInfo")
-	public String myInfo() {
-
+	public String myInfo(HttpServletRequest req, Model model) {
+		 Rq rq = (Rq) req.getAttribute("rq");
+	        Integer memberId = rq.getLoginedMemberId();
 		return "/usr/member/myInfo";
 	}
 	
@@ -250,6 +251,6 @@ public class UsrMemberController {
 			modifyRd = memberService.modify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNum, email);
 		}
 
-		return Ut.jsReplace(modifyRd.getResultCode(), modifyRd.getMsg(), "../member/myPage");
+		return Ut.jsReplace(modifyRd.getResultCode(), modifyRd.getMsg(), "../member/myInfo");
 	}
 }
