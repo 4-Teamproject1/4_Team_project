@@ -19,13 +19,14 @@ public class UsrBusController {
 	@Autowired
 	private BusTicketService2 butTicketService2;
 	
-	@RequestMapping("/usr/article/recommendBusList")
+	@RequestMapping("/usr/article/recommendBusList_verAjax")
 	public String recommendTrainList(HttpServletRequest req, Model model,
 			@RequestParam (defaultValue="동서울") String departureBus,
-			@RequestParam (defaultValue="대전복합") String arriveBus
+			@RequestParam (defaultValue="대전복합") String arriveBus,
+			@RequestParam(defaultValue = "21") String ondate
 			) {
 
-		List<Bus> busLists = butTicketService2.getBusservice(departureBus, arriveBus);
+		List<Bus> busLists = butTicketService2.getBusservice(departureBus, arriveBus, ondate);
 
 		 // 여기서 spanTexts를 이용하여 모델에 추가
 		  for (Bus text : busLists) {
@@ -33,6 +34,6 @@ public class UsrBusController {
           }
         model.addAttribute("busLists", busLists);
 
-        return "usr/article/recommendBusList"; 
+        return "usr/article/recommendBusList_verAjax"; 
 	}
 }
