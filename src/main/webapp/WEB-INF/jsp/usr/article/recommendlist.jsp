@@ -38,7 +38,7 @@
 
 		document.body.appendChild(popup);
 
-		 // 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
+		// 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
 		document.addEventListener('click', function(event) {
 			if (!popup.contains(event.target)) {
 				popup.style.display = 'none';
@@ -54,17 +54,16 @@
 	<nav class="header_menu">
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
-		</a>
-		<a href="../conference/list">
+		</a> <a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a>
-		<a href="../competition/list">
+		</a> <a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a>
-		<a href="../member/myQuestion">
+		</a> <a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
-		<button class="hd_logout">로그아웃</button>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
 	</nav>
 </header>
 
@@ -82,15 +81,9 @@
 					<div class="dropdown">
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
-							<li>
-								<a href="../article/recommendAirplaneList">항공</a>
-							</li>
-							<li>
-								<a href="../article/recommendTrainList">기차</a>
-							</li>
-							<li>
-								<a href="../article/recommendBusList">버스</a>
-							</li>
+							<li><a href="../article/recommendAirplaneList">항공</a></li>
+							<li><a href="../article/recommendTrainList">기차</a></li>
+							<li><a href="../article/recommendBusList">버스</a></li>
 						</ul>
 					</div>
 				</ul>
@@ -199,8 +192,7 @@
 					<div class="star_image">
 						<img
 							src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-							alt="" class="image" />
-						(50)
+							alt="" class="image" /> (50)
 					</div>
 				</div>
 
@@ -219,8 +211,7 @@
 				<div class="star_image">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="Product Image" class="image" loading="lazy" />
-					(6)
+						alt="Product Image" class="image" loading="lazy" /> (6)
 				</div>
 			</div>
 			<div class="accommodation-list">
@@ -228,8 +219,7 @@
 				<div class="star_image">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="Decorative image" class="image" />
-					(28)
+						alt="Decorative image" class="image" /> (28)
 				</div>
 			</div>
 			<div class="accommodation-list">
@@ -237,8 +227,7 @@
 				<div class="star_image">
 					<img
 						src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="" class="image" />
-					(51)
+						alt="" class="image" /> (51)
 				</div>
 			</div>
 		</div>
@@ -247,14 +236,10 @@
 	<div class="sort_bar">
 		<input class="city_box" type="text" placeholder="어디로 떠나시나요?">
 		<button class="date_start">
-			2024년 5월 3일
-			<br>
-			금요일
+			2024년 5월 3일 <br> 금요일
 		</button>
 		<button class="date_end">
-			2024년 5월 11일
-			<br>
-			토요일
+			2024년 5월 11일 <br> 토요일
 		</button>
 		<select class="select people_sort_bar">
 			<option>1명</option>
@@ -294,8 +279,7 @@
 								<div class="hotel-location">
 									<img
 										src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf923710bd513aeca2a5aedf434ab4ab9075b0725f987c0a6192f40623e31af?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="" class="hotel-location-icon" />
-									<img
+										alt="" class="hotel-location-icon" /> <img
 										src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7f976c6a5f12fe8e38e626913755498f0e8896d59b84c7c5973be1170c3a4dd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
 										alt="" class="hotel-location-icon" />
 									<div class="hotel-location-text">대구시내, 대구 - 도심에 위치</div>
@@ -425,7 +409,7 @@
 
 .sort_bar {
 	position: relative;
-	top: 190px;
+	top: 250px;
 	width: 1000px;
 	height: 70px;
 	font-size: 16px;
@@ -446,6 +430,7 @@ body {
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -463,8 +448,17 @@ body {
 	gap: 20px;
 }
 
+.header_menu button:hover {
+	border-bottom: 1px solid;
+}
+
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
+}
+
+.hd_logout:hover {
+	border-bottom: 1px solid;
 }
 
 .username {
@@ -485,14 +479,14 @@ body {
 
 .left_box {
 	position: relative;
-	top: 170px;
+	top: 240px;
 }
 
 /* 왼쪽 서치박스*/
 .list-container {
 	display: flex;
 	position: relative;
-	top: 160px;
+	top: 220px;
 	left: 30px;
 }
 
@@ -537,8 +531,8 @@ body {
 
 .hotel-card {
 	position: relative;
-	top: -780px;
-	left: 30.5%;
+	top: -830px;
+	left: 24.5%;
 	justify-content: center;
 	border-radius: 8px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
@@ -553,14 +547,6 @@ body {
 	gap: 20px;
 }
 
-@media ( max-width : 991px) {
-	.hotel-card-content {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 0;
-	}
-}
-
 .hotel-info {
 	display: flex;
 	flex-direction: column;
@@ -569,34 +555,13 @@ body {
 	margin-left: 0;
 }
 
-@media ( max-width : 991px) {
-	.hotel-info {
-		width: 100%;
-	}
-}
-
 .hotel-info-content {
 	flex-grow: 1;
-}
-
-@media ( max-width : 991px) {
-	.hotel-info-content {
-		max-width: 100%;
-		margin-top: 40px;
-	}
 }
 
 .hotel-images {
 	display: flex;
 	gap: 20px;
-}
-
-@media ( max-width : 991px) {
-	.hotel-images {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 0;
-	}
 }
 
 .main-image-container {
@@ -605,12 +570,6 @@ body {
 	line-height: normal;
 	width: 44%;
 	margin-left: 0;
-}
-
-@media ( max-width : 991px) {
-	.main-image-container {
-		width: 100%;
-	}
 }
 
 .main-image-wrapper {
@@ -632,12 +591,6 @@ body {
 	margin-top: 5px;
 	width: 300px;
 	height: 250px;
-}
-
-@media ( max-width : 991px) {
-	.main-image {
-		padding-left: 20px;
-	}
 }
 
 .main-image img {
@@ -701,12 +654,6 @@ body {
 	margin-left: 20px;
 }
 
-@media ( max-width : 991px) {
-	.hotel-details {
-		width: 100%;
-	}
-}
-
 .hotel-name {
 	border-right: 1px solid rgba(221, 223, 226, 1);
 	display: flex;
@@ -718,12 +665,6 @@ body {
 	font-weight: 600;
 	line-height: 125%;
 	padding: 14px 41px 60px 12px;
-}
-
-@media ( max-width : 991px) {
-	.hotel-name {
-		padding-right: 20px;
-	}
 }
 
 .hotel-name-text {
@@ -765,24 +706,12 @@ body {
 	text-align: center;
 }
 
-@media ( max-width : 991px) {
-	.hotel-amenities {
-		padding-right: 20px;
-	}
-}
-
 .hotel-amenity {
 	font-family: Inter, sans-serif;
 	justify-content: center;
 	border-radius: 2px;
 	border: 1px solid rgba(193, 203, 224, 1);
 	padding: 6px 11px;
-}
-
-@media ( max-width : 991px) {
-	.hotel-amenity {
-		white-space: initial;
-	}
 }
 
 .hotel-popularity {
@@ -814,12 +743,6 @@ body {
 	margin-left: 20px;
 }
 
-@media ( max-width : 991px) {
-	.hotel-rating-price {
-		width: 100%;
-	}
-}
-
 .hotel-rating {
 	display: flex;
 	align-items: start;
@@ -827,12 +750,6 @@ body {
 	align-self: stretch;
 	text-align: right;
 	margin: auto 0;
-}
-
-@media ( max-width : 991px) {
-	.hotel-rating {
-		margin-top: 40px;
-	}
 }
 
 .hotel-rating-icon {
@@ -854,12 +771,6 @@ body {
 	display: flex;
 	gap: 16px;
 	white-space: nowrap;
-}
-
-@media ( max-width : 991px) {
-	.hotel-rating-score {
-		white-space: initial;
-	}
 }
 
 .hotel-rating-text {
@@ -884,12 +795,6 @@ body {
 	flex-direction: column;
 	align-items: end;
 	font-weight: 400;
-}
-
-@media ( max-width : 991px) {
-	.hotel-price {
-		margin-top: 40px;
-	}
 }
 
 .hotel-discount {
@@ -926,12 +831,6 @@ body {
 	white-space: nowrap;
 }
 
-@media ( max-width : 991px) {
-	.hotel-discounted-price {
-		white-space: initial;
-	}
-}
-
 .hotel-price-currency {
 	margin: auto 0;
 	font: 12px/125% Inter, sans-serif;
@@ -964,12 +863,6 @@ body {
 	padding: 7px 60px;
 }
 
-@media ( max-width : 991px) {
-	.accommodation-nav {
-		padding: 0 20px;
-	}
-}
-
 .container {
 	background-color: #fff;
 	display: flex;
@@ -980,12 +873,6 @@ body {
 	padding: 30px 80px 80px 33px;
 }
 
-@media ( max-width : 991px) {
-	.container {
-		padding: 0 20px;
-	}
-}
-
 .header {
 	align-self: stretch;
 	display: flex;
@@ -993,14 +880,6 @@ body {
 	gap: 20px;
 	color: #000;
 	justify-content: space-between;
-}
-
-@media ( max-width : 991px) {
-	.header {
-		max-width: 100%;
-		margin-right: 10px;
-		flex-wrap: wrap;
-	}
 }
 
 .logo {
@@ -1043,13 +922,6 @@ body {
 	background-color: #f8f7f9;
 }
 
-@media ( max-width : 991px) {
-	.search-container {
-		margin: 40px 0 0 10px;
-		padding: 0 20px;
-	}
-}
-
 .search-text {
 	justify-content: center;
 }
@@ -1057,12 +929,6 @@ body {
 .accommodation-type {
 	margin: 28px 0 0 21px;
 	font-size: 14px
-}
-
-@media ( max-width : 991px) {
-	.accommodation-type {
-		margin-left: 10px;
-	}
 }
 
 .accommodation-list {
@@ -1076,12 +942,6 @@ body {
 	justify-content: center;
 	margin: 18px 0 0 21px;
 	padding: 4px 0;
-}
-
-@media ( max-width : 991px) {
-	.accommodation-list {
-		margin-left: 10px;
-	}
 }
 
 .accommodation-item {
@@ -1181,19 +1041,11 @@ body {
 	fill: #ffa726;
 }
 
-/* 필요에 따라 너비 및 기타 스타일을 조정하세요 */
 .sort-criteria, .guest-rating, .lowest-price, .distance-container,
 	.special-deal {
 	flex-grow: 1;
 	flex-basis: 0;
 	width: 130px;
-	/* 원하는 스타일을 추가하세요 */
-}
-
-@media ( max-width : 991px) {
-	.container {
-		flex-wrap: wrap;
-	}
 }
 
 .sort-criteria {
@@ -1243,12 +1095,6 @@ body {
 	margin: auto 0;
 }
 
-@media ( max-width : 991px) {
-	.distance-container {
-		white-space: initial;
-	}
-}
-
 .distance-image-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -1258,12 +1104,6 @@ body {
 	aspect-ratio: 3.54;
 	justify-content: center;
 	margin: auto 0;
-}
-
-@media ( max-width : 991px) {
-	.distance-image-wrapper {
-		white-space: initial;
-	}
 }
 
 .distance-image {
@@ -1283,6 +1123,158 @@ body {
 	flex-grow: 1;
 	flex-basis: auto;
 	margin: auto 0;
+}
+
+@media ( max-width : 991px) {
+	.hotel-card-content {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-info {
+		width: 100%;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-info-content {
+		max-width: 100%;
+		margin-top: 40px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-images {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+}
+
+@media ( max-width : 991px) {
+	.main-image-container {
+		width: 100%;
+	}
+}
+
+@media ( max-width : 991px) {
+	.main-image {
+		padding-left: 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-details {
+		width: 100%;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-name {
+		padding-right: 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-amenities {
+		padding-right: 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-amenity {
+		white-space: initial;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-rating-price {
+		width: 100%;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-rating {
+		margin-top: 40px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-rating-score {
+		white-space: initial;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-price {
+		margin-top: 40px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.hotel-discounted-price {
+		white-space: initial;
+	}
+}
+
+@media ( max-width : 991px) {
+	.accommodation-nav {
+		padding: 0 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.container {
+		padding: 0 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.header {
+		max-width: 100%;
+		margin-right: 10px;
+		flex-wrap: wrap;
+	}
+}
+
+@media ( max-width : 991px) {
+	.search-container {
+		margin: 40px 0 0 10px;
+		padding: 0 20px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.accommodation-type {
+		margin-left: 10px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.accommodation-list {
+		margin-left: 10px;
+	}
+}
+
+@media ( max-width : 991px) {
+	.container {
+		flex-wrap: wrap;
+	}
+}
+
+@media ( max-width : 991px) {
+	.distance-container {
+		white-space: initial;
+	}
+}
+
+@media ( max-width : 991px) {
+	.distance-image-wrapper {
+		white-space: initial;
+	}
 }
 </style>
 

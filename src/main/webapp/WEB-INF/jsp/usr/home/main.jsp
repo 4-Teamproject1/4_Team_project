@@ -241,17 +241,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="menu_right">
 	<a href="../conference/list">
-		<button class="academicEventList">학회 정보</button>
-	</a>
-	<a href="../member/myQuestion">
+		<button class="menu_box2 academicEventList">학회 정보</button>
+	</a> <a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
-	<a href="../member/login">
-		<button class="menu_box2 login">로그인</button>
-	</a>
-	<a href="../member/join">
-		<button class="menu_box2 join">회원가입</button>
-	</a>
+<c:if test="${rq.isLogined() }">
+    <style>
+        .academicEventList, .myquestion {
+            margin-left: 30px; /* 학회 정보와 문의사항 버튼 간격 조절 */
+        }
+    </style>
+</c:if>
+	<c:if test="${!rq.isLogined() }">
+		<a href="../member/login">
+			<button class="menu_box2 login">로그인</button>
+		</a>
+		<a href="../member/join">
+			<button class="menu_box2 join">회원가입</button>
+		</a>
+	</c:if>
+	<c:if test="${rq.isLogined() }">
+		<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="menu_box2 logout" href="../member/doLogout">로그아웃</a>
+	</c:if>
 </div>
 
 <div class="search_box">
@@ -358,6 +369,14 @@ h1 {
 	padding-top: 17px;
 	letter-spacing: 40px;
 	transition: background-color 0.3s, box-shadow 0.3s;
+}
+.menu_right .menu_box2:hover {
+    text-decoration: underline; /* 마우스 올렸을 때 밑줄 */
+}
+.logout {
+	letter-spacing: 1px;
+	font-size: 12.5px;
+	margin-left: 55px;
 }
 
 #slider {

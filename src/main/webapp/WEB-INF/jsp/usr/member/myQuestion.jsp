@@ -7,24 +7,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <header class="header">
-  <a href="../home/main">
-    <button class="logo">로고</button>
-  </a>
-  <nav class="header_menu">
-    <a href="../member/myInfo">
-      <button class="username">abc123님</button>
-    </a>
-    <a href="../conference/list">
-      <button class="hd_info">학회 정보</button>
-    </a>
-    <a href="../competition/list">
-      <button class="hd_contest">공모전</button>
-    </a>
-    <a href="../member/myQuestion">
-      <button class="hd_question">문의사항</button>
-    </a>
-    <button class="hd_logout">로그아웃</button>
-  </nav>
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+	<nav class="header_menu">
+		<a href="../member/myInfo">
+			<button class="username">abc123님</button>
+		</a> <a href="../conference/list">
+			<button class="hd_info">학회 정보</button>
+		</a> <a href="../competition/list">
+			<button class="hd_contest">공모전</button>
+		</a> <a href="../member/myQuestion">
+			<button class="hd_question">문의사항</button>
+		</a>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
+	</nav>
 </header>
 
 <div class="img"></div>
@@ -60,6 +59,7 @@ body {
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -76,9 +76,16 @@ body {
 	display: flex;
 	gap: 20px;
 }
+.header_menu button:hover {
+    border-bottom: 1px solid;
+}
 
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
+}
+.hd_logout:hover {
+    border-bottom: 1px solid;
 }
 
 .username {
@@ -133,7 +140,7 @@ body {
 }
 
 .Question_box {
-	top: 200px;
+	top: 240px;
 	left: 25%;
 	height: 87px;
 	width: 1000px;
