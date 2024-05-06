@@ -105,35 +105,31 @@
 	<div class="input-field">
 		<form method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
 			<div class="input-group">
-				<span class="material-symbols-outlined">person</span>
-				<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId" class="input input_id mb-4 max-w-xs"
-					placeholder="아이디를 입력해주세요" autocomplete="off" />
+				<span class="material-symbols-outlined">person</span> <input onkeyup="checkLoginIdDupDebounced(this);"
+					name="loginId" class="input input_id mb-4 max-w-xs" placeholder="아이디를 입력해주세요" autocomplete="off" />
 			</div>
 			<div class="checkDup-msg mb-4"></div>
 			<div class="input-group">
-				<span class="material-symbols-outlined">lock</span>
-				<input class="input input_pw max-w-xs mb-4" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
+				<span class="material-symbols-outlined">lock</span> <input class="input input_pw max-w-xs mb-4" autocomplete="off"
+					type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
 			</div>
 			<!-- input-primary를 쓰면 파란색 테두리생김 -->
 			<div>
 				<div class="input-group">
-					<span class="material-symbols-outlined"> edit </span>
-					<input class="input input_name mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이름을 입력해주세요" name="name" />
+					<span class="material-symbols-outlined"> edit </span> <input class="input input_name mb-4  max-w-xs"
+						autocomplete="off" type="text" placeholder="이름을 입력해주세요" name="name" />
 				</div>
 				<div class="input-group">
-					<span class="material-symbols-outlined"> draw </span>
-					<input class="input input_nikname mb-4  max-w-xs" autocomplete="off" type="text" placeholder="닉네임을 입력해주세요"
-						name="nickname" />
+					<span class="material-symbols-outlined"> draw </span> <input class="input input_nikname mb-4  max-w-xs"
+						autocomplete="off" type="text" placeholder="닉네임을 입력해주세요" name="nickname" />
 				</div>
 				<div class="input-group">
-					<span class="material-symbols-outlined">phone_iphone</span>
-					<input class="input input_pnum mb-4  max-w-xs" autocomplete="off" type="text" placeholder="전화번호를 입력해주세요"
-						name="cellphoneNum" />
+					<span class="material-symbols-outlined">phone_iphone</span> <input class="input input_pnum mb-4  max-w-xs"
+						autocomplete="off" type="text" placeholder="전화번호를 입력해주세요" name="cellphoneNum" />
 				</div>
 				<div class="input-group input-group-email">
-					<span class="material-symbols-outlined"> alternate_email </span>
-					<input class="input input_email mb-4  max-w-xs" autocomplete="off" type="text" placeholder="이메일을 입력해주세요"
-						name="email" />
+					<span class="material-symbols-outlined"> alternate_email </span> <input class="input input_email mb-4  max-w-xs"
+						autocomplete="off" type="text" placeholder="이메일을 입력해주세요" name="email" />
 				</div>
 			</div>
 		</form>
@@ -242,7 +238,8 @@ body {
 	margin-top: 47px;
 	color: white;
 	background-color: #243F92;
-	border-radius: 5px; align-items : center;
+	border-radius: 5px;
+	align-items: center;
 	justify-content: center;
 	transition: background-color 0.3s, box-shadow 0.3s;
 	align-items: center;

@@ -55,7 +55,9 @@
 		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
-		<button class="hd_logout">로그아웃</button>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
 	</nav>
 </header>
 
@@ -341,7 +343,7 @@
 	position: relative;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	top: 95px;
+	top: 135px;
 	left: 23%;
 	width: 1000px;
 	height: 200px;
@@ -445,7 +447,7 @@
 .list-container {
 	display: flex;
 	position: relative;
-	top: 205px;
+	top: 245px;
 	left: 30px;
 }
 
@@ -486,7 +488,7 @@
 
 .ticket_box {
 	position: relative;
-	top: 110px;
+	top: 150px;
 	left: 23%;
 	height: 200px;
 	width: 1000px;
@@ -501,6 +503,7 @@ body {
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -517,9 +520,16 @@ body {
 	display: flex;
 	gap: 20px;
 }
+.header_menu button:hover {
+    border-bottom: 1px solid;
+}
 
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
+}
+.hd_logout:hover {
+    border-bottom: 1px solid;
 }
 
 .username {

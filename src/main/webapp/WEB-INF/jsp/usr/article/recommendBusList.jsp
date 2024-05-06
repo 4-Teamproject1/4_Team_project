@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="RecommendBus List"></c:set>
-<%@ include file="../common/head.jspf"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -22,7 +21,9 @@
 		</a> <a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
-		<button class="hd_logout">로그아웃</button>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
 	</nav>
 </header>
 
@@ -43,7 +44,6 @@
 		</div>
 	</ul>
 </div>
-
 
 <form id="bus_searchform" action="/usr/article/recommendBusList" method="GET">
 	<div class="sort_bar">
@@ -137,12 +137,11 @@
 
 <div class="place-box">
 	<div class="outer-arrow">
-		<div class="departure-place">${busLists[0].departurePlace}</div>
-		<span class="arrow"> → </span>
-		<div class="arrive-place">${busLists[0].arrivePlace}</div>
+		<div class="departure-place">${busLists[0].departurePlace} → ${busLists[0].arrivePlace}</div>
 		<div class="bus-total-time">소요시간: ${busLists[0].takesumTime}</div>
 	</div>
 </div>
+
 <div class="bus_box">
 	<div class="bus-info-main">
 		<c:if test="${not empty busLists}">
@@ -160,7 +159,7 @@
 									<div class="bus-price-details">
 										<span class="view-details">${bus.remainingSeats}</span>
 									</div>
-									<button class="btn">예매하기</button>
+									<button class="bus_box_btn btn">예매</button>
 								</div>
 							</div>
 						</div>
@@ -237,7 +236,12 @@
 
 .date_start {
 	left: -10px;
-	width: 150px
+	width: 150px;
+	display: flex;
+    align-items: center;
+    margin-left: 30px;
+    justify-content: center;
+    text-align:center;
 }
 
 .people_sort_bar {
@@ -255,7 +259,7 @@
 
 .sort_bar {
 	position: relative;
-	top: 95px;
+	top: 130px;
 	left: 23%;
 	width: 1000px;
 	height: 70px;
@@ -277,7 +281,7 @@
 	position: relative;
 	border-top: 1px solid rgba(237, 240, 249, 1);
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	top: 95px;
+	top: 135px;
 	left: 23%;
 	width: 1000px;
 	height: 200px;
@@ -381,7 +385,7 @@
 .list-container {
 	display: flex;
 	position: relative;
-	top: 205px;
+	top: 245px;
 	left: 30px;
 }
 
@@ -422,7 +426,7 @@
 
 .ticket_box {
 	position: relative;
-	top: 110px;
+	top: 150px;
 	left: 23%;
 	height: 200px;
 	width: 1000px;
@@ -438,6 +442,7 @@ body {
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -454,9 +459,16 @@ body {
 	display: flex;
 	gap: 20px;
 }
+.header_menu button:hover {
+    border-bottom: 1px solid;
+}
 
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
+}
+.hd_logout:hover {
+    border-bottom: 1px solid;
 }
 
 .username {
@@ -476,21 +488,31 @@ body {
 }
 
 /* 예매가능 버스 목록 */
+
+.bus_box_btn {
+	position: relative;
+	display: flex;
+	width: 75px;
+	height: 50px;
+	left: 180px;
+	font-size: 16px;
+	color: white;
+	background-color: #00256C;
+	border-radius: 37px;
+	justify-content: center;
+	align-items: center;
+}
+
 .bus-info-main {
 	position: relative;
-	top: 90px;
-	left: 35%;
+	display: flex;
+	top: 160px;
+	left: 32.5%;
+	height: 300px;
 	width: 1000px;
-	height: 200px;
-	display: flex;
-	flex-direction: column;
-	line-height: normal;
 	margin-left: 0;
-	display: flex;
-	line-height: normal;
 	flex-direction: column;
-	display: flex;
-	height: 200px;
+	line-height: normal;
 }
 
 .bus-info-header {
@@ -654,26 +676,29 @@ body {
 
 /*출발,도착장소 css*/
 
-/*좌측 출발 도착 장소 메뉴*/
+/*중앙 출발 도착 장소 메뉴*/
 .place-box {
 	position: relative;
-	top: 100px;
+	display: flex;
+	top: 130px;
 	left: 35%;
 	width: 500px;
-	height: 120px;
+	height: 90px;
+	border-radius: 20px;
 	color: white;
-	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
-	text-align: center;
 	background-color: #7E9DD9;
-}
-
-.outer-arrow {
-	width: 200px;
-	height: 100px;
-	display: inline-block;
+	text-align: center;
 	align-items: center;
 	justify-content: center;
-	margin: 10px 10px;
+}
+
+.departure-place {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.bus-total-time {
+	font-size: 15px;
 }
 
 .arrow {
