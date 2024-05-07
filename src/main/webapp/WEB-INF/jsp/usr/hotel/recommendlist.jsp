@@ -9,6 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
+
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const cityBox = document.querySelector('.city_box');
@@ -81,9 +86,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		    <c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>

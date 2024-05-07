@@ -8,7 +8,8 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
-
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -43,9 +44,16 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		<c:choose>
+			<c:when test="${empty loggedInMemberName}">
+				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+			</c:when>
+			<c:otherwise>
+				<a href="../member/myInfo">
+					<button class="username">${loggedInMemberName}님</button>
+				</a>
+			</c:otherwise>
+		</c:choose>
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -65,15 +73,13 @@
 
 <div class="list-container">
 	<ul class="accommodation-nav-list">
-		<a href="../article/recommendlist">
+		<a href="../hotel/recommendlist">
 			<div class="accommodation-nav-item btn m-1">숙소</div>
 		</a>
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 			<ul tabindex="0" class="dropdown-content">
-				<li>
-					<a href="../article/recommendAirplaneList">항공</a>
-				</li>
+				
 				<li>
 					<a href="../article/recommendTrainList">기차</a>
 				</li>
@@ -188,7 +194,7 @@
 			<option value="29">29일</option>
 			<option value="30">30일</option>
 		</select>
-		
+
 		<select class="select select_people">
 			<option>1명</option>
 			<option>2명</option>
@@ -199,7 +205,7 @@
 			<option>7명</option>
 			<option>8명</option>
 		</select>
-		
+
 		<button class="search-button btn" type="submit">검색하기</button>
 	</div>
 </form>
@@ -343,7 +349,6 @@
 }
 
 /* 검색칸 */
-
 .search-button {
 	display: flex;
 	height: 70px;
@@ -382,7 +387,8 @@
 	border-radius: 4px 22px 22px 4px;
 }
 
-.arrival_train, .destination_train, .select_people, .search_date_text, .search-button {
+.arrival_train, .destination_train, .select_people, .search_date_text,
+	.search-button {
 	position: relative;
 	top: 60px;
 }
