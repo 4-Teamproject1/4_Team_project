@@ -42,4 +42,14 @@ public class UsrHotelListController {
 		
 		return "usr/hotel/list";
 	}
+	
+	@RequestMapping("usr/hotel/recommendlist")
+	public String showHotelList2(HttpServletRequest req, Model model) {
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		List<Hotel> hotelList = hotelListService.getHotelList();
+		model.addAttribute("hotelList", hotelList);
+		
+		return "usr/hotel/recommendlist";
+	}
 }
