@@ -29,7 +29,9 @@ import com.example.demo.vo.Hotel;
 @Component
 public class HotelListCrawler {
 
+
 	public List<Hotel> crawlHotelList(String area) {
+
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
@@ -46,7 +48,7 @@ public class HotelListCrawler {
 		WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
 
 		// WebDriverWait 인스턴스 생성
-		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		// 검색창이 활성화될 때까지 기다림
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
@@ -286,6 +288,7 @@ public class HotelListCrawler {
 				hotel.setService(serviceAsString);
 				hotel.setHref(href);
 				System.out.println(hotel);
+				 hotel.setLocation(searchText); // 검색어를 location 필드에 저장
 				System.out.println(hotelList);
 				i++;
 				hotelList.add(hotel);

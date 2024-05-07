@@ -44,4 +44,15 @@ public class HotelListService {
 		return hotelListRepository.getHotelList();
 	}
 
+	public List<Hotel> getHotelsByLocation(String location) {
+	    // 데이터베이스에서 location 매개변수에 해당하는 호텔을 검색하는 코드 구현
+	    return hotelListRepository.findByLocation(location);
+	}
+
+	public List<Hotel> getHotelsByLocationPrefix(String locationPrefix) {
+	    return hotelListRepository.getHotelsByLocationPrefix(locationPrefix);
+	}
+
+	
+
 }

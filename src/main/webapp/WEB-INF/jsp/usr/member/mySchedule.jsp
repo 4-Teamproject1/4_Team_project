@@ -156,7 +156,7 @@
 		};
 		// 다음 달 채우기 함수
 		Calendar.prototype.fowardFill = function() {
-			var clone = this.current.clone().add("months", 1).subtract("days",
+			var clone = this.current.clone().add("months", 1).subtsract("days",
 					1);
 			var dayOfWeek = clone.day();
 			if (dayOfWeek === 6) {

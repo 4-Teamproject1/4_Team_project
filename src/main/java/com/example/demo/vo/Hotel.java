@@ -17,5 +17,6 @@ public class Hotel {
 	private int grade;
 	private int price;
 	private String service;
+	private String location;
 	private String href;
 }
