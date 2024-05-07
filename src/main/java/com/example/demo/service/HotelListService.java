@@ -22,10 +22,10 @@ public class HotelListService {
 		this.hotelListRepository = hotelListRepository;
 	}
 
-	public List<Hotel> crawlAndSaveHotelList() {
+	public List<Hotel> crawlAndSaveHotelList(String area) {
 		
 	
-		List<Hotel> hotelList = crawler.crawlHotelList();
+		List<Hotel> hotelList = crawler.crawlHotelList(area);
 
 		// 가져온 호텔 데이터 리스트에 저장
 		for (Hotel hotel : hotelList) {
