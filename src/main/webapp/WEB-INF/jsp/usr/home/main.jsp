@@ -266,35 +266,39 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="search_box">
-	<input type="text" class="SearchBoxTextEditor" placeholder="어디로 떠나시나요?" value="" />
-	<div class="search_results"></div>
-	<div class="search_box1">
-		<div class="search_box-1">
-			<input type="text" class="box_start" placeholder="출발장소" id="textInput" value="" />
-			<input type="text" class="box_end" placeholder="도착장소" id="textInput" value="${conferenceService.extractCityFromAddress(conference.address)}" />
-		</div>
-		<div class="search_box-2">
-			<input type="text" class="box_date" placeholder="가는날" id="textInput" value=" " />
-			<div class="select_box">
-				<select class="select select-bordered w-32 max-w-xs">
-    <option disabled>인원 수</option>
-    <option selected>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-</select>
-			</div>
-		</div>
-		<div class="search_btn btn">
-    <a href="../article/recommendlist" class="button-style">검색</a>
+    <form action="../hotel/recommendlist" method="POST">
+        <input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
+        <div class="search_results"></div>
+        <div class="search_box1">
+            <div class="search_box-1">
+                <input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
+               <input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd" value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
+
+            </div>
+            <div class="search_box-2">
+                <input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
+                <div class="select_box">
+                    <select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
+                        <option disabled selected>인원 수</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search_btn btn">
+                <button type="submit" class="button-style">검색</button>
+            </div>
+        </div>
+    </form>
 </div>
 
-	</div>
-</div>
+
 <div class="event-schedule">
 	<a href="../conference/list">
 		<button class="event-title">학술행사일정</button>

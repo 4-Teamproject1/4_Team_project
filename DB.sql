@@ -584,7 +584,10 @@ CREATE TABLE `hotel` (
 	`imgURL` VARCHAR(500) NOT NULL,
 	hotelName VARCHAR(500) NOT NULL,
 	grade CHAR(100) NOT NULL,
-	price CHAR(100) NOT NULL
+	price CHAR(100) NOT NULL,
+	service CHAR(100) NOT NULL,
+	location CHAR(100) NOT NULL,
+    href TEXT NOT NULL
 );
 
 DROP TABLE `hotel`;

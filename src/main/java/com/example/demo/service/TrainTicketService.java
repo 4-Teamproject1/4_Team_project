@@ -40,7 +40,7 @@ public class TrainTicketService {
 			// 크롬 드라이버 경로 설정
 
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64/chromedriver.exe");
+					"C:/work/chromedriver.exe");
 
 			// WebDriver 인스턴스 생성
 			WebDriver driver = new ChromeDriver();

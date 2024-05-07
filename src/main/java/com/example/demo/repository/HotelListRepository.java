@@ -20,6 +20,7 @@ public interface HotelListRepository {
 			grade = #{grade},
 			price=#{price},
 			service=#{service},
+			location = #{location},
 			href=#{href}
 			""")
 	public void insertHotel(Hotel hotel);
@@ -29,4 +30,21 @@ public interface HotelListRepository {
 			FROM `hotel`;
 			""")
 	public List<Hotel> getHotelList();
+
+	@Select("""
+			SELECT *
+			FROM hotel
+			WHERE location = #{location}
+			""")
+	public List<Hotel> findByLocation(String location);
+
+	
+	
+	
+	@Select("""
+			SELECT *
+			FROM hotel
+			WHERE location LIKE #{locationPrefix} 
+			""")
+	public List<Hotel> getHotelsByLocationPrefix(String locationPrefix);
 }
