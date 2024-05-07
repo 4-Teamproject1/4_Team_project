@@ -249,9 +249,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	<a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
+	<a href="../article/recommendlist">
+		<button class="menu_box2 recommend">숙박&교통</button>
+	</a>
 	<c:if test="${rq.isLogined() }">
 		<a href="../member/myInfo">
-			<button class="menu_box2 login">회원정보</button>
+			<button class="menu_box2 info">회원정보</button>
 		</a>
 	</c:if>
 	<c:if test="${!rq.isLogined() }">
@@ -410,7 +413,7 @@ h1 {
 	right: 4.5%;
 	background-color: #00256c;
 	color: white;
-	width: 450px;
+	width: 550px;
 	height: 60px;
 	border-radius: 10px;
 	opacity: 0.9;
@@ -428,7 +431,6 @@ h1 {
 .logout {
 	letter-spacing: 1px;
 	font-size: 12.5px;
-	margin-left: 55px;
 }
 
 #slider {

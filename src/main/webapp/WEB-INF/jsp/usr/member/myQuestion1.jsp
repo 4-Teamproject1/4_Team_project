@@ -5,7 +5,10 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
+<title>문의사항</title>
 
 <header class="header">
 	<a href="../home/main">
@@ -13,15 +16,12 @@
 	</a>
 	<nav class="header_menu">
 		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
-		<a href="../conference/list">
+			<button class="username">${loggedInMemberName}님</button>
+		</a> <a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a>
-		<a href="../competition/list">
+		</a> <a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a>
-		<a href="../member/myQuestion">
+		</a> <a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -31,46 +31,43 @@
 </header>
 
 <div class="img"></div>
+
 <div class="menu_box1 left">
 	<div class="mypage">문의사항</div>
 </div>
-
-<div class="Question_box title">
-	<div class="Ques1">제목</div>
-	<input class="Ques2" type="text" autocomplete="off" placeholder="제목을 입력하세요">
+<div class="right">
+	<a href="../member/myQuestion1">
+		<button class="menu_box2 myinfo">문의 목록</button>
+	</a>
+	<a href="../article/inquiry">
+		<button class="menu_box2 myquestion">문의 작성</button>
+	</a>
 </div>
 
-<div class="Question_box file">
-	<div class="Ques1">첨부파일</div>
-	<label for="file">
-		<div class="file_btn">파일 선택</div>
-	</label>
-	<input type="file" name="file" id="file">
-	<span id="fileName"></span>
-</div>
 
-<div class="Question_box content">
-	<div class="content Ques1">내용</div>
-	<input class="Ques2" type="text" autocomplete="off" placeholder="내용을 입력하세요">
-</div>
+<section class="question_list">
+	<div class="question_bar">
+		<div class="bar_num">번호</div>
+		<div class="bar_title">제목</div>
+		<div class="bar_date">날짜</div>
+	</div>
+	
+	<div class="question_box">
+		<c:forEach var="inquiry" items="${inquiries}">
+	<div class="question_content">
+			<div class="bar_num">${inquiry.id}</div>
+			<div class="bar_title">${inquiry.title}</div>
+			<div class="bar_date">${inquiry.regDate}</div>
+		</div>
+		</c:forEach>
+	</div>
+</section>
 
-<button class="write_btn">등록</button>
-
-<script>
-
-document.getElementById('file').addEventListener('change', function() {
-    var fileInput = document.getElementById('file');
-    var fileNameDisplay = document.getElementById('fileName'); // 파일 이름을 표시할 요소 선택
-    var fileName = fileInput.value.split('\\').pop(); // 파일 경로에서 파일 이름 추출
-    fileNameDisplay.textContent = fileName; // 파일 이름을 화면에 표시
-});
-
-</script>
 
 <style>
 body {
 	width: 100%;
-	hight: 130%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 }
@@ -116,7 +113,7 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 150px;
-	left: 0px;
+	left: 0;
 	top: 57px;
 	background:
 		url('https://velog.velcdn.com/images/vrslxowe/post/ba2f5fd8-3c2c-4a9a-baa4-2d31c48be056/image.jpg')
@@ -159,101 +156,72 @@ body {
 	top: 155px;
 }
 
-.Question_box {
-	top: 260px;
-	left: 25%;
-	height: 87px;
+.right {
+	display: flex;
+	gap: 50px;
+	position: absolute;
+	right: 112.5px;
+	top: 165px;
+}
+
+.question_list {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	width: 1000px;
-	position: relative;
-	border-bottom-width: 1px;
-	border-color: #878787;
-}
-
-.Ques1 {
-	width: 160px;
-	height: 87px;
-	background: #7E9DD9;
-	color: white;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	height: 600px;
+	top: 260px;
 	text-align: center;
-	border-bottom-width: 1px;
-	border-color: #878787;
+	margin: auto;
 }
 
-.Ques2 {
-	top: -55px;
-	left: 19%;
-	width: 200px;
-	position: relative;
-}
-
-.title {
-	height: 89px;
-	border-top-width: 2px;
-	border-top-color: #535353;
-}
-
-.content {
-	height: 350px;
-}
-
-.content>input {
-	top: -90%;
-}
-
-.file_attachment {
+.question_bar {
+	position: absolute;
+	display: flex;
+	width: 1000px;
+	top: 0;
 	height: 30px;
-	border: 1px solid black;
-	border-radius: 6px;
+	font-size: 14px;
+	color: white;
+	align-items: center;
+	border-radius: 5px;
+	background-color: #7E9DD9;
 }
 
-.file_btn {
+.bar_num {
+	margin-left: 50px;
+	width: 200px;
+}
+
+.bar_title {
+	margin-left: 360px;
+	width: 500px;
+}
+
+.bar_date {
+	margin-left: 330px;
+	width: 900px;
+}
+
+.question_content {
 	position: relative;
 	display: flex;
-	top: -75%;
-	left: 20%;
-	width: 90px;
-	height: 38px;
-	font-size: 14px;
-	border-radius: 10px;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
-	background-color: #7E9DD9;
-	color: white;
-	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
-}
-.file_btn:hover {
-    background-color: #C3D0F3;
-    color: white;
-  }
-#file {
-  display: none;
-}
-#fileName {
-    display: inline-block;
-    margin-top: 5px; /* 파일 이름과 다른 내용 간의 간격 조절 */
-    color: #333; /* 파일 이름 텍스트 색상 */
-    font-size: 14px; /* 파일 이름 텍스트 크기 */
+	top: -30px;
+	width: 1000px;
+	height: 80px;
+	background-color: #fff;
+	border-bottom: 1px solid;
 }
 
-.write_btn {
-	width: 110px;
-	height: 60px;
-	font-size: 16px;
-	position: fixed;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: 3%;
-	border-radius: 18px;
-	background: #00256c;
-	text-align: center;
+.question_content:hover {
+	background-color: #B6CCF4;
 	color: white;
-	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
 </style>
 
 <%@ include file="../common/foot.jspf"%>

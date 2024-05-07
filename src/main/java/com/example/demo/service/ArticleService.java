@@ -180,5 +180,9 @@ public class ArticleService {
 		
 		return articleRepository.getInquiry(id);
 	}
+	public List<Inquiry> getAllInquiries() {
+	    return articleRepository.getAllInquiries();
+	}
+
 
 }
