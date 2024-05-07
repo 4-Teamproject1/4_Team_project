@@ -32,6 +32,10 @@ public class UsrHotelListController {
 	// 액션 메서드
 	@RequestMapping("usr/hotel/crawl")
 	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req,@RequestParam(defaultValue = "서울") String area, HttpServletResponse response) {
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 069c959ff0c731b057eb9c0df1cbcf51586806c1
 		return hotelListService.crawlAndSaveHotelList(area);
 	}
 

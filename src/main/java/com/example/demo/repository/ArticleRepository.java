@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Inquiry;
 
 @Mapper
 public interface ArticleRepository {
@@ -204,5 +205,24 @@ public interface ArticleRepository {
 			WHERE id = #{relId}
 			""")
 	public int getBadRP(int relId);
+
+	
+	@Insert("""
+			INSERT INTO
+			inquiry SET
+			regDate = NOW(),
+			updateDate = NOW(),
+			memberId = #{memberId},
+			title = #{title}, `body` = #{body}
+			""")
+	public void inquirywriteArticle(int memberId, String title, String body);
+
+	
+	@Select("""
+			SELECT *
+			FROM article
+			WHERE id = #{id}
+			""")
+	public Inquiry getInquiry(int id);
 
 }

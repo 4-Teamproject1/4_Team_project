@@ -6,45 +6,74 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		const cityBox = document.querySelector('.city_box');
-		const popup = document.createElement('div');
-		popup.classList.add('popup');
+document.addEventListener("DOMContentLoaded", function() {
+    const cityBox = document.querySelector('.city_box');
+    const popup = document.createElement('div');
+    popup.classList.add('popup');
 
-		// 도시 목록
-		const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
-				"전주", "제주", "청주", "포천", "인천" ];
+    // 도시 목록
+    const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
+            "전주", "제주", "청주", "포천", "인천" ];
 
-		areas.forEach(function(area) {
-			const areaElement = document.createElement('div');
-			areaElement.textContent = area;
-			areaElement.classList.add('area');
-			areaElement.addEventListener('click', function() {
-				cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
-				popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
-			});
-			popup.appendChild(areaElement);
-		});
+    areas.forEach(function(area) {
+        const areaElement = document.createElement('div');
+        areaElement.textContent = area;
+        areaElement.classList.add('area');
+        areaElement.addEventListener('click', function() {
+            cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
+            popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
+        });
+        popup.appendChild(areaElement);
+    });
 
-		cityBox.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-			popup.style.display = 'block';
-		});
+    cityBox.addEventListener('click', function(event) {
+        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+        popup.style.display = 'block';
+    });
 
-		popup.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-		});
+    popup.addEventListener('click', function(event) {
+        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+    });
 
-		document.body.appendChild(popup);
+    document.body.appendChild(popup);
 
-		// 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
-		document.addEventListener('click', function(event) {
-			if (!popup.contains(event.target)) {
-				popup.style.display = 'none';
-			}
-		});
-	});
+    // 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
+    document.addEventListener('click', function(event) {
+        if (!popup.contains(event.target)) {
+            popup.style.display = 'none';
+        }
+    });
+
+    // form 제출 시 input 값을 설정
+    document.querySelector('.btn_sort_bar').addEventListener('click', function(event) {
+        document.querySelector('.city_box').value = cityBox.value;
+    });
+});
+
+
+
+
+    $(document).ready(function(){
+        // date_start_btn 버튼을 클릭할 때의 동작 설정
+        $("#date_start_btn").click(function(){
+            // jQuery UI의 DatePicker를 활성화하고 설정
+            $("#datepicker").datepicker({
+                dateFormat: 'yy년 mm월 dd일',
+                onSelect: function(dateText, inst) {
+                    // 선택한 날짜를 텍스트 입력란에 넣음
+                    $(".city_box").val(dateText);
+                }
+            });
+            // 달력 표시
+            $("#datepicker").datepicker("show");
+        });
+    });
+</script>
+
 </script>
 
 <header class="header">
@@ -190,28 +219,30 @@
 
 	<div class="outer-content-box">
 		<div class="sort_bar">
-			<input class="city_box" type="text" placeholder="어디로 떠나시나요?">
-			<button class="date_start">
-				2024년 5월 3일
-				<br>
-				금요일
-			</button>
-			<button class="date_end">
-				2024년 5월 11일
-				<br>
-				토요일
-			</button>
-			<select class="select people_sort_bar">
-				<option>1명</option>
-				<option>2명</option>
-				<option>3명</option>
-				<option>4명</option>
-				<option>5명</option>
-				<option>6명</option>
-				<option>7명</option>
-				<option>8명</option>
-			</select>
-			<button class="btn_sort_bar btn">검색하기</button>
+			<form id="searchForm"action="../hotel/crawl" method="get">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+				
+				<div id="date_start_btn" class="date_start">
+					<div style="text-align: center;">2024년 5월 12일</div>
+					<div style="text-align: center;">금요일</div>
+				</div>
+				<div class="date_end">
+					<div style="text-align: center;">2024년 5월 15일</div>
+					<div style="text-align: center;">토요일</div>
+				</div>
+				<select class="select people_sort_bar">
+					<option>1명</option>
+					<option>2명</option>
+					<option>3명</option>
+					<option>4명</option>
+					<option>5명</option>
+					<option>6명</option>
+					<option>7명</option>
+					<option>8명</option>
+				</select>
+				<button class="btn_sort_bar btn" type="submit">검색하기</button>
+				
+			</form>
 		</div>
 		<div class="hotel-card">
 			<c:forEach items="${hotelList}" var="hotel">
@@ -336,11 +367,11 @@
 
 .date_start, .date_end {
 	position: relative;
+	display:inline-block;
 	left: -10px;
 	width: 150px;
 	height: 60px;
 	background-color: #edf0f9;
-	width: 150px
 }
 
 .date_start {
@@ -475,9 +506,12 @@ body {
 }
 
 .slidecontainer {
-	width: 90%;
+	width: 300px;
 }
 
+.slider{
+	width: 260px;
+}
 .slider:hover {
 	opacity: 1;
 }
@@ -540,7 +574,7 @@ body {
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
-	background-color: #77B0AA;
+	background-color: #546570;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
@@ -1267,60 +1301,59 @@ body {
 
 
 <script>
+	//검색 문자가 포함된 호텔요소 찾기
+	// input 요소 가져오기
+	var searchText = document.querySelector('.search-text');
 
-//검색 문자가 포함된 호텔요소 찾기
-// input 요소 가져오기
-var searchText = document.querySelector('.search-text');
+	// input 값이 변경될 때 호출되는 함수
+	searchText.addEventListener('input', function() {
+		// 입력된 검색어
+		var searchKeyword = this.value.toLowerCase().trim();
 
-// input 값이 변경될 때 호출되는 함수
-searchText.addEventListener('input', function() {
-    // 입력된 검색어
-    var searchKeyword = this.value.toLowerCase().trim();
+		// 모든 호텔 요소 가져오기
+		var hotelList = document.querySelectorAll('.hotel-card-content');
 
-    // 모든 호텔 요소 가져오기
-    var hotelList = document.querySelectorAll('.hotel-card-content');
+		// 각 호텔 요소에 대해 반복
+		hotelList.forEach(function(hotel) {
+			// 호텔 이름 요소 가져오기
+			var hotelNameElement = hotel.querySelector('.hotel-name');
+			// 호텔 이름
+			var hotelName = hotelNameElement.textContent.toLowerCase();
 
-    // 각 호텔 요소에 대해 반복
-    hotelList.forEach(function(hotel) {
-        // 호텔 이름 요소 가져오기
-        var hotelNameElement = hotel.querySelector('.hotel-name');
-        // 호텔 이름
-        var hotelName = hotelNameElement.textContent.toLowerCase();
+			// 호텔 이름에 검색어가 포함되어 있는 경우
+			if (hotelName.includes(searchKeyword)) {
+				// 해당 호텔 요소를 보이도록 설정
+				hotel.style.display = 'flex';
+			} else {
+				// 검색어가 포함되어 있지 않은 경우 해당 호텔 요소를 숨김
+				hotel.style.display = 'none';
+			}
+		});
+	});
 
-        // 호텔 이름에 검색어가 포함되어 있는 경우
-        if (hotelName.includes(searchKeyword)) {
-            // 해당 호텔 요소를 보이도록 설정
-            hotel.style.display = 'flex';
-        } else {
-            // 검색어가 포함되어 있지 않은 경우 해당 호텔 요소를 숨김
-            hotel.style.display = 'none';
-        }
-    });
-});
+	//슬라이드 바 
+	var slider = document.getElementById("range");
+	var minValue = document.getElementById("minValue");
+	var maxValue = document.getElementById("maxValue");
 
-//슬라이드 바 
-var slider = document.getElementById("range");
-var minValue = document.getElementById("minValue");
-var maxValue = document.getElementById("maxValue");
+	// 초기 설정
+	minValue.innerHTML = slider.min;
+	maxValue.value = slider.max;
 
-// 초기 설정
-minValue.innerHTML = slider.min;
-maxValue.value = slider.max;
+	slider.oninput = function() {
+		minValue.innerHTML = this.min;
+		this.style.setProperty('--slider-value',
+				(this.value / (this.max - this.min)) * 100 + '%');
+	}
 
-slider.oninput = function() {
-    minValue.innerHTML = this.min;
-    this.style.setProperty('--slider-value', (this.value / (this.max - this.min)) * 100 + '%');
-}
-
-maxValue.addEventListener('input', function() {
-    // maxValue가 1000000을 넘지 않도록 제한
-    if (parseInt(this.value) > parseInt(slider.max)) {
-        this.value = slider.max;
-    }
-    slider.value = this.value;
-    slider.dispatchEvent(new Event('input'));
-});
-
+	maxValue.addEventListener('input', function() {
+		// maxValue가 1000000을 넘지 않도록 제한
+		if (parseInt(this.value) > parseInt(slider.max)) {
+			this.value = slider.max;
+		}
+		slider.value = this.value;
+		slider.dispatchEvent(new Event('input'));
+	});
 
 	// JavaScript 코드
 
@@ -1363,35 +1396,34 @@ maxValue.addEventListener('input', function() {
 	});
 	// 슬라이드 바 값이 변경될 때 호출되는 함수
 	slider.addEventListener("input", function() {
-	    // 슬라이드 바의 현재 값
-	    var sliderValue = parseInt(this.value);
-	    
-	    // 인풋에 슬라이드 바의 값 업데이트
-	    maxValue.value = sliderValue;
+		// 슬라이드 바의 현재 값
+		var sliderValue = parseInt(this.value);
 
-	    // 모든 호텔 요소 가져오기
-	    var hotelList = document.getElementsByClassName("hotel-card-content");
+		// 인풋에 슬라이드 바의 값 업데이트
+		maxValue.value = sliderValue;
 
-	    // 각 호텔 요소에 대해 반복
-	    for (var i = 0; i < hotelList.length; i++) {
-	        // 호텔 가격 요소 가져오기
-	        var priceElement = hotelList[i].getElementsByClassName("hotel-price-value")[0];
-	        // 호텔 가격 값
-	        var hotelPrice = parseInt(priceElement.textContent);
+		// 모든 호텔 요소 가져오기
+		var hotelList = document.getElementsByClassName("hotel-card-content");
 
-	        // 호텔 가격이 슬라이드 바 값보다 작은 경우
-	        if (hotelPrice >= sliderValue) {
-	            // 해당 호텔을 화면에서 숨김
-	            hotelList[i].style.display = "none";
-	        } else {
-	            // 해당 호텔을 화면에 보이도록 설정
-	            hotelList[i].style.display = "flex";
-	        }
-	    }
+		// 각 호텔 요소에 대해 반복
+		for (var i = 0; i < hotelList.length; i++) {
+			// 호텔 가격 요소 가져오기
+			var priceElement = hotelList[i]
+					.getElementsByClassName("hotel-price-value")[0];
+			// 호텔 가격 값
+			var hotelPrice = parseInt(priceElement.textContent);
+
+			// 호텔 가격이 슬라이드 바 값보다 작은 경우
+			if (hotelPrice >= sliderValue) {
+				// 해당 호텔을 화면에서 숨김
+				hotelList[i].style.display = "none";
+			} else {
+				// 해당 호텔을 화면에 보이도록 설정
+				hotelList[i].style.display = "flex";
+			}
+		}
 	});
-
 	
-
 </script>
 
 <%@ include file="../common/foot.jspf"%>

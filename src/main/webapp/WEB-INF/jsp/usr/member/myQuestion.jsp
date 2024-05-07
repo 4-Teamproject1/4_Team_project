@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 
+<title>문의사항</title>
+
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -31,53 +33,33 @@
 </header>
 
 <div class="img"></div>
-<div class="menu_box1 left">
+
+<div class="menu_box left">
 	<div class="mypage">문의사항</div>
 </div>
 
-<div class="Question_box title">
-	<div class="Ques1">제목</div>
-	<input class="Ques2" type="text" autocomplete="off" placeholder="제목을 입력하세요">
+<div class="question_list">
+	<div class="question_bar">
+	<div class="question_num">번호</div>
+	<div class="question_title">제목</div>
+	<div class="question_date">작성일자</div>
+	<div class="question_check">답변 여부</div>
+	</div>
+	
+	
+	
 </div>
-
-<div class="Question_box file">
-	<div class="Ques1">첨부파일</div>
-	<label for="file">
-		<div class="file_btn">파일 선택</div>
-	</label>
-	<input type="file" name="file" id="file">
-	<span id="fileName"></span>
-</div>
-
-<div class="Question_box content">
-	<div class="content Ques1">내용</div>
-	<input class="Ques2" type="text" autocomplete="off" placeholder="내용을 입력하세요">
-</div>
-
-<button class="write_btn">등록</button>
-
-<script>
-
-document.getElementById('file').addEventListener('change', function() {
-    var fileInput = document.getElementById('file');
-    var fileNameDisplay = document.getElementById('fileName'); // 파일 이름을 표시할 요소 선택
-    var fileName = fileInput.value.split('\\').pop(); // 파일 경로에서 파일 이름 추출
-    fileNameDisplay.textContent = fileName; // 파일 이름을 화면에 표시
-});
-
-</script>
 
 <style>
 body {
 	width: 100%;
-	hight: 130%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 }
 
 .header {
 	display: flex;
-	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -116,7 +98,7 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 150px;
-	left: 0px;
+	left: 0;
 	top: 57px;
 	background:
 		url('https://velog.velcdn.com/images/vrslxowe/post/ba2f5fd8-3c2c-4a9a-baa4-2d31c48be056/image.jpg')
@@ -124,33 +106,17 @@ body {
 	background-size: cover;
 }
 
-.menu_box1, .menu_box2 {
+.menu_box {
+	width: 130px;
+	height: 80px;
 	border-radius: 18px;
 	background: #00256c;
 	color: white;
 	text-align: center;
 	display: inline-block;
 	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.menu_box1 {
-	width: 130px;
-	height: 80px;
 	font-size: 17px;
 	line-height: 82px;
-}
-
-.menu_box2 {
-	width: 110px;
-	height: 70px;
-	font-size: 16px;
-	margin-right: 100px;
-	line-height: 72px;
-}
-
-.menu_box2:last-child {
-	margin-right: 0;
-	/* 마지막 요소의 오른쪽 마진 제거 */
 }
 
 .left {
@@ -159,100 +125,37 @@ body {
 	top: 155px;
 }
 
-.Question_box {
-	top: 260px;
-	left: 25%;
-	height: 87px;
-	width: 1000px;
-	position: relative;
-	border-bottom-width: 1px;
-	border-color: #878787;
-}
-
-.Ques1 {
-	width: 160px;
-	height: 87px;
-	background: #7E9DD9;
-	color: white;
+.question_list {
 	position: relative;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: 1200px;
+	height: 600px;
+	top: 250px;
 	text-align: center;
-	border-bottom-width: 1px;
-	border-color: #878787;
+	background-color: pink;
+	margin: auto;
 }
 
-.Ques2 {
-	top: -55px;
-	left: 19%;
-	width: 200px;
+.question_bar {
 	position: relative;
-}
-
-.title {
-	height: 89px;
-	border-top-width: 2px;
-	border-top-color: #535353;
-}
-
-.content {
-	height: 350px;
-}
-
-.content>input {
-	top: -90%;
-}
-
-.file_attachment {
+	display: flex;
+	width: 1200px;
+	top: -52.7%;
 	height: 30px;
-	border: 1px solid black;
-	border-radius: 6px;
-}
-
-.file_btn {
-	position: relative;
-	display: flex;
-	top: -75%;
-	left: 20%;
-	width: 90px;
-	height: 38px;
 	font-size: 14px;
-	border-radius: 10px;
-	justify-content: center;
 	align-items: center;
-	text-align: center;
-	background-color: #7E9DD9;
-	color: white;
-	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
-}
-.file_btn:hover {
-    background-color: #C3D0F3;
-    color: white;
-  }
-#file {
-  display: none;
-}
-#fileName {
-    display: inline-block;
-    margin-top: 5px; /* 파일 이름과 다른 내용 간의 간격 조절 */
-    color: #333; /* 파일 이름 텍스트 색상 */
-    font-size: 14px; /* 파일 이름 텍스트 크기 */
+	background-color: skyblue;
 }
 
-.write_btn {
-	width: 110px;
-	height: 60px;
-	font-size: 16px;
-	position: fixed;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: 3%;
-	border-radius: 18px;
-	background: #00256c;
-	text-align: center;
-	color: white;
-	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+.question_num,
+.question_title,
+.question_id,
+.question_date,
+.question_check {
+    flex: 1; /* 동일한 너비로 요소를 배치 */
 }
 </style>
 
