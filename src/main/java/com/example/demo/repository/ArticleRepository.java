@@ -224,5 +224,13 @@ public interface ArticleRepository {
 			WHERE id = #{id}
 			""")
 	public Inquiry getInquiry(int id);
+	
+	@Select("""
+	        SELECT *
+	        FROM inquiry
+	        ORDER BY id DESC
+	        """)
+	public List<Inquiry> getAllInquiries();
+
 
 }

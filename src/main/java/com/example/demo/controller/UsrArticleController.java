@@ -251,6 +251,12 @@ public class UsrArticleController {
 
 	}
 	
+	@RequestMapping("/usr/member/myQuestion1")
+	public String showMyQuestion(Model model) {
+	    List<Inquiry> inquiries = articleService.getAllInquiries(); // 모든 문의사항 가져오기
+	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
+	    return "usr/member/myQuestion1"; // myQuestion.jsp 파일을 보여줌
+	}
 
 	
 	
