@@ -6,6 +6,8 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
 <script>
@@ -25,9 +27,17 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		<c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -93,7 +103,7 @@
 				</table>
 
 				<div class="competition-body">
-					  <img src="${competition.imageURL}" alt="" loading="lazy" />
+					 <img src="${competition.imageURL}" alt=""  loading="lazy" />
 				</div>
 				<div class="bookmark">
 						<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>

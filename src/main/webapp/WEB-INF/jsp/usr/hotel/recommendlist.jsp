@@ -107,15 +107,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			<div class="list-container">
 				<ul class="accommodation-nav-list">
-					<a href="../article/recommendlist">
+					<a href="../hotel/recommendlist">
 						<div class="accommodation-nav-item btn m-1">숙소</div>
 					</a>
 					<div class="dropdown">
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
-							<li>
-								<a href="../article/recommendAirplaneList">항공</a>
-							</li>
+							
 							<li>
 								<a href="../article/recommendTrainList">기차</a>
 							</li>

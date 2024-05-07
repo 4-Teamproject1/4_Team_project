@@ -6,6 +6,8 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
 <script>
@@ -29,9 +31,17 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		<c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -58,10 +68,10 @@
 	<div class="list-items-container">
 		<div class="list-items-section">
 
-			<form class="search-form">
-				<!-- Search form -->
-				<!-- Your search form HTML here -->
-			</form>
+			<!-- <form class="search-form">
+				Search form
+				Your search form HTML here
+			</form> -->
 			<div class="list-items-section-box">
 				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
@@ -93,6 +103,30 @@
 								<a href="${conference.homepage}">바로가기</a>
 							</td>
 						</tr>
+						<c:if test="${not empty conference.place || not empty conference.address}">
+							<tr>
+								<td>장소</td>
+								<c:choose>
+									<c:when test="${not empty conference.place}">
+										<td>${conference.place}</td>
+									</c:when>
+									<c:otherwise>
+										<td></td>
+									</c:otherwise>
+								</c:choose>
+								<td>주소</td>
+								<c:choose>
+									<c:when test="${not empty conference.address}">
+										<td>${conference.address}</td>
+									</c:when>
+									<c:otherwise>
+										<td></td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:if>
+
+
 						<!--   <tr>
                             <td>담당자 연락처</td>
                             <td>전화번호</td>
@@ -108,19 +142,24 @@
 
 
 				<div class="competition-body">
-					<img src="${conference.imageURL}" alt="" loading="lazy" />
+					<img src="${conference.imageURL}" alt="" style="width: 800px; height: auto;" loading="lazy" />
+
 				</div>
+				<div class="btn-box">
+					<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
+				</div>
+
 			</div>
-			<div class="bookmark">
-				<div class="place-box">
+			<%-- <div class="bookmark">
+				<!-- <div class="place-box">
 					<div>장소</div>
 					<div class="map" id="map" style="width: 500px; height: 350px;"></div>
 					<div>교통편</div>
 					<div>바로가기</div>
-				</div>
+				</div> -->
 
 				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	4d58ba447ad884369bfffee6e0c34649"></script>
-				<script>
+				<!-- <script>
 						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 						mapOption = {
 							center : new kakao.maps.LatLng(33.450701,
@@ -145,11 +184,11 @@
 
 						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 						// marker.setMap(null);
-					</script>
+					</script> -->
 				<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
-				<%-- 			<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">좋아요</button> --%>
+							<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">좋아요</button>
 
-			</div>
+			</div> --%>
 		</div>
 	</div>
 </div>
@@ -226,7 +265,7 @@ if(isNaN(params.memberId) == true){
 
 
 <style>
-body {
+.body {
 	width: 100%;
 	hight: 130%;
 	margin: 0;
@@ -359,7 +398,7 @@ tr {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
+	height: auto;
 	/* 부모 요소의 높이에 따라 이미지를 세로 중앙 정렬합니다. */
 }
 
@@ -372,6 +411,7 @@ tr {
 
 .bookmark {
 	text-align: center;
+	border: 3px solid;
 }
 
 .bookmark-button {
@@ -383,6 +423,13 @@ tr {
 .bookmark-button:hover {
 	background-color: #7E9DD9;
 	color: white;
+}
+
+/* 즐겨찾기 버튼 */
+.btn-box {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
 }
 </style>
 

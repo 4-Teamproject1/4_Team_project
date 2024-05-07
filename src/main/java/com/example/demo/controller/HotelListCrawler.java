@@ -28,10 +28,15 @@ import com.example.demo.vo.Hotel;
 
 @Component
 public class HotelListCrawler {
+<<<<<<< HEAD
+	
+	public List<Hotel> crawlHotelList(String area) {
+=======
 
 
 	public List<Hotel> crawlHotelList(String area) {
 
+>>>>>>> 069c959ff0c731b057eb9c0df1cbcf51586806c1
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 

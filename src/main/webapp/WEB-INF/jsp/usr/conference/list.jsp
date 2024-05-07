@@ -6,6 +6,8 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
 <header class="header">
@@ -13,9 +15,17 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		<c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -33,11 +43,11 @@
 
 
 <div class="list-container">
-<div class="list-board">
-    <span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>
-    <a href="../conference/list" class="list-board-item">학술행사</a>
-    <a href="../competition/list" class="list-board-item">공모전</a>
-</div>
+	<div class="list-board">
+		<span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>
+		<a href="../conference/list" class="list-board-item">학술행사</a>
+		<a href="../competition/list" class="list-board-item">공모전</a>
+	</div>
 
 
 	<div class="list-items-container">
@@ -83,7 +93,8 @@
 					<select name="searchKeywordTypeCode">
 						<option value="title">제목</option>
 					</select>
-					<input type="text" name="searchKeyword" value="${searchKeyword}"class="input-sm input input-bordered w-48 max-w-xs">
+					<input type="text" name="searchKeyword" value="${searchKeyword}"
+						class="input-sm input input-bordered w-48 max-w-xs">
 					<button class="btn btn-ghost btn-sm" type="submit">검색</button>
 				</form>
 
@@ -238,7 +249,10 @@
 							function(index, conference) {
 								html += '<tr>';
 								html += '<td>' + conference.id + '</td>';
-								html += '<td><a href="detail?themeId=' + conference.themeId + '&id=' + conference.id + '">' + conference.title + '</a></td>';
+								html += '<td><a href="detail?themeId='
+										+ conference.themeId + '&id='
+										+ conference.id + '">'
+										+ conference.title + '</a></td>';
 
 								html += '<td>' + conference.applicationPeriod
 										+ '</td>';
@@ -282,16 +296,18 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
+
 .hd_logout:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .username {
@@ -301,8 +317,8 @@ body {
 /* flex */
 .list-container {
 	display: flex;
-    position: relative;
-    top: 40px;
+	position: relative;
+	top: 40px;
 }
 
 .list-board {

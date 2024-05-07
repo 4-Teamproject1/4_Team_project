@@ -6,14 +6,19 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
+
+
 <header class="header">
   <a href="../home/main">
     <button class="logo">로고</button>
   </a>
   <nav class="header_menu">
     <a href="../member/myInfo">
-      <button class="username">abc123님</button>
-    </a>
+  <button class="username">${loggedInMemberName}님</button>
+</a>
+
     <a href="../conference/list">
       <button class="hd_info">학회 정보</button>
     </a>

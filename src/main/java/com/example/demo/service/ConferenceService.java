@@ -192,6 +192,8 @@ public class ConferenceService {
 
 	public List<Conference> getscrapShopsList(int memberId) {
 		
+		
+		
 		return conferenceRepository.getscrapShopsList(memberId);
 	}
 
