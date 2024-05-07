@@ -1,1431 +1,396 @@
-JSP
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="RecommendBus List"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+
 <header class="header">
-	<div class="logo">로고</div>
-	<div class="user-info">
-		<span class="username"> <span class="black-text">abc123</span> <span class="black-text">님</span>
-		</span>
-		<div class="society-info">학회정보</div>
-		<div class="inquiries">문의사항</div>
-		<div class="logout">로그아웃</div>
-	</div>
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+	<nav class="header_menu">
+		<a href="../member/myInfo">
+			<button class="username">abc123님</button>
+		</a>
+		<a href="../conference/list">
+			<button class="hd_info">학회 정보</button>
+		</a>
+		<a href="../competition/list">
+			<button class="hd_contest">공모전</button>
+		</a>
+		<a href="../member/myQuestion">
+			<button class="hd_question">문의사항</button>
+		</a>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
+	</nav>
 </header>
 
-<div class="outer-box">
-	<div class="searchClickBox">
-		<div class="container">
-			<div class="search-container">
-				<input type="text" class="search-text" placeholder="텍스트 검색">
-			</div>
+<div class="img"></div>
 
+<div class="list-container">
+	<ul class="accommodation-nav-list">
+		<a href="../article/recommendlist">
+			<div class="accommodation-nav-item btn m-1">숙소</div>
+		</a>
+		<div class="dropdown">
+			<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
+			<ul tabindex="0" class="dropdown-content">
+				<li>
+					<a href="../article/recommendAirplaneList">항공</a>
+				</li>
+				<li>
+					<a href="../article/recommendTrainList">기차</a>
+				</li>
+				<li>
+					<a href="../article/recommendBusList">버스</a>
+				</li>
+			</ul>
 		</div>
+	</ul>
+</div>
+
+<form id="bus_searchform" action="/usr/article/recommendBusList" method="GET">
+	<div class="sort_bar">
+		<span class="material-symbols-outlined bus_icon">directions_bus</span>
+		<select class="select select-ghost w-full max-w-xs arrival_box" name="departureBus" id="">
+			<option value="">출발 터미널</option>
+			<option value="강릉">강릉</option>
+			<option value="강진">강진</option>
+			<option value="경북도청">경북도청</option>
+			<option value="경주">경주</option>
+			<option value="경포해변">경포해변</option>
+			<option value="고대조치원">고대조치원</option>
+			<option value="고양백석">고양백석</option>
+			<option value="고창">고창</option>
+			<option value="고흥">고흥</option>
+			<option value="공주">공주</option>
+			<option value="광양">광양</option>
+			<option value="구리">구리</option>
+			<option value="논산">논산</option>
+			<option value="대구용계">대구용계</option>
+			<option value="대전도룡">대전도룡</option>
+			<option value="대전복합">대전복합</option>
+			<option value="대전청사(샘머리)">대전청사(샘머리)</option>
+			<option value="덕산스파">덕산스파</option>
+			<option value="동대구">동대구</option>
+			<option value="동서울">동서울</option>
+			<option value="동해">동해</option>
+			<option value="마산">마산</option>
+			<option value="목포">목포</option>
+			<option value="무안">무안</option>
+			<option value="벌교">벌교</option>
+			<option value="보성">보성</option>
+			<option value="부산">부산</option>
+			<option value="성남">성남</option>
+			<option value="세종청사">세종청사</option>
+			<option value="세종터미널">세종터미널</option>
+			<option value="서울경부">서울경부</option>
+			<option value="여수">여수</option>
+			<option value="인천">인천</option>
+		</select>
+
+		<select class="select select-ghost w-full max-w-xs departure_box" name="arriveBus" id="">
+			<option value="">도착 터미널</option>
+			<option value="강릉">강릉</option>
+			<option value="강진">강진</option>
+			<option value="경북도청">경북도청</option>
+			<option value="경주">경주</option>
+			<option value="경포해변">경포해변</option>
+			<option value="고대조치원">고대조치원</option>
+			<option value="고양백석">고양백석</option>
+			<option value="고창">고창</option>
+			<option value="고흥">고흥</option>
+			<option value="공주">공주</option>
+			<option value="광양">광양</option>
+			<option value="구리">구리</option>
+			<option value="논산">논산</option>
+			<option value="대구용계">대구용계</option>
+			<option value="대전도룡">대전도룡</option>
+			<option value="대전복합">대전복합</option>
+			<option value="대전청사(샘머리)">대전청사(샘머리)</option>
+			<option value="덕산스파">덕산스파</option>
+			<option value="동대구">동대구</option>
+			<option value="동서울">동서울</option>
+			<option value="동해">동해</option>
+			<option value="마산">마산</option>
+			<option value="목포">목포</option>
+			<option value="무안">무안</option>
+			<option value="벌교">벌교</option>
+			<option value="보성">보성</option>
+			<option value="부산">부산</option>
+			<option value="성남">성남</option>
+			<option value="세종청사">세종청사</option>
+			<option value="세종터미널">세종터미널</option>
+			<option value="서울경부">서울경부</option>
+			<option value="여수">여수</option>
+			<option value="인천">인천</option>
+		</select>
+		<select class="select select-ghost w-full max-w-xs date_start" name="ondate">
+			<option value="">출발 일자</option>
+			<option value="1">1일</option>
+			<option value="2">2일</option>
+			<option value="3">3일</option>
+			<option value="4">4일</option>
+			<option value="5">5일</option>
+			<option value="6">6일</option>
+			<option value="7">7일</option>
+			<option value="8">8일</option>
+			<option value="9">9일</option>
+			<option value="10">10일</option>
+			<option value="11">11일</option>
+			<option value="12">12일</option>
+			<option value="13">13일</option>
+			<option value="14">14일</option>
+			<option value="15">15일</option>
+			<option value="16">16일</option>
+			<option value="17">17일</option>
+			<option value="18">18일</option>
+			<option value="19">19일</option>
+			<option value="20">20일</option>
+			<option value="21">21일</option>
+			<option value="22">22일</option>
+			<option value="23">23일</option>
+			<option value="24">24일</option>
+			<option value="25">25일</option>
+			<option value="26">26일</option>
+			<option value="27">27일</option>
+			<option value="28">28일</option>
+			<option value="29">29일</option>
+			<option value="30">30일</option>
+		</select>
+		<select class="select people_sort_bar">
+			<option>1명</option>
+			<option>2명</option>
+			<option>3명</option>
+			<option>4명</option>
+			<option>5명</option>
+			<option>6명</option>
+			<option>7명</option>
+			<option>8명</option>
+		</select>
+		<button id="bus_searchbutton" class="btn_sort_bar btn" type="submit">검색하기</button>
 	</div>
+	<div class="outer-arrow">
+		<div class="departure-place">${busLists[0].departurePlace}&nbsp→&nbsp${busLists[0].arrivePlace}</div>
+		<div class="bus-total-time">${busLists[0].takesumTime}</div>
+	</div>
+</form>
 
-	<div>
-		<div class="outer-searchBox">
-			<div class="searchBox1">
-				<nav class="accommodation-nav">
-					<ul class="accommodation-nav-list">
 
-						<div class="accommodation-nav-item btn m-1">
-							<a href="../article/recommendlist">숙소</a>
+<div class="bus-info-main">
+	<c:if test="${not empty busLists}">
+		<c:forEach var="bus" items="${busLists}" varStatus="loop">
+			<c:if test="${not loop.first}">
+				<!-- 첫 번째 요소를 제외한 경우에만 출력 -->
+				<div class="bus_box">
+					<c:if test="${not empty bus.startTime}">
+						<div class="bus-class">${bus.grade}</div>
+						<div class="bus-operator">${bus.companyName}</div>
+						<div class="departure-time">
+							출발시간
+							<div style="font-size: 23px; font-weight: bold;">${bus.startTime}</div>
 						</div>
-						<div class="dropdown">
-							<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
-							<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-								<li><a href="../article/recommendAirplaneList">항공</a></li>
-
-								<li><a href="../article/recommendTrainList">기차</a></li>
-								<li><a href="../article/recommendBusList">버스</a></li>
-							</ul>
-						</div>
-
-					</ul>
-				</nav>
-			</div>
-
-			<div class="searchBox2">
-
-				<div class="flight-search-container">
-					<header class="flight-search-header">
-						<div class="flight-search-content">
-
-							<div class="flight-route">
-								<div class="origin-airport">
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0fadc5e1d76844beefb51b89ef84518ea8035476fccb2578225cdc2cfc41524?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="Origin airport icon" class="airport-icon" />
-									<div class="origin-airport-code">
-										<select class="select select-ghost w-full max-w-xs">
-											<option disabled selected>청주(CJU)</option>
-											<option>Svelte</option>
-											<option>Vue</option>
-											<option>React</option>
-										</select>
-									</div>
-								</div>
-								<div class="destination-airport">
-									<div class="destination-airport-icons">
-										<div class="destination-airport-pin">
-											<!-- <img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/98c18b60e9f95eb96b6bf53e442854cccd679784f32787012fcce26fdb4cbecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="Destination pin icon" class="pin-icon" /> -->
-										</div>
-										<img
-											src="https://cdn.builder.io/api/v1/image/assets/TEMP/9924b81dad0fbf6a35b311cf1ec8f152b87ecb9c2f4337693e3fbc5bc4dad5da?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-											alt="Plane icon" class="plane-icon" />
-									</div>
-									<div class="destination-airport-code">
-										<select class="select select-ghost w-full max-w-xs">
-											<option disabled selected>부산 (PUS)</option>
-											<option>Svelte</option>
-											<option>Vue</option>
-											<option>React</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="flight-search-details">
-								<div class="flight-search-dates">
-									<div class="flight-search-date">
-										<!-- <div class="flight-search-date-icon">
-
-                                 <img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/36fa2c3b0a8961d87b50f228f68a2281f5fa3e5c753dc9b0a1181b340d9873b4?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="" />
-                                 <img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/b533c9792731d97f1f90a405a81d97c8ff6003c50cace4cf001954acb1f6363f?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="Calendar icon" />
-                              </div> -->
-										<div class="flight-search-date-text">일, 28 4월</div>
-										<!-- <div id="calendar" > -->
-
-									</div>
-									<!-- <div class="flight-search-date">
-                              <div class="flight-search-date-icon">
-                                 <img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f9b7796862a0f5136ed1e711686f04480ccf0ab3ca59e32418fb698a54a423b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="" />
-                                 <img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/6468715dfa7a8aaac104e143a35e1c1f8e93978a65f2a4a94056575230d7438a?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="Calendar icon" />
-                              </div>
-                              <div class="flight-search-date-text">화, 30 4월</div>
-                           </div> -->
-									<!-- <div class="flight-search-duration">
-                              <img
-                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/d4eaca586df01d2de36e8aa7bc9b4266b5739b251e12629b62f8daca305803e8?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                 alt="" />
-                              <img
-                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0440974fe5614d0211dee8350a8804486c0546f430b6ffd7f706b61334e2a49?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                 alt="Flight duration" />
-                           </div> -->
-								</div>
-							</div>
-							<div class="flight-search-passengers">
-								<div class="flight-search-passenger-count">
-									<div class="flight-search-passenger-icon"></div>
-									<!-- <select class="select select-ghost w-full max-w-xs">
-                              <option disabled selected><img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf324d7d075e3aa82dd4036f568d5ba7d5e3cac9abcc614363f794c2ec45721e?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="" class="your-class-name" /><img
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bae24e921b2dcee5986b9432576475b0dd7e006205a35cc4939303245ad33d5?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                    alt="Passenger icon" />인원
-                              </option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                           </select> -->
-								</div>
-								<div class="flight-search-passenger-icon">
-									<!-- <img
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7984c315fb4720f7a8246883a4b750da404d00d9f2eb344e9b366f8a537d1c94?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                              alt="" />
-                           <img
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9cb6cedd3cbfe98a89ab2bb9cd9b7c0c4d3c408172d761c631c5a3c86312c553?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                              alt="Passenger icon" /> -->
-								</div>
-							</div>
-							<div class="flight-search-class">
-								<div class="flight-search-class-details dropdown dropdown-open">
-									<div class="flight-search-class-name ">
-										<!-- <select class="select select-ghost w-full max-w-xs">
-                                 <option disabled selected>이코노미</option>
-                                 <option>Svelte</option>
-                                 <option>Vue</option>
-                                 <option>React</option>
-                              </select> -->
-									</div>
-									<!-- <div class="flight-search-class-icon">
-
-                              <img
-                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/38109152b681e7836e55edc85b3983b22ab1619f978ff9d8f391fdd52ae97b04?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                 alt="" />
-                              <img
-                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/3e17e53102545c352d5947a690894268bb14489cc479de4328cc5b7b64c508cd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-                                 alt="Dropdown arrow" />
-                           </div> -->
-								</div>
-								<div class="flight-search-button">검색하기</div>
-							</div>
-						</div>
-					</header>
+						<span class="view-details">${bus.remainingSeats}</span>
+						<button class="bus_box_btn btn">예매</button>
+					</c:if>
 				</div>
-			</div>
-		</div>
-		<div class="place-box">
-			<div class="outer-arrow">
-				<div class="departure-place">${busLists[0].arrivePlace}</div>
-				<span class="arrow"> → </span>
-				<div class="arrive-place">${busLists[0].departurePlace}</div>
-			</div>
-			<div class="bus-total-time">소요시간: ${busLists[0].takesumTime}</div>
-		</div>
-		<div class="outer-content-box">
-			<div class="small-outer-content-box">
-				<section class="bus-details">
-					<div class="bus-info">
-						<div class="bus-info-wrapper">
-							<div class="bus-info-main">
-								<c:if test="${not empty busLists}">
-									<c:forEach var="bus" items="${busLists}" varStatus="loop">
-										<c:if test="${not loop.first}">
-											<!-- 첫 번째 요소를 제외한 경우에만 출력합니다 -->
-											<c:if test="${not empty bus.startTime}">
-												<header class="bus-info-header">
-													<div class="bus-type">
-														<span class="bus-class">${bus.grade}</span> <span class="bus-operator">${bus.companyName}</span>
-													</div>
-													<div class="bus-timings">
-														<time class="departure-time">출발시간: ${bus.startTime}</time>
-														<div class="bus-features">
-															<div class="bus-price-details">
-																<span class="view-details">${bus.remainingSeats}</span>
-															</div>
-														</div>
-													</div>
-												</header>
-												<hr class="separator" />
-											</c:if>
-										</c:if>
-									</c:forEach>
-								</c:if>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
+			</c:if>
+		</c:forEach>
+	</c:if>
+</div>
 
-		<style>
-.time-range {
-	display: flex;
-	max-width: 233px;
-	flex-direction: column;
-	padding: 0 20px;
-}
 
-.time-range-header {
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	font-weight: 600;
-	white-space: nowrap;
-	justify-content: space-between;
-}
+<style>
 
-.time-range-title {
-	color: #24262c;
-	font: 16px/127% Roboto, sans-serif;
-}
-
-.time-range-reset {
-	color: #3170e7;
-	font: 14px/150% Roboto, sans-serif;
-}
-
-.departure-time {
-	color: #24262c;
-	margin-top: 20px;
-	width: 80%;
-	font: 400 14px/110% Roboto, sans-serif;
-	/*    border: 3px solid; */
-}
-
-.departure-time-range {
-	background: linear-gradient(90deg, #a8b3cb 0%, #a8b3cb 0%, #3170e7 0%, #3170e7 100%,
-		#a8b3cb 100%, #a8b3cb 100%);
-	display: flex;
-	margin-top: 10px;
-	width: 100%;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.departure-time-slider {
-	background: linear-gradient(90deg, #a8b3cb 0%, #a8b3cb 0%, #3170e7 0%, #3170e7 100%,
-		#a8b3cb 100%, #a8b3cb 100%);
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	justify-content: space-between;
-	padding: 3px;
-}
-
-.departure-time-handle {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
+/* 지역 선택 스크롤 숨김 */
+.select {
 	background-color: #fff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 24px;
-	height: 24px;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
-.departure-time-labels {
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	font-size: 14px;
-	color: #6b7388;
-	font-weight: 400;
-	white-space: nowrap;
-	line-height: 150%;
-	justify-content: space-between;
+.select::-webkit-scrollbar {
+	display: none;
 }
 
-.arrival-time {
-	color: #24262c;
-	margin-top: 20px;
-	width: 80%;
-	font: 400 14px/130% Roboto, sans-serif;
-}
-
-.arrival-time-range {
-	background: linear-gradient(90deg, #a8b3cb 0%, #a8b3cb 0%, #3170e7 0%, #3170e7 100%,
-		#a8b3cb 100%, #a8b3cb 100%);
-	display: flex;
-	margin-top: 10px;
-	width: 100%;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.arrival-time-slider {
-	background: linear-gradient(90deg, #a8b3cb 0%, #a8b3cb 0%, #3170e7 0%, #3170e7 100%,
-		#a8b3cb 100%, #a8b3cb 100%);
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	justify-content: space-between;
-	padding: 3px;
-}
-
-.arrival-time-handle {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
-	background-color: #fff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 24px;
-	height: 24px;
-}
-
-.arrival-time-labels {
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	font-size: 14px;
-	color: #6b7388;
-	font-weight: 400;
-	white-space: nowrap;
-	line-height: 150%;
-	justify-content: space-between;
-}
-
-.divider {
-	/*    display: flex; */
-	/*  margin-top: 34px;  */
-	width: 100%;
-	/*    flex-direction: column; */
-	justify-content: center;
-}
-
-/* .divider {
-
-  background-color: #000;
-  min-height: 1px;
-  margin-top: 37px;
-  width: 100%;
-} */
-.divider-line {
-	border-top: 1px solid rgba(168, 179, 203, 1);
-	min-height: 1px;
-	width: 100%;
-}
-
-.price-range-header {
-	display: flex;
-	margin-top: 17px;
-	width: 100%;
-	gap: 20px;
-	font-weight: 600;
-	justify-content: space-between;
-}
-
-.price-range-title {
-	color: #24262c;
-	font: 16px/127% Roboto, sans-serif;
-}
-
-.price-range-reset {
-	color: #3170e7;
-	font: 14px/150% Roboto, sans-serif;
-}
-
-.price-range-max {
-	color: #24262c;
-	margin-top: 15px;
-	width: 100%;
-	font: 400 14px/130% Roboto, sans-serif;
-}
-
-.price-range-slider {
-	background: linear-gradient(90deg, #3170e7 0%, #3170e7 100%, #a8b3cb 100%, #a8b3cb
-		100%);
-	display: flex;
-	margin-top: 10px;
-	width: 100%;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.price-range-handle {
-	background: linear-gradient(90deg, #3170e7 0%, #3170e7 100%, #a8b3cb 100%, #a8b3cb
-		100%);
-	display: flex;
-	width: 100%;
-	align-items: flex-end;
-	justify-content: center;
-	padding: 3px 60px;
-}
-
-.price-range-handle-inner {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
-	background-color: #fff;
-	display: flex;
-	width: 27px;
-	justify-content: center;
-}
-
-.price-range-handle-dot {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
-	background-color: #fff;
-	height: 24px;
-}
-
-.duration-range-header {
-	display: flex;
-	margin-top: 17px;
-	width: 100%;
-	gap: 20px;
-	font-weight: 600;
-	justify-content: space-between;
-}
-
-.duration-range-title {
-	color: #24262c;
-	font: 16px/127% Roboto, sans-serif;
-}
-
-.duration-range-reset {
-	color: #3170e7;
-	font: 14px/150% Roboto, sans-serif;
-}
-
-.duration-range-max {
-	color: #24262c;
-	margin-top: 15px;
-	width: 100%;
-	font: 400 14px/130% Roboto, sans-serif;
-}
-
-.duration-range-slider {
-	background: linear-gradient(90deg, #3170e7 0%, #3170e7 100%, #a8b3cb 100%, #a8b3cb
-		100%);
-	display: flex;
-	margin-top: 10px;
-	width: 100%;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.duration-range-handle {
-	background: linear-gradient(90deg, #3170e7 0%, #3170e7 100%, #a8b3cb 100%, #a8b3cb
-		100%);
-	display: flex;
-	width: 100%;
-	align-items: flex-end;
-	justify-content: center;
-	padding: 3px 60px;
-}
-
-.duration-range-handle-inner {
-	display: flex;
-	flex-direction: row;
-}
-
-.duration-range-handle-start {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
-	background-color: #fff;
-	display: flex;
-	width: 27px;
-	justify-content: center;
-}
-
-.duration-range-handle-end {
-	border-radius: 12px;
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	border: 2px solid rgba(49, 112, 231, 1);
-	background-color: #fff;
-	height: 24px;
-	flex-grow: 1;
-	width: auto;
-}
-
-/* 범위박스 끝 */
-.main-image-container {
-	display: flex;
-	flex-direction: column;
-	line-height: normal;
-	width: 44%;
-	margin-left: 0;
-}
-
-/* @media ( max-width : 991px) {
-   .main-image-container {
-      width: 100%;
-   }
-} */
-.main-image-wrapper {
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-}
-
-.main-image {
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	position: relative;
-	aspect-ratio: 1.5;
-	width: 100%;
-	align-items: end;
-	padding: 12px 60px 80px;
-	margin-left: 10px;
-	margin-top: 5px;
-	width: 300px;
-	height: 250px;
-}
-
-/* @media ( max-width : 991px) {
-   .main-image {
-      padding-left: 20px;
-   }
-} */
-.outer-box {
-	width: 100%;
-	display: flex;
-}
-
-.accommodation-nav {
-	/*    background-color: #f9b563; */
-	display: flex;
-	max-width: 557px;
-	align-items: center;
-	font-size: 17px;
-	color: #2a2a2e;
-	font-weight: 500;
-	justify-content: center;
-	padding: 7px 60px;
-}
-
-/* @media ( max-width : 991px) {
-   .accommodation-nav {
-      padding: 0 20px;
-   }
-}
- */
-.accommodation-nav-list {
-	display: flex;
-	width: 337px;
-	max-width: 100%;
-	align-items: center;
-	gap: 20px;
-	justify-content: space-between;
-}
-
-.accommodation-nav-divider {
-	border: 1px solid rgba(0, 0, 0, 1);
-	width: 1px;
-	height: 46px;
-}
-
-.accommodation-nav-item {
-	font-family: Inter, sans-serif;
-	margin: auto 0;
-}
-
-.container {
-	background-color: #fff;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	color: #5a5b5b;
-	font-weight: 400;
-	padding: 30px 80px 80px 33px;
-}
-
-/* @media ( max-width : 991px) {
-   .container {
-      padding: 0 20px;
-   }
-} */
-.header {
-	align-self: stretch;
-	display: flex;
-	width: 100%;
-	gap: 20px;
-	color: #000;
-	justify-content: space-between;
-}
-
-/* @media ( max-width : 991px) {
-   .header {
-      max-width: 100%;
-      margin-right: 10px;
-      flex-wrap: wrap;
-   }
-} */
-.logo {
-	text-align: center;
-	font: 23px Exo 2, sans-serif;
-}
-
-.user-info {
-	display: flex;
-	gap: 20px;
-	font-size: 19px;
-	justify-content: space-between;
-}
-
-.username {
-	font-family: Inter, sans-serif;
-}
-
-.society-info, .inquiries, .logout {
-	font-family: Inter, sans-serif;
-}
-
-.search-container {
-	justify-content: center;
-	align-items: start;
-	border-radius: 18px;
-	border: 1px solid rgba(115, 115, 115, 1);
-	background-color: #f8f7f9;
-	display: flex;
-	width: 263px;
-	max-width: 100%;
-	flex-direction: column;
-	font-size: 14px;
-	color: #737373;
-	margin: 176px 0 0 13px;
-	padding: 12px 38px;
-}
-
-.search-text {
-	background-color: #f8f7f9;
-}
-
-@media ( max-width : 991px) {
-	.search-container {
-		margin: 40px 0 0 10px;
-		padding: 0 20px;
-	}
-}
-
-.search-text {
-	font-family: Inter, sans-serif;
-	justify-content: center;
-}
-
-.accommodation-type {
-	margin: 28px 0 0 21px;
-	font: 700 14px/143% Inter, sans-serif;
-}
-
-/* @media ( max-width : 991px) {
-   .accommodation-type {
-      margin-left: 10px;
-   }
-}
- */
-.accommodation-list {
-	display: flex;
-	width: 247px;
-	max-width: 100%;
-	flex-direction: column;
-	font-size: 12px;
-	line-height: 180%;
-	justify-content: center;
-	margin: 18px 0 0 21px;
-	padding: 4px 0;
-}
-
-/* @media ( max-width : 991px) {
-   .accommodation-list {
-      margin-left: 10px;
-   }
-}
- */
-.accommodation-item {
-	justify-content: center;
-	display: flex;
-	flex-direction: column;
-	padding: 4px 0;
-}
-
-/* 중앙 주황 서치박스*/
-.searchBox1 {
-	width: 100%;
-	height: 80px;
-	display: flex;
-	justify-content: center;
-}
-
-.accommodation-nav-list {
-	display: flex;
-	width: 837px;
-	max-width: 100%;
-	align-items: center;
-	gap: 20px;
-	justify-content: space-between;
-}
-
-.accommodation-nav-divider {
-	border: 1px solid rgba(0, 0, 0, 1);
-	width: 1px;
-	height: 46px;
-}
-
-.accommodation-nav-item {
-	font-family: Inter, sans-serif;
-	width: 200px;
-	margin: auto 0;
-	background-color: #f9b563;
-}
-
-.outer-content-box {
-	display: flex;
-	justify-content: center; /* 수평 가운데 정렬 */
-	width: 100%;
-	height: 400px;
-	flex-direction: column; /* 요소들을 세로로 배치합니다. */
-	/*    margin-top: 10px; */
-	/*     border: 2px solid; */
-}
-
-.small-outer-content-box {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	/*    border: 3px solid; */
-}
-
-.outer-searchBox {
-	display: flex;
-	justify-content: center; /* 수평 가운데 정렬 */
-	width: 100%;
-	height: 200px;
-	flex-direction: column; /* 요소들을 세로로 배치합니다. */
-}
-
-.searchClickBox {
-	width: 400px;
-	display: block;
-}
-
-/* 추천목록 중앙서치박스 */
-.searchBox2 {
-	width: 100%;
-	height: 70px;
-	display: flex;
-	justify-content: center;
-}
-
-.flight-search-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: #fff;
-	border-top: 1px solid rgba(237, 240, 249, 1);
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	width: 1300px;
-	/*    border: 12px solid red; */
-}
-
-.flight-search-header {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	padding: 13px 60px;
-	background-color: #fff;
-	border-top: 1px solid rgba(237, 240, 249, 1);
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-	/*      border: 3px solid blue; */
-}
-
-/* @media ( max-width : 991px) {
-   .flight-search-header {
-      max-width: 100%;
-      padding: 0 20px;
-   }
-} */
-.flight-search-content {
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-}
-
-/* @media ( max-width : 991px) {
-   .flight-search-content {
-      flex-wrap: wrap;
-   }
-} */
-.flight-search-image {
-	width: 434px;
-	aspect-ratio: 10;
-	object-fit: auto;
-	object-position: center;
-	border-radius: 22px 4px 4px 22px;
-	/*    border: 3px solid; */
-}
-
-/* @media ( max-width : 991px) {
-   .flight-search-image {
-      max-width: 100%;
-   }
-} */
-.flight-search-details {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: #edf0f9;
-	border-radius: 999px;
-}
-
-.flight-search-dates {
-	display: flex;
-	align-items: center;
-	gap: 19px;
-	padding: 12px 14px;
-	background-color: #edf0f9;
-	border-radius: 999px;
-	justify-content: center;
-	/*    border: 3px solid; */
-}
-
-.flight-search-date {
-	display: flex;
-	align-self: stretch;
-	margin: auto 0;
-	gap: 8px;
-	/*    border: 3px solid red; */
-}
-
-.flight-search-date-icon {
-	display:;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	overflow: hidden;
-	width: 16px;
-	aspect-ratio: 1;
-}
-
-.flight-search-date-icon img {
+.popup {
 	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
+	top: 35%;
+	left: 23%;
+	width: 660px;
+	height: 350px;
+	background-color: white;
+	border-radius: 17px;
+	padding: 10px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+	display: none;
+	overflow-y: auto;
+	/* 스크롤바 숨김 */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
 }
 
-.flight-search-date-text {
-	font: 400 14px/150% Roboto, sans-serif;
-	color: #24262c;
-}
-
-.flight-search-duration {
-	display: flex;
-	position: relative;
-	overflow: hidden;
-	align-self: stretch;
-	width: 57px;
-	aspect-ratio: 2.85;
-}
-
-.flight-search-duration img {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
-}
-
-.flight-search-passengers {
-	display: flex;
-	margin: auto 0;
-	gap: 7px;
-}
-
-.flight-search-passenger-count {
-	display: flex;
-	gap: 2px;
-}
-
-.flight-search-passenger-icon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	overflow: hidden;
-	width: 16px;
-	aspect-ratio: 1;
-}
-
-.flight-search-passenger-icon img {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
-}
-
-.flight-search-passenger-number {
-	font: 400 14px/150% Roboto, sans-serif;
-	color: #333;
+.area {
+	cursor: pointer;
+	padding: 10px;
+	margin: 5px;
+	display: inline-block;
+	width: calc(20% - 10px);
+	/* Set width for 5 regions in a row with margins */
 	text-align: center;
-}
-
-.flight-search-class {
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-}
-
-.flight-search-class-details {
-	display: flex;
-	margin: auto 0;
-	gap: 11px;
-}
-
-.flight-search-class-name {
-	font: 400 14px/150% Roboto, sans-serif;
-	color: #333;
-}
-
-.flight-search-class-icon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	overflow: hidden;
-	width: 16px;
-	aspect-ratio: 1;
-}
-
-.flight-search-class-icon img {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
-}
-
-.flight-search-button {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 15px 27px;
-	font: 600 16px/127% Roboto, sans-serif;
-	color: #fff;
-	text-align: center;
-	white-space: nowrap;
-	background-color: #3170e7;
-	border-radius: 999px;
-}
-
-/* @media ( max-width : 991px) {
-   .flight-search-button {
-      white-space: initial;
-      padding: 0 20px;
-   }
-} */
-.flight-info {
-	display: flex;
-	flex-direction: column;
-	width: 1000px;
-	text-align: center;
-}
-
-.flight-details {
-	align-self: center;
-	display: flex;
-	width: 100%;
-	max-width: 943px;
-	align-items: start;
-	gap: 20px;
-}
-
-/* @media ( max-width : 991px) {
-   .flight-details {
-      max-width: 100%;
-      flex-wrap: wrap;
-   }
-} */
-.airline-name {
-	color: #000;
-	margin-top: 16px;
-	flex-grow: 1;
-	font: 400 16px/114% Roboto, sans-serif;
-}
-
-.departure-info, .arrival-info {
-	display: flex;
-	margin-top: 17px;
-	gap: 12px;
-	font-weight: 400;
-}
-
-.departure-time, .arrival-time {
-	color: #000;
-	font: 16px/114% Roboto, sans-serif;
-}
-
-.departure-airport, .arrival-airport {
-	color: #3818f8;
-	margin: auto 0;
-	font: 11px/165% Roboto, sans-serif;
-}
-
-.flight-duration-pricing {
-	align-self: stretch;
-	display: flex;
-	gap: 20px;
-	justify-content: space-between;
-}
-
-.flight-duration {
-	color: #000;
-	align-self: start;
-	margin-top: 16px;
-	font: 400 16px/114% Roboto, sans-serif;
-}
-
-.pricing-info {
-	display: flex;
-	flex-direction: column;
-}
-
-.discounted-price {
-	display: flex;
-	gap: 4px;
-}
-
-.fare-type {
-	color: #000;
-	flex-grow: 1;
-	font: 400 16px/114% Roboto, sans-serif;
-}
-
-.discounted-fare {
-	color: #f30d29;
-	font: 700 13px/140% Roboto, sans-serif;
-}
-
-.regular-fare {
-	color: #777;
-	align-self: end;
-	font: 700 13px/140% Roboto, sans-serif;
-}
-
-/* @media ( max-width : 991px) {
-   .divider {
-      max-width: 100%;
-   }
-} */
-.search-container {
-	justify-content: center;
-	align-items: start;
-	border-radius: 18px;
-	border: 1px solid rgba(115, 115, 115, 1);
-	background-color: #f8f7f9;
-	display: flex;
-	width: 263px;
-	max-width: 100%;
-	flex-direction: column;
-	font-size: 14px;
-	color: #737373;
-	margin: 176px 0 0 13px;
-	padding: 12px 38px;
-}
-
-.search-text {
-	background-color: #f8f7f9;
-}
-
-.container {
-	background-color: #fff;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	color: #5a5b5b;
-	font-weight: 400;
-	padding: 30px 80px 80px 33px;
-	/*   border: 3px solid; */
-}
-
-.cancel-btn {
-	width: 70px;
-	height: 10px;
-}
-
-.train-info-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.train-info {
-	display: flex;
-	flex-direction: column;
-	max-width: 598px;
-}
-
-.train-info-container {
-	width: 100%;
-}
-
-@media ( max-width : 991px) {
-	.train-info-container {
-		max-width: 100%;
-	}
-}
-
-.train-info-row {
-	display: flex;
-	gap: 20px;
-}
-
-/* @media ( max-width : 991px) {
-   .train-info-row {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-   }
-} */
-.train-info-col {
-	display: flex;
-	flex-direction: column;
-	line-height: normal;
-	width: 82%;
-	margin-left: 0;
-}
-
-media (max-width: 991px) { .train-info-col { width:100%;
-	
-}
-
-}
-.train-info-details {
-	display: flex;
-	flex-grow: 1;
-	gap: 17px;
-	text-align: center;
-	padding: 0 20px;
-}
-
-/* @media ( max-width : 991px) {
-   .train-info-details {
-      margin-top: 40px;
-   }
-} */
-.train-info-times {
-	display: flex;
-	flex-direction: column;
-	white-space: nowrap;
-	flex-grow: 1;
-	flex-basis: 0;
-	width: fit-content;
-}
-
-/* @media ( max-width : 991px) {
-   .train-info-times {
-      white-space: initial;
-   }
-} */
-.train-info-header {
-	display: flex;
-	gap: 20px;
-	/*    border: 5px solid purple; */
-}
-
-.train-info-name {
-	display: flex;
-	flex-direction: column;
-	/*    border: 3px solid red; */
-}
-
-/* @media ( max-width : 991px) {
-   .train-info-name {
-      white-space: initial;
-   }
-} */
-.train-name {
 	border-radius: 5px;
-	background-color: #010101;
-	color: #fff;
+	transition: background-color 0.1s ease;
+	/* Add transition for hover effect */
+}
+
+.area:hover {
+	background-color: #f0f0f0;
+}
+
+.people_sort_bar, .btn_sort_bar, .date_start {
+	position: relative;
+	top: -50px;
+	height: 60px;
+	border-radius: 17px;
+	background-color: #edf0f9;
+}
+
+.arrival_box, .departure_box {
+	position: relative;
+	top: -50px;
+	width: 210px;
+	left: -40px;
+	height: 60px;
+	padding-left: 45px;
+	background-color: #edf0f9;
+}
+
+.arrival_box {
+	border-right: 1px solid #cbd5e0;
+	border-radius: 17px 0 0 17px;
+}
+
+.departure_box {
+	border-left: 1px solid #cbd5e0;
+	border-radius: 0 17px 17px 0;
+}
+
+.date_start {
+	left: -40px;
+	width: 150px;
+	margin-left: 30px;
+}
+
+.people_sort_bar {
+	width: 150px;
+	left: -10px;
+}
+
+.btn_sort_bar {
+	left: 15px;
+	width: 100px;
+	height: 60px;
+	color: white;
+	border-radius: 19px;
+	background-color: #00256C;
+}
+
+.sort_bar {
+	position: relative;
+	top: 130px;
+	left: 23%;
+	width: 1000px;
+	height: 200px;
+	font-size: 16px;
+	display: flex;
 	justify-content: center;
-	padding: 6px 12px;
-	font: 700 10px Inter, sans-serif;
+	align-items: center;
+	border: 2px solid #cbd5e0;
+	border-radius: 50px;
+	background-color: white;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
-/* @media ( max-width : 991px) {
-   .train-name {
-      white-space: initial;
-   }
+.bus_icon {
+	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+	position: relative;
+	top: -48px;
+	left: -5px;
+	z-index: 5;
 }
- */
-.train-time {
+
+/*중앙 출발 도착 장소 메뉴*/
+.outer-arrow {
+	position: absolute;
+	top: 42%;
+	left: 48.5%;
+	transform: translate(-50%, -50%);
 	display: flex;
-	margin-top: 17px;
-	gap: 20px;
-	justify-content: space-between;
+	flex-direction: column; /* 요소들을 수직으로 배치 */
+	width: 500px;
+	height: 90px;
+	border-radius: 20px;
+	color: white;
+	background-color: #7e9dd9;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
-.departure-time {
-	color: #000;
-	font: 700 34px Inter, sans-serif;
-	/*    border: 3px solid blue; */
-	height: 50px;
+.departure-place {
+	margin-bottom: 15px;
+	font-size: 18px;
+	letter-spacing: 3px;
 }
 
-.outer-arrival-icon {
-	/*    border: 3px solid blue; */
-	display: flex;
-	align-items: end;
-}
-
-.arrival-icon {
-	color: #525252;
-	font: 600 29px Inter, sans-serif;
-	/*    border: 3px solid blue;
- */
-	height: 50px;
-}
-
-.outer-arrival-time {
-	display: flex;
-	align-items: end;
-	/*    border: 3px solid red; */
-}
-
-.arrival-time {
-	color: #000;
-	height: 50px;
-	font: 700 34px Inter, sans-serif;
-	/*    margin-top: 33px; */
-	/*      border: 3px solid;  */
-}
-
-.train-class {
-	display: flex;
-	margin-top: 18px;
-	gap: 20px;
+.bus-total-time {
 	font-size: 15px;
 }
 
-/* @media ( max-width : 991px) {
-   .train-class {
-      white-space: initial;
-   }
-} */
-.class-general {
+.arrow {
+	margin: 0 10px;
+	font-size: 15px;
+	color: white;
+}
+
+/* 추천목록 중앙서치박스 */
+.searchBox {
 	display: flex;
-	gap: 11px;
-	flex: 1;
-}
-
-@media ( max-width : 991px) {
-	.class-general {
-		white-space: initial;
-	}
-}
-
-.class-general-label {
-	font-family: Inter, sans-serif;
-	border-radius: 5px;
-	background-color: #d9d9d9;
-	color: #fff;
-	font-weight: 700;
 	justify-content: center;
-	padding: 7px;
+	position: relative;
+	border-top: 1px solid rgba(237, 240, 249, 1);
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+	top: 135px;
+	left: 23%;
+	width: 1000px;
+	height: 200px;
+	border-radius: 50px;
+	border: 2px solid #cbd5e0;
+	background-color: white;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
-/* @media ( max-width : 991px) {
-   .class-general-label {
-      white-space: initial;
-   }
-} */
-.class-general-status {
-	color: #000;
-	font-family: Inter, sans-serif;
-	font-weight: 500;
-	margin: auto 0;
-}
-
-.class-special {
+.search-header {
+	position: relative;
 	display: flex;
-	gap: 11px;
-	flex: 1;
-}
-/* 
-@media ( max-width : 991px) {
-   .class-special {
-      white-space: initial;
-   }
-}
- */
-.class-special-label {
-	font-family: Inter, sans-serif;
-	border-radius: 5px;
-	background-color: #d9d9d9;
-	color: #fff;
-	font-weight: 700;
+	width: 1000px;
 	justify-content: center;
-	padding: 7px 8px;
-}
-
-/* @media ( max-width : 991px) {
-   .class-special-label {
-      white-space: initial;
-   }
-} */
-.class-special-status {
-	color: #000;
-	font-family: Inter, sans-serif;
-	font-weight: 500;
-	margin: auto 0;
-}
-
-.small-outer-travel-time {
-	/*    border: 3px solid green; */
-	margin-top: 35px;
-	height: 50px;
-	display: flex;
-	align-items: end;
-}
-
-.outer-travel-time {
-	display: flex;
-	align-items: end;
-	height: 100px;
-	/*    border: 2px solid;  */
-	margin-top: 10px;
-}
-
-.travel-time {
-	color: #000;
-	margin: auto 0;
-	font: 400 20px Inter, sans-serif;
-	/*    border: 3px solid;  */
-}
-
-.booking-col {
-	display: flex;
-	line-height: normal;
-	width: 18%;
-	margin-left: 20px;
-	/*    border: 3px solid red; */
 	align-items: center;
 }
 
-.outer-booking-btn {
-	/* border: 3px solid; */
-	
-}
-
-.booking-btn {
-	border-radius: 10px;
-	background-color: #d9d9d9;
-	/* margin-top: 44px; */
-	color: #000;
-	white-space: nowrap;
-	text-align: center;
-	width: 100%;
-	justify-content: center;
-	padding: 12px 30px;
-	font: 400 20px Inter, sans-serif;
-}
-
-/* @media ( max-width : 991px) {
-   .booking-btn {
-      margin-top: 40px;
-      white-space: initial;
-      padding: 0 20px;
-   }
-} */
-.divider {
-	border-color: rgba(0, 0, 0, 1);
-	border-style: solid;
-	/*    border-width: 1px; */
-	/* background-color: #000; */
-	/*    min-height: 1px; */
-	/*    margin-top: 5px; */
-	width: 100%;
-	/* border: 3px solid; */
-}
-
-@media ( max-width : 991px) {
-	.divider {
-		max-width: 100%;
-	}
+.search-content {
+	position: relative;
+	display: flex;
+	height: 72px;
+	justify-content: space-between;
 }
 
 /* 검색칸 */
@@ -1434,124 +399,230 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	gap: 4px;
 }
 
-.origin-airport {
-	border-radius: 22px 4px 4px 22px;
-	background-color: #edf0f9;
+.search-button {
 	display: flex;
-	gap: 14px;
+	height: 70px;
+	font-size: 16px;
+	color: white;
+	background-color: #00256C;
+	border-radius: 37px;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-date {
+	position: relative;
 	font-size: 14px;
 	color: #24262c;
-	font-weight: 400;
-	line-height: 130%;
-	flex: 1;
-	padding: 12px 80px 12px 16px;
+	width: 120px;
+	margin-right: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 22px 4px 4px 22px;
+	padding: 12px 5px 12px 16px;
+	background-color: #edf0f9;
 }
 
-.airport-icon {
-	width: 20px;
-	aspect-ratio: 1;
-	object-fit: contain;
-	object-position: center;
-}
-
-.origin-airport-code {
-	font-family: Roboto, sans-serif;
-	margin: auto 0;
-}
-
-.destination-airport {
+.select_people {
+	position: relative;
+	display: flex;
+	height: 72px;
+	width: 100px;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 5px 8px 0;
 	border-radius: 4px 22px 22px 4px;
 	background-color: #edf0f9;
+	margin-right: 10px;
+	border-radius: 4px 22px 22px 4px;
+}
+
+.train_icon {
+	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 	display: flex;
-	gap: 14px;
-	flex: 1;
-	padding: 8px 80px 8px 0;
-}
-
-.destination-airport-icons {
+	justify-content: center;
+	align-items: center;
 	display: flex;
-	gap: 5px;
 }
 
-/* .destination-airport-pin {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   border-radius: 999px;
-   box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.2);
-   background-color: #fff;
-   width: 58px;
-   height: 28px;
-   padding: 0 6px;
-   border: 3px solid;
-   margin-top: 15px;
-
-   
-   
-   
-} */
-.pin-icon {
-	width: 16px;
-	aspect-ratio: 1;
-	object-fit: contain;
-	object-position: center;
-}
-
-.plane-icon {
-	width: 20px;
-	aspect-ratio: 1;
-	object-fit: contain;
-	object-position: center;
-	margin: auto 0;
-}
-
-.destination-airport-code {
-	color: #24262c;
-	margin: auto 0;
-	font: 400 14px/130% Roboto, sans-serif;
-}
-
-.searchBox2 {
-	margin-top: 20px;
-	/* border: 3px solid; */
-}
-
-/* 예매가능 버스 목록 */
-.bus-details {
+/* 왼쪽 서치박스*/
+.list-container {
 	display: flex;
-	max-width: 603px;
-	flex-direction: column;
+	position: relative;
+	top: 245px;
+	left: 30px;
 }
 
-.bus-info {
+.accommodation-nav-list {
+	position: relative;
+	width: 337px;
+	list-style: none;
+	padding: 0;
+}
+
+.accommodation-nav-item {
+	width: 200px;
+	background-color: #00256C;
+	color: white;
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+.dropdown-content {
+	display: none;
+	width: 200px;
+	height: 140px;
+	color: black;
+	list-style: none;
+	padding-top: 3px;
+	border-top: 2px solid #cbd5e0;
+	border-bottom: 2px solid #cbd5e0;
+}
+
+.dropdown-content li {
+	padding: 10px;
+	text-align: center;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.ticket_box {
+	position: relative;
+	top: 150px;
+	left: 23%;
+	height: 200px;
+	width: 1000px;
+}
+
+/*상단 바*/
+body {
 	width: 100%;
+	height: 130%;
+	margin: 0;
+	padding: 0;
 }
 
-@media ( max-width : 991px) {
-	.bus-info {
-		max-width: 100%;
-	}
+.header {
+	display: flex;
+	position: absolute;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
 }
 
-.bus-info-wrapper {
+.logo {
+	text-align: center;
+}
+
+.header_menu {
 	display: flex;
 	gap: 20px;
 }
 
-@media ( max-width : 991px) {
-	.bus-info-wrapper {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 0;
-	}
+.header_menu button:hover {
+	border-bottom: 1px solid;
 }
 
+.hd_logout {
+	margin-top: 3.5px;
+	font-size: 12.5px;
+}
+
+.hd_logout:hover {
+	border-bottom: 1px solid;
+}
+
+.username {
+	flex-grow: 1;
+}
+
+.img {
+	position: absolute;
+	width: 100%;
+	height: 150px;
+	left: 0px;
+	top: 57px;
+	background:
+		url('https://velog.velcdn.com/images/vrslxowe/post/6a05efd0-4dc6-4340-a064-537f0309bea6/image.jpg')
+		no-repeat;
+	background-size: cover;
+}
+
+/* 예매가능 버스 목록 */
 .bus-info-main {
-	display: flex;
+	position: relative;
+	display: inline-block;
+	top: 160px;
+	left: 27%;
+	height: 0;
+	width: 850px;
 	flex-direction: column;
 	line-height: normal;
-	width: 84%;
-	margin-left: 0;
+}
+
+.bus_box {
+	position: relative;
+	height: 200px;
+}
+
+.bus-class {
+	border-radius: 5px;
+	background-color: #B6CCF4;
+	color: #e70815;
+	justify-content: center;
+	padding: 6px 12px;
+	font-size: 14px;
+}
+
+.bus-operator {
+	position: relative;
+	font-size: 14px;
+	top: -24.5px;
+	left: 50px;
+}
+
+.departure-time {
+	position: relative;
+	font-size: 14px;
+	height: 70px;
+	width: 100px;
+	left: 80px;
+	top: 37.5px;
+	text-align: center;
+}
+
+.view-details {
+	position: relative;
+	justify-content: center;
+	left: 400px;
+	top: -13px;
+}
+
+.bus_box_btn {
+	position: relative;
+	display: flex;
+	width: 75px;
+	height: 50px;
+	left: 700px;
+	top: -50px;
+	font-size: 16px;
+	color: white;
+	background-color: #00256C;
+	border-radius: 37px;
+	justify-content: center;
+	align-items: center;
+}
+
+.arrow {
+	color: #525252;
+	font: 600 29px Inter, sans-serif;
+	height: 50px;
 }
 
 @media ( max-width : 991px) {
@@ -1560,26 +631,10 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 
-.bus-info-header {
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-	align-items: start;
-	text-align: center;
-	/*    border: 3px solid; */
-	width: 700px;
-}
-
 @media ( max-width : 991px) {
 	.bus-info-header {
 		max-width: 100%;
 	}
-}
-
-.bus-type {
-	display: flex;
-	gap: 10px;
-	white-space: nowrap;
 }
 
 @media ( max-width : 991px) {
@@ -1588,27 +643,10 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 
-.bus-speed {
-	border-radius: 5px;
-	background-color: #f30e0e;
-	color: #fff;
-	justify-content: center;
-	padding: 5px 13px;
-	font: 700 10px Inter, sans-serif;
-}
-
 @media ( max-width : 991px) {
 	.bus-speed {
 		white-space: initial;
 	}
-}
-
-.bus-class {
-	background-color: #fff;
-	color: #e70815;
-	justify-content: center;
-	padding: 3px 6px;
-	font: 500 15px Inter, sans-serif;
 }
 
 @media ( max-width : 991px) {
@@ -1617,123 +655,16 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 
-.bus-timings {
-	background-color: #fff;
-	align-self: stretch;
-	display: flex;
-	gap: 17px;
-	font-size: 34px;
-	color: #000;
-	padding: 15px 20px 0 0;
-	/*     border: 3px solid; */
-	width: 500px;
-}
-
 @media ( max-width : 991px) {
 	.bus-timings {
 		flex-wrap: wrap;
 	}
 }
 
-.departure-time {
-	font-family: Inter, sans-serif;
-	font-weight: 700;
-}
-
-.arrow {
-	color: #525252;
-	font: 600 29px Inter, sans-serif;
-	/*     border: 3px solid; */
-	height: 50px;
-}
-
-.arrival-time {
-	font-family: Inter, sans-serif;
-	font-weight: 300;
-}
-
-.duration {
-	flex-grow: 1;
-	flex-basis: auto;
-	margin: auto 0;
-	font: 400 20px Inter, sans-serif;
-	/*     border: 3px solid; */
-	width: 300px;
-}
-
-.bus-features {
-	display: flex;
-	/*   margin-top: 5px; */
-	gap: 20px;
-	font-size: 15px;
-	/* border: 3px solid; */
-}
-
-.bus-type-duration {
-	display: flex;
-	gap: 5px;
-	flex: 1;
-}
-
-.bus-type-label {
-	font-family: Inter, sans-serif;
-	border-radius: 5px;
-	background-color: #d9d9d9;
-	color: #fff;
-	font-weight: 700;
-	white-space: nowrap;
-	justify-content: center;
-	padding: 7px;
-	height: 30px;
-	/*     margin-top: 30px; */
-}
-
 @media ( max-width : 991px) {
 	.bus-type-label {
 		white-space: initial;
 	}
-}
-
-.bus-type-duration-value {
-	color: #000;
-	font-family: Inter, sans-serif;
-	font-weight: 500;
-	margin: auto 0;
-	width: 100px;
-}
-
-.bus-operator {
-	color: #000;
-	font-family: Inter, sans-serif;
-	font-weight: 500;
-	flex-grow: 1;
-	flex-basis: auto;
-	margin: auto 0;
-}
-
-.bus-info-price {
-	display: flex;
-	flex-direction: column;
-	line-height: normal;
-	width: 16%;
-	margin-left: 20px;
-}
-
-@media ( max-width : 991px) {
-	.bus-info-price {
-		width: 100%;
-	}
-}
-
-.bus-price-details {
-	display: flex;
-	flex-direction: column;
-	align-self: stretch;
-	color: #000;
-	font-weight: 400;
-	white-space: nowrap;
-	text-align: center;
-	margin: auto 0;
 }
 
 @media ( max-width : 991px) {
@@ -1743,11 +674,16 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 
-.view-details {
-	background-color: #fff;
-	justify-content: center;
-	padding: 10px 16px;
-	font: 300px 14px/110% Roboto, sans-serif;
+@media ( max-width : 991px) {
+	.separator {
+		max-width: 100%;
+	}
+}
+
+@media ( max-width : 991px) {
+	.bus-info-price {
+		width: 100%;
+	}
 }
 
 @media ( max-width : 991px) {
@@ -1756,76 +692,10 @@ media (max-width: 991px) { .train-info-col { width:100%;
 	}
 }
 
-.price {
-	border-radius: 10px;
-	background-color: #fff;
-	justify-content: center;
-	padding: 11px 9px;
-	font: 20px Inter, sans-serif;
-}
-
 @media ( max-width : 991px) {
 	.price {
 		white-space: initial;
 	}
 }
-
-.separator {
-	border-color: rgba(0, 0, 0, 1);
-	border-style: solid;
-	border-width: 1px;
-	background-color: #000;
-	min-height: 1px;
-	margin-top: 25px;
-	width: 640px;
-}
-
-@media ( max-width : 991px) {
-	.separator {
-		max-width: 100%;
-	}
-}
-
-/*출발,도착장소 css*/
-
-/*좌측 출발 도착 장소 메뉴*/
-.place-box {
-	width: 17%;
-	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
-	text-align: center;
-	border: 2px solid red;
-}
-
-.outer-arrow {
-	width: 200px;
-	height: 100px;
-	/* display: flex; */
-	display: inline-block;
-	align-items: center;
-	border: 2px solid red;
-}
-
-.bus-place {
-	display: flex;
-	align-items: center;
-}
-
-.departure-place, .arrive-place {
-	font-weight: bold; /* 필요에 따라 텍스트 스타일 조절 */
-}
-
-.outer-arrow {
-	margin: 10px 10px; /* 필요에 따라 화살표 좌우 여백 조절 */
-}
-
-.arrow {
-	margin: 0 10px; /* 출발 도착장소와 화살표 사이의 여백 조정 */
-	font-size: 15px; /* 필요에 따라 화살표 크기 조절 */
-	color: #333; /* 필요에 따라 화살표 색상 조절 */
-}
-
-.bus-total-time {
-	margin-left: 10px; /* 필요에 따라 총 소요 시간과의 간격 조절 */
-}
 </style>
-		<%@ include file="../common/foot.jspf"%>
+<%@ include file="../common/foot.jspf"%>
