@@ -64,7 +64,7 @@
 			<option value="창원역">창원역</option>
 		</select> 
 		<select class="select select-ghost w-full max-w-xs" name="arriveBus" id="arriveBus" placeholder="출발역먼저선택">
-			<option value="">버스역선택</option>
+			
 		</select> 
 		<select class="search-date-text" name="ondate">
 			<option value="">가는날</option>

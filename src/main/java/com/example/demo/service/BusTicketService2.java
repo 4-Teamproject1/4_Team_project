@@ -49,8 +49,7 @@ public class BusTicketService2 {
 		public List<Bus> buscrawl() {
 //			System.setProperty("webdriver.chrome.driver",
 //					"C:/work/chromedriver-win64/chromedriver-win64/chromedriver.exe");
-			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\hunt0\\Desktop\\Eclipse\\chromedriver-win64\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 			WebDriver driver = new ChromeDriver();
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 

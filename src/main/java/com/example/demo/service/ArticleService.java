@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Inquiry;
 import com.example.demo.vo.ResultData;
 
 @Service
@@ -164,6 +165,20 @@ public class ArticleService {
 
 	public int getBadRP(int relId) {
 		return articleRepository.getBadRP(relId);
+	}
+
+	//문의사항
+	public ResultData<Integer> inquirywriteArticle(int loginedMemberId, String title, String body) {
+		articleRepository.inquirywriteArticle(loginedMemberId, title, body);
+
+		int id = articleRepository.getLastInsertId();
+
+		return ResultData.from("S-1", Ut.f("%d번 글이 생성되었습니다", id), "id", id);
+	}
+
+	public Inquiry getInquiry(int id) {
+		
+		return articleRepository.getInquiry(id);
 	}
 
 }
