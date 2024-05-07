@@ -6,6 +6,7 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -13,11 +14,14 @@
 	<nav class="header_menu">
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
-		</a> <a href="../conference/list">
+		</a>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -37,9 +41,12 @@
 </div>
 
 <div class="Question_box file">
-	<div class="Ques1" placeholder="첨부파일 없음">첨부파일</div>
-	<div class="Ques2 file_attachment"></div>
-	<button class="Ques2 file_btn">파일 선택하기</button>
+	<div class="Ques1">첨부파일</div>
+	<label for="file">
+		<div class="file_btn">파일 선택</div>
+	</label>
+	<input type="file" name="file" id="file">
+	<span id="fileName"></span>
 </div>
 
 <div class="Question_box content">
@@ -48,6 +55,17 @@
 </div>
 
 <button class="write_btn">등록</button>
+
+<script>
+
+document.getElementById('file').addEventListener('change', function() {
+    var fileInput = document.getElementById('file');
+    var fileNameDisplay = document.getElementById('fileName'); // 파일 이름을 표시할 요소 선택
+    var fileName = fileInput.value.split('\\').pop(); // 파일 경로에서 파일 이름 추출
+    fileNameDisplay.textContent = fileName; // 파일 이름을 화면에 표시
+});
+
+</script>
 
 <style>
 body {
@@ -76,16 +94,18 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
+
 .hd_logout:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .username {
@@ -140,7 +160,7 @@ body {
 }
 
 .Question_box {
-	top: 240px;
+	top: 260px;
 	left: 25%;
 	height: 87px;
 	width: 1000px;
@@ -191,15 +211,33 @@ body {
 }
 
 .file_btn {
-	top: -105%;
-	left: 41%;
-	width: 95px;
+	position: relative;
+	display: flex;
+	top: -75%;
+	left: 20%;
+	width: 90px;
 	height: 38px;
-	font-size: 12.5px;
+	font-size: 14px;
 	border-radius: 10px;
-	background: #7E9DD9;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: #7E9DD9;
 	color: white;
 	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+.file_btn:hover {
+    background-color: #C3D0F3;
+    color: white;
+  }
+#file {
+  display: none;
+}
+#fileName {
+    display: inline-block;
+    margin-top: 5px; /* 파일 이름과 다른 내용 간의 간격 조절 */
+    color: #333; /* 파일 이름 텍스트 색상 */
+    font-size: 14px; /* 파일 이름 텍스트 크기 */
 }
 
 .write_btn {
