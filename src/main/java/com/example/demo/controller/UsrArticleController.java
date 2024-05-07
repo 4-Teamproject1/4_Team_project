@@ -16,6 +16,7 @@ import com.example.demo.service.ReplyService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
+import com.example.demo.vo.Inquiry;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -292,4 +293,38 @@ public class UsrArticleController {
 				"../article/list");
 	}
 
+	
+	//문의사항
+	@RequestMapping("/usr/article/inquiry")
+	public String showinquiry(HttpServletRequest req) {
+
+		return "usr/article/inquiry";
+	}
+
+	@RequestMapping("/usr/article/doinquirywrite")
+	@ResponseBody
+	public String doWrite(HttpServletRequest req, String title, String body) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		if (Ut.isNullOrEmpty(title)) {
+			return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
+		}
+		if (Ut.isNullOrEmpty(body)) {
+			return Ut.jsHistoryBack("F-2", "내용을 입력해주세요");
+		}
+
+		ResultData<Integer> inquirywriteArticleRd = articleService.inquirywriteArticle(rq.getLoginedMemberId(), title, body);
+
+		int id = (int) inquirywriteArticleRd.getData1();
+
+		Inquiry Inquiry = articleService.getInquiry(id);
+
+		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../article/inquiry?id=" + id);
+
+	}
+	
+
+	
+	
 }
