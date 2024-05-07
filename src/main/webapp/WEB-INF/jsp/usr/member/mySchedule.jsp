@@ -6,6 +6,26 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<script>
+    // JSP에서 받아온 conferences와 competitions 데이터를 JavaScript 변수에 할당하여 전달
+    var conferencesData = ${conferences};
+    var competitionsData = ${competitions};
+    
+    
+// 예시 이벤트 데이터
+    var conference = {
+        eventName: "한국생명공학연구원 KPEC 감염병 대응 세미나",
+        eventPeriod: "24.05.20",
+        location: "대전광역시 유성구 과학로 125"
+    };
+
+    // 이벤트의 기간 정보를 받아와서 날짜로 변환
+    var dateString = conference.eventPeriod;
+    var eventDate = moment(dateString, "YY.MM.DD").format("YYYY년 M월 D일");
+
+    console.log(eventDate); // 결과: "2024년 5월 20일"
+
+</script>
 
 <script>
 	!(function() {
@@ -56,16 +76,14 @@
 				self.scrollContainer.style.top = newTop + "px";
 			}, 500); // 애니메이션 기간에 맞춰 지연 조정
 		};
-		// 캘린더 그리기 함수
+		// draw 함수 내부
 		Calendar.prototype.draw = function() {
-			// 헤더 생성
-			this.drawHeader();
-			// 달 그리기
-			this.drawMonth();
-			// 스크롤 컨테이너의 내용을 지우기
-			this.scrollContainer.innerHTML = '';
-			// 현재 달의 이벤트들을 그리고 스크롤 컨테이너에 추가
-			this.showAllEvents();
+		    // 먼저 헤더를 표시
+		    this.drawHeader();
+		    // 그다음, 달을 표시
+		    this.drawMonth();
+		    // 추가한 이벤트 데이터를 달력에 그리기
+		    this.addEvents();
 		};
 		// 헤더 그리기 함수
 		Calendar.prototype.drawHeader = function() {
@@ -210,25 +228,49 @@
 			this.week.appendChild(outer);
 
 		};
+		
+	/* 	// Calendar 객체의 데이터에 eventPeriod 및 applicationPeriod 추가
+		Calendar.prototype.setData = function(events) {
+		    this.events = events.map(function(event) {
+		        return {
+		            eventName: event.eventName,
+		            eventPeriod: event.eventPeriod, // eventPeriod 추가
+		            applicationPeriod: event.applicationPeriod, // applicationPeriod 추가
+		            calendar: event.calendar,
+		            color: event.color
+		        };
+		    });
+		}; */
+		
 		// 날짜에 해당하는 이벤트를 그리는 함수
 		Calendar.prototype.drawEvents = function(day, element) {
-	
+		    // 날짜와 일치하는 이벤트 필터링
+		    var todaysEvents = this.events.filter(function(ev) {
+		        return ev.eventPeriod === day.format("YY.MM.DD");
+		    });
 
-			if (day.month() === this.current.month()) {
-				var todaysEvents = this.events.reduce(function(memo, ev) {
-					if (ev.date.isSame(day, "day")) {
-						memo.push(ev);
-					}
-					return memo;
-				}, []);
-				todaysEvents.forEach(function(ev) {
-					var evSpan = createElement("span", ev.color);
-					var eventNameSpan = createElement("span", "event-name",
-							ev.eventName); // 이벤트 이름을 포함하는 요소 생성
-					evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
-					element.appendChild(evSpan);
-				});
-			}
+		    // 필터링된 이벤트를 표시
+		    todaysEvents.forEach(function(ev) {
+		        var evSpan = createElement("span", ev.color);
+		        var eventNameSpan = createElement("span", "event-name", ev.eventName);
+		        evSpan.appendChild(eventNameSpan);
+		        element.appendChild(evSpan);
+		    });
+		};
+		
+
+		// 이벤트 데이터를 달력에 그리기
+		Calendar.prototype.addEvents = function() {
+		    var self = this;
+		    var daysInMonth = this.current.daysInMonth();
+		    for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+		        var day = this.current.clone().date(dayNumber);
+		        var dayElement = this.el.querySelector('.day[data-day="' + day.format("YYYY-MM-DD") + '"]');
+		        var eventsContainer = dayElement.querySelector('.day-events');
+
+		        // 날짜에 해당하는 이벤트를 그리기
+		        this.drawEvents(day, eventsContainer);
+		    }
 		};
 		// 날짜에 따라 클래스를 설정하는 함수
 		Calendar.prototype.getDayClass = function(day) {
@@ -250,7 +292,7 @@
 			for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
 				var day = this.current.clone().date(dayNumber);
 				var todaysEvents = this.events.filter(function(ev) {
-					return ev.date.isSame(day, "day"); // 현재 날짜에 해당하는 이벤트들을 필터링하여 todaysEvents 변수에 저장합니다.
+					 return ev.eventPeriod === day.format("YY.MM.DD");
 				});
 				// 전체 월에 대한 이벤트 표시
 				if (todaysEvents.length > 0) {
@@ -369,52 +411,49 @@
 		}
 	})();
 	!(function() {
-		var data = [ {
-			eventName : "한일차세대학세미나",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "한국미디어문화학회 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "국제성인역량조사(PIAAC) 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "환태평양 정신의학회 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "KT&G 상상실현 콘테스트",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "제6회 교육 공공데이터 분석·활용대회",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "CICA 미술관 국제전 “Drawing Now 2024” 공모",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "사하 수필공모전",
-			calendar : "contest",
-			color : "gray"
-		} ];
+		// conferences 데이터 생성
+		var conferences = [
+		    <c:forEach var="conference" items="${conferences}" varStatus="loop">
+		        {
+		            eventName: "${conference.title}",
+		            eventPeriod: "${conference.eventPeriod}", // 행사 기간
+		            calendar: "conference",
+		            color: "blue"
+		        }<c:if test="${!loop.last}">,</c:if>
+		    </c:forEach>
+		];
 
-		function addDate(ev) {
-		}
-		// draw 함수 내부
-		Calendar.prototype.draw = function() {
-			// 먼저 헤더를 표시
-			this.drawHeader();
-			// 그다음, 달을 표시
-			this.drawMonth();
-		};
-		var calendar = new Calendar("#calendar", data);
+		// competitions 데이터 생성
+		var competitions = [
+		    <c:forEach var="competition" items="${competitions}" varStatus="loop">
+		        {
+		            eventName: "${competition.title}",
+		            eventPeriod: "${competition.applicationPeriod}", // 신청 기간
+		            calendar: "contest",
+		            color: "gray"
+		        }<c:if test="${!loop.last}">,</c:if>
+		    </c:forEach>
+		];
+
+		// conferences와 competitions 데이터 합치기
+		var allEvents = conferences.concat(competitions);
+
+		// Calendar 객체 생성 및 conferences와 competitions 데이터 전달
+		var calendar = new Calendar("#calendar", allEvents);
 	})();
+
 </script>
+
+<%-- <!-- conferences 표시 -->
+<c:forEach var="conference" items="${conferences}">
+    <div>${conference.title}</div>
+</c:forEach>
+
+<!-- competitions 표시 -->
+<c:forEach var="competition" items="${competitions}">
+    <div>${competition.title}</div>
+</c:forEach>
+ --%>
 
 <header class="header_logo">
 	<a href="../home/main">
@@ -481,18 +520,19 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
-.hd_logout:hover {
-    border-bottom: 1px solid;
-}
 
+.hd_logout:hover {
+	border-bottom: 1px solid;
+}
 
 .username {
 	flex-grow: 1;
@@ -746,9 +786,9 @@ body {
 
 /* 이벤트 목록 */
 .events {
-/* position: relative;
+	/* position: relative;
     top: -20px; /* 위로 올리고 싶은 만큼의 값 */
-    right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
+	right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
 	height: auto;
 	width: auto;
 	padding: 7px 0;
@@ -758,7 +798,7 @@ body {
 	/* 스크롤바 숨김 */
 	-ms-overflow-style: none;
 	/* Firefox IE 10+ */
-/* 	border: 3px solid red; */
+	/* 	border: 3px solid red; */
 }
 
 /* 이벤트 목록 입장 애니메이션 */
@@ -872,82 +912,83 @@ body {
 	background: #7E9DD9;
 }
 
-  /* 애니메이션 */
-  /*화면 위에서 아래로 이동하면서 페이드 인되는 애니메이션(WebKit(Chrome, Safari 등)에서 작동)*/
-  @-webkit-keyframes moveFromTopFade {
-    from {
-      opacity: 0.3;
-      height: 0px;
-      margin-top: 0px;
-      -webkit-transform: translateY(-100%);
-    }
-  }
+/* 애니메이션 */
+/*화면 위에서 아래로 이동하면서 페이드 인되는 애니메이션(WebKit(Chrome, Safari 등)에서 작동)*/
+@
+-webkit-keyframes moveFromTopFade {from { opacity:0.3;
+	height: 0px;
+	margin-top: 0px;
+	-webkit-transform: translateY(-100%);
+}
 
-  /*화면 위에서 아래로 이동하면서 페이드 인되는 애니메이션*/
-  @-webkit-keyframes moveToTopFade {
-    to {
-      opacity: 0.3;
-      height: 0px;
-      margin-top: 0px;
-      opacity: 0.3;
-      -webkit-transform: translateY(-100%);
-    }
-  }
+}
 
-  /*화면 위에서 위로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
-  @-webkit-keyframes moveToTopFadeMonth {
-    to {
-      opacity: 0;
-      -webkit-transform: translateY(-30%) scale(0.95);
-    }
-  }
+/*화면 위에서 아래로 이동하면서 페이드 인되는 애니메이션*/
+@
+-webkit-keyframes moveToTopFade {to { opacity:0.3;
+	height: 0px;
+	margin-top: 0px;
+	opacity: 0.3;
+	-webkit-transform: translateY(-100%);
+}
 
-  /* 화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
-  @-webkit-keyframes moveFromTopFadeMonth {
-    from {
-      opacity: 0;
-      -webkit-transform: translateY(30%) scale(0.95);
-    }
-  }
+}
 
-  /* 화면 위에서 아래로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
-  @-webkit-keyframes moveToBottomFadeMonth {
-    to {
-      opacity: 0;
-      -webkit-transform: translateY(30%) scale(0.95);
-    }
-  }
+/*화면 위에서 위로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
+@
+-webkit-keyframes moveToTopFadeMonth {to { opacity:0;
+	-webkit-transform: translateY(-30%) scale(0.95);
+}
 
-  /*화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
-  @-webkit-keyframes moveFromBottomFadeMonth {
-    from {
-      opacity: 0;
-      -webkit-transform: translateY(-30%) scale(0.95);
-    }
-  }
+}
 
-  /*화면에 나타나면서 서서히 나타나는 애니메이션*/
-  @-webkit-keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-  }
+/* 화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
+@
+-webkit-keyframes moveFromTopFadeMonth {from { opacity:0;
+	-webkit-transform: translateY(30%) scale(0.95);
+}
 
-  /*화면에서 사라지면서 서서히 사라지는 애니메이션*/
-  @-webkit-keyframes fadeOut {
-    to {
-      opacity: 0;
-    }
-  }
+}
 
-  /*요소가 사라지면서 크기가 축소되는 애니메이션*/
-  @-webkit-keyframes fadeOutShink {
-    to {
-      opacity: 0;
-      padding: 0px;
-      height: 0px;
-    }
-  }
+/* 화면 위에서 아래로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
+@
+-webkit-keyframes moveToBottomFadeMonth {to { opacity:0;
+	-webkit-transform: translateY(30%) scale(0.95);
+}
+
+}
+
+/*화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
+@
+-webkit-keyframes moveFromBottomFadeMonth {from { opacity:0;
+	-webkit-transform: translateY(-30%) scale(0.95);
+}
+
+}
+
+/*화면에 나타나면서 서서히 나타나는 애니메이션*/
+@
+-webkit-keyframes fadeIn {from { opacity:0;
+	
+}
+
+}
+
+/*화면에서 사라지면서 서서히 사라지는 애니메이션*/
+@
+-webkit-keyframes fadeOut {to { opacity:0;
+	
+}
+
+}
+
+/*요소가 사라지면서 크기가 축소되는 애니메이션*/
+@
+-webkit-keyframes fadeOutShink {to { opacity:0;
+	padding: 0px;
+	height: 0px;
+}
+}
 </style>
 
 <%@ include file="../common/foot.jspf"%>
