@@ -208,9 +208,12 @@
 			outer.appendChild(number);
 			outer.appendChild(events);
 			this.week.appendChild(outer);
+
 		};
 		// 날짜에 해당하는 이벤트를 그리는 함수
 		Calendar.prototype.drawEvents = function(day, element) {
+	
+
 			if (day.month() === this.current.month()) {
 				var todaysEvents = this.events.reduce(function(memo, ev) {
 					if (ev.date.isSame(day, "day")) {
@@ -247,7 +250,7 @@
 			for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
 				var day = this.current.clone().date(dayNumber);
 				var todaysEvents = this.events.filter(function(ev) {
-					return ev.date.isSame(day, "day");
+					return ev.date.isSame(day, "day"); // 현재 날짜에 해당하는 이벤트들을 필터링하여 todaysEvents 변수에 저장합니다.
 				});
 				// 전체 월에 대한 이벤트 표시
 				if (todaysEvents.length > 0) {
@@ -255,7 +258,7 @@
 					var dayElement = createElement("div",
 							"day-events-container");
 					var dayNumberElement = createElement("div", "day-number",
-							day.format("DD일"));
+							day.format("DD일")); //날짜를 표시하는 요소를 생성하고, 해당 요소를 dayNumberElement 변수에 할당합니다. 이때 day.format("DD일")은 날짜를 "DD일" 형식으로 포맷하여 반환합니다.
 					dayElement.appendChild(dayNumberElement);
 					self.renderEvents(todaysEvents, dayElement);
 					scrollContainer.appendChild(dayElement);
