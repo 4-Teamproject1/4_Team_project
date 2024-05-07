@@ -3,6 +3,8 @@
 <c:set var="pageTitle" value="RecommendBus List"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
@@ -56,6 +58,7 @@
 
 <form id="bus_searchform" action="/usr/article/recommendBusList" method="GET">
 	<div class="sort_bar">
+		<span class="material-symbols-outlined bus_icon">directions_bus</span>
 		<select class="select select-ghost w-full max-w-xs arrival_box" name="departureBus" id="">
 			<option value="">출발 터미널</option>
 			<option value="강릉">강릉</option>
@@ -129,11 +132,39 @@
 			<option value="여수">여수</option>
 			<option value="인천">인천</option>
 		</select>
-		<div class="date_start">
-			2024년 5월 3일
-			<br>
-			금요일
-		</div>
+		<select class="select select-ghost w-full max-w-xs date_start" name="ondate">
+			<option value="">출발 일자</option>
+			<option value="1">1일</option>
+			<option value="2">2일</option>
+			<option value="3">3일</option>
+			<option value="4">4일</option>
+			<option value="5">5일</option>
+			<option value="6">6일</option>
+			<option value="7">7일</option>
+			<option value="8">8일</option>
+			<option value="9">9일</option>
+			<option value="10">10일</option>
+			<option value="11">11일</option>
+			<option value="12">12일</option>
+			<option value="13">13일</option>
+			<option value="14">14일</option>
+			<option value="15">15일</option>
+			<option value="16">16일</option>
+			<option value="17">17일</option>
+			<option value="18">18일</option>
+			<option value="19">19일</option>
+			<option value="20">20일</option>
+			<option value="21">21일</option>
+			<option value="22">22일</option>
+			<option value="23">23일</option>
+			<option value="24">24일</option>
+			<option value="25">25일</option>
+			<option value="26">26일</option>
+			<option value="27">27일</option>
+			<option value="28">28일</option>
+			<option value="29">29일</option>
+			<option value="30">30일</option>
+		</select>
 		<select class="select people_sort_bar">
 			<option>1명</option>
 			<option>2명</option>
@@ -164,7 +195,7 @@
 						<div class="bus-operator">${bus.companyName}</div>
 						<div class="departure-time">
 							출발시간
-							<div style="font-size:23px; font-weight: bold;">${bus.startTime}</div>
+							<div style="font-size: 23px; font-weight: bold;">${bus.startTime}</div>
 						</div>
 						<span class="view-details">${bus.remainingSeats}</span>
 						<button class="bus_box_btn btn">예매</button>
@@ -235,10 +266,10 @@
 .arrival_box, .departure_box {
 	position: relative;
 	top: -50px;
-	width: 190px;
+	width: 210px;
 	left: -40px;
 	height: 60px;
-	padding-left: 30px;
+	padding-left: 45px;
 	background-color: #edf0f9;
 }
 
@@ -255,15 +286,11 @@
 .date_start {
 	left: -40px;
 	width: 150px;
-	display: flex;
-	align-items: center;
 	margin-left: 30px;
-	justify-content: center;
-	text-align: center;
 }
 
 .people_sort_bar {
-	width: 190px;
+	width: 150px;
 	left: -10px;
 }
 
@@ -283,12 +310,21 @@
 	width: 1000px;
 	height: 200px;
 	font-size: 16px;
-	border-radius: 21px;
-	border: 1px solid rgba(221, 223, 226, 1);
-	background-color: #fff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: 2px solid #cbd5e0;
+	border-radius: 50px;
+	background-color: white;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+.bus_icon {
+	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+	position: relative;
+	top: -48px;
+	left: -5px;
+	z-index: 5;
 }
 
 /*중앙 출발 도착 장소 메뉴*/
@@ -374,7 +410,7 @@
 	align-items: center;
 }
 
-.search-date-text {
+.search-date {
 	position: relative;
 	font-size: 14px;
 	color: #24262c;
