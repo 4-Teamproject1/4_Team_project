@@ -78,12 +78,22 @@
 		};
 		// draw 함수 내부
 		Calendar.prototype.draw = function() {
+			// 먼저 이전 달의 데이터를 정리
+		    this.clearPreviousMonth();
 		    // 먼저 헤더를 표시
 		    this.drawHeader();
 		    // 그다음, 달을 표시
 		    this.drawMonth();
 		    // 추가한 이벤트 데이터를 달력에 그리기
 		    this.addEvents();
+		};
+		
+		// 달력 그리기 전에 이전 달의 데이터를 정리하는 함수
+		Calendar.prototype.clearPreviousMonth = function() {
+		    var monthContainer = this.el.querySelector('.month');
+		    if (monthContainer) {
+		        monthContainer.remove(); // 이전 달의 모든 데이터를 제거
+		    }
 		};
 		// 헤더 그리기 함수
 		Calendar.prototype.drawHeader = function() {
@@ -111,47 +121,26 @@
 			}
 			this.title.innerHTML = this.current.format("MMM YYYY");
 		};
-		// 달 그리기 함수
 		Calendar.prototype.drawMonth = function() {
-			var self = this;
-			// 이벤트를 각 날짜에 랜덤하게 배치
-			this.events.forEach(function(ev) {
-				ev.date = self.current.clone().date(
-						Math.random() * (29 - 1) + 1);
-			});
-			// 이미 존재하는 경우 이전 달에 대한 처리
-			if (this.month) {
-				this.oldMonth = this.month;
-				this.oldMonth.className = "month out "
-						+ (self.next ? "next" : "prev");
-				this.oldMonth
-						.addEventListener(
-								"webkitAnimationEnd",
-								function() {
-									self.oldMonth.parentNode
-											.removeChild(self.oldMonth);
-									self.month = createElement("div", "month");
-									self.backFill();
-									self.currentMonth();
-									self.fowardFill();
-									self.el.appendChild(self.month);
-									window
-											.setTimeout(
-													function() {
-														self.month.className = "month in "
-																+ (self.next ? "next"
-																		: "prev");
-													}, 16);
-								});
-			} else {
-				// 새로운 달 생성
-				this.month = createElement("div", "month");
-				this.el.appendChild(this.month);
-				this.backFill();
-				this.currentMonth();
-				this.fowardFill();
-				this.month.className = "month new";
-			}
+		    var self = this;
+		    // 새로운 달 생성
+		    this.month = createElement("div", "month");
+		    this.el.appendChild(this.month);
+
+		    this.backFill(); // 이전 달의 마지막 일부를 채움
+		    this.currentMonth(); // 현재 달을 그림
+		    this.fowardFill(); // 다음 달의 처음 일부를 채움
+
+		    // 월 전환 애니메이션 처리
+		    if (this.oldMonth) {
+		        this.oldMonth.className = "month out " + (self.next ? "next" : "prev");
+		        this.oldMonth.addEventListener("animationend", function() {
+		            self.oldMonth.parentNode.removeChild(self.oldMonth);
+		            self.month.className = "month in " + (self.next ? "next" : "prev");
+		        });
+		    } else {
+		        this.month.className = "month new";
+		    }
 		};
 		// 이전 달 채우기 함수
 		Calendar.prototype.backFill = function() {
@@ -228,7 +217,10 @@
 			this.week.appendChild(outer);
 
 		};
-		
+		// Calendar 클래스 내에 이벤트 데이터 관리
+		Calendar.prototype.setData = function(events) {
+		    this.events = events;
+		};
 	/* 	// Calendar 객체의 데이터에 eventPeriod 및 applicationPeriod 추가
 		Calendar.prototype.setData = function(events) {
 		    this.events = events.map(function(event) {
@@ -411,35 +403,38 @@
 		}
 	})();
 	!(function() {
-		// conferences 데이터 생성
-		var conferences = [
-		    <c:forEach var="conference" items="${conferences}" varStatus="loop">
-		        {
-		            eventName: "${conference.title}",
-		            eventPeriod: "${conference.eventPeriod}", // 행사 기간
-		            calendar: "conference",
-		            color: "blue"
-		        }<c:if test="${!loop.last}">,</c:if>
-		    </c:forEach>
-		];
+	    // conferences 데이터 생성
+	    var conferences = [
+	        <c:forEach var="conference" items="${conferences}" varStatus="loop">
+	            {
+	                eventName: "${conference.title}",
+	                eventPeriod: "${conference.eventPeriod}", // eventPeriod 추가
+	                calendar: "conference",
+	                color: "blue"
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
 
-		// competitions 데이터 생성
-		var competitions = [
-		    <c:forEach var="competition" items="${competitions}" varStatus="loop">
-		        {
-		            eventName: "${competition.title}",
-		            eventPeriod: "${competition.applicationPeriod}", // 신청 기간
-		            calendar: "contest",
-		            color: "gray"
-		        }<c:if test="${!loop.last}">,</c:if>
-		    </c:forEach>
-		];
+	    // competitions 데이터 생성
+	    var competitions = [
+	        <c:forEach var="competition" items="${competitions}" varStatus="loop">
+	            {
+	                eventName: "${competition.title}",
+	                eventPeriod: "${competition.applicationPeriod}", // eventPeriod 추가
+	                calendar: "contest",
+	                color: "gray"
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
 
-		// conferences와 competitions 데이터 합치기
-		var allEvents = conferences.concat(competitions);
+	    // conferences와 competitions 데이터 합치기
+	    var allEvents = conferences.concat(competitions);
 
-		// Calendar 객체 생성 및 conferences와 competitions 데이터 전달
-		var calendar = new Calendar("#calendar", allEvents);
+	    // Calendar 객체 생성 및 conferences와 competitions 데이터 전달
+	    var calendar = new Calendar("#calendar", allEvents);
+	    calendar.setData(allEvents); // 초기 데이터 설정
+	 // 페이지 로드 시 최초 달력 그리기
+	    calendar.draw();
 	})();
 
 </script>
