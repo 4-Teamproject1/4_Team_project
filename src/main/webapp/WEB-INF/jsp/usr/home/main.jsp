@@ -7,6 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <script>
 /* 메인 이미지 슬라이드 */
@@ -58,6 +59,8 @@
     });
   });
   </script>
+  
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const searchData = [
@@ -304,18 +307,24 @@ document.addEventListener("DOMContentLoaded", function() {
 		<button class="event-title">학술행사일정</button>
 	</a>
 	<div class="event-schedule-box">
+    <c:forEach var="conference" items="${conferences}" varStatus="status">
+        <c:if test="${status.index < 3}">
+            <button class="event-description">
+                <c:choose>
+                    <c:when test="${fn:length(conference.title) > 30}">
+                        ${fn:substring(conference.title, 0, 30)} ㆍㆍㆍ
+                    </c:when>
+                    <c:otherwise>
+                        ${conference.title}
+                    </c:otherwise>
+                </c:choose>
+                <div class="event-date">${conference.eventPeriod}</div>
+            </button>
+        </c:if>
+    </c:forEach>
+    <a href="../conference/list" class="event-more-button">더보기</a>
+</div>
 
-		<c:forEach var="conference" items="${conferences}" varStatus="status">
-			<c:if test="${status.index < 3}">
-				<button class="event-description">
-					${conference.title}
-					<div class="event-date">${conference.eventPeriod}</div>
-				</button>
-			</c:if>
-		</c:forEach>
-
-		<a href="../conference/list" class="event-more-button">더보기</a>
-	</div>
 </div>
 <div class="event-schedule">
 	<a href="../competition/list">
