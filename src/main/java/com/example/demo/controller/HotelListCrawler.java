@@ -29,7 +29,7 @@ import com.example.demo.vo.Hotel;
 @Component
 public class HotelListCrawler {
 
-	public List<Hotel> crawlHotelList() {
+	public List<Hotel> crawlHotelList(String area) {
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
@@ -52,7 +52,7 @@ public class HotelListCrawler {
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 
 		// 검색어 입력
-		String searchText = "서울";
+		String searchText = area;
 		activatedSearchInput.sendKeys(searchText);
 
 //		// 엔터 입력 (검색 실행)
