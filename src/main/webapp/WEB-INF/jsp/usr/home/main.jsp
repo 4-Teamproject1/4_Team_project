@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   </script>
-  
-  <script>
+
+<script>
 //DOMContentLoaded 이벤트 리스너 내부에서 작성된 코드라고 가정합니다.
   document.querySelectorAll('.search-result-item').forEach(function(item) {
       item.addEventListener('click', function() {
@@ -177,9 +177,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   </script>
-  
-  
-  <script>
+
+
+<script>
   function formatDate(dateString) {
 	    // 날짜와 시간을 공백을 기준으로 분할합니다.
 	    var parts = dateString.split(" ");
@@ -193,8 +193,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
   </script>
-  
-  <script>
+
+<script>
   document.querySelector('.box_date').addEventListener('click', function() {
 	    // 현재 검색 상자에 입력된 텍스트를 가져옵니다.
 	    const searchText = document.querySelector('.SearchBoxTextEditor').value;
@@ -242,16 +242,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="menu_right">
 	<a href="../conference/list">
 		<button class="menu_box2 academicEventList">학회 정보</button>
-	</a> <a href="../member/myQuestion">
+	</a>
+	<a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
-<c:if test="${rq.isLogined() }">
-    <style>
-        .academicEventList, .myquestion {
-            margin-left: 30px; /* 학회 정보와 문의사항 버튼 간격 조절 */
-        }
-    </style>
-</c:if>
+	<c:if test="${rq.isLogined() }">
+		<a href="../member/myInfo">
+			<button class="menu_box2 login">회원정보</button>
+		</a>
+	</c:if>
 	<c:if test="${!rq.isLogined() }">
 		<a href="../member/login">
 			<button class="menu_box2 login">로그인</button>
@@ -266,36 +265,37 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="search_box">
-    <form action="../hotel/recommendlist" method="POST">
-        <input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
-        <div class="search_results"></div>
-        <div class="search_box1">
-            <div class="search_box-1">
-                <input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
-               <input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd" value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
+	<form action="../hotel/recommendlist" method="POST">
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
+		<div class="search_results"></div>
+		<div class="search_box1">
+			<div class="search_box-1">
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd"
+					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
 
-            </div>
-            <div class="search_box-2">
-                <input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
-                <div class="select_box">
-                    <select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
-                        <option disabled selected>인원 수</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                    </select>
-                </div>
-            </div>
-            <div class="search_btn btn">
-                <button type="submit" class="button-style">검색</button>
-            </div>
-        </div>
-    </form>
+			</div>
+			<div class="search_box-2">
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
+				<div class="select_box">
+					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
+						<option disabled selected>인원 수</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+					</select>
+				</div>
+			</div>
+			<div class="search_btn btn">
+				<button type="submit" class="button-style">검색</button>
+			</div>
+		</div>
+	</form>
 </div>
 
 
@@ -374,9 +374,11 @@ h1 {
 	letter-spacing: 40px;
 	transition: background-color 0.3s, box-shadow 0.3s;
 }
+
 .menu_right .menu_box2:hover {
-    text-decoration: underline; /* 마우스 올렸을 때 밑줄 */
+	text-decoration: underline; /* 마우스 올렸을 때 밑줄 */
 }
+
 .logout {
 	letter-spacing: 1px;
 	font-size: 12.5px;

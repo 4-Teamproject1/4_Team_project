@@ -29,7 +29,7 @@ import com.example.demo.vo.Hotel;
 @Component
 public class HotelListCrawler {
 	
-	public List<Hotel> crawlHotelList() {
+	public List<Hotel> crawlHotelList(String area) {
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 

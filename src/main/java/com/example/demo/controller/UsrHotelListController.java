@@ -14,6 +14,7 @@ import com.example.demo.vo.Hotel;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UsrHotelListController {
@@ -30,8 +31,8 @@ public class UsrHotelListController {
 
 	// 액션 메서드
 	@RequestMapping("usr/hotel/crawl")
-	public List<Hotel> crawlAndSaveHotelList() {
-		return hotelListService.crawlAndSaveHotelList();
+	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req,@RequestParam(defaultValue = "서울") String area, HttpServletResponse response) {
+		return hotelListService.crawlAndSaveHotelList(area);
 	}
 
 	@RequestMapping("usr/hotel/list")
