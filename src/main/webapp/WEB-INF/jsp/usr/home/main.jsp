@@ -334,6 +334,43 @@ document.addEventListener("DOMContentLoaded", function() {
 	</div>
 </div>
 
+<div class="team_project_member_profile">
+	<div class="container">
+		<div class="row_container">
+			<div class="profile_container">
+				<div class="profile_box">
+					<div class="profile_picture">
+						<img
+							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+							alt="" />
+					</div>
+					<div class="profile_info"></div>
+				</div>
+			</div>
+			<div class="profile_container">
+				<div class="profile_box">
+					<div class="profile_picture"></div>
+					<div class="profile_info"></div>
+				</div>
+			</div>
+		</div>
+		<div class="high_container">
+			<div class="profile_container">
+				<div class="profile_box">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="profile_container">
+				<div class="profile_box">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <style type="text/css">
 *, *:before, *:after {
 	box-sizing: border-box;
@@ -728,6 +765,47 @@ a.control_next {
 	}
 }
 
+
+
+
+/* 팀프로젝트 조장 및 조원 프로필 css */
+.team_project_member_profile {
+	display: flex;
+	margin-top: 150px;
+	height: 500px;
+	background-color: red;
+	height: 500px;
+}
+
+.container {
+	margin: auto;
+	background-color: blue;
+}
+
+.high_container, .row_container {
+	display: flex;
+}
+
+.profile_container {
+	flex: 1;
+	background-color: yellow;
+	width: 330px;
+	height: 170px;
+	margin: 20 100;
+	border-radius: 5px;
+}
+
+.profile_box {
+	display: flex;
+}
+
+.profile_picture {
+	flex: 1;
+}
+
+.profile_info {
+	flex: 2;
+}
 @media ( max-width : 991px) {
 	.event-schedule {
 		padding: 0 20px;
