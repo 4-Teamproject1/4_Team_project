@@ -31,11 +31,14 @@
 	<nav class="header_menu">
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
-		</a> <a href="../conference/list">
+		</a>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -47,8 +50,9 @@
 
 <div class="list-container">
 	<div class="list-board">
-		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a> <a
-			href="../conference/list" class="list-board-item">학술행사</a> <a href="../competition/list" class="list-board-item">공모전</a>
+		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+		<a href="../conference/list" class="list-board-item">학술행사</a>
+		<a href="../competition/list" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -63,7 +67,9 @@
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${conference.title}</div>
 					<ul class="top-bar-count">
-						<li>조회수 <span>${conference.hitCount}</span>
+						<li>
+							조회수
+							<span>${conference.hitCount}</span>
 						</li>
 
 					</ul>
@@ -83,7 +89,9 @@
 							<td>참가비</td>
 							<td>${conference.entryFee}</td>
 							<td>관련 홈페이지</td>
-							<td><a href="${conference.homepage}">바로가기</a></td>
+							<td>
+								<a href="${conference.homepage}">바로가기</a>
+							</td>
 						</tr>
 						<!--   <tr>
                             <td>담당자 연락처</td>
