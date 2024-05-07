@@ -6,45 +6,79 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
+
+
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		const cityBox = document.querySelector('.city_box');
-		const popup = document.createElement('div');
-		popup.classList.add('popup');
+document.addEventListener("DOMContentLoaded", function() {
+    const cityBox = document.querySelector('.city_box');
+    const popup = document.createElement('div');
+    popup.classList.add('popup');
 
-		// 도시 목록
-		const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
-				"전주", "제주", "청주", "포천", "인천" ];
+    // 도시 목록
+    const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
+            "전주", "제주", "청주", "포천", "인천" ];
 
-		areas.forEach(function(area) {
-			const areaElement = document.createElement('div');
-			areaElement.textContent = area;
-			areaElement.classList.add('area');
-			areaElement.addEventListener('click', function() {
-				cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
-				popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
-			});
-			popup.appendChild(areaElement);
-		});
+    areas.forEach(function(area) {
+        const areaElement = document.createElement('div');
+        areaElement.textContent = area;
+        areaElement.classList.add('area');
+        areaElement.addEventListener('click', function() {
+            cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
+            popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
+        });
+        popup.appendChild(areaElement);
+    });
 
-		cityBox.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-			popup.style.display = 'block';
-		});
+    cityBox.addEventListener('click', function(event) {
+        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+        popup.style.display = 'block';
+    });
 
-		popup.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-		});
+    popup.addEventListener('click', function(event) {
+        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+    });
 
-		document.body.appendChild(popup);
+    document.body.appendChild(popup);
 
-		// 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
-		document.addEventListener('click', function(event) {
-			if (!popup.contains(event.target)) {
-				popup.style.display = 'none';
-			}
-		});
-	});
+    // 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
+    document.addEventListener('click', function(event) {
+        if (!popup.contains(event.target)) {
+            popup.style.display = 'none';
+        }
+    });
+
+    // form 제출 시 input 값을 설정
+    document.querySelector('.btn_sort_bar').addEventListener('click', function(event) {
+        document.querySelector('.city_box').value = cityBox.value;
+    });
+});
+
+
+
+
+    $(document).ready(function(){
+        // date_start_btn 버튼을 클릭할 때의 동작 설정
+        $("#date_start_btn").click(function(){
+            // jQuery UI의 DatePicker를 활성화하고 설정
+            $("#datepicker").datepicker({
+                dateFormat: 'yy년 mm월 dd일',
+                onSelect: function(dateText, inst) {
+                    // 선택한 날짜를 텍스트 입력란에 넣음
+                    $(".city_box").val(dateText);
+                }
+            });
+            // 달력 표시
+            $("#datepicker").datepicker("show");
+        });
+    });
+</script>
+
 </script>
 
 <header class="header">
@@ -52,13 +86,23 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a> <a href="../conference/list">
+		    <c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -75,15 +119,19 @@
 
 			<div class="list-container">
 				<ul class="accommodation-nav-list">
-					<a href="../article/recommendlist">
+					<a href="../hotel/recommendlist">
 						<div class="accommodation-nav-item btn m-1">숙소</div>
 					</a>
 					<div class="dropdown">
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
-							<li><a href="../article/recommendAirplaneList">항공</a></li>
-							<li><a href="../article/recommendTrainList">기차</a></li>
-							<li><a href="../article/recommendBusList">버스</a></li>
+							
+							<li>
+								<a href="../article/recommendTrainList">기차</a>
+							</li>
+							<li>
+								<a href="../article/recommendBusList">버스</a>
+							</li>
 						</ul>
 					</div>
 				</ul>
@@ -93,239 +141,193 @@
 					<input type="text" class="search-text" placeholder="텍스트 검색">
 				</div>
 
-				<div class="accommodation-type">숙소 종류</div>
+				<p class="accommodation-type">1박당 요금</p>
 
-				<div class="accommodation-list">
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">아파트먼트 (50)</div>
-						</div>
+				<div class="slidecontainer">
+					<div>
+						<input type="range" min="0" max="1000000" value="0" class="slider" id="range">
 					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">서비스 아파트먼트 (4)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">호텔 (51)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">게스트하우스 / 비앤비 (5)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">모텔 (66)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">호스텔 (2)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">펜션 (9)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">프라이빗 하우스 (21)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">프라이빗 빌라 (4)</div>
-						</div>
-					</div>
+					<span>
+						Min:
+						<span id="minValue">0</span>
+					</span>
+					<span>
+						Max:
+						<input type="number" id="maxValue" value="1000000">
+					</span>
 				</div>
 
-				<div class="accommodation-type">숙소 거리 기준</div>
-
-				<div class="accommodation-list">
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">역 근거리 기준 (50)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">버스정류장 근거리 기준 (4)</div>
-						</div>
-					</div>
-
-					<div class="accommodation-item">
-						<div class="accommodation-option">
-							<input type="checkbox" class="checkbox" />
-							<div class="accommodation-name">터미널 근거리 기준 (51)</div>
-						</div>
-					</div>
-
-				</div>
 
 				<div class="accommodation-type">숙소 성급 기준</div>
-				<div class="accommodation-list">
-					<input type="checkbox" class="checkbox" />
-					<div class="star_image">
-						<img
-							src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-							alt="" class="image" /> (50)
-					</div>
-				</div>
 
 				<div class="accommodation-list">
-					<input type="checkbox" class="checkbox" />
-					<div class="star_image">
-						<img
-							src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-							alt="Decorative image" class="image" />
+					<div class="accommodation-item">
+						<div class="accommodation-option">
+							<input type="checkbox" class="checkbox" id="number5" />
+							<div class="accommodation-name">
+								<div class="image-wrapper1">
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="" class="image" />
+								</div>
+							</div>
+						</div>
 					</div>
-					(11)
-				</div>
-			</div>
-			<div class="accommodation-list">
-				<input type="checkbox" class="checkbox" />
-				<div class="star_image">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="Product Image" class="image" loading="lazy" /> (6)
-				</div>
-			</div>
-			<div class="accommodation-list">
-				<input type="checkbox" class="checkbox" />
-				<div class="star_image">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="Decorative image" class="image" /> (28)
-				</div>
-			</div>
-			<div class="accommodation-list">
-				<input type="checkbox" class="checkbox" />
-				<div class="star_image">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="" class="image" /> (51)
+
+					<div class="accommodation-item">
+						<div class="accommodation-option">
+							<input type="checkbox" class="checkbox" id="number4" />
+							<div class="accommodation-name">
+								<div class="image-wrapper2">
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="Decorative image" class="decorative-image" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="accommodation-item">
+						<div class="accommodation-option">
+							<input type="checkbox" class="checkbox" id="number3" />
+							<div class="image-container">
+								<img
+									src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+									alt="Product Image" class="product-image" loading="lazy" />
+							</div>
+						</div>
+					</div>
+
+					<div class="accommodation-item">
+						<div class="accommodation-option">
+							<input type="checkbox" class="checkbox" id="number2" />
+							<div class="accommodation-name">
+								<div class="image-wrapper4">
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="Decorative image" class="image" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="accommodation-item">
+						<div class="accommodation-option">
+							<input type="checkbox" class="checkbox" id="number1" />
+							<div class="accommodation-name">
+								<div class="image-wrapper5">
+									<img
+										src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+										alt="" class="image" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
-	<div class="sort_bar">
-		<input class="city_box" type="text" placeholder="어디로 떠나시나요?">
-		<button class="date_start">
-			2024년 5월 3일 <br> 금요일
-		</button>
-		<button class="date_end">
-			2024년 5월 11일 <br> 토요일
-		</button>
-		<select class="select people_sort_bar">
-			<option>1명</option>
-			<option>2명</option>
-			<option>3명</option>
-			<option>4명</option>
-			<option>5명</option>
-			<option>6명</option>
-			<option>7명</option>
-			<option>8명</option>
-		</select>
-		<button class="btn_sort_bar btn">검색하기</button>
-	</div>
-</div>
+	<div class="outer-content-box">
+		<div class="sort_bar">
+			<form id="searchForm"action="../hotel/crawl" method="get">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+				
+				<div id="date_start_btn" class="date_start">
+					<div style="text-align: center;">2024년 5월 12일</div>
+					<div style="text-align: center;">금요일</div>
+				</div>
+				<div class="date_end">
+					<div style="text-align: center;">2024년 5월 15일</div>
+					<div style="text-align: center;">토요일</div>
+				</div>
+				<select class="select people_sort_bar">
+					<option>1명</option>
+					<option>2명</option>
+					<option>3명</option>
+					<option>4명</option>
+					<option>5명</option>
+					<option>6명</option>
+					<option>7명</option>
+					<option>8명</option>
+				</select>
+				<button class="btn_sort_bar btn" type="submit">검색하기</button>
+				
+			</form>
+		</div>
+		<div class="hotel-card">
+			<c:forEach items="${hotelList}" var="hotel">
+				<a href="${hotel.href }" class="hotel-link">
+					<div class="hotel-card-content number${hotel.grade }">
+						<div class="hotel-info">
+							<div class="hotel-info-content">
+								<div class="hotel-imageANDdetail">
 
-<div class="outer-content-box">
-	<div class="hotel-card">
-		<div class="hotel-card-content">
-			<div class="hotel-info">
-				<div class="hotel-info-content">
-					<div class="hotel-images">
-						<div class="main-image-container">
-							<div class="main-image-wrapper">
-								<div class="main-image">
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/0269ff624f7164c7efb1603b2d706bf08a3def40cdb6fefbb47a0d9c037ee81b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="Main hotel image" />
+									<div class="main-image-container">
+
+										<div class="main-image">
+											<img class="hotel-img" src="${hotel.imgUrl }" alt="Main hotel image" />
+										</div>
+
+									</div>
+									<div class="hotel-details">
+										<div class="hotel-name">${hotel.hotelName }</div>
+										<div class="hotel-grade">
+											<c:choose>
+												<c:when test="${hotel.grade == 5}">
+													<img id="image1" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/c00140c5f4f915eecc6c973c5c54957a44fc3d09424f81da67aca0727c78a993?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 4}">
+													<img id="image2" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/34f34578e4a29f61e50fb63dde5e2e72c599f1b34d735cc947a59d062c58be01?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 3}">
+													<img id="image3" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/79f9ed25195baf775e5e8e5a32e99f36f5135d9d0822bb57a29e8c51c1ce1926?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 2}">
+													<img id="image4" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/5625a76d5b98a0b8fb761b56091791718e2e83d4e9eac1e7ebd3caf630c798ad?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+												<c:when test="${hotel.grade == 1}">
+													<img id="image5" class="star-score"
+														src="https://cdn.builder.io/api/v1/image/assets/TEMP/e97d2a18dce70cbe646949b2afc52ad3e640111a2c9f908c36e467de6f7b6ecd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
+														alt="star" />
+												</c:when>
+											</c:choose>
+										</div>
+										<div class="hotel-service">
+											<div class="services">숙소 제공사항</div>
+											<div class="service-name">${hotel.service}</div>
+										</div>
+									</div>
 
 								</div>
-
 							</div>
 						</div>
-						<div class="hotel-details">
-							<div class="hotel-name">
-								<div class="hotel-name-text">엘디스 리젠트 호텔 (Eldis Regent</div>
-								<div class="hotel-name-text">Hotel)</div>
-								<div class="hotel-location">
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/6bf923710bd513aeca2a5aedf434ab4ab9075b0725f987c0a6192f40623e31af?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="" class="hotel-location-icon" /> <img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7f976c6a5f12fe8e38e626913755498f0e8896d59b84c7c5973be1170c3a4dd?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="" class="hotel-location-icon" />
-									<div class="hotel-location-text">대구시내, 대구 - 도심에 위치</div>
-								</div>
-								<div class="hotel-amenities-title">숙소 제공 사항</div>
-								<div class="hotel-amenities">
-									<div class="hotel-amenity">조식</div>
-									<div class="hotel-amenity">피트니스 센터</div>
-									<div class="hotel-amenity">주차</div>
-									<div class="hotel-amenity">무료 Wi-Fi</div>
-								</div>
-								<div class="hotel-popularity">
-									<img
-										src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7dd0252b796495ed29789b677c69d764fecfd53da152aef74b9c5441d2560ff?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-										alt="" class="hotel-popularity-icon" />
-									<div class="hotel-popularity-text">현재 인기 2시간 전 예약됨</div>
+
+						<div class="hotel-rating-price">
+							<div class="hotel-rating">
+
+								<div class="hotel-rating-details">
+									<div class="hotel-price">
+										<div class="hotel-price-details">1박당 요금</div>
+										<div class="hotel-price-value">${hotel.price }</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="hotel-rating-price">
-				<div class="hotel-rating">
-					<img
-						src="https://cdn.builder.io/api/v1/image/assets/TEMP/18d8990427cc7ac525aa734abaaf3e6853634987e2662880d8927c29267db16b?apiKey=f834c4360ac549c5b5237c00b19938c4&"
-						alt="" class="hotel-rating-icon" />
-					<div class="hotel-rating-details">
-						<div class="hotel-rating-score">
-							<div class="hotel-rating-text">우수</div>
-							<div class="hotel-rating-value">8.2</div>
-						</div>
-						<div class="hotel-reviews">3,962 건의 이용후기</div>
-						<div class="hotel-price">
-							<div class="hotel-discount">* TODAY * 57% 할인</div>
-							<div class="hotel-price-details">1박당 요금(세금 및 봉사료 제외)</div>
-							<div class="hotel-original-price">192,941</div>
-							<div class="hotel-discounted-price">
-								<div class="hotel-price-currency">₩</div>
-								<div class="hotel-price-value">82,645</div>
-							</div>
-							<div class="hotel-free-cancellation">+ 예약 무료 취소</div>
-						</div>
-					</div>
-				</div>
-			</div>
+				</a>
+				<div class="empty-place"></div>
+			</c:forEach>
 		</div>
 	</div>
 </div>
@@ -377,11 +379,11 @@
 
 .date_start, .date_end {
 	position: relative;
+	display:inline-block;
 	left: -10px;
 	width: 150px;
 	height: 60px;
 	background-color: #edf0f9;
-	width: 150px
 }
 
 .date_start {
@@ -461,6 +463,25 @@ body {
 	border-bottom: 1px solid;
 }
 
+/* 호텔 리스트 css */
+.outer-content-box {
+	display: flex;
+	justify-content: center; /* 수평 가운데 정렬 */
+	width: 100%;
+	height: 100%;
+	flex-direction: column; /* 요소들을 세로로 배치합니다. */
+}
+
+.hotel-imageANDdetail {
+	display: flex;
+	gap: 20px;
+	border-right: solid 1px black;
+}
+
+.hotel-img {
+	border-radius: 10px;
+}
+
 .username {
 	flex-grow: 1;
 }
@@ -482,12 +503,29 @@ body {
 	top: 240px;
 }
 
-/* 왼쪽 서치박스*/
+/* 왼쪽 서치박스 css */
 .list-container {
 	display: flex;
 	position: relative;
 	top: 220px;
 	left: 30px;
+}
+
+/* 슬라이드 바 css */
+.accommodation-type {
+	margin: 28px 0 0 21px;
+	font: 700 14px/143% Inter, sans-serif;
+}
+
+.slidecontainer {
+	width: 300px;
+}
+
+.slider{
+	width: 260px;
+}
+.slider:hover {
+	opacity: 1;
 }
 
 .accommodation-nav-list {
@@ -531,20 +569,25 @@ body {
 
 .hotel-card {
 	position: relative;
-	top: -830px;
-	left: 24.5%;
+	top: 300px;
 	justify-content: center;
 	border-radius: 8px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-	border: 1px solid rgba(221, 223, 226, 1);
 	background-color: rgba(255, 255, 255, 0);
 	max-width: 965px;
-	justify-content: center
+	justify-content: center;
+	justify-content: center;
 }
 
 .hotel-card-content {
 	display: flex;
-	gap: 20px;
+	border: solid 1px black;
+	margin-top: 15px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
+	background-color: #546570;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .hotel-info {
@@ -566,10 +609,8 @@ body {
 
 .main-image-container {
 	display: flex;
-	flex-direction: column;
 	line-height: normal;
-	width: 44%;
-	margin-left: 0;
+	border-radius: 20px;
 }
 
 .main-image-wrapper {
@@ -584,13 +625,9 @@ body {
 	overflow: hidden;
 	position: relative;
 	aspect-ratio: 1.5;
-	width: 100%;
 	align-items: end;
-	padding: 12px 60px 80px;
-	margin-left: 10px;
-	margin-top: 5px;
-	width: 300px;
-	height: 250px;
+	width: 330px;
+	height: 280px;
 }
 
 .main-image img {
@@ -610,6 +647,7 @@ body {
 	margin-bottom: 24px;
 }
 
+/* 왼쪽 바 css */
 .thumbnail-images {
 	display: flex;
 	gap: 1px;
@@ -650,21 +688,16 @@ body {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	width: 56%;
-	margin-left: 20px;
 }
 
 .hotel-name {
-	border-right: 1px solid rgba(221, 223, 226, 1);
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-	align-items: start;
-	font-size: 12px;
+	margin-top: 50px;
 	color: #24262c;
-	font-weight: 600;
 	line-height: 125%;
-	padding: 14px 41px 60px 12px;
+	font-size: 20px;
+	margin-right: 50px;
+	font-weight: bold;
+	font: sans-serif;
 }
 
 .hotel-name-text {
@@ -739,8 +772,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	width: 20%;
-	margin-left: 20px;
+	margin-left: 150px;
+	margin-top: 100px;
 }
 
 .hotel-rating {
@@ -1277,5 +1310,132 @@ body {
 	}
 }
 </style>
+
+
+<script>
+	//검색 문자가 포함된 호텔요소 찾기
+	// input 요소 가져오기
+	var searchText = document.querySelector('.search-text');
+
+	// input 값이 변경될 때 호출되는 함수
+	searchText.addEventListener('input', function() {
+		// 입력된 검색어
+		var searchKeyword = this.value.toLowerCase().trim();
+
+		// 모든 호텔 요소 가져오기
+		var hotelList = document.querySelectorAll('.hotel-card-content');
+
+		// 각 호텔 요소에 대해 반복
+		hotelList.forEach(function(hotel) {
+			// 호텔 이름 요소 가져오기
+			var hotelNameElement = hotel.querySelector('.hotel-name');
+			// 호텔 이름
+			var hotelName = hotelNameElement.textContent.toLowerCase();
+
+			// 호텔 이름에 검색어가 포함되어 있는 경우
+			if (hotelName.includes(searchKeyword)) {
+				// 해당 호텔 요소를 보이도록 설정
+				hotel.style.display = 'flex';
+			} else {
+				// 검색어가 포함되어 있지 않은 경우 해당 호텔 요소를 숨김
+				hotel.style.display = 'none';
+			}
+		});
+	});
+
+	//슬라이드 바 
+	var slider = document.getElementById("range");
+	var minValue = document.getElementById("minValue");
+	var maxValue = document.getElementById("maxValue");
+
+	// 초기 설정
+	minValue.innerHTML = slider.min;
+	maxValue.value = slider.max;
+
+	slider.oninput = function() {
+		minValue.innerHTML = this.min;
+		this.style.setProperty('--slider-value',
+				(this.value / (this.max - this.min)) * 100 + '%');
+	}
+
+	maxValue.addEventListener('input', function() {
+		// maxValue가 1000000을 넘지 않도록 제한
+		if (parseInt(this.value) > parseInt(slider.max)) {
+			this.value = slider.max;
+		}
+		slider.value = this.value;
+		slider.dispatchEvent(new Event('input'));
+	});
+
+	// JavaScript 코드
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// 모든 체크박스 요소를 가져옵니다.
+		var checkboxes = document.querySelectorAll('.checkbox');
+
+		checkboxes.forEach(function(checkbox) {
+			checkbox.addEventListener('change', function() {
+				// 현재 선택된 체크박스의 id를 가져옵니다.
+				var id = this.id;
+
+				// 다른 체크박스를 해제합니다.
+				checkboxes.forEach(function(otherCheckbox) {
+					if (otherCheckbox !== checkbox) {
+						otherCheckbox.checked = false;
+					}
+				});
+
+				// 모든 요소를 보이게 설정합니다.
+				var elementsToShow = document
+						.querySelectorAll('.hotel-card-content');
+				elementsToShow.forEach(function(element) {
+					element.style.visibility = 'visible';
+					element.style.display = 'flex';
+				});
+
+				// 선택된 체크박스 이외의 요소들을 숨깁니다.
+				if (this.checked) {
+					var elementsToHide = document
+							.querySelectorAll('.hotel-card-content:not(.' + id
+									+ ')');
+					elementsToHide.forEach(function(element) {
+						element.style.visibility = 'hidden';
+						element.style.display = 'none';
+					});
+				}
+			});
+		});
+	});
+	// 슬라이드 바 값이 변경될 때 호출되는 함수
+	slider.addEventListener("input", function() {
+		// 슬라이드 바의 현재 값
+		var sliderValue = parseInt(this.value);
+
+		// 인풋에 슬라이드 바의 값 업데이트
+		maxValue.value = sliderValue;
+
+		// 모든 호텔 요소 가져오기
+		var hotelList = document.getElementsByClassName("hotel-card-content");
+
+		// 각 호텔 요소에 대해 반복
+		for (var i = 0; i < hotelList.length; i++) {
+			// 호텔 가격 요소 가져오기
+			var priceElement = hotelList[i]
+					.getElementsByClassName("hotel-price-value")[0];
+			// 호텔 가격 값
+			var hotelPrice = parseInt(priceElement.textContent);
+
+			// 호텔 가격이 슬라이드 바 값보다 작은 경우
+			if (hotelPrice >= sliderValue) {
+				// 해당 호텔을 화면에서 숨김
+				hotelList[i].style.display = "none";
+			} else {
+				// 해당 호텔을 화면에 보이도록 설정
+				hotelList[i].style.display = "flex";
+			}
+		}
+	});
+	
+</script>
 
 <%@ include file="../common/foot.jspf"%>

@@ -2,10 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../path/to/your/javascript/file.js"></script>
+<!-- <script src="../path/to/your/javascript/file.js"></script> -->
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
 <header class="header">
@@ -13,9 +15,17 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		<c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -25,17 +35,20 @@
 		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
-		<button class="hd_logout">로그아웃</button>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
 	</nav>
 </header>
 
 
 <div class="list-container">
 	<div class="list-board">
-		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+		<span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>
 		<a href="../conference/list" class="list-board-item">학술행사</a>
 		<a href="../competition/list" class="list-board-item">공모전</a>
 	</div>
+
 
 	<div class="list-items-container">
 		<div class="list-items-section">
@@ -48,19 +61,13 @@
 						<button type="button" onclick="selectRadio('option1')">등록/수정일순</button>
 						&nbsp;
 						<input type="radio" id="option2" name="options" value="option2">
-						<button type="button" onclick="selectRadio('option2')">
-						조회순
-						</button>
+						<button type="button" onclick="selectRadio('option2')">조회순</button>
 						&nbsp;
 						<input type="radio" id="option3" name="options" value="option3">
-						<button type="button" onclick="selectRadio('option3')">
-						마감순
-						</button>
+						<button type="button" onclick="selectRadio('option3')">마감순</button>
 						&nbsp;
 						<input type="radio" id="option4" name="options" value="option4">
-						<button type="button" onclick="selectRadio('option4')">
-							제목순
-						</button>
+						<button type="button" onclick="selectRadio('option4')">제목순</button>
 					</form>
 
 					<script>
@@ -81,27 +88,31 @@
 						}
 					</script>
 				</div>
-
-
-				<form class="search-form">
-					<input type="text" placeholder="검색어를 입력하세요." />
-					<button>검색</button>
+				<!-- 				<form class="search-form" action="/usr/conference/list" method="GET"> -->
+				<form action="/usr/conference/list" method="get">
+					<select name="searchKeywordTypeCode">
+						<option value="title">제목</option>
+					</select>
+					<input type="text" name="searchKeyword" value="${searchKeyword}"
+						class="input-sm input input-bordered w-48 max-w-xs">
+					<button class="btn btn-ghost btn-sm" type="submit">검색</button>
 				</form>
+
 			</div>
 
 			<div class="category-filters">
 				<!-- Category Filters -->
 
-				<button class="conference-0">전체(9)</button>
-				<button class="conference-1">공학(3)</button>
-				<button class="conference-2">자연과학(2)</button>
-				<button class="conference-3">의약학(1)</button>
-				<button class="conference-4">인문학(2)</button>
-				<button class="conference-5">사회과학(0)</button>
-				<button class="conference-6">예술체육(1)</button>
-				<button class="conference-7">농수해양(0)</button>
-				<button class="conference-8">복합학(0)</button>
-				<button class="conference-9">전공불문(0)</button>
+				<button class="conference-0">전체</button>
+				<button class="conference-1">공학</button>
+				<button class="conference-2">자연과학</button>
+				<button class="conference-3">의약학</button>
+				<button class="conference-4">인문학</button>
+				<button class="conference-5">사회과학</button>
+				<button class="conference-6">예술체육</button>
+				<button class="conference-7">농수해양</button>
+				<button class="conference-8">복합학</button>
+				<button class="conference-9">전공불문</button>
 			</div>
 
 			<!-- Entry 2 -->
@@ -129,7 +140,7 @@
 								<td>${conference.id}</td>
 								<!-- 첫 번째 td에 학회의 ID -->
 								<td>
-									<a href="detail?id=${conference.id}">${conference.title}</a>
+									<a href="detail?themeId=${conference.themeId}&id=${conference.id}">${conference.title}</a>
 								</td>
 								<!-- 두 번째 td에 학회의 제목 -->
 								<td>${conference.eventPeriod}</td>
@@ -148,7 +159,46 @@
 		</div>
 	</div>
 	<div class="side-bar-container">
-		<img class="info-img" src="https://i.ibb.co/tpt0rzp/image.png" alt="image" border="0">
+	<section class="research-info-container">
+  <h2 class="research-info-title">
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7cbe973a0e1df613c84889fc15d87154d539e3663bd68a899a58efaeb4c3775b?apiKey=f834c4360ac549c5b5237c00b19938c4&" alt="" class="research-info-title-bg" />
+    추천 학술연구정보
+  </h2>
+
+  <article class="research-item">
+    <header class="research-item-header">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3e3bc42bcec7cf8d9999536faf111953374afda004954f6ec46e70f4bbe100ca?apiKey=f834c4360ac549c5b5237c00b19938c4&" alt="한국연구재단 로고" class="research-item-logo" />
+      <div class="research-item-source"><a href="https://www.nrf.re.kr/index">한국연구재단</a>
+</div>
+    </header>
+    <h3 class="research-item-title">2024년 해외우수과…</h3>
+  </article>
+
+  <article class="research-item">
+    <header class="research-item-header">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3e3bc42bcec7cf8d9999536faf111953374afda004954f6ec46e70f4bbe100ca?apiKey=f834c4360ac549c5b5237c00b19938c4&" alt="한국연구재단 로고" class="research-item-logo" />
+      <div class="research-item-source"><a href="https://www.nrf.re.kr/index">한국연구재단</a></div>
+    </header>
+    <h3 class="research-item-title">외국박사학위 취득…</h3>
+  </article>
+
+  <article class="research-item">
+    <header class="research-item-header">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6808111502d581184bb0da596706cf4f070005a54b61cac66393afda21613be?apiKey=f834c4360ac549c5b5237c00b19938c4&" alt="포스코청암재단 로고" class="research-item-logo" />
+      <div class="research-item-source"><a href="https://www.postf.org/">포스코청암재단</a></div>
+    </header>
+    <h3 class="research-item-title">포스코사이언스펠로…</h3>
+  </article>
+
+  <article class="research-item">
+    <header class="research-item-header">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c11db3e9f7daece43bba25c248a5b9fbbe910fc59ac695190e2d19e9704a2ee?apiKey=f834c4360ac549c5b5237c00b19938c4&" alt="서울연구원 로고" class="research-item-logo" />
+      <div class="research-item-source"><a href="https://www.si.re.kr/">서울연구원</a></div>
+    </header>
+    <h3 class="research-item-title">2024년 NExt100 청…</h3>
+  </article>
+</section>
+	
 	</div>
 </div>
 
@@ -186,60 +236,72 @@
 
 
 <script>
-$(document).ready(function() {
-    var selectedOption = ""; // 선택된 옵션 초기화
-    var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
+	$(document).ready(
+			function() {
+				var selectedOption = ""; // 선택된 옵션 초기화
+				var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
 
-    // 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
-    $(".sort-options button").click(function() {
-        selectedOption = $(this).text().trim();
-        $(".sort-options button").removeClass("btn-active");
-        $(this).addClass("btn-active");
-        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-        getFilteredConferences(selectedOption, selectedCategoryId);
-    });
+				// 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
+				$(".sort-options button").click(function() {
+					selectedOption = $(this).text().trim();
+					$(".sort-options button").removeClass("btn-active");
+					$(this).addClass("btn-active");
+					// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+					getFilteredConferences(selectedOption, selectedCategoryId);
+				});
 
-    // 카테고리 버튼 클릭 이벤트
-    $(".category-filters button").click(function() {
-        selectedCategoryId = $(this).attr("class").split(" ")[0].split("-")[1];
-        $(".category-filters button").removeClass("btn-active");
-        $(this).addClass("btn-active");
-        // 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-        getFilteredConferences(selectedOption, selectedCategoryId);
-    });
+				// 카테고리 버튼 클릭 이벤트
+				$(".category-filters button").click(
+						function() {
+							selectedCategoryId = $(this).attr("class").split(
+									" ")[0].split("-")[1];
+							$(".category-filters button").removeClass(
+									"btn-active");
+							$(this).addClass("btn-active");
+							// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
+							getFilteredConferences(selectedOption,
+									selectedCategoryId);
+						});
 
-    // 선택된 옵션들을 기반으로 데이터를 가져오는 함수
-    function getFilteredConferences(option, categoryId) {
-        $.ajax({
-            type: "GET",
-            url: "getFilteredConferences",
-            data: { option: option, categoryId: categoryId },
-            success: function(data) {
-                drawConferences(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
+				// 선택된 옵션들을 기반으로 데이터를 가져오는 함수
+				function getFilteredConferences(option, categoryId) {
+					$.ajax({
+						type : "GET",
+						url : "getFilteredConferences",
+						data : {
+							option : option,
+							categoryId : categoryId
+						},
+						success : function(data) {
+							drawConferences(data);
+						},
+						error : function(xhr, status, error) {
+							console.error("Error:", error);
+						}
+					});
+				}
 
-    // 학술행사 목록을 그리는 함수
-    function drawConferences(conferenceList) {
-        var html = '';
-        $.each(conferenceList, function(index, conference) {
-            html += '<tr>';
-            html += '<td>' + conference.id + '</td>';
-            html += '<td><a href="detail?id=' + conference.id + '">' + conference.title + '</a></td>';
-            html += '<td>' + conference.applicationPeriod + '</td>';
-            html += '<td>' + conference.regDate + '</td>';
-            html += '<td>' + conference.hitCount + '</td>';
-            html += '</tr>';
-        });
-        $('.table tbody').html(html);
-    }
-});
+				// 학술행사 목록을 그리는 함수
+				function drawConferences(conferenceList) {
+					var html = '';
+					$.each(conferenceList,
+							function(index, conference) {
+								html += '<tr>';
+								html += '<td>' + conference.id + '</td>';
+								html += '<td><a href="detail?themeId='
+										+ conference.themeId + '&id='
+										+ conference.id + '">'
+										+ conference.title + '</a></td>';
 
-
+								html += '<td>' + conference.applicationPeriod
+										+ '</td>';
+								html += '<td>' + conference.regDate + '</td>';
+								html += '<td>' + conference.hitCount + '</td>';
+								html += '</tr>';
+							});
+					$('.table tbody').html(html);
+				}
+			});
 </script>
 
 
@@ -247,6 +309,8 @@ $(document).ready(function() {
 
 
 <style>
+
+
 body {
 	width: 100%;
 	hight: 130%;
@@ -256,6 +320,7 @@ body {
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -273,8 +338,17 @@ body {
 	gap: 20px;
 }
 
+.header_menu button:hover {
+	border-bottom: 1px solid;
+}
+
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
+}
+
+.hd_logout:hover {
+	border-bottom: 1px solid;
 }
 
 .username {
@@ -284,6 +358,8 @@ body {
 /* flex */
 .list-container {
 	display: flex;
+	position: relative;
+	top: 40px;
 }
 
 .list-board {
@@ -314,7 +390,9 @@ body {
 /* side bar container */
 .side-bar-container {
 	flex: 1;
-	height: 800px;
+	height: 500px;
+	margin-top: 80px;
+	width: 100px;
 }
 
 .info-img {
@@ -503,6 +581,93 @@ tr {
 	padding-left: 16px;
 	padding-right: 16px;
 }
+
+
+
+
+/* 사이드 학술 연구정보 박스 */
+
+  .research-info-container {
+    background-color: #fff;
+    display: flex;
+    max-width: 183px;
+    flex-direction: column;
+    font-size: 13px;
+    letter-spacing: -0.7px;
+    padding: 29px 19px 18px;
+  }
+
+  .research-info-title {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: start;
+    overflow: hidden;
+    aspect-ratio: 6.86;
+    width: 180px;
+    color: #f2675f;
+    letter-spacing: -1.2px;
+    padding: 4px 31px;
+    font: 700 15px Inter, sans-serif;
+  }
+
+  .research-info-title-bg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .research-item {
+    padding-left: 10px;
+    justify-content: center;
+    border: 1px solid rgba(0, 131, 203, 1);
+    border-top-width: 3px;
+    display: flex;
+    margin-top: 11px;
+    flex-direction: column;
+    padding: 11px 0;
+    width: 140px;
+    height: 80px;
+    }
+    
+    
+ .research-item-header {
+    display: flex;
+    gap: 7px;
+    color: #3b3b3b;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 292%;
+    width: 180px;
+  }
+
+  .research-item-logo {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 25px;
+  }
+
+  .research-item-source {
+    font-family: Inter, sans-serif;
+    flex-grow: 1;
+    flex-basis: auto;
+    margin: auto 0;
+  }
+
+  .research-item-title {
+    color: #474747;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    line-height: 178%;
+    margin-top: 11px;
+  }
+
+
 </style>
 
 

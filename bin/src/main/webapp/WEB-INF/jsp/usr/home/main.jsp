@@ -7,6 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <script>
 /* 메인 이미지 슬라이드 */
@@ -58,6 +59,8 @@
     });
   });
   </script>
+  
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const searchData = [
@@ -125,12 +128,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 // 해당하는 학회의 eventPeriod 가져오기
                 const eventPeriod = conferenceEventPeriods[selectedIndex];
+                const startDate = eventPeriod.split(' ~ ')[0]; // 물결 기호(~) 앞의 날짜만 추출
+
+                // box_date 클래스를 가진 입력 필드에 startDate 설정
+                boxDateInput.value = startDate;
 
                 // 해당하는 학회의 address 가져오기
                 const address = conferenceAddresses[selectedIndex];
-
-                // box_date 클래스를 가진 입력 필드에 eventPeriod 설정
-                boxDateInput.value = eventPeriod;
 
                 // box_end 클래스를 가진 입력 필드에 address 설정
                 document.querySelector('.box_end').value = address;
@@ -138,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
             searchResultsContainer.appendChild(div);
         });
     }
+
 
     // 초기에 검색 결과를 데이터로 채우기
     populateSearchResults();
@@ -155,8 +160,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   </script>
-  
-  <script>
+
+<script>
 //DOMContentLoaded 이벤트 리스너 내부에서 작성된 코드라고 가정합니다.
   document.querySelectorAll('.search-result-item').forEach(function(item) {
       item.addEventListener('click', function() {
@@ -175,9 +180,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   </script>
-  
-  
-  <script>
+
+
+<script>
   function formatDate(dateString) {
 	    // 날짜와 시간을 공백을 기준으로 분할합니다.
 	    var parts = dateString.split(" ");
@@ -189,6 +194,32 @@ document.addEventListener("DOMContentLoaded", function() {
 	    // 변환된 날짜 형식을 반환합니다.
 	    return startDate + " ~ " + endDate;
 	}
+
+  </script>
+
+<script>
+  document.querySelector('.box_date').addEventListener('click', function() {
+	    // 현재 검색 상자에 입력된 텍스트를 가져옵니다.
+	    const searchText = document.querySelector('.SearchBoxTextEditor').value;
+	    
+	    // 해당 텍스트와 일치하는 학회의 인덱스를 찾습니다.
+	    const index = searchData.indexOf(searchText);
+	    
+	    if (index !== -1) { // 일치하는 학회가 있다면
+	        const eventPeriod = conferenceEventPeriods[index];
+	        // eventPeriod 형식 "24.05.20 ~ 24.05.21" 을 "24.05.20" 와 "24.05.21" 로 분리
+	        const dates = eventPeriod.split(' ~ ');
+
+	        // 날짜를 두 줄로 표시하기 위한 줄바꿈 적용
+	        if (dates.length === 2) {
+	            this.value = `${dates[0]}\n${dates[1]}`;
+	        } else {
+	            this.value = '날짜 형식 오류';
+	        }
+	    } else {
+	        this.value = '일치하는 학회 없음';
+	    }
+	});
 
   </script>
 
@@ -213,65 +244,87 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="menu_right">
 	<a href="../conference/list">
-		<button class="academicEventList">학회 정보</button>
+		<button class="menu_box2 academicEventList">학회 정보</button>
 	</a>
 	<a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
-	<a href="../member/login">
-		<button class="menu_box2 login">로그인</button>
-	</a>
-	<a href="../member/join">
-		<button class="menu_box2 join">회원가입</button>
-	</a>
+	<c:if test="${rq.isLogined() }">
+		<a href="../member/myInfo">
+			<button class="menu_box2 login">회원정보</button>
+		</a>
+	</c:if>
+	<c:if test="${!rq.isLogined() }">
+		<a href="../member/login">
+			<button class="menu_box2 login">로그인</button>
+		</a>
+		<a href="../member/join">
+			<button class="menu_box2 join">회원가입</button>
+		</a>
+	</c:if>
+	<c:if test="${rq.isLogined() }">
+		<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="menu_box2 logout" href="../member/doLogout">로그아웃</a>
+	</c:if>
 </div>
 
 <div class="search_box">
-	<input type="text" class="SearchBoxTextEditor" placeholder="어디로 떠나시나요?" value="" />
-	<div class="search_results"></div>
-	<div class="search_box1">
-		<div class="search_box-1">
-			<input type="text" class="box_start" placeholder="출발장소" id="textInput" value="" />
-			<input type="text" class="box_end" placeholder="도착장소" id="textInput" value="${conferenceService.extractCityFromAddress(conference.address)}" />
-		</div>
-		<div class="search_box-2">
-			<input type="text" class="box_date" placeholder="가는날" id="textInput" value=" " />
-			<div class="select_box">
-				<select class="select select-bordered w-32 max-w-xs">
-    <option disabled>인원 수</option>
-    <option selected>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-</select>
+	<form action="../hotel/recommendlist" method="POST">
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
+		<div class="search_results"></div>
+		<div class="search_box1">
+			<div class="search_box-1">
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd"
+					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
+
+			</div>
+			<div class="search_box-2">
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
+				<div class="select_box">
+					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
+						<option disabled selected>인원 수</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+					</select>
+				</div>
+			</div>
+			<div class="search_btn btn">
+				<button type="submit" class="button-style">검색</button>
 			</div>
 		</div>
-		<div class="search_btn btn">
-			<button>검색</button>
-		</div>
-	</div>
+	</form>
 </div>
+
+
 <div class="event-schedule">
 	<a href="../conference/list">
 		<button class="event-title">학술행사일정</button>
 	</a>
 	<div class="event-schedule-box">
+    <c:forEach var="conference" items="${conferences}" varStatus="status">
+        <c:if test="${status.index < 3}">
+            <button class="event-description">
+                <c:choose>
+                    <c:when test="${fn:length(conference.title) > 30}">
+                        ${fn:substring(conference.title, 0, 30)} ㆍㆍㆍ
+                    </c:when>
+                    <c:otherwise>
+                        ${conference.title}
+                    </c:otherwise>
+                </c:choose>
+                <div class="event-date">${conference.eventPeriod}</div>
+            </button>
+        </c:if>
+    </c:forEach>
+    <a href="../conference/list" class="event-more-button">더보기</a>
+</div>
 
-		<c:forEach var="conference" items="${conferences}" varStatus="status">
-			<c:if test="${status.index < 3}">
-				<button class="event-description">
-					${conference.title}
-					<div class="event-date">${conference.eventPeriod}</div>
-				</button>
-			</c:if>
-		</c:forEach>
-
-		<a href="../conference/list" class="event-more-button">더보기</a>
-	</div>
 </div>
 <div class="event-schedule">
 	<a href="../competition/list">
@@ -287,6 +340,43 @@ document.addEventListener("DOMContentLoaded", function() {
 			</c:if>
 		</c:forEach>
 		<a href="../competition/list" class="event-more-button">더보기</a>
+	</div>
+</div>
+
+<div class="team_project_member_profile">
+	<div class="container">
+		<div class="row_container">
+			<div class="profile_container">
+				<div class="profile_box">
+					<div class="profile_picture">
+						<img
+							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+							alt="" />
+					</div>
+					<div class="profile_info"></div>
+				</div>
+			</div>
+			<div class="profile_container">
+				<div class="profile_box">
+					<div class="profile_picture"></div>
+					<div class="profile_info"></div>
+				</div>
+			</div>
+		</div>
+		<div class="high_container">
+			<div class="profile_container">
+				<div class="profile_box">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="profile_container">
+				<div class="profile_box">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -329,6 +419,16 @@ h1 {
 	padding-top: 17px;
 	letter-spacing: 40px;
 	transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.menu_right .menu_box2:hover {
+	text-decoration: underline; /* 마우스 올렸을 때 밑줄 */
+}
+
+.logout {
+	letter-spacing: 1px;
+	font-size: 12.5px;
+	margin-left: 55px;
 }
 
 #slider {
@@ -676,6 +776,47 @@ a.control_next {
 	}
 }
 
+
+
+
+/* 팀프로젝트 조장 및 조원 프로필 css */
+.team_project_member_profile {
+	display: flex;
+	margin-top: 150px;
+	height: 500px;
+	background-color: red;
+	height: 500px;
+}
+
+.container {
+	margin: auto;
+	background-color: blue;
+}
+
+.high_container, .row_container {
+	display: flex;
+}
+
+.profile_container {
+	flex: 1;
+	background-color: yellow;
+	width: 330px;
+	height: 170px;
+	margin: 20 100;
+	border-radius: 5px;
+}
+
+.profile_box {
+	display: flex;
+}
+
+.profile_picture {
+	flex: 1;
+}
+
+.profile_info {
+	flex: 2;
+}
 @media ( max-width : 991px) {
 	.event-schedule {
 		padding: 0 20px;

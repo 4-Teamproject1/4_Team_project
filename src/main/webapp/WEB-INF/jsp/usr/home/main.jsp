@@ -352,11 +352,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="profile_container">
 				<div class="profile_box">
 					<div class="profile_picture">
-						<img
+						<img class="profile_img"
 							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
 							alt="" />
 					</div>
-					<div class="profile_info"></div>
+					<div class="profile_info">이름 : 고의성 <br/>이메일 : rhdmltjd1324@gmail.com <br />연락처 : 010-6245-9767<br />github주소 : https://github.com/Gouiseong?tab=repositories</div>
 				</div>
 			</div>
 			<div class="profile_container">
@@ -784,10 +784,9 @@ a.control_next {
 /* 팀프로젝트 조장 및 조원 프로필 css */
 .team_project_member_profile {
 	display: flex;
-	margin-top: 150px;
+	margin-top: 80px;
 	height: 500px;
 	background-color: red;
-	height: 500px;
 }
 
 .container {
@@ -801,10 +800,10 @@ a.control_next {
 
 .profile_container {
 	flex: 1;
-	background-color: yellow;
-	width: 330px;
-	height: 170px;
-	margin: 20 100;
+	background-color: #31363F;
+	width: 400px;
+	height: 200px;
+	margin: 20 50;
 	border-radius: 5px;
 }
 
@@ -814,10 +813,16 @@ a.control_next {
 
 .profile_picture {
 	flex: 1;
+	align-content: center;
+	border-bottom:solid 2px red;
 }
 
 .profile_info {
 	flex: 2;
+	color: white;
+}
+
+.profile_img{
 }
 @media ( max-width : 991px) {
 	.event-schedule {

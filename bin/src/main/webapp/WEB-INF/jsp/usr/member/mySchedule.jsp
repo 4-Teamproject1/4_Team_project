@@ -7,6 +7,31 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
+
+
+<script>
+    // JSP에서 받아온 conferences와 competitions 데이터를 JavaScript 변수에 할당하여 전달
+    var conferencesData = ${conferences};
+    var competitionsData = ${competitions};
+    
+    
+// 예시 이벤트 데이터
+    var conference = {
+        eventName: "한국생명공학연구원 KPEC 감염병 대응 세미나",
+        eventPeriod: "24.05.20",
+        location: "대전광역시 유성구 과학로 125"
+    };
+
+    // 이벤트의 기간 정보를 받아와서 날짜로 변환
+    var dateString = conference.eventPeriod;
+    var eventDate = moment(dateString, "YY.MM.DD").format("YYYY년 M월 D일");
+
+    console.log(eventDate); // 결과: "2024년 5월 20일"
+
+</script>
+
 <script>
 	!(function() {
 		var today = moment();
@@ -26,7 +51,7 @@
 			// 페이지 로드 시 이벤트를 모두 표시하는 함수 호출
 			this.showAllEvents();
 			// 스크롤 가능한 컨테이너 요소
-			this.scrollContainer = this.el.querySelector(".scroll-container")
+			this.scrollContainer = this.el.querySelector(".scroll-container");
 		}
 		// 캘린더 다음 달로 이동 함수
 		Calendar.prototype.nextMonth = function() {
@@ -56,16 +81,24 @@
 				self.scrollContainer.style.top = newTop + "px";
 			}, 500); // 애니메이션 기간에 맞춰 지연 조정
 		};
-		// 캘린더 그리기 함수
+		// draw 함수 내부
 		Calendar.prototype.draw = function() {
-			// 헤더 생성
-			this.drawHeader();
-			// 달 그리기
-			this.drawMonth();
-			// 스크롤 컨테이너의 내용을 지우기
-			this.scrollContainer.innerHTML = '';
-			// 현재 달의 이벤트들을 그리고 스크롤 컨테이너에 추가
-			this.showAllEvents();
+			// 먼저 이전 달의 데이터를 정리
+		    this.clearPreviousMonth();
+		    // 먼저 헤더를 표시
+		    this.drawHeader();
+		    // 그다음, 달을 표시
+		    this.drawMonth();
+		    // 추가한 이벤트 데이터를 달력에 그리기
+		    this.addEvents();
+		};
+		
+		// 달력 그리기 전에 이전 달의 데이터를 정리하는 함수
+		Calendar.prototype.clearPreviousMonth = function() {
+		    var monthContainer = this.el.querySelector('.month');
+		    if (monthContainer) {
+		        monthContainer.remove(); // 이전 달의 모든 데이터를 제거
+		    }
 		};
 		// 헤더 그리기 함수
 		Calendar.prototype.drawHeader = function() {
@@ -93,47 +126,26 @@
 			}
 			this.title.innerHTML = this.current.format("MMM YYYY");
 		};
-		// 달 그리기 함수
 		Calendar.prototype.drawMonth = function() {
-			var self = this;
-			// 이벤트를 각 날짜에 랜덤하게 배치
-			this.events.forEach(function(ev) {
-				ev.date = self.current.clone().date(
-						Math.random() * (29 - 1) + 1);
-			});
-			// 이미 존재하는 경우 이전 달에 대한 처리
-			if (this.month) {
-				this.oldMonth = this.month;
-				this.oldMonth.className = "month out "
-						+ (self.next ? "next" : "prev");
-				this.oldMonth
-						.addEventListener(
-								"webkitAnimationEnd",
-								function() {
-									self.oldMonth.parentNode
-											.removeChild(self.oldMonth);
-									self.month = createElement("div", "month");
-									self.backFill();
-									self.currentMonth();
-									self.fowardFill();
-									self.el.appendChild(self.month);
-									window
-											.setTimeout(
-													function() {
-														self.month.className = "month in "
-																+ (self.next ? "next"
-																		: "prev");
-													}, 16);
-								});
-			} else {
-				// 새로운 달 생성
-				this.month = createElement("div", "month");
-				this.el.appendChild(this.month);
-				this.backFill();
-				this.currentMonth();
-				this.fowardFill();
-				this.month.className = "month new";
-			}
+		    var self = this;
+		    // 새로운 달 생성
+		    this.month = createElement("div", "month");
+		    this.el.appendChild(this.month);
+
+		    this.backFill(); // 이전 달의 마지막 일부를 채움
+		    this.currentMonth(); // 현재 달을 그림
+		    this.fowardFill(); // 다음 달의 처음 일부를 채움
+
+		    // 월 전환 애니메이션 처리
+		    if (this.oldMonth) {
+		        this.oldMonth.className = "month out " + (self.next ? "next" : "prev");
+		        this.oldMonth.addEventListener("animationend", function() {
+		            self.oldMonth.parentNode.removeChild(self.oldMonth);
+		            self.month.className = "month in " + (self.next ? "next" : "prev");
+		        });
+		    } else {
+		        this.month.className = "month new";
+		    }
 		};
 		// 이전 달 채우기 함수
 		Calendar.prototype.backFill = function() {
@@ -149,7 +161,7 @@
 		};
 		// 다음 달 채우기 함수
 		Calendar.prototype.fowardFill = function() {
-			var clone = this.current.clone().add("months", 1).subtract("days",
+			var clone = this.current.clone().add("months", 1).subtsract("days",
 					1);
 			var dayOfWeek = clone.day();
 			if (dayOfWeek === 6) {
@@ -208,24 +220,42 @@
 			outer.appendChild(number);
 			outer.appendChild(events);
 			this.week.appendChild(outer);
+
 		};
+		// Calendar 클래스 내에 이벤트 데이터 관리
+		Calendar.prototype.setData = function(events) {
+		    this.events = events;
+		};
+		
 		// 날짜에 해당하는 이벤트를 그리는 함수
 		Calendar.prototype.drawEvents = function(day, element) {
-			if (day.month() === this.current.month()) {
-				var todaysEvents = this.events.reduce(function(memo, ev) {
-					if (ev.date.isSame(day, "day")) {
-						memo.push(ev);
-					}
-					return memo;
-				}, []);
-				todaysEvents.forEach(function(ev) {
-					var evSpan = createElement("span", ev.color);
-					var eventNameSpan = createElement("span", "event-name",
-							ev.eventName); // 이벤트 이름을 포함하는 요소 생성
-					evSpan.appendChild(eventNameSpan); // 이벤트 이름을 이벤트 동그라미 요소에 추가
-					element.appendChild(evSpan);
-				});
-			}
+		    // 날짜와 일치하는 이벤트 필터링
+		    var todaysEvents = this.events.filter(function(ev) {
+		        return ev.eventPeriod === day.format("YY.MM.DD");
+		    });
+
+		    // 필터링된 이벤트를 표시
+		    todaysEvents.forEach(function(ev) {
+		        var evSpan = createElement("span", ev.color);
+		        var eventNameSpan = createElement("span", "event-name", ev.eventName);
+		        evSpan.appendChild(eventNameSpan);
+		        element.appendChild(evSpan);
+		    });
+		};
+		
+
+		// 이벤트 데이터를 달력에 그리기
+		Calendar.prototype.addEvents = function() {
+		    var self = this;
+		    var daysInMonth = this.current.daysInMonth();
+		    for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+		        var day = this.current.clone().date(dayNumber);
+		        var dayElement = this.el.querySelector('.day[data-day="' + day.format("YYYY-MM-DD") + '"]');
+		        var eventsContainer = dayElement.querySelector('.day-events');
+
+		        // 날짜에 해당하는 이벤트를 그리기
+		        this.drawEvents(day, eventsContainer);
+		    }
 		};
 		// 날짜에 따라 클래스를 설정하는 함수
 		Calendar.prototype.getDayClass = function(day) {
@@ -247,7 +277,7 @@
 			for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
 				var day = this.current.clone().date(dayNumber);
 				var todaysEvents = this.events.filter(function(ev) {
-					return ev.date.isSame(day, "day");
+					 return ev.eventPeriod === day.format("YY.MM.DD");
 				});
 				// 전체 월에 대한 이벤트 표시
 				if (todaysEvents.length > 0) {
@@ -255,7 +285,7 @@
 					var dayElement = createElement("div",
 							"day-events-container");
 					var dayNumberElement = createElement("div", "day-number",
-							day.format("DD일"));
+							day.format("DD일")); //날짜를 표시하는 요소를 생성하고, 해당 요소를 dayNumberElement 변수에 할당합니다. 이때 day.format("DD일")은 날짜를 "DD일" 형식으로 포맷하여 반환합니다.
 					dayElement.appendChild(dayNumberElement);
 					self.renderEvents(todaysEvents, dayElement);
 					scrollContainer.appendChild(dayElement);
@@ -272,42 +302,6 @@
 			this.el.appendChild(scrollContainer);
 		};
 
-		// 날짜를 클릭했을 때 상세 정보를 표시하는 함수
-		Calendar.prototype.openDay = function(el) {
-			var details;
-			var dayNumber = +el.querySelector(".day-number").innerText
-					|| +el.querySelector(".day-number").textContent;
-			var day = this.current.clone().date(dayNumber);
-			// 현재 열려 있는 디테일 창을 찾고 없으면 null 반환
-			var currentOpened = document.querySelector(".details");
-			// 클릭된 날짜에 디테일 창이 열려 있지 않은 경우에만 디테일 창 열기
-			if (!currentOpened || currentOpened.parentNode !== el.parentNode) {
-				// 이전에 열려 있던 디테일 창 있다면 닫기
-				if (currentOpened) {
-					//애니메이션이 종료시 디테일 창 제거
-					currentOpened.addEventListener("animationend",
-							function() {
-								if (currentOpened.parentNode) {
-									currentOpened.parentNode
-											.removeChild(currentOpened);
-								}
-							});
-					currentOpened.className = "details out";
-				}
-				// 새로운 디테일 창을 생성
-				details = createElement("div", "details in");
-				var eventsWrapper = createElement("div", "events");
-				details.appendChild(eventsWrapper);
-				// 디테일 창을 body 요소에 추가
-				document.body.appendChild(details);
-				// 클릭된 날짜에 해당하는 이벤트 찾기
-				var todaysEvents = this.events.filter(function(ev) {
-					return ev.date.isSame(day, "day");
-				});
-				// 클릭된 날짜의 이벤트 렌더링
-				this.renderEvents(todaysEvents, eventsWrapper);
-			}
-		};
 		// 이벤트 렌더링 함수
 		Calendar.prototype.renderEvents = function(events, ele) {
 			// 현재 상세 정보 요소에 있는 이벤트 제거
@@ -366,51 +360,138 @@
 		}
 	})();
 	!(function() {
-		var data = [ {
-			eventName : "한일차세대학세미나",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "한국미디어문화학회 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "국제성인역량조사(PIAAC) 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "환태평양 정신의학회 학술대회",
-			calendar : "conference",
-			color : "blue"
-		}, {
-			eventName : "KT&G 상상실현 콘테스트",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "제6회 교육 공공데이터 분석·활용대회",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "CICA 미술관 국제전 “Drawing Now 2024” 공모",
-			calendar : "contest",
-			color : "gray"
-		}, {
-			eventName : "사하 수필공모전",
-			calendar : "contest",
-			color : "gray"
-		} ];
+	    // conferences 데이터 생성
+	    var conferences = [
+	        <c:forEach var="conference" items="${conferences}" varStatus="loop">
+	            {
+	                eventName: "${conference.title}",
+	                eventPeriod: "${conference.eventPeriod}", // eventPeriod 추가
+	                calendar: "conference",
+	                color: "blue"
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
 
-		function addDate(ev) {
-		}
-		// draw 함수 내부
-		Calendar.prototype.draw = function() {
-			// 먼저 헤더를 표시
-			this.drawHeader();
-			// 그다음, 달을 표시
-			this.drawMonth();
-		};
-		var calendar = new Calendar("#calendar", data);
+	    // competitions 데이터 생성
+	    var competitions = [
+	        <c:forEach var="competition" items="${competitions}" varStatus="loop">
+	            {
+	                eventName: "${competition.title}",
+	                eventPeriod: "${competition.applicationPeriod}", // eventPeriod 추가
+	                calendar: "contest",
+	                color: "gray"
+	            }<c:if test="${!loop.last}">,</c:if>
+	        </c:forEach>
+	    ];
+
+	    // conferences와 competitions 데이터 합치기
+	    var allEvents = conferences.concat(competitions);
+
+	    // Calendar 객체 생성 및 conferences와 competitions 데이터 전달
+	    var calendar = new Calendar("#calendar", allEvents);
+	    calendar.setData(allEvents); // 초기 데이터 설정
+	 // 페이지 로드 시 최초 달력 그리기
+	    calendar.draw();
 	})();
+	
+	
+	// JavaScript에서 생성된 conferences 데이터
+	var conferences = [
+	    <c:forEach var="conference" items="${conferences}" varStatus="loop">
+	        {
+	            eventName: "${conference.title}",
+	            eventPeriod: "${conference.eventPeriod}", // eventPeriod 추가
+	            calendar: "conference",
+	            color: "blue"
+	        }<c:if test="${!loop.last}">,</c:if>
+	    </c:forEach>
+	];
+
+	// competitions 데이터 생성
+	var competitions = [
+	    <c:forEach var="competition" items="${competitions}" varStatus="loop">
+	        {
+	            eventName: "${competition.title}",
+	            eventPeriod: "${competition.applicationPeriod}", // eventPeriod 추가
+	            calendar: "contest",
+	            color: "gray"
+	        }<c:if test="${!loop.last}">,</c:if>
+	    </c:forEach>
+	];
+	
+	
+    // createElement 함수 정의
+    function createElement(tagName, className, innerText) {
+        var ele = document.createElement(tagName);
+        if (className) {
+            ele.className = className;
+        }
+        if (innerText) {
+            ele.innerText = ele.textContent = innerText;
+        }
+        return ele;
+    }
+
+    // 서버 측 코드를 사용할 수 있도록 JavaScript로 변환
+    var conferences = [
+        // 여기에 서버 측 코드로 생성한 데이터 추가
+	    <c:forEach var="conference" items="${conferences}" varStatus="loop">
+        {
+            eventName: "${conference.title}",
+            eventPeriod: "${conference.eventPeriod}", // eventPeriod 추가
+            calendar: "conference",
+            color: "blue"
+        }<c:if test="${!loop.last}">,</c:if>
+  	  </c:forEach>
+    ];
+
+    var competitions = [
+        // 여기에 서버 측 코드로 생성한 데이터 추가
+    	 <c:forEach var="competition" items="${competitions}" varStatus="loop">
+	        {
+	            eventName: "${competition.title}",
+	            eventPeriod: "${competition.applicationPeriod}", // eventPeriod 추가
+	            calendar: "contest",
+	            color: "gray"
+	        }<c:if test="${!loop.last}">,</c:if>
+	    </c:forEach>
+    ];
+
+    // 스크롤 컨테이너에 이벤트를 추가하는 함수
+    Calendar.prototype.addEvents = function() {
+        var self = this;
+        var daysInMonth = this.current.daysInMonth();
+        for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+            var day = this.current.clone().date(dayNumber);
+            var todaysEvents = this.events.filter(function(ev) {
+                return ev.date.isSame(day, "day");
+            });
+            // 날짜별로 이벤트를 스크롤 컨테이너에 추가
+            if (todaysEvents.length > 0) {
+                var dayEventsContainer = createElement("div", "day-events-container");
+                var dayNumberElement = createElement("div", "day-number", day.format("DD일"));
+                dayEventsContainer.appendChild(dayNumberElement);
+                self.renderEvents(todaysEvents, dayEventsContainer);
+                self.scrollContainer.appendChild(dayEventsContainer);
+            }
+        }
+    };
+
+    // HTML에 conferences 데이터 출력
+    var conferenceListHTML = "<h2>Conferences</h2><ul>";
+    conferences.forEach(function(conference) {
+        conferenceListHTML += "<li>" + conference.eventName + " - " + conference.eventPeriod + "</li>";
+    });
+    conferenceListHTML += "</ul>";
+    document.getElementById("conferenceList").innerHTML = conferenceListHTML;
+
+    // HTML에 competitions 데이터 출력
+    var competitionListHTML = "<h2>Competitions</h2><ul>";
+    competitions.forEach(function(competition) {
+        competitionListHTML += "<li>" + competition.eventName + " - " + competition.eventPeriod + "</li>";
+    });
+    competitionListHTML += "</ul>";
+    document.getElementById("competitionList").innerHTML = competitionListHTML;
 </script>
 
 <header class="header_logo">
@@ -418,9 +499,17 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">abc123님</button>
-		</a>
+		    <c:choose>
+    <c:when test="${empty loggedInMemberName}">
+        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
+    </c:when>
+    <c:otherwise>
+        <a href="../member/myInfo">
+            <button class="username">${loggedInMemberName}님</button>
+        </a>
+    </c:otherwise>
+</c:choose>
+
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -430,7 +519,9 @@
 		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
-		<button class="hd_logout">로그아웃</button>
+		<c:if test="${rq.isLogined() }">
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+		</c:if>
 	</nav>
 </header>
 
@@ -449,6 +540,11 @@
 		<button class="menu_box2 myquestion">내 문의</button>
 	</a>
 </div>
+
+
+<div id="conferenceList"></div>
+<div id="competitionList"></div>
+
 
 <style type="text/css">
 body {
@@ -476,10 +572,18 @@ body {
 	display: flex;
 	gap: 20px;
 }
+.header_menu button:hover {
+    border-bottom: 1px solid;
+}
 
 .hd_logout {
+	margin-top: 3.5px;
 	font-size: 12.5px;
 }
+.hd_logout:hover {
+    border-bottom: 1px solid;
+}
+
 
 .username {
 	flex-grow: 1;
@@ -733,7 +837,11 @@ body {
 
 /* 이벤트 목록 */
 .events {
+/* position: relative;
+    top: -20px; /* 위로 올리고 싶은 만큼의 값 */
+    right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
 	height: auto;
+	width: auto;
 	padding: 7px 0;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -741,6 +849,7 @@ body {
 	/* 스크롤바 숨김 */
 	-ms-overflow-style: none;
 	/* Firefox IE 10+ */
+/* 	border: 3px solid red; */
 }
 
 /* 이벤트 목록 입장 애니메이션 */
