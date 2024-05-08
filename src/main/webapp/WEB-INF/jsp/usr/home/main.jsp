@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    return startDate + " ~ " + endDate;
 	}
 
-  </script>
+</script>
 
 <script>
   document.querySelector('.box_date').addEventListener('click', function() {
@@ -273,17 +273,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="search_box">
 	<form action="../hotel/recommendlist" method="POST">
-		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off" value="" />
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off"
+			value="" />
 		<div class="search_results"></div>
 		<div class="search_box1">
 			<div class="search_box-1">
-				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off" value="" />
-				<input type="text" class="box_end" name="endLocation" placeholder="도착장소"  autocomplete="off" id="textInputEnd"
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off"
+					value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" autocomplete="off" id="textInputEnd"
 					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
 
 			</div>
 			<div class="search_box-2">
-				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate" value="" />
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate"
+					value="" />
 				<div class="select_box">
 					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
 						<option disabled selected>인원 수</option>
@@ -360,7 +363,11 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 고의성</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:rhdmltjd1324@gmail.com">rhdmltjd1324@gmail.com</a>
+							</li>
+
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
@@ -382,7 +389,10 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 정다운</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:jungpro567@gmail.com">jungpro567@gmail.com</a>
+							</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
@@ -406,7 +416,12 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 오지현</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:ubis970420@gmail.com">ubis970420@gmail.com</a>
+							</li>
+
+
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
@@ -842,15 +857,17 @@ a.control_next {
 /* 팀프로젝트 조장 및 조원 프로필 css */
 .team_project_member_profile {
 	display: flex;
-	margin-top: 80px;
-	height: 500px;
+	padding-top: 100px;
+	padding-bottom: 100px;
 	background-color: #050A19;
+	/* 	border: 3px solid; */
 }
 
 .container {
 	margin: auto;
 	border-radius: 10px;
-	background-color: #4E597C;
+	background-color: #00256c;
+	width: 1300px;
 }
 
 .high_container, .row_container {
@@ -886,8 +903,8 @@ a.control_next {
 }
 
 .profile_img {
-	width: 90px;
-	height: 90px;
+	width: 150px;
+	height: 150px;
 	border-radius: 120px;
 	margin-left: 22px;
 }

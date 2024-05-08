@@ -28,6 +28,9 @@ CREATE TABLE `member`(
 );
 
 
+SELECT *
+FROM `member`;
+
 # article TD 생성
 INSERT INTO article
 SET regDate = NOW(),
@@ -492,7 +495,6 @@ CREATE TABLE `academy` (
 	`imageURL`	 VARCHAR(500) NULL,
 	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
 	`goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수'
-	
 );
 
 
@@ -535,12 +537,18 @@ SELECT IFNULL(SUM(S.point),0)
 			AND academyId = 3
 			AND themeId = 1;
 
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
-VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW(), '대전광역시');
 
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
-VALUES (7, 'test학회ㅈ', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY));
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회2', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
 
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회3', 50, '2024-06-01', '2024-06-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '부산광역시');
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회4', 50, '2024-07-01', '2024-07-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
 
 SELECT *
 FROM `academy`
@@ -609,5 +617,28 @@ CREATE TABLE scrap
 
 SELECT *
 FROM scrap;
+
+CREATE TABLE inquiry(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL , 
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) NOT NULL,
+    `body` VARCHAR(500) NOT NULL,
+    title VARCHAR(500) NOT NULL
+);
+
+SELECT *
+FROM inquiry;
+
+
+
+INSERT INTO
+inquiry SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+title = '123',
+`body` = 'reqwrq';
+
 
 

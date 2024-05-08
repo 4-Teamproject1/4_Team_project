@@ -34,7 +34,7 @@ public class UsrHotelListController {
 
 	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req, HttpServletResponse response,Model model) {
 		
-		return hotelListService.crawlAndSaveHotelList();
+		return hotelListService.crawlAndSaveHotelList();}
 
 
 	@RequestMapping("usr/hotel/list")

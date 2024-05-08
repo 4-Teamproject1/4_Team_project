@@ -253,10 +253,7 @@ body {
 }
 </style>
 
-<!-- 
-<!-- 탈퇴하기 버튼 -->
-<button class="info2 withdraw_btn" onclick="confirmWithdrawal()">탈퇴하기</button>
--->
+
 <script>
 	function confirmWithdrawal() {
 		if (confirm('정말 탈퇴하시겠습니까?')) {
