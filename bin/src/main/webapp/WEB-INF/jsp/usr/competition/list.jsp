@@ -44,7 +44,7 @@
 
 <div class="list-container">
   <div class="list-board">
-    <a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+    	<span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>
     <a href="../conference/list" class="list-board-item">학술행사</a>
     <a href="../competition/list" class="list-board-item">공모전</a>
   </div>
