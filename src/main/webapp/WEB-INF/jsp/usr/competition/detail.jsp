@@ -116,6 +116,24 @@
 </div>
 
 
+
+<script>
+window.onload = function() {
+    var img = document.querySelector('.competition-body img');
+    if (img.src === 'https://asset.hibrain.io/images/dist/icon/hbnloading.gif') {
+        img.style.display = 'none'; // 이미지를 숨깁니다.
+        var parentDiv = img.parentNode;
+        var messageDiv = document.createElement('div'); // 메시지를 표시할 새 div를 생성합니다.
+        messageDiv.textContent = '준비된 이미지가 없습니다';
+        messageDiv.style.textAlign = 'center'; // 텍스트를 중앙에 정렬합니다.
+        messageDiv.style.padding = '20px'; // 패딩을 추가합니다.
+        parentDiv.appendChild(messageDiv); // 생성된 div를 부모 div에 추가합니다.
+    }
+}
+</script>
+
+
+
 <script>
 
 <!-- 좋아요 싫어요 버튼	-->

@@ -249,9 +249,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	<a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
+	<a href="../hotel/recommendlist">
+		<button class="menu_box2 recommend">숙박&교통</button>
+	</a>
 	<c:if test="${rq.isLogined() }">
 		<a href="../member/myInfo">
-			<button class="menu_box2 login">회원정보</button>
+			<button class="menu_box2 info">회원정보</button>
 		</a>
 	</c:if>
 	<c:if test="${!rq.isLogined() }">
@@ -349,11 +352,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			<div class="profile_container">
 				<div class="profile_box">
 					<div class="profile_picture">
-						<img
+						<img class="profile_img"
 							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
 							alt="" />
 					</div>
-					<div class="profile_info"></div>
+					<div class="profile_info">이름 : 고의성 <br/>이메일 : rhdmltjd1324@gmail.com <br />연락처 : 010-6245-9767<br />github주소 : https://github.com/Gouiseong?tab=repositories</div>
 				</div>
 			</div>
 			<div class="profile_container">
@@ -410,7 +413,7 @@ h1 {
 	right: 4.5%;
 	background-color: #00256c;
 	color: white;
-	width: 450px;
+	width: 550px;
 	height: 60px;
 	border-radius: 10px;
 	opacity: 0.9;
@@ -428,7 +431,6 @@ h1 {
 .logout {
 	letter-spacing: 1px;
 	font-size: 12.5px;
-	margin-left: 55px;
 }
 
 #slider {
@@ -782,10 +784,9 @@ a.control_next {
 /* 팀프로젝트 조장 및 조원 프로필 css */
 .team_project_member_profile {
 	display: flex;
-	margin-top: 150px;
+	margin-top: 80px;
 	height: 500px;
 	background-color: red;
-	height: 500px;
 }
 
 .container {
@@ -799,10 +800,10 @@ a.control_next {
 
 .profile_container {
 	flex: 1;
-	background-color: yellow;
-	width: 330px;
-	height: 170px;
-	margin: 20 100;
+	background-color: #31363F;
+	width: 400px;
+	height: 200px;
+	margin: 20 50;
 	border-radius: 5px;
 }
 
@@ -812,10 +813,16 @@ a.control_next {
 
 .profile_picture {
 	flex: 1;
+	align-content: center;
+	border-bottom:solid 2px red;
 }
 
 .profile_info {
 	flex: 2;
+	color: white;
+}
+
+.profile_img{
 }
 @media ( max-width : 991px) {
 	.event-schedule {
