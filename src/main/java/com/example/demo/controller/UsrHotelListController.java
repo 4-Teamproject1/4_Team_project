@@ -32,21 +32,21 @@ public class UsrHotelListController {
 	// 액션 메서드
 	@RequestMapping("usr/hotel/crawl")
 
-	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req, HttpServletResponse response,Model model) {
-		
-		return hotelListService.crawlAndSaveHotelList();}
+	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req, HttpServletResponse response, Model model) {
 
+		return hotelListService.crawlAndSaveHotelList();
 	}
+
 	@RequestMapping("usr/hotel/list")
 	public String showHotelList(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		List<Hotel> hotelList = hotelListService.getHotelList();
 		model.addAttribute("hotelList", hotelList);
-		
+
 		return "usr/hotel/list";
 	}
-	
+
 	/*
 	 * @RequestMapping("usr/hotel/recommendlist") public String
 	 * showHotelList2(HttpServletRequest req, Model model) { Rq rq = (Rq)
@@ -57,17 +57,17 @@ public class UsrHotelListController {
 	 * 
 	 * return "usr/hotel/recommendlist"; }
 	 */
-	
+
 	@RequestMapping("usr/hotel/recommendlist")
 	public String showRecommendedHotelList(@RequestParam(required = false) String endLocation, Model model) {
-	    if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
-	        String searchPrefix = endLocation.substring(0, 2); // 앞 두 글자 추출
-	        List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
-	        model.addAttribute("hotelList", filteredHotels);
-	    } else {
-	        model.addAttribute("hotelList", new ArrayList<>()); // 입력값이 부적절하면 빈 목록을 반환
-	    }
-	    return "usr/hotel/recommendlist";
+		if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
+			String searchPrefix = endLocation.substring(0, 2); // 앞 두 글자 추출
+			List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
+			model.addAttribute("hotelList", filteredHotels);
+		} else {
+			model.addAttribute("hotelList", new ArrayList<>()); // 입력값이 부적절하면 빈 목록을 반환
+		}
+		return "usr/hotel/recommendlist";
 	}
 
 }

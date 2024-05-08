@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="My Question"></c:set>
+<c:set var="pageTitle" value="My Question Detail"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -31,74 +31,36 @@
 </header>
 
 <div class="img"></div>
-
 <div class="menu_box1 left">
 	<a href="../member/myQuestion">
 		<div class="mypage">문의사항</div>
 	</a>
 </div>
-<div class="right">
-	<a href="../member/myQuestion">
-		<button class="menu_box2 myinfo">문의 목록</button>
-	</a>
-	<a href="../member/inquiry">
-		<button class="menu_box2 myquestion">문의 작성</button>
-	</a>
+
+<div class="Question_box title">
+	<div class="Ques1">제목</div>
+	<div class="Ques2">${inquiry.title}</div>
+</div>
+
+<div class="Question_box content">
+	<div class="content Ques1">내용</div>
+	<div class="Ques2">${inquiry.body}</div>
 </div>
 
 
-<section class="question_list">
-    <div class="question_bar">
-        <div class="bar_num">번호</div>
-        <div class="bar_title">문의 제목</div>
-        <div class="bar_date">문의 날짜</div>
-    </div>
-    
-    <div class="question_box">
-        <c:forEach var="inquiry" items="${inquiries}">
-            <div class="question_content">
-                <div class="bar_num">${inquiry.id}</div>
-                <div class="bar_title">
-                    <a href="myQuestionDetail?id=${inquiry.id}">${inquiry.title}</a>
-                </div>
-                <div class="bar_date">${inquiry.regDate}</div>
-            </div>
-        </c:forEach>
-    </div>
-</section>
-
-<div class="bottom-bar">
-	<div class="page-bar">
-
-		<button>
-			<a href=""><</a>
-		</button>
-		<button>
-			<a href="">1</a>
-		</button>
-		<button>
-			<a href="">2</a>
-		</button>
-		<button>
-			<a href="">3</a>
-		</button>
-		<button>
-			<a href="">></a>
-		</button>
-
-	</div>
-</div>
+<button class="back_btn" type="button" onclick="history.back();">뒤로가기</button>
 
 <style>
 body {
 	width: 100%;
-	height: 100%;
+	hight: 130%;
 	margin: 0;
 	padding: 0;
 }
 
 .header {
 	display: flex;
+	position: absolute;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -137,7 +99,7 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 150px;
-	left: 0;
+	left: 0px;
 	top: 57px;
 	background:
 		url('https://velog.velcdn.com/images/vrslxowe/post/ba2f5fd8-3c2c-4a9a-baa4-2d31c48be056/image.jpg')
@@ -180,102 +142,69 @@ body {
 	top: 155px;
 }
 
-.right {
-	display: flex;
-	gap: 50px;
-	position: absolute;
-	right: 112.5px;
-	top: 165px;
-}
-
-.question_list {
-	position: absolute;
-    top: 270px;
-    left: 20%;
-    width: 1000px;
-    height: auto;
-    margin: auto;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.question_bar {
-	display: flex;
-    width: 1000px;
-    height: 30px;
-    font-size: 14px;
-    color: white;
-    align-items: center;
-    border-radius: 5px;
-    background-color: #7E9DD9;
-}
-
-.bar_num {
-	position: relative;
-	left: 5px;
-	width: 50px;
-}
-
-.bar_title {
-	position: relative;
-	left: 0;
+.Question_box {
+	top: 260px;
+	left: 25%;
+	height: 87px;
 	width: 1000px;
+	position: relative;
+	border-bottom-width: 1px;
+	border-color: #878787;
 }
 
-.bar_date {
-position: relative;
-	left: -20;
-	width: 100px;
-}
-
-.question_box {
-	
-	
-}
-
-.question_content {
+.Ques1 {
+	width: 160px;
+	height: 87px;
+	background: #7E9DD9;
+	color: white;
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	top: 0px;
-	width: 1000px;
-	height: 80px;
-	background-color: #fff;
-	border-bottom: 1px solid #cbd5e0;
-}
-
-.question_content:hover {
-	background-color: #B6CCF4;
-	color: white;
-}
-
-/* 하단 바 */
-.bottom-bar {
-	position: relative;
-	top: 90%;
-	left: -4.5%;
 	text-align: center;
+	border-bottom-width: 1px;
+	border-color: #878787;
 }
 
-.page-bar>button>a:hover {
-	background-color: #7E9DD9;
+.Ques2 {
+	top: -55px;
+	left: 19%;
+	width: 200px;
+	color: black;
+	height: 50px;
+	position: relative;
+	background-color: pink;
+	opacity: 0.6;
+}
+
+.title {
+	height: 89px;
+	border-top-width: 2px;
+	border-top-color: #535353;
+}
+
+.content {
+	height: 450px;
+}
+
+.content>input {
+	top: -90%;
+}
+
+.back_btn {
+	width: 110px;
+	height: 60px;
+	font-size: 16px;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 3%;
+	border-radius: 18px;
+	background: #00256c;
+	text-align: center;
 	color: white;
+	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-
-.page-bar>button>a {
-	border: solid 1px gray;
-	border-radius: 10px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-}
-
 </style>
 
 <%@ include file="../common/foot.jspf"%>
