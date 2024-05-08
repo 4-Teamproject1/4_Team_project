@@ -279,6 +279,17 @@ public class UsrMemberController {
 
 	}
 	
+	@RequestMapping("/usr/member/myQuestionDetail")
+	public String myQuestionDetail(HttpServletRequest req, @RequestParam("inquiryId") int inquiryId, Model model) {
+	    // Retrieve the inquiry details by its ID
+	    Inquiry inquiry = memberService.getInquiry(inquiryId);
+	    
+	    // Add the inquiry object to the model to make it accessible in the JSP
+	    model.addAttribute("inquiry", inquiry);
+	    
+	    return "/usr/member/myQuestionDetail";
+	}
+	
 	@RequestMapping("/usr/member/myQuestion")
 	public String showMyQuestion(Model model) {
 	    List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기

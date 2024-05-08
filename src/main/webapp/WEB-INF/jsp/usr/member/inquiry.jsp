@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="Inquiry List"></c:set>
+<c:set var="pageTitle" value="Inquiry"></c:set>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -66,7 +66,9 @@
 <div class="img"></div>
 
 <div class="menu_box left">
-	<div class="mypage">문의사항</div>
+	<a href="../member/myQuestion">
+		<div class="mypage">문의사항</div>
+	</a>
 </div>
 
 <section class="question_box">
