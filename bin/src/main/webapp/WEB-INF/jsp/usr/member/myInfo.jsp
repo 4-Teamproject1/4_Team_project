@@ -11,27 +11,27 @@
 
 
 <header class="header">
-  <a href="../home/main">
-    <button class="logo">로고</button>
-  </a>
-  <nav class="header_menu">
-    <a href="../member/myInfo">
-  <button class="username">${loggedInMemberName}님</button>
-</a>
+	<a href="../home/main">
+		<button class="logo">로고</button>
+	</a>
+	<nav class="header_menu">
+		<a href="../member/myInfo">
+			<button class="username">${loggedInMemberName}님</button>
+		</a>
 
-    <a href="../conference/list">
-      <button class="hd_info">학회 정보</button>
-    </a>
-    <a href="../competition/list">
-      <button class="hd_contest">공모전</button>
-    </a>
-    <a href="../member/myQuestion">
-      <button class="hd_question">문의사항</button>
-    </a>
-    <c:if test="${rq.isLogined() }">
+		<a href="../conference/list">
+			<button class="hd_info">학회 정보</button>
+		</a>
+		<a href="../competition/list">
+			<button class="hd_contest">공모전</button>
+		</a>
+		<a href="../member/myQuestion">
+			<button class="hd_question">문의사항</button>
+		</a>
+		<c:if test="${rq.isLogined() }">
 			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
-  </nav>
+	</nav>
 </header>
 
 <div class="img"></div>
@@ -62,7 +62,9 @@
 
 <div class="info_box info_pw">
 	<div class="info1">비밀번호</div>
-	<button class="info2 pw_btn"><a href="../member/checkPw" >변경하기</a></button>
+	<button class="info2 pw_btn">
+		<a href="../member/checkPw">변경하기</a>
+	</button>
 </div>
 
 <div class="info_box info_pn">
@@ -75,8 +77,16 @@
 	<div class="info2">${rq.loginedMember.email }</div>
 </div>
 
+<div class="info_box info_withdraw">
+	<div class="info1">탇퇴</div>
 
-<button class="modify_btn"><a href="../member/checkPw" >수정하기</a></button>
+<!-- 탈퇴하기 버튼, 한 번만 선언합니다 -->
+<button class="info2 withdraw_btn" onclick="return confirmWithdrawal();">탈퇴하기</button>
+
+</div>
+<button class="modify_btn">
+	<a href="../member/checkPw">수정하기</a>
+</button>
 
 <style>
 body {
@@ -105,16 +115,18 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
+
 .hd_logout:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .username {
@@ -229,7 +241,7 @@ body {
 	border-top-color: #535353;
 }
 
-.pw_btn {
+.pw_btn, .withdraw_btn {
 	top: -65px;
 	width: 95px;
 	height: 38px;
@@ -240,5 +252,19 @@ body {
 	box-shadow: 4px 3px 3px 0px rgba(0, 0, 0, 0.25);
 }
 </style>
+
+<!-- 
+<!-- 탈퇴하기 버튼 -->
+<button class="info2 withdraw_btn" onclick="confirmWithdrawal()">탈퇴하기</button>
+-->
+<script>
+	function confirmWithdrawal() {
+		if (confirm('정말 탈퇴하시겠습니까?')) {
+			window.location.href = '../member/doWithdraw'; // 서버의 탈퇴 처리 URL로 이동
+		}
+	}
+</script>
+
+
 
 <%@ include file="../common/foot.jspf"%>

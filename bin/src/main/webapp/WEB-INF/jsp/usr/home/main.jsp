@@ -7,7 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script>
 /* 메인 이미지 슬라이드 */
@@ -59,7 +59,7 @@
     });
   });
   </script>
-  
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   </script>
 
+
 <div id="slider">
 	<a href="#" class="control_next">＞</a>
 	<a href="#" class="control_prev">＜</a>
@@ -272,17 +273,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="search_box">
 	<form action="../hotel/recommendlist" method="POST">
-		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off" value="" />
 		<div class="search_results"></div>
 		<div class="search_box1">
 			<div class="search_box-1">
-				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
-				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd"
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off" value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소"  autocomplete="off" id="textInputEnd"
 					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
 
 			</div>
 			<div class="search_box-2">
-				<input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate" value="" />
 				<div class="select_box">
 					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
 						<option disabled selected>인원 수</option>
@@ -310,23 +311,23 @@ document.addEventListener("DOMContentLoaded", function() {
 		<button class="event-title">학술행사일정</button>
 	</a>
 	<div class="event-schedule-box">
-    <c:forEach var="conference" items="${conferences}" varStatus="status">
-        <c:if test="${status.index < 3}">
-            <button class="event-description">
-                <c:choose>
-                    <c:when test="${fn:length(conference.title) > 30}">
+		<c:forEach var="conference" items="${conferences}" varStatus="status">
+			<c:if test="${status.index < 3}">
+				<button class="event-description">
+					<c:choose>
+						<c:when test="${fn:length(conference.title) > 30}">
                         ${fn:substring(conference.title, 0, 30)} ㆍㆍㆍ
                     </c:when>
-                    <c:otherwise>
+						<c:otherwise>
                         ${conference.title}
                     </c:otherwise>
-                </c:choose>
-                <div class="event-date">${conference.eventPeriod}</div>
-            </button>
-        </c:if>
-    </c:forEach>
-    <a href="../conference/list" class="event-more-button">더보기</a>
-</div>
+					</c:choose>
+					<div class="event-date">${conference.eventPeriod}</div>
+				</button>
+			</c:if>
+		</c:forEach>
+		<a href="../conference/list" class="event-more-button">더보기</a>
+	</div>
 
 </div>
 <div class="event-schedule">
@@ -356,27 +357,87 @@ document.addEventListener("DOMContentLoaded", function() {
 							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
 							alt="" />
 					</div>
-					<div class="profile_info">이름 : 고의성 <br/>이메일 : rhdmltjd1324@gmail.com <br />연락처 : 010-6245-9767<br />github주소 : https://github.com/Gouiseong?tab=repositories</div>
+					<div class="profile_info">
+						<ul>
+							<li>이름 : 고의성</li>
+							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>연락처 : 010-6245-9767</li>
+							<li>
+								<img style="display: inline-block;" class="github_img"
+									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
+								<a href="https://github.com/Gouiseong?tab=repositories">
+									<span class="github">github</span>
+								</a>
+							</li>
+					</div>
 				</div>
 			</div>
 			<div class="profile_container">
 				<div class="profile_box">
-					<div class="profile_picture"></div>
-					<div class="profile_info"></div>
+					<div class="profile_picture">
+						<img class="profile_img"
+							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+							alt="" />
+					</div>
+					<div class="profile_info">
+						<ul>
+							<li>이름 : 정다운</li>
+							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>연락처 : 010-6245-9767</li>
+							<li>
+								<img style="display: inline-block;" class="github_img"
+									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
+								<a href="https://github.com/Gouiseong?tab=repositories">
+									<span class="github">github</span>
+								</a>
+							</li>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="high_container">
 			<div class="profile_container">
 				<div class="profile_box">
-					<div></div>
-					<div></div>
+					<div class="profile_picture">
+						<img class="profile_img"
+							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+							alt="" />
+					</div>
+					<div class="profile_info">
+						<ul>
+							<li>이름 : 오지현</li>
+							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>연락처 : 010-6245-9767</li>
+							<li>
+								<img style="display: inline-block;" class="github_img"
+									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
+								<a href="https://github.com/Gouiseong?tab=repositories">
+									<span class="github">github</span>
+								</a>
+							</li>
+					</div>
 				</div>
 			</div>
 			<div class="profile_container">
 				<div class="profile_box">
-					<div></div>
-					<div></div>
+					<div class="profile_picture">
+						<img class="profile_img"
+							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+							alt="" />
+					</div>
+					<div class="profile_info">
+						<ul>
+							<li>이름 : 김선경</li>
+							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>연락처 : 010-6245-9767</li>
+							<li>
+								<img style="display: inline-block;" class="github_img"
+									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
+								<a href="https://github.com/Gouiseong?tab=repositories">
+									<span class="github">github</span>
+								</a>
+							</li>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -778,20 +839,18 @@ a.control_next {
 	}
 }
 
-
-
-
 /* 팀프로젝트 조장 및 조원 프로필 css */
 .team_project_member_profile {
 	display: flex;
 	margin-top: 80px;
 	height: 500px;
-	background-color: red;
+	background-color: #050A19;
 }
 
 .container {
 	margin: auto;
-	background-color: blue;
+	border-radius: 10px;
+	background-color: #4E597C;
 }
 
 .high_container, .row_container {
@@ -813,17 +872,35 @@ a.control_next {
 
 .profile_picture {
 	flex: 1;
+	height: 200px;
 	align-content: center;
-	border-bottom:solid 2px red;
 }
 
 .profile_info {
 	flex: 2;
 	color: white;
+	height: 200px;
+	align-content: center;
+	margin-left: 10px;
+	font-size: 14px;
 }
 
-.profile_img{
+.profile_img {
+	width: 90px;
+	height: 90px;
+	border-radius: 120px;
+	margin-left: 22px;
 }
+
+.github_img {
+	width: 30px;
+	height: 30px;
+}
+
+.github:hover {
+	
+}
+
 @media ( max-width : 991px) {
 	.event-schedule {
 		padding: 0 20px;

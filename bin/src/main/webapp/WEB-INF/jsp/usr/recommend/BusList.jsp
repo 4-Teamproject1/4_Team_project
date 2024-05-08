@@ -15,11 +15,14 @@
 	<nav class="header_menu">
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
-		</a> <a href="../conference/list">
+		</a>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<button class="hd_logout">로그아웃</button>
@@ -30,14 +33,18 @@
 
 <div class="list-container">
 	<ul class="accommodation-nav-list">
-		<a href="../article/recommendlist">
+		<a href="../hotel/recommendlist">
 			<div class="accommodation-nav-item btn m-1">숙소</div>
 		</a>
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 			<ul tabindex="0" class="dropdown-content">
-				<li><a href="../recommend/TrainList">기차</a></li>
-				<li><a href="../recommend/BusList">버스</a></li>
+				<li>
+					<a href="../recommend/TrainList">기차</a>
+				</li>
+				<li>
+					<a href="../recommend/BusList">버스</a>
+				</li>
 			</ul>
 		</div>
 	</ul>
@@ -61,10 +68,10 @@
 			<option value="포항">포항</option>
 			<option value="성남">성남(분당)</option>
 			<option value="창원역">창원역</option>
-		</select> 
+		</select>
 		<select class="select select-ghost w-full max-w-xs" name="arriveBus" id="arriveBus" placeholder="출발역먼저선택">
 			<option value="">버스역선택</option>
-		</select> 
+		</select>
 		<select class="search-date-text" name="ondate">
 			<option value="">가는날</option>
 			<option value="2">2일</option>
@@ -96,7 +103,8 @@
 			<option value="28">28일</option>
 			<option value="29">29일</option>
 			<option value="30">30일</option>
-		</select> <select class="select people_sort_bar">
+		</select>
+		<select class="select people_sort_bar">
 			<option>1명</option>
 			<option>2명</option>
 			<option>3명</option>
@@ -143,34 +151,58 @@
 									"전주고속터미널", "진해", "창원" ]
 						};
 
-						 // 출발지가 변경될 때마다 도착지 옵션을 업데이트하는 함수
-				        $('#departureBus').change(function() {
-				            var selectedDeparture = $(this).val(); // 선택된 출발지 값 가져오기
-				            var destinations = destinationMapping[selectedDeparture] || []; // 해당 출발지에 대한 도착지 목록 가져오기
-				            var arriveBusSelect = $('#arriveBus'); // 도착지 select 요소
+						// 출발지가 변경될 때마다 도착지 옵션을 업데이트하는 함수
+						$('#departureBus')
+								.change(
+										function() {
+											var selectedDeparture = $(this)
+													.val(); // 선택된 출발지 값 가져오기
+											var destinations = destinationMapping[selectedDeparture]
+													|| []; // 해당 출발지에 대한 도착지 목록 가져오기
+											var arriveBusSelect = $('#arriveBus'); // 도착지 select 요소
 
-				            arriveBusSelect.empty(); // 기존 옵션 제거
+											arriveBusSelect.empty(); // 기존 옵션 제거
 
-				            // 도착지 select 요소 업데이트
-				            $.each(destinations, function(index, destination) {
-				                arriveBusSelect.append($('<option>', {
-				                    value: destination,
-				                    text: destination
-				                }));
-				            });
+											// 도착지 select 요소 업데이트
+											$
+													.each(
+															destinations,
+															function(index,
+																	destination) {
+																arriveBusSelect
+																		.append($(
+																				'<option>',
+																				{
+																					value : destination,
+																					text : destination
+																				}));
+															});
 
-				            // 출발지 선택 여부에 따라 도착지 선택란 활성화/비활성화
-				            if (selectedDeparture !== '') {
-				                arriveBusSelect.prop('disabled', false); // 도착지 선택란 활성화
-				            } else {
-				                arriveBusSelect.prop('disabled', true); // 도착지 선택란 비활성화
-				            }
-				        });
+											// 출발지 선택 여부에 따라 도착지 선택란 활성화/비활성화
+											if (selectedDeparture !== '') {
+												arriveBusSelect.prop(
+														'disabled', false); // 도착지 선택란 활성화
+											} else {
+												arriveBusSelect.prop(
+														'disabled', true); // 도착지 선택란 비활성화
+											}
+										});
 
-				        // 페이지 로드 시 초기화
-				        $('#departureBus').trigger('change');
-				    });
+						// 페이지 로드 시 초기화
+						$('#departureBus').trigger('change');
+					});
 </script>
+
+<script>
+    $(document).ready(function() {
+        // 예매하기 버튼 클릭 이벤트 설정
+        $('.reservation-btn').click(function() {
+            // 새 창에서 kobus 웹사이트를 엽니다
+            window.open('https://www.kobus.co.kr/main.do', '_blank');
+        });
+    });
+</script>
+
 
 <div class="place-box">
 	<div class="outer-arrow">
@@ -189,15 +221,19 @@
 					<c:if test="${not empty bus.startTime}">
 						<div class="bus-info-header">
 							<div class="bus-type">
-								<span class="bus-class">${bus.grade}</span> <span class="bus-operator">${bus.companyName}</span>
+								<span class="bus-class">${bus.grade}</span>
+								<span class="bus-operator">${bus.companyName}</span>
 							</div>
 							<div class="bus-timings">
-								<time class="departure-time">출발시간: ${bus.startTime}</time>
+								<time class="departure-time">출발시간 ${bus.startTime}</time>
 								<div class="bus-features">
 									<div class="bus-price-details">
 										<span class="view-details">${bus.remainingSeats}</span>
 									</div>
-									<button class="btn">예매하기</button>
+									<div>
+									<button class="btn reservation-btn">예매하기</button>
+									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -211,6 +247,7 @@
 
 
 <style>
+
 .popup {
 	position: absolute;
 	top: 35%;
@@ -536,7 +573,6 @@ body {
 	flex-direction: column;
 	align-items: start;
 	text-align: center;
-	/*    border: 3px solid; */
 	width: 700px;
 }
 
@@ -568,22 +604,21 @@ body {
 	align-self: stretch;
 	display: flex;
 	gap: 17px;
-	font-size: 34px;
+	font-size: 27px;
 	color: #000;
 	padding: 15px 20px 0 0;
-	/*     border: 3px solid; */
-	width: 500px;
+	width: 600px;
 }
 
 .departure-time {
 	font-family: Inter, sans-serif;
-	font-weight: 700;
+	font-weight: 500;
+	width: 400px;
 }
 
 .arrow {
 	color: #525252;
 	font: 600 29px Inter, sans-serif;
-	/*     border: 3px solid; */
 	height: 50px;
 }
 
@@ -597,16 +632,15 @@ body {
 	flex-basis: auto;
 	margin: auto 0;
 	font: 400 20px Inter, sans-serif;
-	/*     border: 3px solid; */
 	width: 300px;
 }
 
 .bus-features {
 	display: flex;
-	/*   margin-top: 5px; */
-	gap: 20px;
+	gap: 10px;
 	font-size: 15px;
-	/* border: 3px solid; */
+	width: 600px;
+	justify-content: space-between;
 }
 
 .bus-type-duration {
@@ -680,13 +714,13 @@ body {
 }
 
 .separator {
-	border-color: rgba(0, 0, 0, 1);
-	border-style: solid;
+	border-color: #edf0f9;
 	border-width: 1px;
-	background-color: #000;
+	background-color:  #edf0f9;
 	min-height: 1px;
 	margin-top: 25px;
 	width: 640px;
+	margin-bottom: 10px;
 }
 
 /*출발,도착장소 css*/
@@ -696,12 +730,14 @@ body {
 	position: relative;
 	top: 100px;
 	left: 35%;
-	width: 500px;
+	width: 630px;
 	height: 120px;
 	color: white;
-	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
+	margin-top: 30px;
+	margin-bottom: 30px; /* 필요에 따라 여백 조절 */
 	text-align: center;
 	background-color: #7E9DD9;
+	border-radius: 10px;
 }
 
 .outer-arrow {
