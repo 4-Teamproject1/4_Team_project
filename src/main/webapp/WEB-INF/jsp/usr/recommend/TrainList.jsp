@@ -81,17 +81,17 @@
 			<ul tabindex="0" class="dropdown-content">
 				
 				<li>
-					<a href="../article/recommendTrainList">기차</a>
+					<a href="../recommend/TrainList">기차</a>
 				</li>
 				<li>
-					<a href="../article/recommendBusList">버스</a>
+					<a href="../recommend/BusList">버스</a>
 				</li>
 			</ul>
 		</div>
 	</ul>
 </div>
 
-<form action="/usr/article/recommendTrainList" method="get">
+<form action="/usr/recommend/TrainList" method="get">
 	<div class="searchBox">
 		<span class="material-symbols-outlined train_icon">train</span>
 		<select class="select select-ghost w-full max-w-xs arrival_train" name="arrivalTrain">

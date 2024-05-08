@@ -19,7 +19,7 @@ public class UsrTrainController {
 	@Autowired
 	private TrainTicketService trainTicketService;
 
-	@RequestMapping("/usr/article/recommendTrainList")
+	@RequestMapping("/usr/recommend/TrainList")
 	public String recommendTrainList(HttpServletRequest req, Model model,
 			@RequestParam(defaultValue = "서울 용산구 한강대로 405") String departureTrain,
 			@RequestParam(defaultValue = "대전역") String arriveTrain, @RequestParam(defaultValue = "21") String ondate) {
@@ -32,6 +32,6 @@ public class UsrTrainController {
 		}
 		model.addAttribute("spanTexts", spanTexts);
 
-		return "usr/article/recommendTrainList";
+		return "usr/recommend/TrainList";
 	}
 }

@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 </script>
 
-</script>
 
 <header class="header">
 	<a href="../home/main">
@@ -127,10 +126,10 @@ document.addEventListener("DOMContentLoaded", function() {
 						<ul tabindex="0" class="dropdown-content">
 							
 							<li>
-								<a href="../article/recommendTrainList">기차</a>
+								<a href="../recommend/TrainList">기차</a>
 							</li>
 							<li>
-								<a href="../article/recommendBusList">버스</a>
+								<a href="../recommend/BusList">버스</a>
 							</li>
 						</ul>
 					</div>
@@ -231,8 +230,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	<div class="outer-content-box">
 		<div class="sort_bar">
-			<form id="searchForm"action="../hotel/crawl" method="get">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+			<form id="searchForm"action="../hotel/recommendlist" method="get">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplet="off">
 				
 				<div id="date_start_btn" class="date_start">
 					<div style="text-align: center;">2024년 5월 12일</div>
