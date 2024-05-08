@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 					<div class="profile_info">
 						<ul>
-							<li>이름 : 고의성</li>
+							<li>이름 : 정다운</li>
 							<li>이메일 : rhdmltjd1324@gmail.com</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
@@ -405,7 +405,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 					<div class="profile_info">
 						<ul>
-							<li>이름 : 고의성</li>
+							<li>이름 : 오지현</li>
 							<li>이메일 : rhdmltjd1324@gmail.com</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 					<div class="profile_info">
 						<ul>
-							<li>이름 : 고의성</li>
+							<li>이름 : 김선경</li>
 							<li>이메일 : rhdmltjd1324@gmail.com</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
