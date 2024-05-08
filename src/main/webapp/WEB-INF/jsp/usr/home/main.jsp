@@ -272,17 +272,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="search_box">
 	<form action="../hotel/recommendlist" method="POST">
-		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." value="" />
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off" value="" />
 		<div class="search_results"></div>
 		<div class="search_box1">
 			<div class="search_box-1">
-				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" value="" />
-				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" id="textInputEnd"
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off" value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소"  autocomplete="off" id="textInputEnd"
 					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
 
 			</div>
 			<div class="search_box-2">
-				<input type="text" class="box_date" name="travelDate" placeholder="가는날" id="textInputDate" value="" />
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate" value="" />
 				<div class="select_box">
 					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
 						<option disabled selected>인원 수</option>

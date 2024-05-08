@@ -83,6 +83,15 @@ public class MemberService {
 	public List<Inquiry> getAllInquiries() {
 	    return memberRepository.getAllInquiries();
 	}
+
+	public ResultData withdrawMember(int memberId) {
+	    int affectedRows = memberRepository.updateDelStatus(memberId, 1); // delStatus를 1로 설정
+	    if (affectedRows == 0) {
+	        return ResultData.from("F-1", "회원 탈퇴에 실패했습니다.");
+	    }
+	    return ResultData.from("S-1", "회원 탈퇴에 성공했습니다.");
+	}
+
 	
 	
 

@@ -103,6 +103,11 @@ public class UsrMemberController {
 		if (member == null) {
 			return Ut.jsHistoryBack("F-3", Ut.f("%s(은)는 존재하지 않는 아이디입니다", loginId));
 		}
+		
+		  // 회원 탈퇴 상태 체크
+		if (member.isDelStatus()) {
+            return Ut.jsHistoryBack("F-3", "탈퇴한 회원입니다.");
+        }
 
 		if (member.getLoginPw().equals(loginPw) == false) {
 			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다"));
@@ -286,5 +291,26 @@ public class UsrMemberController {
 	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
 	    return "usr/member/myQuestion1"; // myQuestion.jsp 파일을 보여줌
 	}
+	
+	@RequestMapping("/usr/member/doWithdraw")
+	@ResponseBody
+	public String doWithdraw(HttpServletRequest req) {
+	    Rq rq = (Rq) req.getAttribute("rq");
+
+	    if (!rq.isLogined()) {
+	        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
+	    }
+
+	    Member loginedMember = rq.getLoginedMember();
+	    ResultData withdrawRd = memberService.withdrawMember(loginedMember.getId());
+
+	    if (withdrawRd.isFail()) {
+	        return Ut.jsHistoryBack(withdrawRd.getResultCode(), withdrawRd.getMsg());
+	    }
+
+	    rq.logout(); // 회원 탈퇴 후 자동 로그아웃
+	    return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
+	}
+
 	
 }
