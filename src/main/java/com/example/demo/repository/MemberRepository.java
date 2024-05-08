@@ -122,5 +122,14 @@ public interface MemberRepository {
 	        ORDER BY id DESC
 	        """)
 	public List<Inquiry> getAllInquiries();
+
+	
+	@Update("""
+	        UPDATE member
+	        SET delStatus = #{delStatus}, delDate = NOW()
+	        WHERE id = #{memberId}
+	        """)
+	int updateDelStatus(int memberId, int delStatus);
+
 	
 }
