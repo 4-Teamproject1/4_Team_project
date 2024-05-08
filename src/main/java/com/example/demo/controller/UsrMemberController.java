@@ -196,12 +196,6 @@ public class UsrMemberController {
 	}
 	
 	
-	@RequestMapping("/usr/member/myQuestion")
-	public String myQuestion() {
-
-		return "/usr/member/myQuestion";
-	}
-
 	@RequestMapping("/usr/member/checkPw")
 	public String showCheckPw() {
 
@@ -281,15 +275,15 @@ public class UsrMemberController {
 
 		Inquiry Inquiry = memberService.getInquiry(id);
 
-		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../article/inquiry?id=" + id);
+		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../member/myQuestion");
 
 	}
 	
-	@RequestMapping("/usr/member/myQuestion1")
+	@RequestMapping("/usr/member/myQuestion")
 	public String showMyQuestion(Model model) {
 	    List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
 	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
-	    return "usr/member/myQuestion1"; // myQuestion.jsp 파일을 보여줌
+	    return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
 	}
 	
 	@RequestMapping("/usr/member/doWithdraw")

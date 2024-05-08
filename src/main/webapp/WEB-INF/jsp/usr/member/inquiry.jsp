@@ -71,7 +71,7 @@
 
 <section class="question_box">
 	<div class="question_container">
-		<form action="../article/doinquirywrite" method="POST" onsubmit="InquiryWrite__submit(this); return false;">
+		<form action="../member/doinquirywrite" method="POST" onsubmit="InquiryWrite__submit(this); return false;">
 			<input type="hidden" name="body">
 			<table class="write-box table-box-1" border="1">
 				<tbody>
