@@ -29,10 +29,7 @@ import com.example.demo.vo.Hotel;
 @Component
 public class HotelListCrawler {
 
-
-	public List<Hotel> crawlHotelList(String area) {
-
-
+	public List<Hotel> crawlHotelList() {
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
@@ -54,249 +51,254 @@ public class HotelListCrawler {
 		// 검색창이 활성화될 때까지 기다림
 		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 
-		// 검색어 입력
-		String searchText = area;
-		activatedSearchInput.sendKeys(searchText);
+		List<Hotel> hotelList = new ArrayList<>();
+		String[] areaList = { "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" };
+		for (int i = 0; i <= areaList.length; i++) {
+			// 검색어 입력
+			String searchText = areaList[i];
+			activatedSearchInput.sendKeys(searchText);
 
 //		// 엔터 입력 (검색 실행)
 //		activatedSearchInput.sendKeys(Keys.ENTER);
 
-		try {
-			// 페이지 로드를 위한 대기 시간 설정 (초 단위)
-			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-		} catch (TimeoutException e) {
-			System.out.println("페이지 로드 시간이 초과되었습니다.");
-		}
+			try {
+				// 페이지 로드를 위한 대기 시간 설정 (초 단위)
+				driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+			} catch (TimeoutException e) {
+				System.out.println("페이지 로드 시간이 초과되었습니다.");
+			}
 
-		String combinedXPath2 = "//ul[@class='AutocompleteList']//li";
+			String combinedXPath2 = "//ul[@class='AutocompleteList']//li";
 
-		List<WebElement> timeElements2 = wait_web
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath2)));
+			List<WebElement> timeElements2 = wait_web
+					.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(combinedXPath2)));
 
 //		 가져온 리스트
 //		 System.out.println(timeElements);
 //		 for (WebElement element : timeElements) {
 //			    System.out.println(element.getText());
 //			}
-		// timeElements 리스트에서 첫 번째 요소 가져오기
+			// timeElements 리스트에서 첫 번째 요소 가져오기
 
-		WebElement firstElement = timeElements2.get(0);
+			WebElement firstElement = timeElements2.get(0);
 
-		// 첫 번째 요소 클릭
-		firstElement.click();
+			// 첫 번째 요소 클릭
+			firstElement.click();
 
-		// 페이지 왼쪽 달력 년도하고 달
-		String monthStr = "//div[contains(@class,'DayPicker-Caption') and contains(@class,'DayPicker-Caption-Wide')]";
+			// 페이지 왼쪽 달력 년도하고 달
+			String monthStr = "//div[contains(@class,'DayPicker-Caption') and contains(@class,'DayPicker-Caption-Wide')]";
 
-		List<WebElement> monthElements = wait_web
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(monthStr)));
+			List<WebElement> monthElements = wait_web
+					.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(monthStr)));
 
-		// 찾은 웹 요소의 텍스트 값 출력
+			// 찾은 웹 요소의 텍스트 값 출력
 //		for (WebElement element : monthElements) {
 //			System.out.println("텍스트 값: " + element.getText());
 //		}
 
-		// monthElements.get(0).getText()로 얻어온 텍스트
-		String pageYearMonth = monthElements.get(0).getText();
+			// monthElements.get(0).getText()로 얻어온 텍스트
+			String pageYearMonth = monthElements.get(0).getText();
 
-		// 년도와 월을 추출할 정규 표현식 패턴 설정
-		Pattern pattern = Pattern.compile("(\\d{4})년 (\\d{1,2})월");
-		Matcher matcher = pattern.matcher(pageYearMonth);
+			// 년도와 월을 추출할 정규 표현식 패턴 설정
+			Pattern pattern = Pattern.compile("(\\d{4})년 (\\d{1,2})월");
+			Matcher matcher = pattern.matcher(pageYearMonth);
 
-		int pageYear = 0;
-		int pageMonth = 0;
+			int pageYear = 0;
+			int pageMonth = 0;
 
-		// 검색했을때 나온 달력의 년도와 월을 구하는 코드
-		// 매치되는 부분이 있다면 년도와 월 추출
-		if (matcher.find()) {
-			pageYear = Integer.parseInt(matcher.group(1));
-			pageMonth = Integer.parseInt(matcher.group(2));
-			System.out.println("년도: " + pageYear);
-			System.out.println("월: " + pageMonth);
-		} else {
-			System.out.println("매치되는 부분이 없습니다.");
-		}
-
-		// 이전 달 버튼 요소 찾기
-		WebElement previousMonthButton = driver.findElement(By.cssSelector("button[aria-label='Previous Month']"));
-
-		// 다음 달 버튼 요소 찾기
-		WebElement nextMonthButton = driver.findElement(By.cssSelector("button[aria-label='Next Month']"));
-
-		// 현재 날짜 구하는 코드
-		LocalDate currentDate = LocalDate.now();
-		int nowYear = currentDate.getYear();
-		int nowMonth = currentDate.getMonthValue();
-
-		// 합친 년도와 달 문자열 생성
-		String currentYearMonth = nowYear + "년 " + nowMonth + "월";
-
-		if (currentYearMonth == pageYearMonth) {
-
-		}
-		while (true) {
-
-			if (pageYear == nowYear && pageMonth > nowMonth) {
-				previousMonthButton.click();
-				break;
-
+			// 검색했을때 나온 달력의 년도와 월을 구하는 코드
+			// 매치되는 부분이 있다면 년도와 월 추출
+			if (matcher.find()) {
+				pageYear = Integer.parseInt(matcher.group(1));
+				pageMonth = Integer.parseInt(matcher.group(2));
+				System.out.println("년도: " + pageYear);
+				System.out.println("월: " + pageMonth);
 			} else {
-				System.out.println("값이 일치하지 않음");
-				break;
+				System.out.println("매치되는 부분이 없습니다.");
 			}
 
-		}
-		// 날짜 포맷 지정
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy", Locale.ENGLISH);
+			// 이전 달 버튼 요소 찾기
+			WebElement previousMonthButton = driver.findElement(By.cssSelector("button[aria-label='Previous Month']"));
 
-		// 현재 날짜를 원하는 형식으로 파싱
-		// 이걸로 날짜 찾아서 선택해줄예정
-		String startDate = currentDate.format(formatter);
+			// 다음 달 버튼 요소 찾기
+			WebElement nextMonthButton = driver.findElement(By.cssSelector("button[aria-label='Next Month']"));
 
-		// 현재 날짜 요소 찾기
-		String startDateStr = "//div[@class='DayPicker-Week-Wide']/div[contains(@aria-label, '" + startDate + "')]";
-		WebElement startDateElement = driver.findElement(By.xpath(startDateStr));
+			// 현재 날짜 구하는 코드
+			LocalDate currentDate = LocalDate.now();
+			int nowYear = currentDate.getYear();
+			int nowMonth = currentDate.getMonthValue();
 
-		// 찾은 현재 날짜 클릭(시작 날짜)
-		startDateElement.click();
+			// 합친 년도와 달 문자열 생성
+			String currentYearMonth = nowYear + "년 " + nowMonth + "월";
 
-		// 다음날 날짜 구하기
-		LocalDate plusNowDate = currentDate.plusDays(1);
+			if (currentYearMonth == pageYearMonth) {
 
-		String nextDate = plusNowDate.format(formatter);
-		String endDateStr = "//div[@class='DayPicker-Week-Wide']/div[contains(@aria-label, '" + nextDate + "')]";
-		WebElement endDateElement = driver.findElement(By.xpath(endDateStr));
-
-		endDateElement.click();
-
-		// 버튼 요소를 포함하는 div 요소의 XPath
-		String buttonXPathStr = "//div[@class='Box-sc-kv6pi1-0 hRUYUu TabContent__Search--button']//button[@data-test='SearchButtonBox']";
-
-		// 버튼 요소 찾기
-		WebElement buttonElement = driver.findElement(By.xpath(buttonXPathStr));
-
-		// 검색하기 클릭
-		buttonElement.click();
-
-		// 현재 탭의 핸들 가져오기
-		String currentTabHandle = driver.getWindowHandle();
-
-		// 모든 탭의 핸들 가져오기
-		Set<String> allTabHandles = driver.getWindowHandles();
-
-		// 두 번째 탭의 핸들 찾기
-		String secondTabHandle = "";
-		for (String handle : allTabHandles) {
-			if (!handle.equals(currentTabHandle)) {
-				secondTabHandle = handle;
-				break;
 			}
-		}
+			while (true) {
 
-		// 두 번째 탭으로 전환
-		driver.switchTo().window(secondTabHandle);
+				if (pageYear == nowYear && pageMonth > nowMonth) {
+					previousMonthButton.click();
+					break;
 
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+				} else {
+					System.out.println("값이 일치하지 않음");
+					break;
+				}
 
-		for (int i = 0; i < 3; i++) {
-			js.executeScript("window.scrollBy(0, 2000);");
-
-			// 추가 콘텐츠가 로드되기를 기다림
-			try {
-				Thread.sleep(2000); // 2초간 대기
-			} catch (InterruptedException e) {
-				// InterruptedException 처리
-				e.printStackTrace(); // 예외 정보 출력
 			}
-		}
-		List<Hotel> hotelList = new ArrayList<>();
+			// 날짜 포맷 지정
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy", Locale.ENGLISH);
 
-		List<WebElement> liElements = driver.findElements(By.xpath(
-				"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
-		System.out.println(liElements.size());
+			// 현재 날짜를 원하는 형식으로 파싱
+			// 이걸로 날짜 찾아서 선택해줄예정
+			String startDate = currentDate.format(formatter);
 
-		// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
-		System.out.println("순회 시작");
-		int i = 1;
+			// 현재 날짜 요소 찾기
+			String startDateStr = "//div[@class='DayPicker-Week-Wide']/div[contains(@aria-label, '" + startDate + "')]";
+			WebElement startDateElement = driver.findElement(By.xpath(startDateStr));
 
-		for (WebElement liElement : liElements) {
+			// 찾은 현재 날짜 클릭(시작 날짜)
+			startDateElement.click();
+
+			// 다음날 날짜 구하기
+			LocalDate plusNowDate = currentDate.plusDays(1);
+
+			String nextDate = plusNowDate.format(formatter);
+			String endDateStr = "//div[@class='DayPicker-Week-Wide']/div[contains(@aria-label, '" + nextDate + "')]";
+			WebElement endDateElement = driver.findElement(By.xpath(endDateStr));
+
+			endDateElement.click();
+
+			// 버튼 요소를 포함하는 div 요소의 XPath
+			String buttonXPathStr = "//div[@class='Box-sc-kv6pi1-0 hRUYUu TabContent__Search--button']//button[@data-test='SearchButtonBox']";
+
+			// 버튼 요소 찾기
+			WebElement buttonElement = driver.findElement(By.xpath(buttonXPathStr));
+
+			// 검색하기 클릭
+			buttonElement.click();
+
+			// 현재 탭의 핸들 가져오기
+			String currentTabHandle = driver.getWindowHandle();
+
+			// 모든 탭의 핸들 가져오기
+			Set<String> allTabHandles = driver.getWindowHandles();
+
+			// 두 번째 탭의 핸들 찾기
+			String secondTabHandle = "";
+			for (String handle : allTabHandles) {
+				if (!handle.equals(currentTabHandle)) {
+					secondTabHandle = handle;
+					break;
+				}
+			}
+
+			// 두 번째 탭으로 전환
+			driver.switchTo().window(secondTabHandle);
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			for (int j = 0; j < 3; j++) {
+				js.executeScript("window.scrollBy(0, 2000);");
+
+				// 추가 콘텐츠가 로드되기를 기다림
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// InterruptedException 처리
+					e.printStackTrace(); // 예외 정보 출력
+				}
+			}
+
+			System.out.println(1);
+			List<WebElement> liElements = driver.findElements(By.xpath(
+					"//ol[@class='hotel-list-container']//li[contains(@class,'PropertyCard') and contains(@class,'PropertyCardItem')]"));
+			System.out.println(liElements.size());
+			// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
+			System.out.println("순회 시작");
+			int id = 1;
+			List<Hotel> hotelList1 = new ArrayList<>();
+			for (WebElement liElement : liElements) {
 //		for (int i = 0; i <= 10; i++) {
 //			WebElement liElement = liElements.get(i);
-			int lastId = i;
-			try {
-				WebElement imgElement = liElement.findElement(By.xpath(
-						".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
-				String imgUrl = imgElement.getAttribute("src");
-				WebElement hotelNameElement = liElement.findElement(By.xpath(
-						".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
-				String hotelName = hotelNameElement.getText();
+				int lastId = id;
+				try {
+					System.out.println(11);
+					WebElement imgElement = liElement.findElement(By.xpath(
+							".//img[(contains(@class,'sc-kstrdz') and contains(@class,'sc-hBEYos') and contains(@class,'kmUwlj')) or (contains(@class,'HeroImage') and contains(@class,'HeroImage--s'))]"));
+					System.out.println(22);
+					String imgUrl = imgElement.getAttribute("src");
+					WebElement hotelNameElement = liElement.findElement(By.xpath(
+							".//h3[contains(@class,'sc-jrAGrp') and contains(@class,'sc-kEjbxe') and contains(@class,'eDlaBj') and contains(@class,'dscgss')]"));
+					String hotelName = hotelNameElement.getText();
 
-				// role이 img인 div 요소를 찾습니다.
-				WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
-				// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
-				String hotelGrade = starElement.getAttribute("aria-label");
-				if (starElement == null) {
-					System.out.println("등급 없음");
+					System.out.println(33);
+					// role이 img인 div 요소를 찾습니다.
+					WebElement starElement = liElement.findElement(By.xpath(".//div[@role='img']"));
+					// 요소가 존재하는 경우 해당 요소의 텍스트 가져오기
+					String hotelGrade = starElement.getAttribute("aria-label");
+					if (starElement == null) {
+						System.out.println("등급 없음");
 
+					}
+					// 정규표현식을 사용하여 숫자와 문자열을 분리
+					String[] parts = hotelGrade.split("(?<=\\d)(?=\\D)");
+
+					String number = parts[0]; // 숫자 부분
+					String text1 = parts[1]; // 문자열 부분
+					System.out.println(44);
+					int starScore = Integer.parseInt(number);
+					WebElement priceElement = liElement
+							.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
+					String priceStr = priceElement.getText();
+					List<String> serviceTexts = new ArrayList<>();
+					System.out.println(55);
+					List<WebElement> serviceElements = liElement
+							.findElements(By.xpath(".//div[@data-selenium='pill-container']//div//span"));
+
+					for (WebElement serviceElement : serviceElements) {
+						String text = serviceElement.getText();
+						serviceTexts.add(text);
+					}
+					String serviceAsString = String.join(",", serviceTexts);
+
+					String[] priceStrings = priceStr.split(",");
+					// 분리된 문자열을 합쳐서 하나의 문자열로 만듦
+					StringBuilder stringBuilder = new StringBuilder();
+					for (String s : priceStrings) {
+						stringBuilder.append(s);
+					}
+
+					String priceString = stringBuilder.toString();
+
+					int price = Integer.parseInt(priceString);
+					WebElement aTagElement = liElement.findElement(By.tagName("a"));
+					String href = aTagElement.getAttribute("href");
+					System.out.println("Href : " + href);
+					System.out.println("번호 : " + lastId);
+					System.out.println("이미지 url : " + imgUrl);
+					System.out.println("호텔 이름 : " + hotelName);
+					System.out.println("호텔 등급 : " + starScore);
+					System.out.println("가격 : " + price);
+					System.out.println("숙소 제공사항 : " + serviceAsString);
+					Hotel hotel = new Hotel();
+					hotel.setId(lastId);
+					hotel.setImgUrl(imgUrl);
+					hotel.setHotelName(hotelName);
+					hotel.setGrade(starScore);
+					hotel.setPrice(price);
+					hotel.setService(serviceAsString);
+					hotel.setHref(href);
+					hotel.setLocation(searchText); // 검색어를 location 필드에 저장
+					System.out.println(hotel);
+					System.out.println(hotelList);
+					id++;
+					hotelList.add(hotel);
+
+				} catch (NoSuchElementException e) {
+					System.out.println("요소를 찾을 수 없습니다. 루프를 종료합니다.");
+					break;
 				}
-				// 정규표현식을 사용하여 숫자와 문자열을 분리
-				String[] parts = hotelGrade.split("(?<=\\d)(?=\\D)");
-
-				String number = parts[0]; // 숫자 부분
-				String text1 = parts[1]; // 문자열 부분
-
-				int starScore = Integer.parseInt(number);
-				WebElement priceElement = liElement
-						.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
-				String priceStr = priceElement.getText();
-				List<String> serviceTexts = new ArrayList<>();
-
-				List<WebElement> serviceElements = liElement
-						.findElements(By.xpath(".//div[@data-selenium='pill-container']//div//span"));
-
-				for (WebElement serviceElement : serviceElements) {
-					String text = serviceElement.getText();
-					serviceTexts.add(text);
-				}
-				String serviceAsString = String.join(",", serviceTexts);
-
-				String[] priceStrings = priceStr.split(",");
-				// 분리된 문자열을 합쳐서 하나의 문자열로 만듦
-				StringBuilder stringBuilder = new StringBuilder();
-				for (String s : priceStrings) {
-					stringBuilder.append(s);
-				}
-
-				String priceString = stringBuilder.toString();
-				
-				int price = Integer.parseInt(priceString);
-				WebElement aTagElement = liElement.findElement(By.tagName("a"));
-				String href = aTagElement.getAttribute("href");
-				System.out.println("Href : " + href);
-
-				System.out.println("번호 : " + lastId);
-				System.out.println("이미지 url : " + imgUrl);
-				System.out.println("호텔 이름 : " + hotelName);
-				System.out.println("호텔 등급 : " + starScore);
-				System.out.println("가격 : " + price);
-				System.out.println("숙소 제공사항 : " + serviceAsString);
-				Hotel hotel = new Hotel();
-				hotel.setId(lastId);
-				hotel.setImgUrl(imgUrl);
-				hotel.setHotelName(hotelName);
-				hotel.setGrade(starScore);
-				hotel.setPrice(price);
-				hotel.setService(serviceAsString);
-				hotel.setHref(href);
-				System.out.println(hotel);
-				 hotel.setLocation(searchText); // 검색어를 location 필드에 저장
-				System.out.println(hotelList);
-				i++;
-				hotelList.add(hotel);
-
-			} catch (NoSuchElementException e) {
-				System.out.println("요소를 찾을 수 없습니다. 루프를 종료합니다.");
-				break; // 요소를 찾을 수 없으면 루프를 종료합니다.
 			}
 		}
 		driver.quit();

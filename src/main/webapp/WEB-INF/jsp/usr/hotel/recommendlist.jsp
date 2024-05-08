@@ -230,8 +230,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	<div class="outer-content-box">
 		<div class="sort_bar">
-			<form id="searchForm"action="../hotel/recommendlist" method="get">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplet="off">
+			
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+
 				
 				<div id="date_start_btn" class="date_start">
 					<div style="text-align: center;">2024년 5월 12일</div>
@@ -252,8 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					<option>8명</option>
 				</select>
 				<button class="btn_sort_bar btn" type="submit">검색하기</button>
-				
-			</form>
+		
 		</div>
 		<div class="hotel-card">
 			<c:forEach items="${hotelList}" var="hotel">
