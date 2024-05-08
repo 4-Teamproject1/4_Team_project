@@ -221,42 +221,6 @@ public class UsrArticleController {
 	}
 
 	
-	//문의사항
-	@RequestMapping("/usr/article/inquiry")
-	public String showinquiry(HttpServletRequest req) {
-
-		return "usr/article/inquiry";
-	}
-
-	@RequestMapping("/usr/article/doinquirywrite")
-	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		if (Ut.isNullOrEmpty(title)) {
-			return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
-		}
-		if (Ut.isNullOrEmpty(body)) {
-			return Ut.jsHistoryBack("F-2", "내용을 입력해주세요");
-		}
-
-		ResultData<Integer> inquirywriteArticleRd = articleService.inquirywriteArticle(rq.getLoginedMemberId(), title, body);
-
-		int id = (int) inquirywriteArticleRd.getData1();
-
-		Inquiry Inquiry = articleService.getInquiry(id);
-
-		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../article/inquiry?id=" + id);
-
-	}
-	
-	@RequestMapping("/usr/member/myQuestion1")
-	public String showMyQuestion(Model model) {
-	    List<Inquiry> inquiries = articleService.getAllInquiries(); // 모든 문의사항 가져오기
-	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
-	    return "usr/member/myQuestion1"; // myQuestion.jsp 파일을 보여줌
-	}
 
 	
 	

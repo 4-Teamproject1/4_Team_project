@@ -31,10 +31,11 @@ public class UsrHotelListController {
 
 	// 액션 메서드
 	@RequestMapping("usr/hotel/crawl")
+
 	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req, HttpServletResponse response,Model model) {
 		
 		return hotelListService.crawlAndSaveHotelList();
-	}
+
 
 	@RequestMapping("usr/hotel/list")
 	public String showHotelList(HttpServletRequest req, Model model) {

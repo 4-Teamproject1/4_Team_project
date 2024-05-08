@@ -1,10 +1,13 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Inquiry;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 
@@ -63,5 +66,24 @@ public class MemberService {
 		memberRepository.modifyWithoutPw(loginedMemberId, name, nickname, cellphoneNum, email);
 		return ResultData.from("S-1", "회원정보 수정 완료");
 	}
+	
+	//문의사항
+	public ResultData<Integer> inquirywriteArticle(int loginedMemberId, String title, String body) {
+		memberRepository.inquirywriteArticle(loginedMemberId, title, body);
+
+		int id = memberRepository.getLastInsertId();
+
+		return ResultData.from("S-1", Ut.f("%d번 글이 생성되었습니다", id), "id", id);
+	}
+
+	public Inquiry getInquiry(int id) {
+		
+		return memberRepository.getInquiry(id);
+	}
+	public List<Inquiry> getAllInquiries() {
+	    return memberRepository.getAllInquiries();
+	}
+	
+	
 
 }

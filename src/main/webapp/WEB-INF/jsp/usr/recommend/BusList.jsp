@@ -8,116 +8,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 
-<script>
-	document.addEventListener(
-					"DOMContentLoaded",
-					function() {
-						const departureBox = document
-								.querySelector('.departure_box');
-						const arrivalBox = document
-								.querySelector('.arrival_box');
-						const departurePopup = document.createElement('div');
-						const arrivalPopup = document.createElement('div');
-						departurePopup.classList.add('popup');
-						arrivalPopup.classList.add('popup');
-
-						// Departure terminal list
-						const departureAreas = [ "경주", "구리", "광주<br>(유·스퀘어)",
-								"남원", "나주", "대전복합", "대전도룡", "대전청사<br>(샘머리)",
-								"유성", "동대구", "동서울", "센트럴시티<br>(서울)", "목포",
-								"부산", "부산사상", "서울경부", "성남(분당)", "세종시청",
-								"세종연구단지", "세종청사", "세종터미널", "순천", "시흥", "수원",
-								"죽전", "전북혁신", "전주", "제천", "진해", "창원역", "천안",
-								"청주(센트럴)", "청주공항", "청주북부", "충주", "충주<br>고속터미널",
-								"포항", "포항시청", "여수", "용인", "용인신갈", "의정부", "이천",
-								"인천공항T1", "인천공항T2", "자치인재원" ];
-
-						// Arrival terminal list
-						const arrivalAreas = [ "경주", "구리", "광주<br>(유·스퀘어)",
-								"남원", "나주", "대전복합", "대전도룡", "대전청사<br>(샘머리)",
-								"유성", "동대구", "동서울", "센트럴시티<br>(서울)", "목포",
-								"부산", "부산사상", "서울경부", "성남(분당)", "세종시청",
-								"세종연구단지", "세종청사", "세종터미널", "순천", "시흥", "수원",
-								"죽전", "전북혁신", "전주", "제천", "진해", "창원역", "천안",
-								"청주(센트럴)", "청주공항", "청주북부", "충주", "충주<br>고속터미널",
-								"포항", "포항시청", "여수", "용인", "용인신갈", "의정부", "이천",
-								"인천공항T1", "인천공항T2", "자치인재원" ];
-
-						// Add event listeners for departure areas
-						departureAreas.forEach(function(area) {
-							const areaElement = document.createElement('div');
-							areaElement.innerHTML = area;
-							areaElement.classList.add('area');
-							areaElement.addEventListener('click',
-									function() {
-										departureBox.value = area.replace(
-												/<br>/g, ' '); // Set the value of the departure input field to the selected area
-										departurePopup.style.display = 'none'; // Hide the departure popup after selecting an area
-									});
-							departurePopup.appendChild(areaElement);
-						});
-
-						// Add event listeners for arrival areas
-						arrivalAreas.forEach(function(area) {
-							const areaElement = document.createElement('div');
-							areaElement.innerHTML = area;
-							areaElement.classList.add('area');
-							areaElement.addEventListener('click', function() {
-								arrivalBox.value = area.replace(/<br>/g, ' '); // Set the value of the arrival input field to the selected area
-								arrivalPopup.style.display = 'none'; // Hide the arrival popup after selecting an area
-							});
-							arrivalPopup.appendChild(areaElement);
-						});
-
-						// Event listener to display departure popup
-						departureBox.addEventListener('click', function(event) {
-							event.stopPropagation(); // Prevent click event propagation to the document body
-							departurePopup.style.display = 'block';
-						});
-
-						// Event listener to display arrival popup
-						arrivalBox.addEventListener('click', function(event) {
-							event.stopPropagation(); // Prevent click event propagation to the document body
-							arrivalPopup.style.display = 'block';
-						});
-
-						// Event listener to close departure popup when clicking outside
-						document.addEventListener('click', function(event) {
-							if (!departurePopup.contains(event.target)) {
-								departurePopup.style.display = 'none';
-							}
-						});
-
-						// Event listener to close arrival popup when clicking outside
-						document.addEventListener('click', function(event) {
-							if (!arrivalPopup.contains(event.target)) {
-								arrivalPopup.style.display = 'none';
-							}
-						});
-						// Append popups to the body
-						document.body.appendChild(departurePopup);
-						document.body.appendChild(arrivalPopup);
-						
-						const searchButton = document.getElementById('bus_searchbutton');
-						const searchForm = document.getElementById('bus_searchform');
-
-						searchButton.addEventListener('click', function() {
-						    // 폼에 출발지와 도착지 입력란의 값 설정
-						    document.getElementById('departure_box_input').value = departureBox.value;
-						    document.getElementById('arrival_box_input').value = arrivalBox.value;
-						    // 폼 서브밋
-						    searchForm.submit();
-						});
-					});
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('arrival_box_input').value = '';
-    });
-</script>
-
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -125,11 +15,14 @@
 	<nav class="header_menu">
 		<a href="../member/myInfo">
 			<button class="username">abc123님</button>
-		</a> <a href="../conference/list">
+		</a>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<button class="hd_logout">로그아웃</button>
@@ -140,41 +33,176 @@
 
 <div class="list-container">
 	<ul class="accommodation-nav-list">
-		<a href="../article/recommendlist">
+		<a href="../hotel/recommendlist">
 			<div class="accommodation-nav-item btn m-1">숙소</div>
 		</a>
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 			<ul tabindex="0" class="dropdown-content">
-				<li><a href="../article/recommendAirplaneList">항공</a></li>
-				<li><a href="../article/recommendTrainList">기차</a></li>
-				<li><a href="../article/recommendBusList">버스</a></li>
+				<li>
+					<a href="../recommend/TrainList">기차</a>
+				</li>
+				<li>
+					<a href="../recommend/BusList">버스</a>
+				</li>
 			</ul>
 		</div>
 	</ul>
 </div>
 
-
-<form id="bus_searchform" action="/usr/article/recommendBusList" method="GET">
-    <div class="sort_bar">
-        <input id="arrival_box_input" name="arriveBus" class="terminal_box arrival_box" type="text" placeholder="줄발지"  autocomplete="off">
-        <input id="departure_box_input" name="departureBus" class="terminal_box departure_box" type="text" placeholder="도착지"  autocomplete="off">
-        <div class="date_start">
-            2024년 5월 3일 <br> 금요일
-        </div>
-        <select class="select people_sort_bar">
-            <option>1명</option>
-            <option>2명</option>
-            <option>3명</option>
-            <option>4명</option>
-            <option>5명</option>
-            <option>6명</option>
-            <option>7명</option>
-            <option>8명</option>
-        </select>
-        <button id="bus_searchbutton" class="btn_sort_bar btn" type="button">검색하기</button>
-    </div>
+<form id="bus_searchform" action="/usr/article/recommendBusList_verAjax" method="GET">
+	<div class="sort_bar">
+		<select class="select select-ghost w-full max-w-xs" name="departureBus" id="departureBus">
+			<option value="">버스역선택</option>
+			<option value="대전복합">대전복합</option>
+			<option value="동대구">동대구</option>
+			<option value="동서울">동서울</option>
+			<option value="센트럴시티">센트럴시티(서울)</option>
+			<option value="서울경부">서울경부</option>
+			<option value="서대구">서대구</option>
+			<option value="대전청사">대전청사(샘머리)</option>
+			<option value="대전도룡">대전도룡</option>
+			<option value="창원">창원</option>
+			<option value="창원역">창원역</option>
+			<option value="포항시청">포항시청</option>
+			<option value="포항">포항</option>
+			<option value="성남">성남(분당)</option>
+			<option value="창원역">창원역</option>
+		</select>
+		<select class="select select-ghost w-full max-w-xs" name="arriveBus" id="arriveBus" placeholder="출발역먼저선택">
+			<option value="">버스역선택</option>
+		</select>
+		<select class="search-date-text" name="ondate">
+			<option value="">가는날</option>
+			<option value="2">2일</option>
+			<option value="3">3일</option>
+			<option value="4">4일</option>
+			<option value="5">5일</option>
+			<option value="6">6일</option>
+			<option value="7">7일</option>
+			<option value="8">8일</option>
+			<option value="9">9일</option>
+			<option value="10">10일</option>
+			<option value="11">11일</option>
+			<option value="12">12일</option>
+			<option value="13">13일</option>
+			<option value="14">14일</option>
+			<option value="15">15일</option>
+			<option value="16">16일</option>
+			<option value="17">17일</option>
+			<option value="18">18일</option>
+			<option value="19">19일</option>
+			<option value="20">20일</option>
+			<option value="21">21일</option>
+			<option value="22">22일</option>
+			<option value="23">23일</option>
+			<option value="24">24일</option>
+			<option value="25">25일</option>
+			<option value="26">26일</option>
+			<option value="27">27일</option>
+			<option value="28">28일</option>
+			<option value="29">29일</option>
+			<option value="30">30일</option>
+		</select>
+		<select class="select people_sort_bar">
+			<option>1명</option>
+			<option>2명</option>
+			<option>3명</option>
+			<option>4명</option>
+			<option>5명</option>
+			<option>6명</option>
+			<option>7명</option>
+			<option>8명</option>
+		</select>
+		<button id="bus_searchbutton" class="btn_sort_bar btn" type="submit">검색하기</button>
+	</div>
 </form>
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						// 출발지와 해당 출발지에 대한 도착지 매핑 정보
+						var destinationMapping = {
+							"동서울" : [ "동해", "대전복합", "청주고속터미널", "광주(유·스퀘어)",
+									"전주고속터미널", "마산", "부산", "진해", "창원", "창원역",
+									"동대구", "서대구" ],
+							"대전복합" : [ "광주(유·스퀘어)", "서울경부", "인천", "전주고속터미널",
+									"동서울" ],
+							"동대구" : [ "동서울", "서울경부", "성남(분당)", "의정부", "인천",
+									"광주(유·스퀘어)", "목포", "전주고속터미널", "부산", "마산",
+									"진해" ],
+							"센트럴시티" : [ "광주(유·스퀘어)", "태안", "논산", "서산", "유성",
+									"청주공항", "익산", "전주고속터미널", "김제", "군산", "진안",
+									"목포", "순천", "여수" ],
+							"서울경부" : [ "대전도룡", "대전복합", "대전청사(샘머리)", "포항시청",
+									"죽전", "천안", "동대구" ],
+							"서대구" : [ "동서울", "서울경부", "성남(분당)", "인천", "춘천",
+									"광주(유·스퀘어)", "청주고속터미널", "전주고속터미널", "마산",
+									"진해" ],
+							"대전청사" : [ "광주(유·스퀘어)", "서울경부", "전주고속터미널" ],
+							"대전도룡" : [ "서울경부" ],
+							"창원" : [ "광주(유·스퀘어)", "동서울", "서울경부", "성남(분당)",
+									"용인", "용인신갈" ],
+							"창원역" : [ "동서울", "서울경부" ],
+							"포항시청 " : [ "광주(유·스퀘어)", "서울경부" ],
+							"포항" : [ "광주(유·스퀘어)", "서울경부" ],
+							"성남" : [ "광주(유·스퀘어)", "동대구", "마산", "부산", "서대구",
+									"전주고속터미널", "진해", "창원" ]
+						};
+
+						// 출발지가 변경될 때마다 도착지 옵션을 업데이트하는 함수
+						$('#departureBus')
+								.change(
+										function() {
+											var selectedDeparture = $(this)
+													.val(); // 선택된 출발지 값 가져오기
+											var destinations = destinationMapping[selectedDeparture]
+													|| []; // 해당 출발지에 대한 도착지 목록 가져오기
+											var arriveBusSelect = $('#arriveBus'); // 도착지 select 요소
+
+											arriveBusSelect.empty(); // 기존 옵션 제거
+
+											// 도착지 select 요소 업데이트
+											$
+													.each(
+															destinations,
+															function(index,
+																	destination) {
+																arriveBusSelect
+																		.append($(
+																				'<option>',
+																				{
+																					value : destination,
+																					text : destination
+																				}));
+															});
+
+											// 출발지 선택 여부에 따라 도착지 선택란 활성화/비활성화
+											if (selectedDeparture !== '') {
+												arriveBusSelect.prop(
+														'disabled', false); // 도착지 선택란 활성화
+											} else {
+												arriveBusSelect.prop(
+														'disabled', true); // 도착지 선택란 비활성화
+											}
+										});
+
+						// 페이지 로드 시 초기화
+						$('#departureBus').trigger('change');
+					});
+</script>
+
+<script>
+    $(document).ready(function() {
+        // 예매하기 버튼 클릭 이벤트 설정
+        $('.reservation-btn').click(function() {
+            // 새 창에서 kobus 웹사이트를 엽니다
+            window.open('https://www.kobus.co.kr/main.do', '_blank');
+        });
+    });
+</script>
+
 
 <div class="place-box">
 	<div class="outer-arrow">
@@ -193,15 +221,19 @@
 					<c:if test="${not empty bus.startTime}">
 						<div class="bus-info-header">
 							<div class="bus-type">
-								<span class="bus-class">${bus.grade}</span> <span class="bus-operator">${bus.companyName}</span>
+								<span class="bus-class">${bus.grade}</span>
+								<span class="bus-operator">${bus.companyName}</span>
 							</div>
 							<div class="bus-timings">
-								<time class="departure-time">출발시간: ${bus.startTime}</time>
+								<time class="departure-time">출발시간 ${bus.startTime}</time>
 								<div class="bus-features">
 									<div class="bus-price-details">
 										<span class="view-details">${bus.remainingSeats}</span>
 									</div>
-									<button class="btn">예매하기</button>
+									<div>
+									<button class="btn reservation-btn">예매하기</button>
+									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -215,6 +247,7 @@
 
 
 <style>
+
 .popup {
 	position: absolute;
 	top: 35%;
@@ -540,7 +573,6 @@ body {
 	flex-direction: column;
 	align-items: start;
 	text-align: center;
-	/*    border: 3px solid; */
 	width: 700px;
 }
 
@@ -572,22 +604,21 @@ body {
 	align-self: stretch;
 	display: flex;
 	gap: 17px;
-	font-size: 34px;
+	font-size: 27px;
 	color: #000;
 	padding: 15px 20px 0 0;
-	/*     border: 3px solid; */
-	width: 500px;
+	width: 600px;
 }
 
 .departure-time {
 	font-family: Inter, sans-serif;
-	font-weight: 700;
+	font-weight: 500;
+	width: 400px;
 }
 
 .arrow {
 	color: #525252;
 	font: 600 29px Inter, sans-serif;
-	/*     border: 3px solid; */
 	height: 50px;
 }
 
@@ -601,16 +632,15 @@ body {
 	flex-basis: auto;
 	margin: auto 0;
 	font: 400 20px Inter, sans-serif;
-	/*     border: 3px solid; */
 	width: 300px;
 }
 
 .bus-features {
 	display: flex;
-	/*   margin-top: 5px; */
-	gap: 20px;
+	gap: 10px;
 	font-size: 15px;
-	/* border: 3px solid; */
+	width: 600px;
+	justify-content: space-between;
 }
 
 .bus-type-duration {
@@ -684,13 +714,13 @@ body {
 }
 
 .separator {
-	border-color: rgba(0, 0, 0, 1);
-	border-style: solid;
+	border-color: #edf0f9;
 	border-width: 1px;
-	background-color: #000;
+	background-color:  #edf0f9;
 	min-height: 1px;
 	margin-top: 25px;
 	width: 640px;
+	margin-bottom: 10px;
 }
 
 /*출발,도착장소 css*/
@@ -700,12 +730,14 @@ body {
 	position: relative;
 	top: 100px;
 	left: 35%;
-	width: 500px;
+	width: 630px;
 	height: 120px;
 	color: white;
-	margin-bottom: 20px; /* 필요에 따라 여백 조절 */
+	margin-top: 30px;
+	margin-bottom: 30px; /* 필요에 따라 여백 조절 */
 	text-align: center;
 	background-color: #7E9DD9;
+	border-radius: 10px;
 }
 
 .outer-arrow {

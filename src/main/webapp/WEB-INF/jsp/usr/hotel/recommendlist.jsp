@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 </script>
 
-</script>
 
 <header class="header">
 	<a href="../home/main">
@@ -127,10 +126,10 @@ document.addEventListener("DOMContentLoaded", function() {
 						<ul tabindex="0" class="dropdown-content">
 							
 							<li>
-								<a href="../article/recommendTrainList">기차</a>
+								<a href="../recommend/TrainList">기차</a>
 							</li>
 							<li>
-								<a href="../article/recommendBusList">버스</a>
+								<a href="../recommend/BusList">버스</a>
 							</li>
 						</ul>
 					</div>
@@ -233,6 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		<div class="sort_bar">
 			
 				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+
 				
 				<div id="date_start_btn" class="date_start">
 					<div style="text-align: center;">2024년 5월 12일</div>
@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="hotel-rating-details">
 									<div class="hotel-price">
 										<div class="hotel-price-details">1박당 요금</div>
-										<div class="hotel-price-value">${hotel.price }</div>
+										<div class="hotel-price-value">KRW ${hotel.price }</div>
 									</div>
 
 								</div>
@@ -585,8 +585,9 @@ body {
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
-	background-color: #546570;
+	background-color: ffffff;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+	margin-top: 30px;
 }
 
 .hotel-info {
@@ -697,6 +698,8 @@ body {
 	margin-right: 50px;
 	font-weight: bold;
 	font: sans-serif;
+	width: 400px;
+
 }
 
 .hotel-name-text {
@@ -771,8 +774,9 @@ body {
 	display: flex;
 	flex-direction: column;
 	line-height: normal;
-	margin-left: 150px;
 	margin-top: 100px;
+	width: 300px;
+	
 }
 
 .hotel-rating {
@@ -782,6 +786,11 @@ body {
 	align-self: stretch;
 	text-align: right;
 	margin: auto 0;
+	width: 190px;
+
+	justify-content: center;
+	
+	
 }
 
 .hotel-rating-icon {
@@ -795,7 +804,8 @@ body {
 	display: flex;
 	margin-top: 4px;
 	flex-direction: column;
-	padding: 0 20px;
+	width: 180px;
+
 }
 
 .hotel-rating-score {
@@ -823,10 +833,10 @@ body {
 .hotel-price {
 	display: flex;
 	margin-top: 59px;
-	padding-left: 10px;
 	flex-direction: column;
 	align-items: end;
 	font-weight: 400;
+	width: 180px;
 }
 
 .hotel-discount {
@@ -841,7 +851,7 @@ body {
 }
 
 .hotel-price-details {
-	color: #90949c;
+	color: black;
 	align-self: stretch;
 	margin-top: 6px;
 	font: 500 10px/140% Inter, sans-serif;
@@ -869,7 +879,8 @@ body {
 }
 
 .hotel-price-value {
-	font: 23px/129% Inter, sans-serif;
+	font: 20px/129% Inter, sans-serif;
+	color: red;
 }
 
 .hotel-free-cancellation {
