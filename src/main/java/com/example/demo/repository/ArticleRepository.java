@@ -207,30 +207,7 @@ public interface ArticleRepository {
 	public int getBadRP(int relId);
 
 	
-	@Insert("""
-			INSERT INTO
-			inquiry SET
-			regDate = NOW(),
-			updateDate = NOW(),
-			memberId = #{memberId},
-			title = #{title}, `body` = #{body}
-			""")
-	public void inquirywriteArticle(int memberId, String title, String body);
 
-	
-	@Select("""
-			SELECT *
-			FROM article
-			WHERE id = #{id}
-			""")
-	public Inquiry getInquiry(int id);
-	
-	@Select("""
-	        SELECT *
-	        FROM inquiry
-	        ORDER BY id DESC
-	        """)
-	public List<Inquiry> getAllInquiries();
 
 
 }

@@ -19,7 +19,7 @@ public class UsrBusController {
 	@Autowired
 	private BusTicketService2 butTicketService2;
 	
-	@RequestMapping("/usr/article/recommendBusList_verAjax")
+	@RequestMapping("/usr/recommend/BusList")
 	public String recommendTrainList(HttpServletRequest req, Model model,
 			@RequestParam (defaultValue="동서울") String departureBus,
 			@RequestParam (defaultValue="대전복합") String arriveBus,
@@ -34,6 +34,6 @@ public class UsrBusController {
           }
         model.addAttribute("busLists", busLists);
 
-        return "usr/article/recommendBusList_verAjax"; 
+        return "usr/recommend/BusList"; 
 	}
 }

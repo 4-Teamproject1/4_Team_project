@@ -167,22 +167,7 @@ public class ArticleService {
 		return articleRepository.getBadRP(relId);
 	}
 
-	//문의사항
-	public ResultData<Integer> inquirywriteArticle(int loginedMemberId, String title, String body) {
-		articleRepository.inquirywriteArticle(loginedMemberId, title, body);
 
-		int id = articleRepository.getLastInsertId();
-
-		return ResultData.from("S-1", Ut.f("%d번 글이 생성되었습니다", id), "id", id);
-	}
-
-	public Inquiry getInquiry(int id) {
-		
-		return articleRepository.getInquiry(id);
-	}
-	public List<Inquiry> getAllInquiries() {
-	    return articleRepository.getAllInquiries();
-	}
 
 
 }

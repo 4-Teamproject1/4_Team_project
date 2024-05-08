@@ -1,10 +1,13 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.example.demo.vo.Inquiry;
 import com.example.demo.vo.Member;
 
 @Mapper
@@ -93,5 +96,31 @@ public interface MemberRepository {
 			</script>
 			""")
 	public void modifyWithoutPw(int loginedMemberId, String name, String nickname, String cellphoneNum, String email);
+	
+	
+	@Insert("""
+			INSERT INTO
+			inquiry SET
+			regDate = NOW(),
+			updateDate = NOW(),
+			memberId = #{memberId},
+			title = #{title}, `body` = #{body}
+			""")
+	public void inquirywriteArticle(int memberId, String title, String body);
 
+	
+	@Select("""
+			SELECT *
+			FROM article
+			WHERE id = #{id}
+			""")
+	public Inquiry getInquiry(int id);
+	
+	@Select("""
+	        SELECT *
+	        FROM inquiry
+	        ORDER BY id DESC
+	        """)
+	public List<Inquiry> getAllInquiries();
+	
 }

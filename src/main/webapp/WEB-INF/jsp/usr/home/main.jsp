@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">문의사항</button>
 	</a>
-	<a href="../article/recommendlist">
+	<a href="../hotel/recommendlist">
 		<button class="menu_box2 recommend">숙박&교통</button>
 	</a>
 	<c:if test="${rq.isLogined() }">
