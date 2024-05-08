@@ -217,7 +217,7 @@ public class HotelListCrawler {
 			// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 			System.out.println("순회 시작");
 			int id = 1;
-			List<Hotel> hotelList1 = new ArrayList<>();
+		
 			for (WebElement liElement : liElements) {
 //		for (int i = 0; i <= 10; i++) {
 //			WebElement liElement = liElements.get(i);
@@ -248,8 +248,14 @@ public class HotelListCrawler {
 					String text1 = parts[1]; // 문자열 부분
 					System.out.println(44);
 					int starScore = Integer.parseInt(number);
-					WebElement priceElement = liElement
-							.findElement(By.xpath(".//div[@data-element-name='final-price']//span[last()]"));
+					WebElement priceElement = null;
+					try {
+					    priceElement = liElement.findElement(By.xpath(".//div[@data-element-name='final-price']//span[@data-selenium='display-price']"));
+					} catch (NoSuchElementException e) {
+					    System.out.println("Price element not found.");
+					}
+
+					System.out.println(priceElement);
 					String priceStr = priceElement.getText();
 					List<String> serviceTexts = new ArrayList<>();
 					System.out.println(55);
