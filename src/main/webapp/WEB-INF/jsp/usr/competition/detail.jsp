@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script src="../path/to/your/javascript/file.js"></script> -->
+<script src="../actual/path/to/javascript/file.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
@@ -16,7 +16,7 @@
 	params.themeId = parseInt('${param.themeId}');
 	params.memberId = parseInt('${loginedMemberId}');
 	
-	
+	console.log(params);
 	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
 	
 </script>
@@ -71,7 +71,7 @@
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
 					<ul class="top-bar-count">
-						<li>조회수<span>53</span></li>
+						<li>조회수<span class="competition-detail__hit-count">${competition.hitCount}</span></li>
 						<!-- <li>즐겨찾기수<span>3</span></li> -->
 					</ul>
 				</div>
@@ -94,6 +94,8 @@
 							<td><span>${competition.contactNum}</span></td>
 							<td>담당자 이메일</td>
 							<td>${competition.contactEmail}</td>
+							
+							
 						</tr>
 					</tbody>
 
@@ -135,7 +137,6 @@ window.onload = function() {
 
 
 <script>
-
 <!-- 좋아요 싫어요 버튼	-->
 function checkRP() {
 	if(isAlreadyAddGoodRp == true){
@@ -196,6 +197,24 @@ if(isNaN(params.memberId) == true){
 		
 	});
 }
+
+</script>
+
+
+<!-- 조회수 -->
+<script>
+function CompetitionDetail__doIncreaseHitCount() {
+    $.get('../competition/doIncreaseHitCountRd', {
+        id : params.id,
+        ajaxMode : 'Y'
+    }, function(data) {
+        $('.competition-detail__hit-count').empty().html(data.data1);
+    }, 'json');
+}
+
+$(function() {
+    setTimeout(CompetitionDetail__doIncreaseHitCount, 2000);
+});
 
 </script>
 

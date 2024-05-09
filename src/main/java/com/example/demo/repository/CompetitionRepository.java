@@ -150,4 +150,22 @@ public interface CompetitionRepository {
 			""")
 	public int countCompetitons(String searchKeyword);
 
+	
+	@Update("""
+			UPDATE `competition`
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			""")
+	public int increaseHitCount(int id);
+
+	
+	
+	@Select("""
+			SELECT hitCount
+			FROM `competition`
+			WHERE id = #{id}
+			""")
+	public int getCompetitionHitCount(int id);
+
+
 }

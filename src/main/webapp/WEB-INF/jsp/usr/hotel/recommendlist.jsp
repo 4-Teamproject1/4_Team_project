@@ -229,7 +229,7 @@
 		<div class="sort_bar">
 
 			<form action="../hotel/recommendlist" method="POST">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+				<input class="city_box" type="text" autocomplete="off" placeholder="어디로 떠나시나요?" name="area">
 
 
 				<div id="date_start_btn" class="date_start">

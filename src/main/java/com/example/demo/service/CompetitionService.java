@@ -117,4 +117,20 @@ public class CompetitionService {
 	public int countCompetitons(String searchKeyword) {
 		return competitionRepository.countCompetitons(searchKeyword);
 	}
+	public ResultData increaseHitCount(int id) {
+		System.err.println(id);
+		int affectedRow = competitionRepository.increaseHitCount(id);
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "해당 게시물 없음", "id", id);
+		}
+
+		return ResultData.from("S-1", "해당 게시물 조회수 증가", "id", id);
+
+	}
+
+	public Object getCompetitionHitCount(int id) {
+		// TODO Auto-generated method stub
+		return competitionRepository.getCompetitionHitCount(id);
+	}
 }
