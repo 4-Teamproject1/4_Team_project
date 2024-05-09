@@ -206,4 +206,19 @@ public class ConferenceService {
 		return ResultData.from("S-1", Ut.f("%d번 삭제했습니다", id));
 		
 	}
+
+	public ResultData increaseHitCount(int id) {
+		System.err.println(id);
+		int affectedRow = conferenceRepository.increaseHitCount(id);
+
+		if (affectedRow == 0) {
+			return ResultData.from("F-1", "해당 게시물 없음", "id", id);
+		}
+
+		return ResultData.from("S-1", "해당 게시물 조회수 증가", "id", id);
+
+	}
+	public Object getConferenceHitCount(int id) {
+		return conferenceRepository. getConferenceHitCount(id);
+	}
 }

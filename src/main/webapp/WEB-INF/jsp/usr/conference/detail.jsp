@@ -77,10 +77,7 @@
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${conference.title}</div>
 					<ul class="top-bar-count">
-						<li>
-							조회수
-							<span>${conference.hitCount}</span>
-						</li>
+						<li>조회수<span class="conference-detail__hit-count">${conference.hitCount}</span></li>
 
 					</ul>
 					<c:if test="${loggedInMemberId == 'admin' }">
@@ -265,6 +262,22 @@ if(isNaN(params.memberId) == true){
 
 </script>
 
+<!-- 조회수 -->
+<script>
+function ConferenceDetail__doIncreaseHitCount() {
+    $.get('../conference/doIncreaseHitCountRd', {
+        id : params.id,
+        ajaxMode : 'Y'
+    }, function(data) {
+        $('.conference-detail__hit-count').empty().html(data.data1);
+    }, 'json');
+}
+
+$(function() {
+    setTimeout(ConferenceDetail__doIncreaseHitCount, 2000);
+});
+
+</script>
 
 
 

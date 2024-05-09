@@ -85,7 +85,26 @@ public class UsrConferenceController {
 	}
 
 	
-	
+
+	@RequestMapping("/usr/conference/doIncreaseHitCountRd")
+	@ResponseBody
+	public ResultData doIncreaseHitCountRd(int id) {
+		System.err.println(id);
+
+		ResultData increaseHitCountRd = conferenceService.increaseHitCount(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+
+		ResultData rd = ResultData.newData(increaseHitCountRd, "hitCount", conferenceService.getConferenceHitCount(id));
+
+		rd.setData2("id", id);
+
+		return rd;
+
+	}
+
 	
 	@GetMapping("/usr/conference/getFilteredConferences")
 	public ResponseEntity<?> getFilteredConferences(@RequestParam("option") String option, 

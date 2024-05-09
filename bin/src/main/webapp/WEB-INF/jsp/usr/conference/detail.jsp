@@ -32,15 +32,15 @@
 	</a>
 	<nav class="header_menu">
 		<c:choose>
-    <c:when test="${empty loggedInMemberName}">
-        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
-    </c:when>
-    <c:otherwise>
-        <a href="../member/myInfo">
-            <button class="username">${loggedInMemberName}님</button>
-        </a>
-    </c:otherwise>
-</c:choose>
+			<c:when test="${empty loggedInMemberName}">
+				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+			</c:when>
+			<c:otherwise>
+				<a href="../member/myInfo">
+					<button class="username">${loggedInMemberName}님</button>
+				</a>
+			</c:otherwise>
+		</c:choose>
 
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
@@ -83,8 +83,12 @@
 						</li>
 
 					</ul>
-					<ul class="">즐겨찾기
-					</ul>
+					<c:if test="${loggedInMemberId == 'admin' }">
+						<li>
+							<a style="white-space: nowrap;" class="btn btn-outline"
+								onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../conference/doDelete?id=${conference.id }">삭제</a>
+						</li>
+					</c:if>
 				</div>
 
 				<table class="table">
