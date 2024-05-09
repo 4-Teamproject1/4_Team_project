@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="search_box">
-	<form action="../hotel/recommendlist" method="POST">
+	<form action="../hotel/searchList" method="POST">
 		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off"
 			value="" />
 		<div class="search_results"></div>

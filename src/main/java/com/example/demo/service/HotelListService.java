@@ -39,9 +39,13 @@ public class HotelListService {
 		return hotelList;
 	}
 
-	public List<Hotel> getHotelList() {
+	public List<Hotel> getHotelList(String area) {
 		
-		return hotelListRepository.getHotelList();
+		return hotelListRepository.getHotelList(area);
+	}
+	public List<Hotel> getAllHotelList() {
+		
+		return hotelListRepository.getAllHotelList();
 	}
 
 	public List<Hotel> getHotelsByLocation(String location) {
@@ -52,6 +56,7 @@ public class HotelListService {
 	public List<Hotel> getHotelsByLocationPrefix(String locationPrefix) {
 	    return hotelListRepository.getHotelsByLocationPrefix(locationPrefix);
 	}
+
 
 	
 
