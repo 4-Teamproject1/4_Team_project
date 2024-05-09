@@ -15,68 +15,66 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const cityBox = document.querySelector('.city_box');
-    const popup = document.createElement('div');
-    popup.classList.add('popup');
+	document.addEventListener("DOMContentLoaded", function() {
+		const cityBox = document.querySelector('.city_box');
+		const popup = document.createElement('div');
+		popup.classList.add('popup');
 
-    // 도시 목록
-    const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
-            "전주", "제주", "청주", "포천", "인천" ];
+		// 도시 목록
+		const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
+				"전주", "제주", "청주", "포천", "인천" ];
 
-    areas.forEach(function(area) {
-        const areaElement = document.createElement('div');
-        areaElement.textContent = area;
-        areaElement.classList.add('area');
-        areaElement.addEventListener('click', function() {
-            cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
-            popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
-        });
-        popup.appendChild(areaElement);
-    });
+		areas.forEach(function(area) {
+			const areaElement = document.createElement('div');
+			areaElement.textContent = area;
+			areaElement.classList.add('area');
+			areaElement.addEventListener('click', function() {
+				cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
+				popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
+			});
+			popup.appendChild(areaElement);
+		});
 
-    cityBox.addEventListener('click', function(event) {
-        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-        popup.style.display = 'block';
-    });
+		cityBox.addEventListener('click', function(event) {
+			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+			popup.style.display = 'block';
+		});
 
-    popup.addEventListener('click', function(event) {
-        event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
-    });
+		popup.addEventListener('click', function(event) {
+			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+		});
 
-    document.body.appendChild(popup);
+		document.body.appendChild(popup);
 
-    // 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
-    document.addEventListener('click', function(event) {
-        if (!popup.contains(event.target)) {
-            popup.style.display = 'none';
-        }
-    });
+		// 팝업 창 외부를 클릭하면 팝업 창이 닫히도록 처리
+		document.addEventListener('click', function(event) {
+			if (!popup.contains(event.target)) {
+				popup.style.display = 'none';
+			}
+		});
 
-    // form 제출 시 input 값을 설정
-    document.querySelector('.btn_sort_bar').addEventListener('click', function(event) {
-        document.querySelector('.city_box').value = cityBox.value;
-    });
-});
+		// form 제출 시 input 값을 설정
+		document.querySelector('.btn_sort_bar').addEventListener('click',
+				function(event) {
+					document.querySelector('.city_box').value = cityBox.value;
+				});
+	});
 
-
-
-
-    $(document).ready(function(){
-        // date_start_btn 버튼을 클릭할 때의 동작 설정
-        $("#date_start_btn").click(function(){
-            // jQuery UI의 DatePicker를 활성화하고 설정
-            $("#datepicker").datepicker({
-                dateFormat: 'yy년 mm월 dd일',
-                onSelect: function(dateText, inst) {
-                    // 선택한 날짜를 텍스트 입력란에 넣음
-                    $(".city_box").val(dateText);
-                }
-            });
-            // 달력 표시
-            $("#datepicker").datepicker("show");
-        });
-    });
+	$(document).ready(function() {
+		// date_start_btn 버튼을 클릭할 때의 동작 설정
+		$("#date_start_btn").click(function() {
+			// jQuery UI의 DatePicker를 활성화하고 설정
+			$("#datepicker").datepicker({
+				dateFormat : 'yy년 mm월 dd일',
+				onSelect : function(dateText, inst) {
+					// 선택한 날짜를 텍스트 입력란에 넣음
+					$(".city_box").val(dateText);
+				}
+			});
+			// 달력 표시
+			$("#datepicker").datepicker("show");
+		});
+	});
 </script>
 
 
@@ -85,16 +83,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		    <c:choose>
-    <c:when test="${empty loggedInMemberName}">
-        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
-    </c:when>
-    <c:otherwise>
-        <a href="../member/myInfo">
-            <button class="username">${loggedInMemberName}님</button>
-        </a>
-    </c:otherwise>
-</c:choose>
+		<c:choose>
+			<c:when test="${empty loggedInMemberName}">
+				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+			</c:when>
+			<c:otherwise>
+				<a href="../member/myInfo">
+					<button class="username">${loggedInMemberName}님</button>
+				</a>
+			</c:otherwise>
+		</c:choose>
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -124,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="dropdown">
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
-							
+
 							<li>
 								<a href="../recommend/TrainList">기차</a>
 							</li>
@@ -230,10 +228,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	<div class="outer-content-box">
 		<div class="sort_bar">
-			
+
+			<form action="../hotel/searchList">
 				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
 
-				
+
 				<div id="date_start_btn" class="date_start">
 					<div style="text-align: center;">2024년 5월 12일</div>
 					<div style="text-align: center;">금요일</div>
@@ -253,7 +252,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					<option>8명</option>
 				</select>
 				<button class="btn_sort_bar btn" type="submit">검색하기</button>
-		
+			</form>
+
 		</div>
 		<div class="hotel-card">
 			<c:forEach items="${hotelList}" var="hotel">
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 .date_start, .date_end {
 	position: relative;
-	display:inline-block;
+	display: inline-block;
 	left: -10px;
 	width: 150px;
 	height: 60px;
@@ -520,9 +520,10 @@ body {
 	width: 300px;
 }
 
-.slider{
+.slider {
 	width: 260px;
 }
+
 .slider:hover {
 	opacity: 1;
 }
@@ -699,7 +700,6 @@ body {
 	font-weight: bold;
 	font: sans-serif;
 	width: 400px;
-
 }
 
 .hotel-name-text {
@@ -776,7 +776,6 @@ body {
 	line-height: normal;
 	margin-top: 100px;
 	width: 300px;
-	
 }
 
 .hotel-rating {
@@ -787,10 +786,7 @@ body {
 	text-align: right;
 	margin: auto 0;
 	width: 190px;
-
 	justify-content: center;
-	
-	
 }
 
 .hotel-rating-icon {
@@ -805,7 +801,6 @@ body {
 	margin-top: 4px;
 	flex-direction: column;
 	width: 180px;
-
 }
 
 .hotel-rating-score {
@@ -1445,7 +1440,6 @@ body {
 			}
 		}
 	});
-	
 </script>
 
 <%@ include file="../common/foot.jspf"%>

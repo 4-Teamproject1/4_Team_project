@@ -69,5 +69,17 @@ public class UsrHotelListController {
 		}
 		return "usr/hotel/recommendlist";
 	}
+	
+	@RequestMapping("usr/hotel/searchList")
+	public String showSearchHotelList(@RequestParam(required = false) String endLocation, Model model) {
+		if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
+			String searchPrefix = endLocation.substring(0, 2); // 앞 두 글자 추출
+			List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
+			model.addAttribute("hotelList", filteredHotels);
+		} else {
+			model.addAttribute("hotelList", new ArrayList<>()); // 입력값이 부적절하면 빈 목록을 반환
+		}
+		return "usr/hotel/recommendlist";
+	}
 
 }
