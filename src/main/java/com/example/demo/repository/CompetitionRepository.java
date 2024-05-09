@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -149,6 +150,20 @@ public interface CompetitionRepository {
 			    </script>
 			""")
 	public int countCompetitons(String searchKeyword);
+	
+	
+	@Select("""
+			SELECT c.*
+			FROM `competition` AS c
+			WHERE c.id = #{id}
+			""")
+	public Competition getcompetitionId(int id);
+
+	@Delete("""
+			DELETE FROM `competition`
+			WHERE id = #{id}
+			""")
+	void deleteCompetition(int id);
 
 	
 	@Update("""

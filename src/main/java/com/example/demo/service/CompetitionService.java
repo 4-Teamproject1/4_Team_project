@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.competitionInfoCrawler;
 import com.example.demo.repository.CompetitionRepository;
+import com.example.demo.util.Ut;
 import com.example.demo.vo.Competition;
 import com.example.demo.vo.Conference;
 import com.example.demo.vo.ResultData;
@@ -117,6 +118,7 @@ public class CompetitionService {
 	public int countCompetitons(String searchKeyword) {
 		return competitionRepository.countCompetitons(searchKeyword);
 	}
+
 	public ResultData increaseHitCount(int id) {
 		System.err.println(id);
 		int affectedRow = competitionRepository.increaseHitCount(id);
@@ -133,4 +135,29 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return competitionRepository.getCompetitionHitCount(id);
 	}
+
+	
+	// 공모전삭제
+	public Competition getcompetitionId(int id) {
+
+		return competitionRepository.getcompetitionId(id);
+	}
+	
+	public ResultData userCanDelete(int loginedMemberId, Competition competition) {
+		System.err.println(loginedMemberId);
+		System.err.println(competition.getCmemberId());
+		if (competition.getCmemberId() != loginedMemberId) {
+			return ResultData.from("F-2", Ut.f("%d번 공모전에 대한 삭제 권한이 없습니다", competition.getId()));
+		}
+
+		return ResultData.from("S-1", Ut.f("%d번 공모전이 삭제 되었습니다", competition.getId()));
+	}
+
+	public ResultData deleteConference(int id) {
+		competitionRepository.deleteCompetition(id);
+		return ResultData.from("S-1", Ut.f("%d번 삭제했습니다", id));
+		
+	}
+	
+
 }

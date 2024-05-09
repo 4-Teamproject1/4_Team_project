@@ -23,5 +23,5 @@ public class Competition {
     private int themeId;
     private String regDate;
     private String goodReactionPoint;
-    
+    private int CmemberId;
 }

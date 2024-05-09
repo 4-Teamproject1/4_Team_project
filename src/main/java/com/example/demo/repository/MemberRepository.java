@@ -130,6 +130,22 @@ public interface MemberRepository {
 	        WHERE id = #{memberId}
 	        """)
 	int updateDelStatus(int memberId, int delStatus);
+	
+	
+	@Select("""	
+			SELECT `authLevel`
+			FROM member
+			WHERE id = #{memberId};
+			""")
+	public int getMemberLevel(int memberId);
+
+	
+	@Select("""
+			SELECT *
+			FROM member
+			WHERE authLevel != 7;
+			""")
+	public List<Member> getMembers();
 
 	
 }

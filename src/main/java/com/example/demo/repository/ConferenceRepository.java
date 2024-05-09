@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -31,25 +32,24 @@ public interface ConferenceRepository {
 	public void insertConference(Conference conference);
 
 	@Select("""
-		    <script>
-		    SELECT * FROM `academy`
-		    WHERE categoryId = #{categoryId}
-		    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-		    LIMIT #{limit} OFFSET #{offset}
-		    </script>
-		""")
-		public List<Conference> getShopsList(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
+			    <script>
+			    SELECT * FROM `academy`
+			    WHERE categoryId = #{categoryId}
+			    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+			    LIMIT #{limit} OFFSET #{offset}
+			    </script>
+			""")
+	public List<Conference> getShopsList(@Param("categoryId") int categoryId,
+			@Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
 
-		@Select("""
-		    <script>
-		    SELECT COUNT(*) FROM `academy`
-		    WHERE categoryId = #{categoryId}
-		    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
-		    </script>
-		""")
-		public int countConferences(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword);
-
-          
+	@Select("""
+			    <script>
+			    SELECT COUNT(*) FROM `academy`
+			    WHERE categoryId = #{categoryId}
+			    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+			    </script>
+			""")
+	public int countConferences(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword);
 
 	@Select("""
 			<script>
@@ -60,9 +60,6 @@ public interface ConferenceRepository {
 			""")
 	public Conference getEventById(int id);
 
-
-
-
 	@Select("""
 			<script>
 			SELECT *
@@ -72,7 +69,7 @@ public interface ConferenceRepository {
 			""")
 	public List<Conference> getConferencesByCategory(int categoryId);
 
-@Select("""
+	@Select("""
 			<script>
 			SELECT *
 			FROM `academy`
@@ -161,7 +158,7 @@ public interface ConferenceRepository {
 			    </script>
 			""")
 	public List<Conference> getShopsList2();
-          
+
 	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint + 1
@@ -186,23 +183,32 @@ public interface ConferenceRepository {
 			""")
 	public int getGoodRP(int themeId, int academyId);
 
-	
 	@Select("""
-	        <script>
-	        SELECT title, place,
-	               DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d') AS eventPeriod,
-	               address
-	        FROM `academy`
-	        WHERE id IN (
-	            SELECT academyId
-	            FROM scrap
-	            WHERE memberId = #{memberId} AND point = 1 AND themeId = 1
-	        );
-	        </script>
-	    """)
+			    <script>
+			    SELECT title, place,
+			           DATE_FORMAT(SUBSTRING_INDEX(eventPeriod, ' ~ ', 1), '%y.%m.%d') AS eventPeriod,
+			           address
+			    FROM `academy`
+			    WHERE id IN (
+			        SELECT academyId
+			        FROM scrap
+			        WHERE memberId = #{memberId} AND point = 1 AND themeId = 1
+			    );
+			    </script>
+			""")
 	public List<Conference> getscrapShopsList(int memberId);
 
+	@Select("""
+			SELECT a.*
+			FROM `academy` AS a
+			WHERE a.id = #{id}
+			""")
+	public Conference getConferenceId(int id);
 
-
+	@Delete("""
+			DELETE FROM `academy`
+			WHERE id = #{id}
+			""")
+	void deleteConference(int id);
 
 }

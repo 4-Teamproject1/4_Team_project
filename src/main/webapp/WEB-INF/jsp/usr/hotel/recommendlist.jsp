@@ -10,9 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
-<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
-<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
-
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -225,11 +222,11 @@
 
 	</div>
 
-	<div class="outer-content-box">
+<div class="outer-content-box">
 		<div class="sort_bar">
 
 			<form action="../hotel/recommendlist" method="POST">
-				<input class="city_box" type="text" autocomplete="off" placeholder="어디로 떠나시나요?" name="area">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
 
 
 				<div id="date_start_btn" class="date_start">

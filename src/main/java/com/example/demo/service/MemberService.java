@@ -97,6 +97,22 @@ public class MemberService {
 	    return ResultData.from("S-1", "회원 탈퇴에 성공했습니다.");
 	}
 
+	public ResultData getMemberLevel(int memberId) {
+		
+		int LevelId = memberRepository.getMemberLevel(memberId);
+		
+		if(LevelId != 7) {
+			return ResultData.from("F-10", "관리자가 아닙니다.");
+		}
+		
+		return ResultData.from("S-10", "안녕하세요 관리자");
+	}
+
+	public List<Member> getMembers() {
+
+		return memberRepository.getMembers();
+	}
+
 	
 	
 
