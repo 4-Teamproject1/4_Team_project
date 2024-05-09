@@ -351,7 +351,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="team_project_member_profile">
-	<div class="container">
+    <button class="hidden_btn btn" onclick="toggleContainer()">Contact Us</button>
+    <div class="container">
 		<div class="row_container">
 			<div class="profile_container">
 				<div class="profile_box">
@@ -372,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/Gouiseong?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -397,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -426,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/jihyeon2434?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -443,12 +444,15 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 김선경</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:vrslxowe@gmail.com">vrslxowe@gmail.com</a>
+							</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/vrslxowe?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -460,6 +464,75 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <style type="text/css">
+
+.hidden_btn {
+	width: 100px;
+	height: 50px;
+}
+
+.team_project_member_profile {
+	display: flex;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	background-color: #050A19;
+	/* 	border: 3px solid; */
+}
+
+.container {
+	margin: auto;
+	border-radius: 10px;
+	background-color: #5168A4;
+	width: 1300px;
+}
+
+.high_container, .row_container {
+	display: flex;
+}
+
+.profile_container {
+	flex: 1;
+	background-color: #00256C;
+	width: 400px;
+	height: 200px;
+	margin: 20 50;
+	border-radius: 5px;
+}
+
+.profile_box {
+	display: flex;
+}
+
+.profile_picture {
+	flex: 1;
+	height: 200px;
+	align-content: center;
+}
+
+.profile_info {
+	flex: 2;
+	color: white;
+	height: 200px;
+	align-content: center;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.profile_img {
+	width: 150px;
+	height: 150px;
+	border-radius: 120px;
+	margin-left: 22px;
+}
+
+.github_img {
+	width: 30px;
+	height: 30px;
+}
+
+.github:hover {
+	
+}
+
 *, *:before, *:after {
 	box-sizing: border-box;
 	margin: 0;
@@ -855,68 +928,7 @@ a.control_next {
 }
 
 /* 팀프로젝트 조장 및 조원 프로필 css */
-.team_project_member_profile {
-	display: flex;
-	padding-top: 100px;
-	padding-bottom: 100px;
-	background-color: #050A19;
-	/* 	border: 3px solid; */
-}
 
-.container {
-	margin: auto;
-	border-radius: 10px;
-	background-color: #00256c;
-	width: 1300px;
-}
-
-.high_container, .row_container {
-	display: flex;
-}
-
-.profile_container {
-	flex: 1;
-	background-color: #31363F;
-	width: 400px;
-	height: 200px;
-	margin: 20 50;
-	border-radius: 5px;
-}
-
-.profile_box {
-	display: flex;
-}
-
-.profile_picture {
-	flex: 1;
-	height: 200px;
-	align-content: center;
-}
-
-.profile_info {
-	flex: 2;
-	color: white;
-	height: 200px;
-	align-content: center;
-	margin-left: 10px;
-	font-size: 14px;
-}
-
-.profile_img {
-	width: 150px;
-	height: 150px;
-	border-radius: 120px;
-	margin-left: 22px;
-}
-
-.github_img {
-	width: 30px;
-	height: 30px;
-}
-
-.github:hover {
-	
-}
 
 @media ( max-width : 991px) {
 	.event-schedule {

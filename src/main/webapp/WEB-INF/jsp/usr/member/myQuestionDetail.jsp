@@ -37,15 +37,16 @@
 	</a>
 </div>
 
+<div class="Ques_date">작성일자&nbsp${inquiry.regDate}</div>
 <div class="Question_box title">
-	<div class="Ques1">제목</div>
-	<div class="Ques2">${inquiry.title}</div>
-</div>
-
+	<div class="Ques_title">문의 제목</div>
+	<div class="Ques1">${inquiry.title}</div>
+	</div>
 <div class="Question_box content">
-	<div class="content Ques1">내용</div>
+	<div class="Ques_content">문의 내용</div>
 	<div class="Ques2">${inquiry.body}</div>
 </div>
+
 
 
 <button class="back_btn" type="button" onclick="history.back();">뒤로가기</button>
@@ -142,22 +143,30 @@ body {
 	top: 155px;
 }
 
+.Ques_date {
+	position: relative;
+	top: 250px;
+	left: 67%;
+	width: 193px;
+	height: 20px;
+	font-size: 14px;
+}
+
 .Question_box {
-	top: 260px;
+	position: relative;
+	top: 250px;
 	left: 25%;
 	height: 87px;
 	width: 1000px;
-	position: relative;
 	border-bottom-width: 1px;
 	border-color: #878787;
 }
-
-.Ques1 {
+.Ques_title, .Ques_content {
+	position: relative;
 	width: 160px;
 	height: 87px;
 	background: #7E9DD9;
 	color: white;
-	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -165,16 +174,27 @@ body {
 	border-bottom-width: 1px;
 	border-color: #878787;
 }
+.Ques_content {
+	height: 450px;
+}
 
-.Ques2 {
-	top: -55px;
-	left: 19%;
-	width: 200px;
-	color: black;
-	height: 50px;
+.Ques1, .Ques2 {
 	position: relative;
-	background-color: pink;
-	opacity: 0.6;
+	left: 19%;
+	width: 780px;
+	height: 100%;
+	color: black;
+	
+}
+.Ques1 {
+	top: -87px;
+	display: flex;
+	align-items: center;
+}
+.Ques2 {
+	top: -100.2%;
+	padding: 20px 0 0 0;;
+	
 }
 
 .title {
@@ -185,10 +205,6 @@ body {
 
 .content {
 	height: 450px;
-}
-
-.content>input {
-	top: -90%;
 }
 
 .back_btn {
