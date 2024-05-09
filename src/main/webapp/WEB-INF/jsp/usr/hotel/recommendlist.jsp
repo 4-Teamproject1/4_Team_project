@@ -10,9 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
-<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
-<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
-
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {

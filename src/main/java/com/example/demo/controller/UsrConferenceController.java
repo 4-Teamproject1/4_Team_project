@@ -9,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ConferenceService;
 import com.example.demo.service.ScrapService;
+import com.example.demo.util.Ut;
 import com.example.demo.vo.Conference;
+import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -126,7 +129,25 @@ public class UsrConferenceController {
 	    return ResponseEntity.ok().body(conferenceList);
 	}
 
-	
+	@RequestMapping("/usr/conference/doDelete")
+	@ResponseBody
+	public String doDelete(HttpServletRequest req, int id) {
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Conference conference = conferenceService.getConferenceId(id);
+		
+		if (conference == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 학회행사는 존재하지 않습니다", id));
+		}
+		
+		ResultData loginedMemberCanDeleteRd = conferenceService.userCanDelete(rq.getLoginedMemberId(), conference);
+
+		if (loginedMemberCanDeleteRd.isSuccess()) {
+			conferenceService.deleteConference(id);
+		}
+
+		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(), "../conference/list");
+	}
 	
 	
 	/*

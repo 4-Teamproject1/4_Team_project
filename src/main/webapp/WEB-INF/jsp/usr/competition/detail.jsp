@@ -28,15 +28,15 @@
 	</a>
 	<nav class="header_menu">
 		<c:choose>
-    <c:when test="${empty loggedInMemberName}">
-        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
-    </c:when>
-    <c:otherwise>
-        <a href="../member/myInfo">
-            <button class="username">${loggedInMemberName}님</button>
-        </a>
-    </c:otherwise>
-</c:choose>
+			<c:when test="${empty loggedInMemberName}">
+				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+			</c:when>
+			<c:otherwise>
+				<a href="../member/myInfo">
+					<button class="username">${loggedInMemberName}님</button>
+				</a>
+			</c:otherwise>
+		</c:choose>
 
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
@@ -71,9 +71,17 @@
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
 					<ul class="top-bar-count">
-						<li>조회수<span>53</span></li>
-						<!-- <li>즐겨찾기수<span>3</span></li> -->
+						<li>
+							조회수
+							<span>53</span>
+						</li>
 					</ul>
+					<c:if test="${loggedInMemberId == 'admin' }">
+						<li>
+							<a style="white-space: nowrap;" class="btn btn-outline"
+								onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../competition/doDelete?id=${competition.id }">삭제</a>
+						</li>
+					</c:if>
 				</div>
 				<table class="table">
 					<tbody>
@@ -81,7 +89,9 @@
 							<td>접수기간</td>
 							<td>${competition.applicationPeriod}</td>
 							<td>관련 홈페이지</td>
-						 <td><a href="${competition.homepage}">바로가기</a></td>
+							<td>
+								<a href="${competition.homepage}">바로가기</a>
+							</td>
 						</tr>
 						<tr>
 							<td>총시상금</td>
@@ -91,7 +101,9 @@
 						</tr>
 						<tr>
 							<td>담당자 연락처</td>
-							<td><span>${competition.contactNum}</span></td>
+							<td>
+								<span>${competition.contactNum}</span>
+							</td>
 							<td>담당자 이메일</td>
 							<td>${competition.contactEmail}</td>
 						</tr>
@@ -103,10 +115,10 @@
 				</table>
 
 				<div class="competition-body">
-					 <img src="${competition.imageURL}" alt=""  loading="lazy" />
+					<img src="${competition.imageURL}" alt="" loading="lazy" />
 				</div>
 				<div class="bookmark">
-						<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
+					<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
 				</div>
 			</div>
 		</div>
@@ -202,163 +214,164 @@ if(isNaN(params.memberId) == true){
 
 
 <style>
+body {
+	width: 100%;
+	hight: 130%;
+	margin: 0;
+	padding: 0;
+}
 
- body {
-    width: 100%;
-    hight: 130%;
-    margin: 0;
-    padding: 0;
-  }
+.header {
+	display: flex;
+	position: absolute;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
+}
 
-  .header {
-    display: flex;
-    position: absolute;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 17px auto 0;
-    padding: 0 20px;
-    gap: 20px;
-  }
-
-  .logo {
-    text-align: center;
-  }
+.logo {
+	text-align: center;
+}
 
 .header_menu {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
+
 .hd_logout:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
-  .username {
-    flex-grow: 1;
-  }
+.username {
+	flex-grow: 1;
+}
 
-  /* flex */
-  .list-container {
-    display: flex;
-    position: relative;
-    top: 40px;
-  }
+/* flex */
+.list-container {
+	display: flex;
+	position: relative;
+	top: 40px;
+}
 
-  .list-board {
-    flex: 0.5;
-    margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+.list-board {
+	flex: 0.5;
+	margin-top: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
-.list-items-section-box {  
+.list-items-section-box {
 	margin-left: 250px;
-	width : 1100px;
-    height: 1400px;
+	width: 1100px;
+	height: 1400px;
 }
-  .list-items-container {
-    flex: 4;
-    margin: 20px;
-  }
 
-  .list-board-item:hover,
-  .list-board-item:active {
-    background-color: #7E9DD9;
-    /* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
-    color: white;
-  }
+.list-items-container {
+	flex: 4;
+	margin: 20px;
+}
 
-  .list-board-item {
-    display: block;
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
+.list-board-item:hover, .list-board-item:active {
+	background-color: #7E9DD9;
+	/* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
+	color: white;
+}
 
-  .side-bar-container {
-    flex: 1;
-  }
+.list-board-item {
+	display: block;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
 
-  /* Sorting Options */
-  .sort-options {
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    font-size: 0.875rem;
-    line-height: 1rem;
-    color: #4a5568;
-  }
+.side-bar-container {
+	flex: 1;
+}
 
-  .detail-top-bar {
-    border-top: solid 2px #878787;
-  }
+/* Sorting Options */
+.sort-options {
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	font-size: 0.875rem;
+	line-height: 1rem;
+	color: #4a5568;
+}
 
-  .top-bar-count {
-    display: flex;
-  }
+.detail-top-bar {
+	border-top: solid 2px #878787;
+}
 
-  .top-bar-count>li {
-    display: inline-block;
-    margin-right: 20px;
-  }
+.top-bar-count {
+	display: flex;
+}
 
-  .top-bar-count>li>span {
-    margin-left: 5px;
-  }
+.top-bar-count>li {
+	display: inline-block;
+	margin-right: 20px;
+}
 
-  /* Table */
-  .table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
+.top-bar-count>li>span {
+	margin-left: 5px;
+}
 
-  tr {
-    justify-content: center;
-  }
+/* Table */
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
-  .table td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
+tr {
+	justify-content: center;
+}
 
-  .competition-body {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    /* 부모 요소의 높이에 따라 이미지를 세로 중앙 정렬합니다. */
-  }
+.table td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
 
-  .competition-body img {
-    max-width: 100%;
-    /* 이미지의 최대 너비를 부모 요소의 너비에 맞춥니다. */
-    max-height: 100%;
-    /* 이미지의 최대 높이를 부모 요소의 높이에 맞춥니다. */
-  }
+.competition-body {
+	margin-top: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	/* 부모 요소의 높이에 따라 이미지를 세로 중앙 정렬합니다. */
+}
 
-  .bookmark {
-    text-align: center;
-  }
+.competition-body img {
+	max-width: 100%;
+	/* 이미지의 최대 너비를 부모 요소의 너비에 맞춥니다. */
+	max-height: 100%;
+	/* 이미지의 최대 높이를 부모 요소의 높이에 맞춥니다. */
+}
 
-  .bookmark-button {
-    border: solid 1px black;
-    border-radius: 10px;
-    padding: 20px 60px;
-  }
+.bookmark {
+	text-align: center;
+}
 
-  .bookmark-button:hover {
-    background-color: #7E9DD9;
-    color: white;
-  }
+.bookmark-button {
+	border: solid 1px black;
+	border-radius: 10px;
+	padding: 20px 60px;
+}
+
+.bookmark-button:hover {
+	background-color: #7E9DD9;
+	color: white;
+}
 </style>
 
 
