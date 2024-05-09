@@ -165,4 +165,22 @@ public interface CompetitionRepository {
 			""")
 	void deleteCompetition(int id);
 
+	
+	@Update("""
+			UPDATE `competition`
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			""")
+	public int increaseHitCount(int id);
+
+	
+	
+	@Select("""
+			SELECT hitCount
+			FROM `competition`
+			WHERE id = #{id}
+			""")
+	public int getCompetitionHitCount(int id);
+
+
 }

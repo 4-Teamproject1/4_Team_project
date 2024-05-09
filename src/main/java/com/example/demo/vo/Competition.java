@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Competition {
     private int id;
     private String title;
+	private int hitCount;
     private String totalPrizeMoney;
     private String firstPrizeMoney;
     private String applicationPeriod;

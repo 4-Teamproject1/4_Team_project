@@ -222,16 +222,11 @@
 
 	</div>
 
-	<div class="outer-content-box">
+<div class="outer-content-box">
 		<div class="sort_bar">
 
-<<<<<<< HEAD
-			<form action="../hotel/searchList">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplete="off">
-=======
 			<form action="../hotel/recommendlist" method="POST">
 				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
->>>>>>> 25f80cc8c00562e8cb699352127fff3146f900ea
 
 
 				<div id="date_start_btn" class="date_start">

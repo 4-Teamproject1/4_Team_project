@@ -94,6 +94,27 @@ public class UsrCompetitionController {
 		return "usr/competition/list";
 	}
 
+	
+	@RequestMapping("/usr/competition/doIncreaseHitCountRd")
+	@ResponseBody
+	public ResultData doIncreaseHitCountRd(int id) {
+		System.err.println(id);
+
+		ResultData increaseHitCountRd = competitionService.increaseHitCount(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+
+		ResultData rd = ResultData.newData(increaseHitCountRd, "hitCount", competitionService.getCompetitionHitCount(id));
+
+		rd.setData2("id", id);
+
+		return rd;
+
+	}
+
+	
 	@GetMapping("/usr/competition/getFilteredCompetitions")
 	public ResponseEntity<?> getFilteredCompetitions(@RequestParam("option") String option) {
 		System.err.println(option);
