@@ -111,7 +111,7 @@ public interface MemberRepository {
 	
 	@Select("""
 			SELECT *
-			FROM article
+			FROM inquiry
 			WHERE id = #{id}
 			""")
 	public Inquiry getInquiry(int id);

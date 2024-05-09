@@ -257,56 +257,48 @@ public class UsrMemberController {
 	}
 	
 	//문의사항
-	@RequestMapping("/usr/member/inquiry")
-	public String showinquiry(HttpServletRequest req) {
-		 Rq rq = (Rq) req.getAttribute("rq");
+		@RequestMapping("/usr/member/inquiry")
+		public String showinquiry(HttpServletRequest req) {
 
-		    if (!rq.isLogined()) {
-		        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
-		    }
-		return "usr/member/inquiry";
-	}
-
-	@RequestMapping("/usr/member/doinquirywrite")
-	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		if (Ut.isNullOrEmpty(title)) {
-			return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
-		}
-		if (Ut.isNullOrEmpty(body)) {
-			return Ut.jsHistoryBack("F-2", "내용을 입력해주세요");
+			return "usr/member/inquiry";
 		}
 
-		ResultData<Integer> inquirywriteArticleRd = memberService.inquirywriteArticle(rq.getLoginedMemberId(), title, body);
+		@RequestMapping("/usr/member/doinquirywrite")
+		@ResponseBody
+		public String doWrite(HttpServletRequest req, String title, String body) {
 
-		int id = (int) inquirywriteArticleRd.getData1();
+			Rq rq = (Rq) req.getAttribute("rq");
 
-		Inquiry Inquiry = memberService.getInquiry(id);
+			if (Ut.isNullOrEmpty(title)) {
+				return Ut.jsHistoryBack("F-1", "제목을 입력해주세요");
+			}
+			if (Ut.isNullOrEmpty(body)) {
+				return Ut.jsHistoryBack("F-2", "내용을 입력해주세요");
+			}
 
-		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../member/myQuestion");
+			ResultData<Integer> inquirywriteArticleRd = memberService.inquirywriteArticle(rq.getLoginedMemberId(), title, body);
 
-	}
-	
-	@RequestMapping("/usr/member/myQuestionDetail")
-	public String myQuestionDetail(HttpServletRequest req, @RequestParam("inquiryId") int inquiryId, Model model) {
-	    // Retrieve the inquiry details by its ID
-	    Inquiry inquiry = memberService.getInquiry(inquiryId);
-	    
-	    // Add the inquiry object to the model to make it accessible in the JSP
-	    model.addAttribute("inquiry", inquiry);
-	    
-	    return "/usr/member/myQuestionDetail";
-	}
-	
-	@RequestMapping("/usr/member/myQuestion")
-	public String showMyQuestion(Model model) {
-	    List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
-	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
-	    return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
-	}
+			int id = (int) inquirywriteArticleRd.getData1();
+
+			Inquiry Inquiry = memberService.getInquiry(id);
+
+			return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../member/myQuestion");
+
+		}
+		
+		@RequestMapping("/usr/member/myQuestionDetail")
+		public String showInquiryDetail(Model model, @RequestParam("id") int inquiryId) {
+		    Inquiry inquiry = memberService.getInquiryById(inquiryId);
+		    model.addAttribute("inquiry", inquiry);
+		    return "usr/member/myQuestionDetail";
+		}
+		
+		@RequestMapping("/usr/member/myQuestion")
+		public String showMyQuestion(Model model) {
+		    List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
+		    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
+		    return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
+		}
 	
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
