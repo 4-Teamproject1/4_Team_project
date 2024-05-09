@@ -127,5 +127,25 @@ public class UsrCompetitionController {
 
 		return ResponseEntity.ok().body(competitionList);
 	}
+	
+	@RequestMapping("/usr/competition/doDelete")
+	@ResponseBody
+	public String doDelete(HttpServletRequest req, int id) {
+		Rq rq = (Rq) req.getAttribute("rq");
 
+		Competition competition = competitionService.getcompetitionId(id);
+		
+		if (competition == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 공모전은 존재하지 않습니다", id));
+		}
+		
+		ResultData loginedMemberCanDeleteRd = competitionService.userCanDelete(rq.getLoginedMemberId(), competition);
+
+		if (loginedMemberCanDeleteRd.isSuccess()) {
+			competitionService.deleteConference(id);
+		}
+
+		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(), "../competition/list");
+	}
+	
 }
