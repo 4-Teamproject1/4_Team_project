@@ -33,29 +33,25 @@ public class HotelListCrawler {
 
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
-		// WebDriver 인스턴스 생성
-		WebDriver driver = new ChromeDriver();
-
-		// 아고다 검색 페이지 URL
-		String url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&device=c&network=g&adid=695788229412&rand=2893338334644664789&expid=&adpos=&aud=kwd-304551434341&gclid=Cj0KCQjw_qexBhCoARIsAFgBlevSo6nth5UoZYtTjxbyMdsMGb9e5H1wMGNKOHqatzyxXCnCCISQUGEaApAaEALw_wcB&checkIn=2024-05-10&checkOut=2024-05-18&adults=1&rooms=1&pslc=1&ds=pWGoz1iyjxyzPJEv";
-
-		// 아고다 검색 페이지로 이동
-		driver.get(url);
-
-		// 검색창 요소 찾기
-		WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
-
-		// WebDriverWait 인스턴스 생성
-		WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-		// 검색창이 활성화될 때까지 기다림
-		WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
-
 		List<Hotel> hotelList = new ArrayList<>();
 		String[] areaList = { "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" };
-		for (int i = 0; i <= areaList.length; i++) {
-			// 검색어 입력
+
+		// 검색어 입력
+		for (int i = 0; i < areaList.length; i++) {
+			// WebDriver 인스턴스 생성
+			WebDriver driver = new ChromeDriver();
+			// WebDriverWait 인스턴스 생성
+			WebDriverWait wait_web = new WebDriverWait(driver, Duration.ofSeconds(10));
+			// 아고다 검색 페이지 URL
+			String url = "https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&device=c&network=g&adid=695788229412&rand=2893338334644664789&expid=&adpos=&aud=kwd-304551434341&gclid=Cj0KCQjw_qexBhCoARIsAFgBlevSo6nth5UoZYtTjxbyMdsMGb9e5H1wMGNKOHqatzyxXCnCCISQUGEaApAaEALw_wcB&checkIn=2024-05-10&checkOut=2024-05-18&adults=1&rooms=1&pslc=1&ds=pWGoz1iyjxyzPJEv";
+			// 아고다 검색 페이지로 이동
+			driver.get(url);
+			// 검색창 요소 찾기
+			WebElement searchInput = driver.findElement(By.cssSelector("#autocomplete-box #textInput"));
+			// 검색창이 활성화될 때까지 기다림
+			WebElement activatedSearchInput = wait_web.until(ExpectedConditions.elementToBeClickable(searchInput));
 			String searchText = areaList[i];
+			System.out.println(searchText);
 			activatedSearchInput.sendKeys(searchText);
 
 //		// 엔터 입력 (검색 실행)
@@ -216,12 +212,10 @@ public class HotelListCrawler {
 			System.out.println(liElements.size());
 			// li 태그를 순회하면서 해당 클래스명을 가진 데이터 가져오기
 			System.out.println("순회 시작");
-			int id = 1;
-		
+
 			for (WebElement liElement : liElements) {
 //		for (int i = 0; i <= 10; i++) {
 //			WebElement liElement = liElements.get(i);
-				int lastId = id;
 				try {
 					System.out.println(11);
 					WebElement imgElement = liElement.findElement(By.xpath(
@@ -248,15 +242,11 @@ public class HotelListCrawler {
 					String text1 = parts[1]; // 문자열 부분
 					System.out.println(44);
 					int starScore = Integer.parseInt(number);
-					WebElement priceElement = null;
-					try {
-					    priceElement = liElement.findElement(By.xpath(".//div[@data-element-name='final-price']//span[@data-selenium='display-price']"));
-					} catch (NoSuchElementException e) {
-					    System.out.println("Price element not found.");
-					}
+					WebElement priceElement = liElement.findElement(
+							By.xpath(".//div[@data-element-name='final-price']//span[@data-selenium='display-price']"));
 
-					System.out.println(priceElement);
 					String priceStr = priceElement.getText();
+
 					List<String> serviceTexts = new ArrayList<>();
 					System.out.println(55);
 					List<WebElement> serviceElements = liElement
@@ -281,14 +271,12 @@ public class HotelListCrawler {
 					WebElement aTagElement = liElement.findElement(By.tagName("a"));
 					String href = aTagElement.getAttribute("href");
 					System.out.println("Href : " + href);
-					System.out.println("번호 : " + lastId);
 					System.out.println("이미지 url : " + imgUrl);
 					System.out.println("호텔 이름 : " + hotelName);
 					System.out.println("호텔 등급 : " + starScore);
 					System.out.println("가격 : " + price);
 					System.out.println("숙소 제공사항 : " + serviceAsString);
 					Hotel hotel = new Hotel();
-					hotel.setId(lastId);
 					hotel.setImgUrl(imgUrl);
 					hotel.setHotelName(hotelName);
 					hotel.setGrade(starScore);
@@ -298,7 +286,6 @@ public class HotelListCrawler {
 					hotel.setLocation(searchText); // 검색어를 location 필드에 저장
 					System.out.println(hotel);
 					System.out.println(hotelList);
-					id++;
 					hotelList.add(hotel);
 
 				} catch (NoSuchElementException e) {
@@ -306,8 +293,9 @@ public class HotelListCrawler {
 					break;
 				}
 			}
+
+			driver.quit();
 		}
-		driver.quit();
 
 		return hotelList;
 
