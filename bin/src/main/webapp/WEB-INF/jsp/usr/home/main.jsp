@@ -8,7 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 <script>
 /* 메인 이미지 슬라이드 */
   jQuery(document).ready(function($) {
@@ -195,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    return startDate + " ~ " + endDate;
 	}
 
-  </script>
+</script>
 
 <script>
   document.querySelector('.box_date').addEventListener('click', function() {
@@ -272,18 +273,21 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="search_box">
-	<form action="../hotel/recommendlist" method="POST">
-		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off" value="" />
+	<form action="../hotel/searchList" method="POST">
+		<input type="text" class="SearchBoxTextEditor" name="generalSearch" placeholder="참석하실 학회를 선택해주세요." autocomplete="off"
+			value="" />
 		<div class="search_results"></div>
 		<div class="search_box1">
 			<div class="search_box-1">
-				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off" value="" />
-				<input type="text" class="box_end" name="endLocation" placeholder="도착장소"  autocomplete="off" id="textInputEnd"
+				<input type="text" class="box_start" name="startLocation" placeholder="출발장소" id="textInputStart" autocomplete="off"
+					value="" />
+				<input type="text" class="box_end" name="endLocation" placeholder="도착장소" autocomplete="off" id="textInputEnd"
 					value="${not empty conference.address ? conferenceService.extractCityFromAddress(conference.address) : ''}" />
 
 			</div>
 			<div class="search_box-2">
-				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate" value="" />
+				<input type="text" class="box_date" name="travelDate" placeholder="가는날" autocomplete="off" id="textInputDate"
+					value="" />
 				<div class="select_box">
 					<select class="select select-bordered w-32 max-w-xs" name="numberOfPeople">
 						<option disabled selected>인원 수</option>
@@ -348,7 +352,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="team_project_member_profile">
-	<div class="container">
+    <button class="hidden_btn btn" onclick="toggleContainer()">Contact Us</button>
+    <div class="container">
 		<div class="row_container">
 			<div class="profile_container">
 				<div class="profile_box">
@@ -360,12 +365,16 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 고의성</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:rhdmltjd1324@gmail.com">rhdmltjd1324@gmail.com</a>
+							</li>
+
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/Gouiseong?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -382,12 +391,15 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 정다운</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:jungpro567@gmail.com">jungpro567@gmail.com</a>
+							</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -406,12 +418,17 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 오지현</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:ubis970420@gmail.com">ubis970420@gmail.com</a>
+							</li>
+
+
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/jihyeon2434?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -428,12 +445,15 @@ document.addEventListener("DOMContentLoaded", function() {
 					<div class="profile_info">
 						<ul>
 							<li>이름 : 김선경</li>
-							<li>이메일 : rhdmltjd1324@gmail.com</li>
+							<li>
+								이메일 :
+								<a href="mailto:vrslxowe@gmail.com">vrslxowe@gmail.com</a>
+							</li>
 							<li>연락처 : 010-6245-9767</li>
 							<li>
 								<img style="display: inline-block;" class="github_img"
 									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories">
+								<a href="https://github.com/vrslxowe?tab=repositories" target="_blank">
 									<span class="github">github</span>
 								</a>
 							</li>
@@ -445,6 +465,75 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <style type="text/css">
+
+.hidden_btn {
+	width: 100px;
+	height: 50px;
+}
+
+.team_project_member_profile {
+	display: flex;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	background-color: #050A19;
+	/* 	border: 3px solid; */
+}
+
+.container {
+	margin: auto;
+	border-radius: 10px;
+	background-color: #5168A4;
+	width: 1300px;
+}
+
+.high_container, .row_container {
+	display: flex;
+}
+
+.profile_container {
+	flex: 1;
+	background-color: #00256C;
+	width: 400px;
+	height: 200px;
+	margin: 20 50;
+	border-radius: 5px;
+}
+
+.profile_box {
+	display: flex;
+}
+
+.profile_picture {
+	flex: 1;
+	height: 200px;
+	align-content: center;
+}
+
+.profile_info {
+	flex: 2;
+	color: white;
+	height: 200px;
+	align-content: center;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.profile_img {
+	width: 150px;
+	height: 150px;
+	border-radius: 120px;
+	margin-left: 22px;
+}
+
+.github_img {
+	width: 30px;
+	height: 30px;
+}
+
+.github:hover {
+	
+}
+
 *, *:before, *:after {
 	box-sizing: border-box;
 	margin: 0;
@@ -840,66 +929,7 @@ a.control_next {
 }
 
 /* 팀프로젝트 조장 및 조원 프로필 css */
-.team_project_member_profile {
-	display: flex;
-	margin-top: 80px;
-	height: 500px;
-	background-color: #050A19;
-}
 
-.container {
-	margin: auto;
-	border-radius: 10px;
-	background-color: #4E597C;
-}
-
-.high_container, .row_container {
-	display: flex;
-}
-
-.profile_container {
-	flex: 1;
-	background-color: #31363F;
-	width: 400px;
-	height: 200px;
-	margin: 20 50;
-	border-radius: 5px;
-}
-
-.profile_box {
-	display: flex;
-}
-
-.profile_picture {
-	flex: 1;
-	height: 200px;
-	align-content: center;
-}
-
-.profile_info {
-	flex: 2;
-	color: white;
-	height: 200px;
-	align-content: center;
-	margin-left: 10px;
-	font-size: 14px;
-}
-
-.profile_img {
-	width: 90px;
-	height: 90px;
-	border-radius: 120px;
-	margin-left: 22px;
-}
-
-.github_img {
-	width: 30px;
-	height: 30px;
-}
-
-.github:hover {
-	
-}
 
 @media ( max-width : 991px) {
 	.event-schedule {

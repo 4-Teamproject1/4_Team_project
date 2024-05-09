@@ -71,8 +71,7 @@ public class ConferenceInfoCrawler5 {
 						Conference conference = new Conference();
 						conference.setCategoryId(getCategoryId(categoryCode));
 						conference.setTitle(driver.findElement(By.xpath("//div[@class='titleWrap']/h4")).getText());
-						conference.setHitCount(Integer.parseInt(
-								driver.findElement(By.xpath("//li[@class='cnt']//span[@class='bold']")).getText()));
+					
 						WebElement table = driver.findElement(By.className("contentSummaryInfo"));
 						List<WebElement> rows = table.findElements(By.tagName("tr"));
 						for (WebElement row : rows) {

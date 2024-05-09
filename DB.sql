@@ -1,78 +1,4 @@
 
-# 테스트 DB 생성
-DROP DATABASE IF EXISTS acc_app_2024_04__test;
-CREATE DATABASE acc_app_2024_04__test;
-USE acc_app_2024_04__test;
-
-# 개발 DB 생성
-DROP DATABASE IF EXISTS acc_app_2024_04__dev;
-CREATE DATABASE acc_app_2024_04__dev;
-USE acc_app_2024_04__dev;
-
-SELECT *
-FROM `member`;
-
-SELECT *
-FROM `song`;
-SELECT *
-FROM `product`;
-
-SELECT *
-FROM `cart_item`;
-
-SELECT *
-FROM `cash_log`;
-
-SELECT *
-FROM `product_order`;
-
-SELECT *
-FROM `order_item`;
-
-SELECT *
-FROM `rebate_order_item`;
-
-SELECT pay_price - refund_price
-FROM `rebate_order_item` AS ROI
-
-## DB스위치문 하기
-
-SELECT order_item_id, pay_price, refund_price, wholesale_price, pg_fee,
-CASE
-    WHEN pay_price = refund_price
-    THEN 0
-    ELSE wholesale_price - pg_fee
-END AS rebate_price    
-FROM `rebate_order_item`;
-
-
-#####
-DROP DATABASE IF EXISTS `batch_ex_24_04`;
-CREATE DATABASE `batch_ex_24_04`;
-USE `batch_ex_24_04`;
-
-SHOW TABLES;
-
-SELECT *
-FROM product;
-
-SELECT *
-FROM rebate_order_item;
-
-
-# 개선 - 2
-SELECT ROI.order_item_id AS `주문 품목 번호`,
-DATE(ROI.order_item_create_date) AS `주문 날짜`,
-CONCAT(FORMAT(ROI.pay_price - ROI.refund_price,0),'원') AS `결제금액`,
-ROI.product_name AS `상품명`,
-ROI.product_option_color AS `색상`,
-ROI.product_option_size AS `사이즈`,
-ROI.quantity - ROI.refund_quantity AS `수량`
-FROM rebate_order_item AS ROI
-ORDER BY ROI.order_item_id ASC;
-
-#####
-
 DROP DATABASE IF EXISTS `Spring_AM_01`;
 CREATE DATABASE `Spring_AM_01`;
 USE `Spring_AM_01`;
@@ -557,7 +483,7 @@ CREATE TABLE `academy` (
 	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
 	categoryId INT NOT NULL,
 	`title`  VARCHAR(500) NULL,
-	`hitCount`	INT	NULL,
+	`hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
 	`eventPeriod` VARCHAR(500) NULL,
 	`applicationPeriod`	 VARCHAR(500) NULL,
 	`entryFee`	 VARCHAR(500) NULL ,
@@ -570,6 +496,7 @@ CREATE TABLE `academy` (
 	AmemberId INT(10) NOT NULL DEFAULT 1
 	
 );
+
 SELECT *
 FROM `member`;
 
@@ -581,12 +508,18 @@ AND themeId =1;
 SELECT *
 FROM `academy`;
 
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
-VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW());
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW(), '대전광역시');
 
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate) 
-VALUES (7, 'test학회ㅈ', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY));
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회2', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
 
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회3', 50, '2024-06-01', '2024-06-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '부산광역시');
+
+INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
+VALUES (7, 'test학회4', 50, '2024-07-01', '2024-07-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
 
 SELECT *
 FROM `academy`
@@ -603,6 +536,7 @@ CREATE TABLE `competition` (
 	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`title`  VARCHAR(500) NULL,
 	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
+	`hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
 	`totalPrizeMoney` VARCHAR(500) NULL,
 	`firstPrizeMoney` VARCHAR(500) NULL,
 	`applicationPeriod`	 VARCHAR(500) NULL,
@@ -616,6 +550,19 @@ CREATE TABLE `competition` (
 );
 
 DROP TABLE `competition`;
+
+
+UPDATE article
+SET hitCount = hitCount + 1
+WHERE id = 1;
+			
+			SELECT *
+			FROM article;
+			
+			
+UPDATE `competition`
+SET hitCount = hitCount + 1
+WHERE id = 1;
 
 
 SELECT *

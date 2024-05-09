@@ -211,4 +211,18 @@ public interface ConferenceRepository {
 			""")
 	void deleteConference(int id);
 
+	@Update("""
+			UPDATE `academy`
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			""")
+	public int increaseHitCount(int id);
+	
+	@Select("""
+			SELECT hitCount
+			FROM `academy`
+			WHERE id = #{id}
+			""")
+	public Object getConferenceHitCount(int id);
+
 }
