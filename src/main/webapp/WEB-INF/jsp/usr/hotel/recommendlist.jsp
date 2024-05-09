@@ -18,8 +18,7 @@
 		popup.classList.add('popup');
 
 		// 도시 목록
-		const areas = [ "강릉", "대구", "대전", "목포", "부산", "서울", "속초", "수원", "여수",
-				"전주", "제주", "청주", "포천", "인천" ];
+		const areas = [ "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" ];
 
 		areas.forEach(function(area) {
 			const areaElement = document.createElement('div');
@@ -226,8 +225,13 @@
 	<div class="outer-content-box">
 		<div class="sort_bar">
 
+<<<<<<< HEAD
 			<form action="../hotel/searchList">
 				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplete="off">
+=======
+			<form action="../hotel/recommendlist" method="POST">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+>>>>>>> 25f80cc8c00562e8cb699352127fff3146f900ea
 
 
 				<div id="date_start_btn" class="date_start">

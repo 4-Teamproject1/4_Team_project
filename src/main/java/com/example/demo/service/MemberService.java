@@ -80,8 +80,13 @@ public class MemberService {
 		
 		return memberRepository.getInquiry(id);
 	}
+	
 	public List<Inquiry> getAllInquiries() {
 	    return memberRepository.getAllInquiries();
+	}
+
+	public Inquiry getInquiryById(int id) {
+	    return memberRepository.getInquiry(id);
 	}
 
 	public ResultData withdrawMember(int memberId) {

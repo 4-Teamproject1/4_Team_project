@@ -36,7 +36,7 @@ public class UsrMemberController {
 
 	@Autowired
 	private ConferenceService conferenceService;
-	
+
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId) {
@@ -103,11 +103,11 @@ public class UsrMemberController {
 		if (member == null) {
 			return Ut.jsHistoryBack("F-3", Ut.f("%s(은)는 존재하지 않는 아이디입니다", loginId));
 		}
-		
-		  // 회원 탈퇴 상태 체크
+
+		// 회원 탈퇴 상태 체크
 		if (member.isDelStatus()) {
-            return Ut.jsHistoryBack("F-3", "탈퇴한 회원입니다.");
-        }
+			return Ut.jsHistoryBack("F-3", "탈퇴한 회원입니다.");
+		}
 
 		if (member.getLoginPw().equals(loginPw) == false) {
 			return Ut.jsHistoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다"));
@@ -177,32 +177,31 @@ public class UsrMemberController {
 		 */
 		return "usr/member/myPage";
 	}
-	
+
 	@RequestMapping("/usr/member/myInfo")
 	public String myInfo(HttpServletRequest req) {
-	    Rq rq = (Rq) req.getAttribute("rq");
+		Rq rq = (Rq) req.getAttribute("rq");
 
-	    if (!rq.isLogined()) {
-	        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다."); // 로그인이 필요한 경우 팝업 창을 띄움
-	    }
-	    return "/usr/member/myInfo";
+		if (!rq.isLogined()) {
+			return Ut.jsHistoryBack("F-1", "로그인이 필요합니다."); // 로그인이 필요한 경우 팝업 창을 띄움
+		}
+		return "/usr/member/myInfo";
 	}
-	
+
 	@RequestMapping("/usr/member/mySchedule")
 	public String mySchedule(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
-		
+
 		List<Conference> conferences = conferenceService.getscrapShopsList(rq.getLoginedMemberId());
-		
+
 		List<Competition> competitions = competitionService.getscrapShopsList(rq.getLoginedMemberId());
-		
+
 		model.addAttribute("conferences", conferences);
 		model.addAttribute("competitions", competitions);
 		System.err.println("conferences" + conferences);
 		return "/usr/member/mySchedule";
 	}
-	
-	
+
 	@RequestMapping("/usr/member/checkPw")
 	public String showCheckPw() {
 
@@ -255,14 +254,14 @@ public class UsrMemberController {
 
 		return Ut.jsReplace(modifyRd.getResultCode(), modifyRd.getMsg(), "../member/myInfo");
 	}
-	
-	//문의사항
+
+	// 문의사항
 	@RequestMapping("/usr/member/inquiry")
 	public String showinquiry(HttpServletRequest req) {
-		 Rq rq = (Rq) req.getAttribute("rq");
-		    if (!rq.isLogined()) {
-		        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
-		    }
+		Rq rq = (Rq) req.getAttribute("rq");
+		if (!rq.isLogined()) {
+			return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
+		}
 		return "usr/member/inquiry";
 	}
 
@@ -279,72 +278,68 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-2", "내용을 입력해주세요");
 		}
 
-		ResultData<Integer> inquirywriteArticleRd = memberService.inquirywriteArticle(rq.getLoginedMemberId(), title, body);
+		ResultData<Integer> inquirywriteArticleRd = memberService.inquirywriteArticle(rq.getLoginedMemberId(), title,
+				body);
 
 		int id = (int) inquirywriteArticleRd.getData1();
 
 		Inquiry Inquiry = memberService.getInquiry(id);
 
-		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(), "../member/myQuestion");
+		return Ut.jsReplace(inquirywriteArticleRd.getResultCode(), inquirywriteArticleRd.getMsg(),
+				"../member/myQuestion");
 
 	}
-	
+
 	@RequestMapping("/usr/member/myQuestionDetail")
-	public String myQuestionDetail(HttpServletRequest req, @RequestParam("inquiryId") int inquiryId, Model model) {
-	    // Retrieve the inquiry details by its ID
-	    Inquiry inquiry = memberService.getInquiry(inquiryId);
-	    
-	    // Add the inquiry object to the model to make it accessible in the JSP
-	    model.addAttribute("inquiry", inquiry);
-	    
-	    return "/usr/member/myQuestionDetail";
+	public String showInquiryDetail(Model model, @RequestParam("id") int inquiryId) {
+		Inquiry inquiry = memberService.getInquiryById(inquiryId);
+		model.addAttribute("inquiry", inquiry);
+		return "usr/member/myQuestionDetail";
 	}
-	
+
 	@RequestMapping("/usr/member/myQuestion")
 	public String showMyQuestion(Model model) {
-	    List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
-	    model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
-	    return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
+		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
+		model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
+		return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
 	}
-	
+
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
 	public String doWithdraw(HttpServletRequest req) {
-	    Rq rq = (Rq) req.getAttribute("rq");
+		Rq rq = (Rq) req.getAttribute("rq");
 
-	    if (!rq.isLogined()) {
-	        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
-	    }
+		if (!rq.isLogined()) {
+			return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
+		}
 
-	    Member loginedMember = rq.getLoginedMember();
-	    ResultData withdrawRd = memberService.withdrawMember(loginedMember.getId());
+		Member loginedMember = rq.getLoginedMember();
+		ResultData withdrawRd = memberService.withdrawMember(loginedMember.getId());
 
-	    if (withdrawRd.isFail()) {
-	        return Ut.jsHistoryBack(withdrawRd.getResultCode(), withdrawRd.getMsg());
-	    }
+		if (withdrawRd.isFail()) {
+			return Ut.jsHistoryBack(withdrawRd.getResultCode(), withdrawRd.getMsg());
+		}
 
-	    rq.logout(); // 회원 탈퇴 후 자동 로그아웃
-	    return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
+		rq.logout(); // 회원 탈퇴 후 자동 로그아웃
+		return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
 	}
-	
-	//관리자 페이지설정
+
+	// 관리자 페이지설정
 	@RequestMapping("/usr/member/adminpage")
-	public String showadmin(HttpServletRequest req,Model model ) {
+	public String showadmin(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		Integer memberId = rq.getLoginedMemberId();
 		ResultData loginMember = memberService.getMemberLevel(memberId);
-	    if (loginMember.isFail()) {
-	        return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
-	    }
+		if (loginMember.isFail()) {
+			return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
+		}
 		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
 		List<Member> members = memberService.getMembers(); // 모든 멤버가져오기
-		
-		
-	    model.addAttribute("inquiries", inquiries);
-	    model.addAttribute("members", members);
-	    
+
+		model.addAttribute("inquiries", inquiries);
+		model.addAttribute("members", members);
+
 		return "usr/member/adminpage";
 	}
-	
-	
+
 }
