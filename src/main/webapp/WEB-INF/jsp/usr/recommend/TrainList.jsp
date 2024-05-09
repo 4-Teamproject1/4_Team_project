@@ -79,7 +79,7 @@
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 			<ul tabindex="0" class="dropdown-content">
-				
+
 				<li>
 					<a href="../recommend/TrainList">기차</a>
 				</li>
@@ -112,7 +112,6 @@
 			<option value="밀양">밀양</option>
 			<option value="부산">부산</option>
 			<option value="서대전">서대전</option>
-			<option value="서울">서울</option>
 			<option value="수원">수원</option>
 			<option value="순천">순천</option>
 			<option value="여수EXPO(구,여수역)">여수EXPO(구,여수역)</option>
@@ -133,7 +132,15 @@
 
 		<select class="select select-ghost w-full max-w-xs destination_train" name="destinationTrain">
 			<option value="">도착역</option>
+			<option value="서울">서울</option>
 			<option value="부산">부산</option>
+			<option value="논산">논산</option>
+			<option value="부산">부산</option>
+			<option value="서대전">서대전</option>
+			<option value="대전">대전</option>
+			<option value="동대구">동대구</option>
+			<option value="용산">용산</option>
+			<option value="마산">마산</option>
 			<option value="김천">김천</option>
 			<option value="나주">나주</option>
 			<option value="남원">남원</option>

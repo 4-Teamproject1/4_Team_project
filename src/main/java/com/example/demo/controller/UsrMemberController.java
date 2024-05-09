@@ -253,6 +253,7 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/inquiry")
 	public String showinquiry(HttpServletRequest req) {
 
+	    
 		return "usr/member/inquiry";
 	}
 
@@ -316,6 +317,25 @@ public class UsrMemberController {
 	    rq.logout(); // 회원 탈퇴 후 자동 로그아웃
 	    return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
 	}
-
+	
+	//관리자 페이지설정
+	@RequestMapping("/usr/member/adminpage")
+	public String showadmin(HttpServletRequest req,Model model ) {
+		Rq rq = (Rq) req.getAttribute("rq");
+		Integer memberId = rq.getLoginedMemberId();
+		ResultData loginMember = memberService.getMemberLevel(memberId);
+	    if (loginMember.isFail()) {
+	        return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
+	    }
+		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
+		List<Member> members = memberService.getMembers(); // 모든 멤버가져오기
+		
+		
+	    model.addAttribute("inquiries", inquiries);
+	    model.addAttribute("members", members);
+	    
+		return "usr/member/adminpage";
+	}
+	
 	
 }
