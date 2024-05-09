@@ -75,8 +75,8 @@ public class CompetitionService {
 		return competitionRepository.getCompetitionsByCategoryOrderBytitle();
 	}
 
-	public List<Competition> getCompetitionsList(String searchKeyword) {
-		return competitionRepository. getCompetitionsList(searchKeyword);
+	public List<Competition> getCompetitionsList(String searchKeyword,  int offset, int limit) {
+		return competitionRepository. getCompetitionsList(searchKeyword, offset, limit);
 	}
 
 	public ResultData increaseGoodReactionPoint(int academyId, int themeId) {
@@ -107,5 +107,14 @@ public class CompetitionService {
 
 	public List<Competition> getscrapShopsList(int memberId) {
 		return competitionRepository.getscrapShopsList(memberId);
+	}
+
+	public int countConferences(String searchKeyword) {
+		
+		return competitionRepository. countConferences(searchKeyword);
+	}
+
+	public int countCompetitons(String searchKeyword) {
+		return competitionRepository.countCompetitons(searchKeyword);
 	}
 }

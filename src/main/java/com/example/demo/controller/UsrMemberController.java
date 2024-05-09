@@ -169,16 +169,23 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myPage")
-	public String showMyPage() {
-
+	public String showMyPage(HttpServletRequest req) {
+		/*
+		 * Rq rq = (Rq) req.getAttribute("rq");
+		 * 
+		 * if (!rq.isLogined()) { return Ut.jsHistoryBack("F-1", "로그인이 필요합니다."); }
+		 */
 		return "usr/member/myPage";
 	}
 	
 	@RequestMapping("/usr/member/myInfo")
-	public String myInfo(HttpServletRequest req, Model model) {
-		 Rq rq = (Rq) req.getAttribute("rq");
-	        Integer memberId = rq.getLoginedMemberId();
-		return "/usr/member/myInfo";
+	public String myInfo(HttpServletRequest req) {
+	    Rq rq = (Rq) req.getAttribute("rq");
+
+	    if (!rq.isLogined()) {
+	        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다."); // 로그인이 필요한 경우 팝업 창을 띄움
+	    }
+	    return "/usr/member/myInfo";
 	}
 	
 	@RequestMapping("/usr/member/mySchedule")
@@ -252,8 +259,10 @@ public class UsrMemberController {
 	//문의사항
 	@RequestMapping("/usr/member/inquiry")
 	public String showinquiry(HttpServletRequest req) {
-
-	    
+		 Rq rq = (Rq) req.getAttribute("rq");
+		    if (!rq.isLogined()) {
+		        return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
+		    }
 		return "usr/member/inquiry";
 	}
 
