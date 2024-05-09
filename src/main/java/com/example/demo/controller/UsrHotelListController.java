@@ -37,16 +37,6 @@ public class UsrHotelListController {
 		return hotelListService.crawlAndSaveHotelList();
 	}
 
-	@RequestMapping("usr/hotel/list")
-	public String showHotelList(HttpServletRequest req, Model model) {
-		Rq rq = (Rq) req.getAttribute("rq");
-
-		List<Hotel> hotelList = hotelListService.getHotelList();
-		model.addAttribute("hotelList", hotelList);
-
-		return "usr/hotel/list";
-	}
-
 	/*
 	 * @RequestMapping("usr/hotel/recommendlist") public String
 	 * showHotelList2(HttpServletRequest req, Model model) { Rq rq = (Rq)
@@ -59,17 +49,20 @@ public class UsrHotelListController {
 	 */
 
 	@RequestMapping("usr/hotel/recommendlist")
-	public String showRecommendedHotelList(@RequestParam(required = false) String endLocation, Model model) {
-		if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
-			String searchPrefix = endLocation.substring(0, 2); // 앞 두 글자 추출
-			List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
-			model.addAttribute("hotelList", filteredHotels);
+	public String showRecommendedHotelList(@RequestParam(defaultValue = "") String area,
+			Model model) {
+		System.out.println(area);
+		if (area == null || area.equals("")) {
+			List<Hotel> hotelList = hotelListService.getAllHotelList();
+			model.addAttribute("hotelList", hotelList);
+
 		} else {
-			model.addAttribute("hotelList", new ArrayList<>()); // 입력값이 부적절하면 빈 목록을 반환
+			List<Hotel> hotelList = hotelListService.getHotelList(area);
+			model.addAttribute("hotelList", hotelList);
 		}
 		return "usr/hotel/recommendlist";
 	}
-	
+
 	@RequestMapping("usr/hotel/searchList")
 	public String showSearchHotelList(@RequestParam(required = false) String endLocation, Model model) {
 		if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {

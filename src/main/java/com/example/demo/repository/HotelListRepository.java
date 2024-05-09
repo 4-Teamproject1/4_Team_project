@@ -27,9 +27,16 @@ public interface HotelListRepository {
 
 	@Select("""
 			SELECT *
-			FROM `hotel`;
+			FROM `hotel`
+			WHERE location= #{area}
 			""")
-	public List<Hotel> getHotelList();
+	public List<Hotel> getHotelList(String area);
+
+	@Select("""
+			SELECT *
+			FROM `hotel`
+			""")
+	public List<Hotel> getAllHotelList();
 
 	@Select("""
 			SELECT *
@@ -38,13 +45,11 @@ public interface HotelListRepository {
 			""")
 	public List<Hotel> findByLocation(String location);
 
-	
-	
-	
 	@Select("""
 			SELECT *
 			FROM hotel
-			WHERE location LIKE #{locationPrefix} 
+			WHERE location LIKE #{locationPrefix}
 			""")
 	public List<Hotel> getHotelsByLocationPrefix(String locationPrefix);
+
 }
