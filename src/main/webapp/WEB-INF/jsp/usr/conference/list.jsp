@@ -204,24 +204,17 @@
 
 <div class="bottom-bar">
 	<div class="page-bar">
+    <c:if test="${currentPage > 1}">
+        <a href="?page=${currentPage - 1}&limit=20"><button>이전</button></a>
+    </c:if>
+    <c:forEach begin="1" end="${totalPages}" var="i">
+        <a href="?page=${i}&limit=20"><button>${i}</button></a>
+    </c:forEach>
+    <c:if test="${currentPage < totalPages}">
+        <a href="?page=${currentPage + 1}&limit=20"><button>다음</button></a>
+    </c:if>
+</div>
 
-		<button>
-			<a href=""><</a>
-		</button>
-		<button>
-			<a href="">1</a>
-		</button>
-		<button>
-			<a href="">2</a>
-		</button>
-		<button>
-			<a href="">3</a>
-		</button>
-		<button>
-			<a href="">></a>
-		</button>
-
-	</div>
 </div>
 
 
@@ -236,72 +229,63 @@
 
 
 <script>
-	$(document).ready(
-			function() {
-				var selectedOption = ""; // 선택된 옵션 초기화
-				var selectedCategoryId = ""; // 선택된 카테고리 ID 초기화
+$(document).ready(function() {
+    var selectedOption = "등록/수정일순"; // 기본 정렬 옵션 초기화 (예: 등록/수정일순, 조회순 등 원하는 기본값 설정)
+    var selectedCategoryId = "0"; // 선택된 카테고리 ID 초기화, 기본값은 '전체'
 
-				// 등록/수정일순, 조회순, 마감순, 제목순 버튼 클릭 시
-				$(".sort-options button").click(function() {
-					selectedOption = $(this).text().trim();
-					$(".sort-options button").removeClass("btn-active");
-					$(this).addClass("btn-active");
-					// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-					getFilteredConferences(selectedOption, selectedCategoryId);
-				});
+    // 정렬 옵션 버튼 클릭 이벤트
+    $(".sort-options button").click(function() {
+        selectedOption = $(this).text().trim(); // 버튼의 텍스트로 정렬 옵션 업데이트
+        $(".sort-options button").removeClass("btn-active");
+        $(this).addClass("btn-active");
+        getFilteredConferences(selectedOption, selectedCategoryId);
+    });
 
-				// 카테고리 버튼 클릭 이벤트
-				$(".category-filters button").click(
-						function() {
-							selectedCategoryId = $(this).attr("class").split(
-									" ")[0].split("-")[1];
-							$(".category-filters button").removeClass(
-									"btn-active");
-							$(this).addClass("btn-active");
-							// 선택된 옵션과 카테고리 ID를 이용하여 데이터 가져오기
-							getFilteredConferences(selectedOption,
-									selectedCategoryId);
-						});
+    // 카테고리 필터 버튼 클릭 이벤트
+    $(".category-filters button").click(function() {
+        selectedCategoryId = $(this).attr("class").split(" ")[0].split("-")[1]; // 클래스 이름에서 카테고리 ID 추출
+        $(".category-filters button").removeClass("btn-active");
+        $(this).addClass("btn-active");
+        if (selectedOption === "") {
+            selectedOption = "등록/수정일순"; // 정렬 옵션이 설정되지 않았다면 기본값 사용
+        }
+        getFilteredConferences(selectedOption, selectedCategoryId);
+    });
 
-				// 선택된 옵션들을 기반으로 데이터를 가져오는 함수
-				function getFilteredConferences(option, categoryId) {
-					$.ajax({
-						type : "GET",
-						url : "getFilteredConferences",
-						data : {
-							option : option,
-							categoryId : categoryId
-						},
-						success : function(data) {
-							drawConferences(data);
-						},
-						error : function(xhr, status, error) {
-							console.error("Error:", error);
-						}
-					});
-				}
+    // 선택된 옵션들을 기반으로 데이터를 가져오는 함수
+    function getFilteredConferences(option, categoryId) {
+        $.ajax({
+            type: "GET",
+            url: "getFilteredConferences",
+            data: {
+                option: option,
+                categoryId: categoryId
+            },
+            success: function(data) {
+                drawConferences(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
 
-				// 학술행사 목록을 그리는 함수
-				function drawConferences(conferenceList) {
-					var html = '';
-					$.each(conferenceList,
-							function(index, conference) {
-								html += '<tr>';
-								html += '<td>' + conference.id + '</td>';
-								html += '<td><a href="detail?themeId='
-										+ conference.themeId + '&id='
-										+ conference.id + '">'
-										+ conference.title + '</a></td>';
+    // 학술행사 목록을 그리는 함수
+    function drawConferences(conferenceList) {
+        var html = '';
+        $.each(conferenceList, function(index, conference) {
+            html += '<tr>';
+            html += '<td>' + conference.id + '</td>';
+            html += '<td><a href="detail?themeId=' + conference.themeId + '&id=' + conference.id + '">' + conference.title + '</a></td>';
+            html += '<td>' + conference.eventPeriod + '</td>';
+            html += '<td>' + conference.regDate + '</td>';
+            html += '<td>' + conference.hitCount + '</td>';
+            html += '</tr>';
+        });
+        $('.table tbody').html(html);
+    }
+});
 
-								html += '<td>' + conference.applicationPeriod
-										+ '</td>';
-								html += '<td>' + conference.regDate + '</td>';
-								html += '<td>' + conference.hitCount + '</td>';
-								html += '</tr>';
-							});
-					$('.table tbody').html(html);
-				}
-			});
 </script>
 
 
@@ -568,18 +552,21 @@ tr {
 	text-align: center;
 }
 
-.page-bar>button>a:hover {
-	background-color: #7E9DD9;
-	color: white;
+.page-bar a {
+    text-decoration: none; /* 링크 밑줄 제거 */
 }
 
-.page-bar>button>a {
-	border: solid 1px gray;
-	border-radius: 10px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
+.page-bar button {
+    background-color: #f9f9f9; /* 버튼 배경색 */
+    border: 1px solid #ccc; /* 테두리 */
+    color: #333; /* 글자 색상 */
+    padding: 8px 16px; /* 패딩 */
+    margin: 4px; /* 마진 */
+    border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.page-bar button:hover {
+    background-color: #e9e9e9; /* 마우스 호버시 색상 변경 */
 }
 
 

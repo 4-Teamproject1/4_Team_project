@@ -62,17 +62,25 @@ public class UsrConferenceController {
 
 	@RequestMapping("/usr/conference/list")
 	public String ShowAcademicEventList(HttpServletRequest req, Model model,
-			@RequestParam(defaultValue = "1") int categoryId,
-//			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	    @RequestParam(defaultValue = "1") int page,
+	    @RequestParam(defaultValue = "20") int limit,
+	    @RequestParam(defaultValue = "1") int categoryId,
+	    @RequestParam(defaultValue = "") String searchKeyword) {
+	    
+	    Rq rq = (Rq) req.getAttribute("rq");
 
-		List<Conference> conferences = conferenceService.getShopsList(categoryId, searchKeyword);
-		System.err.println(conferences);
-		model.addAttribute("conferences", conferences);
+	    int offset = (page - 1) * limit;
+	    List<Conference> conferences = conferenceService.getShopsList(categoryId, searchKeyword, offset, limit);
+	    int totalConferences = conferenceService.countConferences(categoryId, searchKeyword);
+	    int totalPages = (int) Math.ceil((double) totalConferences / limit);
 
-		return "usr/conference/list";
+	    model.addAttribute("conferences", conferences);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
+
+	    return "usr/conference/list";
 	}
+
 	
 	
 	

@@ -32,13 +32,23 @@ public interface ConferenceRepository {
 
 	@Select("""
 		    <script>
-		    SELECT * 
-		    FROM `academy` 
-		    WHERE 1
-		        AND ( title LIKE CONCAT('%', '${searchKeyword}', '%'))
+		    SELECT * FROM `academy`
+		    WHERE categoryId = #{categoryId}
+		    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		    LIMIT #{limit} OFFSET #{offset}
 		    </script>
 		""")
-		public List<Conference> getShopsList(int categoryId, String searchKeyword);
+		public List<Conference> getShopsList(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
+
+		@Select("""
+		    <script>
+		    SELECT COUNT(*) FROM `academy`
+		    WHERE categoryId = #{categoryId}
+		    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		    </script>
+		""")
+		public int countConferences(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword);
+
           
 
 	@Select("""

@@ -37,7 +37,7 @@ public class UsrCompetitionController {
 	private Rq rq;
 	@Autowired
 	private ScrapService scrapService;
-	
+
 	@Autowired
 	private CompetitionService competitionService;
 
@@ -52,7 +52,7 @@ public class UsrCompetitionController {
 	}
 
 	@RequestMapping("/usr/competition/detail")
-	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id,  int themeId) {
+	public String showAcademicEventDetail(HttpServletRequest req, Model model, int id, int themeId) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		Competition competition = competitionService.getEventById(id);
@@ -61,23 +61,35 @@ public class UsrCompetitionController {
 		if (usersScrapRd.isSuccess()) {
 			model.addAttribute("userCanScrap", usersScrapRd.isSuccess());
 		}
-	 
-		model.addAttribute("isAlreadyAddGoodRp",
-				scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(),themeId, id));
+
+		model.addAttribute("isAlreadyAddGoodRp", scrapService.isAlreadyAddGoodRp(rq.getLoginedMemberId(), themeId, id));
 		/* model.addAttribute("articles", articles); */
 		model.addAttribute("competition", competition);
 		return "usr/competition/detail";
 	}
 
 	@RequestMapping("/usr/competition/list")
-	public String ShowAcademicEventList(HttpServletRequest req, Model model,
-			@RequestParam(defaultValue = "") String searchKeyword ) {
+	public String ShowAcademicEventList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "20") int limit,
+			@RequestParam(defaultValue = "") String searchKeyword) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		List<Competition> competitions = competitionService.getCompetitionsList(searchKeyword);
+		int offset = (page - 1) * limit;
+		
+		List<Competition> competitions = competitionService.getCompetitionsList(searchKeyword, offset, limit);
+		int totalCompetitions = competitionService.countCompetitons(searchKeyword);
+		int totalPages = (int) Math.ceil((double) totalCompetitions / limit);
+		
+		System.err.println(offset);
 		System.err.println(competitions);
-		model.addAttribute("serchKeyword",searchKeyword);
+		System.err.println(totalPages);
+		System.err.println(totalCompetitions);
+		
+		model.addAttribute("serchKeyword", searchKeyword);
 		model.addAttribute("competitions", competitions);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
+
 
 		return "usr/competition/list";
 	}

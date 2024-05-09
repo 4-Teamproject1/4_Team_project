@@ -51,21 +51,12 @@ public class ConferenceService {
 		return conferences;
 	}
 
-	public List<Conference> getShopsList(int categoryId,  String searchKeyword) {
-        List<Conference> conferenceList = conferenceRepository.getShopsList(categoryId,  searchKeyword);
-
-
-		/*
-		 * // Conference 객체의 주소 정보에서 시 정보를 추출하여 설정합니다. for (Conference conference :
-		 * conferenceList) { // 주소 정보가 null이 아닌 경우에만 시 정보를 추출합니다. if
-		 * (conference.getAddress() != null) { String city =
-		 * extractCityFromAddress(conference.getAddress()); conference.setAddress(city);
-		 * } }
-		 */
-
-        return conferenceList;
-    }
-
+	public List<Conference> getShopsList(int categoryId, String searchKeyword, int offset, int limit) {
+	    return conferenceRepository.getShopsList(categoryId, searchKeyword, offset, limit);
+	}
+	public int countConferences(int categoryId, String searchKeyword) {
+	    return conferenceRepository.countConferences(categoryId, searchKeyword);
+	}
 	public Conference getEventById(int id) {
 		
 		return conferenceRepository.getEventById(id);
