@@ -196,26 +196,18 @@
 
 <div class="bottom-bar">
 	<div class="page-bar">
-
-		<button>
-			<a href=""><</a>
-		</button>
-		<button>
-			<a href="">1</a>
-		</button>
-		<button>
-			<a href="">2</a>
-		</button>
-		<button>
-			<a href="">3</a>
-		</button>
-		<button>
-			<a href="">></a>
-		</button>
-
-	</div>
+    <c:if test="${currentPage > 1}">
+        <a href="?page=${currentPage - 1}&limit=20"><button>이전</button></a>
+    </c:if>
+    <c:forEach begin="1" end="${totalPages}" var="i">
+        <a href="?page=${i}&limit=20"><button>${i}</button></a>
+    </c:forEach>
+    <c:if test="${currentPage < totalPages}">
+        <a href="?page=${currentPage + 1}&limit=20"><button>다음</button></a>
+    </c:if>
 </div>
 
+</div>
 
 
 
@@ -236,7 +228,6 @@ $(document).ready(function() {
         selectedOption = $(this).text().trim(); // 버튼의 텍스트가 서버 측에서 예상하는 옵션과 정확히 일치해야 합니다.
         $(".sort-options button").removeClass("btn-active");
         $(this).addClass("btn-active");
-
         // AJAX 호출을 위한 함수 이름 수정
         getFilteredCompetitions(selectedOption); // 서버 측 컨트롤러와 일치하도록 함수 이름 수정
     });
@@ -262,7 +253,7 @@ $(document).ready(function() {
         $.each(competitionList, function(index, competition) {
             html += '<tr>';
             html += '<td>' + competition.id + '</td>';
-            html += '<td><a href="detail?id=' + competition.id + '">' + competition.title + '</a></td>';
+            html += '<td><a href="detail?themeId=' + competition.themeId + 'id=' + competition.id + '">' + competition.title + '</a></td>';
             html += '<td>' + competition.applicationPeriod + '</td>';
             html += '<td>' + competition.regDate + '</td>';
             html += '<td>' + competition.hitCount + '</td>';
@@ -529,26 +520,29 @@ body {
     justify-content: center;
   }
 
-  /* 하단 바 */
-  .bottom-bar {
-    margin-top: 60px;
-    text-align: center;
-  }
+/* 하단 바 */
+.bottom-bar {
+	margin-top: 60px;
+	text-align: center;
+}
 
-  .page-bar>button>a:hover {
-    background-color: #7E9DD9;
-    color: white;
-  }
+.page-bar a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
 
-  .page-bar>button>a {
-    border: solid 1px gray;
-    border-radius: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  
+.page-bar button {
+    background-color: #f9f9f9; /* 버튼 배경색 */
+    border: 1px solid #ccc; /* 테두리 */
+    color: #333; /* 글자 색상 */
+    padding: 8px 16px; /* 패딩 */
+    margin: 4px; /* 마진 */
+    border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.page-bar button:hover {
+    background-color: #e9e9e9; /* 마우스 호버시 색상 변경 */
+}
+
   
   
   

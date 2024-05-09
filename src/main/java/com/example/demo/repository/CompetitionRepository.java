@@ -39,14 +39,13 @@ public interface CompetitionRepository {
 	public void insertCompetition(Competition competition);
 
 	@Select("""
-			<script>
-			SELECT *
-			FROM `competition`
-			WHERE 1
-			    AND ( title LIKE CONCAT('%', '${searchKeyword}', '%'))
-			</script>
-			""")
-	public List<Competition> getCompetitionsList(String searchKeyword);
+		    <script>
+		    SELECT * FROM `competition`
+		    WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
+		    LIMIT #{limit} OFFSET #{offset}
+		    </script>
+		""")
+	public List<Competition> getCompetitionsList(@Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
 
 	@Select("""
 			<script>
@@ -134,5 +133,21 @@ public interface CompetitionRepository {
 			</script>
 			""")
 	public List<Competition> getscrapShopsList(int memberId);
+
+	@Select("""
+			    <script>
+			    SELECT COUNT(*) FROM `competition`
+			    WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
+			    </script>
+			""")
+	public int countConferences(String searchKeyword);
+
+	@Select("""
+			    <script>
+			    SELECT COUNT(*) FROM `competition`
+			    WHERE title LIKE CONCAT('%', #{searchKeyword}, '%')
+			    </script>
+			""")
+	public int countCompetitons(String searchKeyword);
 
 }
