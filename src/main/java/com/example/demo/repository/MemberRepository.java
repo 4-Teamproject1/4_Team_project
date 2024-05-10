@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -118,10 +119,13 @@ public interface MemberRepository {
 	
 	@Select("""
 	        SELECT *
-	        FROM inquiry
-	        ORDER BY id DESC
+	        FROM inquiry AS i
+	        INNER JOIN `member` AS m
+	        ON i.memberId = m.id
+	        WHERE i.memberId = #{memberId}
+	        ORDER BY i.id DESC
 	        """)
-	public List<Inquiry> getAllInquiries();
+	public List<Inquiry> getAllInquiries(int memberId);
 
 	
 	@Update("""
@@ -146,6 +150,19 @@ public interface MemberRepository {
 			WHERE authLevel != 7;
 			""")
 	public List<Member> getMembers();
+	
+	@Delete("""
+			DELETE FROM inquiry
+			WHERE id = #{id}
+			""")
+	public void deleteInquiry(int id);
+
+	
+	@Select("""
+			SELECT *
+			FROM inquiry
+			""")
+	public List<Inquiry> getAllInquiries2();
 
 	
 }

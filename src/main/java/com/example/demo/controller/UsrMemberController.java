@@ -37,6 +37,7 @@ public class UsrMemberController {
 	@Autowired
 	private ConferenceService conferenceService;
 
+		
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId) {
@@ -258,10 +259,7 @@ public class UsrMemberController {
 	// 문의사항
 	@RequestMapping("/usr/member/inquiry")
 	public String showinquiry(HttpServletRequest req) {
-		Rq rq = (Rq) req.getAttribute("rq");
-		if (!rq.isLogined()) {
-			return Ut.jsHistoryBack("F-1", "로그인이 필요합니다.");
-		}
+
 		return "usr/member/inquiry";
 	}
 
@@ -298,15 +296,24 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myQuestion")
-	public String showMyQuestion(Model model) {
-		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
+	public String showMyQuestion(HttpServletRequest req, Model model) {
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		Member loginedMember = rq.getLoginedMember();
+		List<Inquiry> inquiries;
+		if(loginedMember.getId()==1) {
+			 inquiries = memberService.getAllInquiries2();
+		}else{
+			 inquiries = memberService.getAllInquiries(loginedMember.getId()); // 모든 문의사항 가져오기	
+		}
+		
 		model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
 		return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
 	}
 
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
-	public String doWithdraw(HttpServletRequest req) {
+	public String doWithdraw(HttpServletRequest req, @RequestParam(defaultValue = "../member/login") String afterLogoutUri) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (!rq.isLogined()) {
@@ -317,29 +324,51 @@ public class UsrMemberController {
 		ResultData withdrawRd = memberService.withdrawMember(loginedMember.getId());
 
 		if (withdrawRd.isFail()) {
-			return Ut.jsHistoryBack(withdrawRd.getResultCode(), withdrawRd.getMsg());
+			return Ut.jsReplace(withdrawRd.getResultCode(), withdrawRd.getMsg(), afterLogoutUri);
 		}
 
 		rq.logout(); // 회원 탈퇴 후 자동 로그아웃
 		return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
 	}
 
-	// 관리자 페이지설정
-	@RequestMapping("/usr/member/adminpage")
-	public String showadmin(HttpServletRequest req, Model model) {
+	//관리자일때 문의사항 삭제가능
+	@RequestMapping("/usr/member/doDelete")
+	@ResponseBody
+	public String doDelete(HttpServletRequest req, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
-		Integer memberId = rq.getLoginedMemberId();
-		ResultData loginMember = memberService.getMemberLevel(memberId);
-		if (loginMember.isFail()) {
-			return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
+
+		Inquiry inquiry = memberService.getInquiry(id);
+		
+		if (inquiry == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 문의사항은 존재하지 않습니다", id));
 		}
-		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
-		List<Member> members = memberService.getMembers(); // 모든 멤버가져오기
+		
+		ResultData loginedMemberCanDeleteRd = memberService.userCanDelete(rq.getLoginedMemberId(), inquiry);
 
-		model.addAttribute("inquiries", inquiries);
-		model.addAttribute("members", members);
+		if (loginedMemberCanDeleteRd.isSuccess()) {
+			memberService.deleteConference(id);
+		}
 
-		return "usr/member/adminpage";
+		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(), "../member/myQuestion");
 	}
+	
+	
+//	// 관리자 페이지설정
+//	@RequestMapping("/usr/member/adminpage")
+//	public String showadmin(HttpServletRequest req, Model model) {
+//		Rq rq = (Rq) req.getAttribute("rq");
+//		Integer memberId = rq.getLoginedMemberId();
+//		ResultData loginMember = memberService.getMemberLevel(memberId);
+//		if (loginMember.isFail()) {
+//			return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
+//		}
+//		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
+//		List<Member> members = memberService.getMembers(); // 모든 멤버가져오기
+//
+//		model.addAttribute("inquiries", inquiries);
+//		model.addAttribute("members", members);
+//
+//		return "usr/member/adminpage";
+//	}
 
 }

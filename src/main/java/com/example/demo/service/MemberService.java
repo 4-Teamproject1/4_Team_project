@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Conference;
 import com.example.demo.vo.Inquiry;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
@@ -81,8 +82,8 @@ public class MemberService {
 		return memberRepository.getInquiry(id);
 	}
 	
-	public List<Inquiry> getAllInquiries() {
-	    return memberRepository.getAllInquiries();
+	public List<Inquiry> getAllInquiries(int memberId) {
+	    return memberRepository.getAllInquiries(memberId);
 	}
 
 	public Inquiry getInquiryById(int id) {
@@ -112,8 +113,27 @@ public class MemberService {
 
 		return memberRepository.getMembers();
 	}
-
 	
 	
+	//문의사항삭제관련
+	public ResultData userCanDelete(int loginedMemberId, Inquiry inquiry) {
+		System.err.println(loginedMemberId);
+		System.err.println(inquiry.getImemberId());
+		if (inquiry.getImemberId() != loginedMemberId) {
+			return ResultData.from("F-2", Ut.f("%d번 문의사항에 대한 삭제 권한이 없습니다", inquiry.getId()));
+		}
 
+		return ResultData.from("S-1", Ut.f("%d번 문의사항이 삭제 되었습니다", inquiry.getId()));
+	}
+
+	public ResultData deleteConference(int id) {
+		memberRepository.deleteInquiry(id);
+		return ResultData.from("S-1", Ut.f("%d번 삭제했습니다", id));
+	}
+
+	public List<Inquiry> getAllInquiries2() {
+		return memberRepository.getAllInquiries2();
+	}
+	
+	
 }

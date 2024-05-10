@@ -8,6 +8,22 @@
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
+<c:if test="${!rq.isLogined()}">
+<script>
+	const resultMsg = 'F-1 / 로그인이 필요합니다.'.trim();
+	if (resultMsg.length > 0) {
+		alert(resultMsg);
+	}
+	if (confirm('이전 페이지로 이동하시겠습니까?')) {
+		history.back();
+	} else {
+		location.href = '/';
+	}
+</script>
+</c:if>
+
+
+
 <title>문의사항</title>
 
 <header class="header">
@@ -15,13 +31,23 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">${loggedInMemberName}님</button>
-		</a> <a href="../conference/list">
+		<c:if test="${rq.isLogined() }">
+			<a href="../member/myInfo">
+				<button class="username">${loggedInMemberName}님</button>
+			</a>
+		</c:if>
+		<c:if test="${!rq.isLogined() }">
+
+			<a class="hover:underline" href="${rq.loginUri }">로그인</a>
+
+		</c:if>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -48,23 +74,27 @@
 
 
 <section class="question_list">
-    <div class="question_bar">
-        <div class="bar_num">번호</div>
-        <div class="bar_title">문의 제목</div>
-        <div class="bar_date">문의 날짜</div>
-    </div>
-    
-    <div class="question_box">
-        <c:forEach var="inquiry" items="${inquiries}">
-            <div class="question_content">
-                <div class="bar_num">${inquiry.id}</div>
-                <div class="bar_title">
-                    <a href="myQuestionDetail?id=${inquiry.id}">${inquiry.title}</a>
-                </div>
-                <div class="bar_date">${inquiry.regDate}</div>
-            </div>
-        </c:forEach>
-    </div>
+	<div class="question_bar">
+		<div class="bar_num">번호</div>
+		<div class="bar_title">문의 제목</div>
+		<div class="bar_date">문의 날짜</div>
+	</div>
+
+	<div class="question_box">
+		<c:forEach var="inquiry" items="${inquiries}">
+			<div class="question_content">
+				<div class="bar_num">${inquiry.id}</div>
+				<div class="bar_title">
+					<a href="myQuestionDetail?id=${inquiry.id}">${inquiry.title}</a>
+				</div>
+				<div class="bar_date">${inquiry.regDate}</div>
+				<c:if test="${loggedInMemberId == 'admin' }">
+					<a style="white-space: nowrap;" class="btn btn-outline"
+						onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../member/doDelete?id=${inquiry.id }">삭제</a>
+				</c:if>
+			</div>
+		</c:forEach>
+	</div>
 </section>
 
 <div class="bottom-bar">
@@ -190,28 +220,28 @@ body {
 
 .question_list {
 	position: absolute;
-    top: 270px;
-    left: 20%;
-    width: 1000px;
-    height: auto;
-    margin: auto;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+	top: 270px;
+	left: 20%;
+	width: 1000px;
+	height: auto;
+	margin: auto;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
 .question_bar {
 	display: flex;
-    width: 1000px;
-    height: 30px;
-    font-size: 14px;
-    color: white;
-    align-items: center;
-    border-radius: 5px;
-    background-color: #7E9DD9;
+	width: 1000px;
+	height: 30px;
+	font-size: 14px;
+	color: white;
+	align-items: center;
+	border-radius: 5px;
+	background-color: #7E9DD9;
 }
 
 .bar_num {
@@ -227,13 +257,12 @@ body {
 }
 
 .bar_date {
-position: relative;
+	position: relative;
 	left: -20;
 	width: 100px;
 }
 
 .question_box {
-	
 	
 }
 
@@ -275,7 +304,6 @@ position: relative;
 	padding-left: 16px;
 	padding-right: 16px;
 }
-
 </style>
 
 <%@ include file="../common/foot.jspf"%>

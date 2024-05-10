@@ -61,6 +61,7 @@ public class MyWebMVCConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/member/doCheckPw");
 		ir.addPathPatterns("/usr/member/modify");
 		ir.addPathPatterns("/usr/member/doModify");
+		ir.addPathPatterns("/usr/member/myQuestion");
 		
 		//관리자폼
 		ir.addPathPatterns("/usr/member/adminpage");
