@@ -221,4 +221,40 @@ public class ConferenceService {
 	public Object getConferenceHitCount(int id) {
 		return conferenceRepository. getConferenceHitCount(id);
 	}
+
+	// Service
+	public int countFilteredConferences(String option, int categoryId) {
+	    switch (option) {
+	        case "등록/수정일순":
+	            return conferenceRepository.countConferencesByOrderAndCategory("regDate", categoryId);
+	        case "조회순":
+	            return conferenceRepository.countConferencesByOrderAndCategory("hitCount", categoryId);
+	        case "마감순":
+	            return conferenceRepository.countConferencesByOrderAndCategory("finDate", categoryId);
+	        case "제목순":
+	            return conferenceRepository.countConferencesByOrderAndCategory("title", categoryId);
+	        default:
+	            throw new IllegalArgumentException("Invalid option for sorting.");
+	    }
+	}
+
+	  public List<Conference> getFilteredConferences(String option, int categoryId, int page, int limit) {
+	        int offset = (page - 1) * limit;
+	        System.err.println(offset);
+	        System.err.println(offset);
+	        System.err.println(offset);
+	        switch (option) {
+	            case "등록/수정일순":
+	                return conferenceRepository.getConferencesByCategoryAndOrder(categoryId, "regDate", offset, limit);
+	            case "조회순":
+	                return conferenceRepository.getConferencesByCategoryAndOrder(categoryId, "hitCount", offset, limit);
+	            case "마감순":
+	                return conferenceRepository.getConferencesByCategoryAndOrder(categoryId, "finDate", offset, limit);
+	            case "제목순":
+	                return conferenceRepository.getConferencesByCategoryAndOrder(categoryId, "title", offset, limit);
+	            default:
+	                throw new IllegalArgumentException("Invalid sorting option.");
+	        }
+	    }
+
 }

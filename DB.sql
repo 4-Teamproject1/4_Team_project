@@ -349,7 +349,7 @@ SELECT * FROM `reply`;
 
 SELECT goodReactionPoint
 FROM article 
-WHERE id = 1
+WHERE id = 1;
 
 INSERT INTO article
 (
@@ -377,9 +377,9 @@ UPDATE article
 SET title = '제목45'
 WHERE id = 7;
 
-SELECT FLOOR(RAND() * 2) + 2
+SELECT FLOOR(RAND() * 2) + 2;
 
-SELECT FLOOR(RAND() * 3) + 1
+SELECT FLOOR(RAND() * 3) + 1;
 
 
 SHOW FULL COLUMNS FROM `member`;
@@ -395,7 +395,7 @@ WHERE 1
 AND boardId = 1
 AND A.title LIKE CONCAT('%','0000','%')
 OR A.body LIKE CONCAT('%','0000','%')
-ORDER BY id DESC
+ORDER BY id DESC;
 
 SELECT COUNT(*)
 FROM article AS A
@@ -403,7 +403,7 @@ WHERE 1
 AND boardId = 1
 AND A.title LIKE CONCAT('%','0000','%')
 OR A.body LIKE CONCAT('%','0000','%')
-ORDER BY id DESC
+ORDER BY id DESC;
 
 
 SELECT hitCount
@@ -462,18 +462,18 @@ ORDER BY A.id DESC;
 
 SELECT *, COUNT(*)
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 SELECT IF(RP.point > 0, '큼','작음')
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 # 각 게시물의 좋아요, 싫어요 갯수
 SELECT RP.relTypeCode, RP.relId,
 SUM(IF(RP.point > 0,RP.point,0)) AS goodReactionPoint,
 SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId
+GROUP BY RP.relTypeCode,RP.relId;
 
 
 
@@ -549,7 +549,6 @@ CREATE TABLE `competition` (
 	CmemberId INT(10) NOT NULL DEFAULT 1
 );
 
-DROP TABLE `competition`;
 
 
 UPDATE article
@@ -601,7 +600,6 @@ SELECT *
 FROM scrap;
 
 
-DROP TABLE scrap;
 
 
 
@@ -620,7 +618,6 @@ CREATE TABLE inquiry(
 SELECT *
 FROM inquiry;
 
-DROP TABLE inquiry;
 
 INSERT INTO
 inquiry SET
@@ -657,3 +654,9 @@ FROM `admin`;
 			SELECT `authLevel`
 			FROM MEMBER
 			WHERE id = 1;
+			
+			
+			SELECT COUNT(*)
+			FROM `academy`
+			WHERE categoryId = 2
+			ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC;
