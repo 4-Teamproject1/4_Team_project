@@ -1,16 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../actual/path/to/javascript/file.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100'
-	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
@@ -45,24 +40,24 @@
 
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
-			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;"
-				class="hd_logout" href="../member/doLogout">로그아웃</a>
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
 	</nav>
 </header>
 
 <div class="list-container">
 	<div class="list-board">
-		<a href="../conference/list" class="list-board-item"
-			style="background-color: #00256c; color: white;">학술연구정보</a> <a
-			href="../conference/list" class="list-board-item">학술행사</a> <a
-			href="../competition/list" class="list-board-item">공모전</a>
+		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
+		<a href="../conference/list" class="list-board-item">학술행사</a>
+		<a href="../competition/list" class="list-board-item">공모전</a>
 	</div>
 
 	<div class="list-items-container">
@@ -77,15 +72,19 @@
 					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
 					<ul class="top-bar-count">
 
-						<li>조회수<span class="competition-detail__hit-count">${competition.hitCount}</span></li>
+						<li>
+							조회수
+							<span class="competition-detail__hit-count">${competition.hitCount}</span>
+						</li>
 
 
 					</ul>
-					<c:if test="${loggedInMemberId == 'admin' }">
-						<li><a style="white-space: nowrap;" class="btn btn-outline"
-							onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
-							href="../competition/doDelete?id=${competition.id }">삭제</a></li>
-					</c:if>
+					<div class="delete_btn">
+						<c:if test="${loggedInMemberId == 'admin' }">
+							<a onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+								href="../competition/doDelete?id=${competition.id }">삭제</a>
+						</c:if>
+					</div>
 				</div>
 				<table class="table">
 					<tbody>
@@ -93,7 +92,9 @@
 							<td>접수기간</td>
 							<td>${competition.applicationPeriod}</td>
 							<td>관련 홈페이지</td>
-							<td><a href="${competition.homepage}">바로가기</a></td>
+							<td>
+								<a href="${competition.homepage}">바로가기</a>
+							</td>
 						</tr>
 						<tr>
 							<td>총시상금</td>
@@ -103,7 +104,9 @@
 						</tr>
 						<tr>
 							<td>담당자 연락처</td>
-							<td><span>${competition.contactNum}</span></td>
+							<td>
+								<span>${competition.contactNum}</span>
+							</td>
 							<td>담당자 이메일</td>
 							<td>${competition.contactEmail}</td>
 
@@ -120,8 +123,7 @@
 					<img src="${competition.imageURL}" alt="" loading="lazy" />
 				</div>
 				<div class="bookmark">
-					<button id="likeButton" class="bookmark-button"
-						onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
+					<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
 				</div>
 			</div>
 		</div>
@@ -303,6 +305,16 @@ body {
 	margin: 20px;
 }
 
+.delete_btn {
+	position: relative;
+	top: -100px;
+	left: 1060px;
+	width: 35px;
+}
+.delete_btn:hover {
+	border-bottom: 1px solid;
+}
+
 .list-board-item:hover, .list-board-item:active {
 	background-color: #7E9DD9;
 	/* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
@@ -331,6 +343,7 @@ body {
 
 .detail-top-bar {
 	border-top: solid 2px #878787;
+	height: 90px;
 }
 
 .top-bar-count {

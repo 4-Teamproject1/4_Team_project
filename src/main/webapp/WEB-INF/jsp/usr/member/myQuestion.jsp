@@ -9,17 +9,17 @@
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 <c:if test="${!rq.isLogined()}">
-<script>
-	const resultMsg = 'F-1 / 로그인이 필요합니다.'.trim();
-	if (resultMsg.length > 0) {
-		alert(resultMsg);
-	}
-	if (confirm('이전 페이지로 이동하시겠습니까?')) {
-		history.back();
-	} else {
-		location.href = '/';
-	}
-</script>
+	<script>
+		const resultMsg = 'F-1 / 로그인이 필요합니다.'.trim();
+		if (resultMsg.length > 0) {
+			alert(resultMsg);
+		}
+		if (confirm('이전 페이지로 이동하시겠습니까?')) {
+			history.back();
+		} else {
+			location.href = '/';
+		}
+	</script>
 </c:if>
 
 
@@ -78,6 +78,7 @@
 		<div class="bar_num">번호</div>
 		<div class="bar_title">문의 제목</div>
 		<div class="bar_date">문의 날짜</div>
+		<div class="bar_delete">삭제</div>
 	</div>
 
 	<div class="question_box">
@@ -88,10 +89,11 @@
 					<a href="myQuestionDetail?id=${inquiry.id}">${inquiry.title}</a>
 				</div>
 				<div class="bar_date">${inquiry.regDate}</div>
-				<c:if test="${loggedInMemberId == 'admin' }">
-					<a style="white-space: nowrap;" class="btn btn-outline"
-						onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../member/doDelete?id=${inquiry.id }">삭제</a>
-				</c:if>
+				<div class="bar_delete">
+					<c:if test="${loggedInMemberId == 'admin' }">
+						<a class="delete_btn btn" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../member/doDelete?id=${inquiry.id }">삭제</a>
+					</c:if>
+				</div>
 			</div>
 		</c:forEach>
 	</div>
@@ -221,8 +223,8 @@ body {
 .question_list {
 	position: absolute;
 	top: 270px;
-	left: 20%;
-	width: 1000px;
+	left: 18.5%;
+	width: 1100px;
 	height: auto;
 	margin: auto;
 	margin-top: 20px;
@@ -235,7 +237,7 @@ body {
 
 .question_bar {
 	display: flex;
-	width: 1000px;
+	width: 1100px;
 	height: 30px;
 	font-size: 14px;
 	color: white;
@@ -252,14 +254,29 @@ body {
 
 .bar_title {
 	position: relative;
-	left: 0;
+	left: -10;
 	width: 1000px;
 }
 
 .bar_date {
 	position: relative;
-	left: -20;
+	left: -80;
 	width: 100px;
+}
+
+.bar_delete {
+	position: relative;
+	left: -30px;
+	width: 40px;
+	
+}
+
+.delete_btn {
+	position: relative;
+	color: white;
+	background-color: #00256c;
+	left: -12px;
+	width: 70px;
 }
 
 .question_box {
@@ -272,7 +289,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	top: 0px;
-	width: 1000px;
+	width: 1100px;
 	height: 80px;
 	background-color: #fff;
 	border-bottom: 1px solid #cbd5e0;
