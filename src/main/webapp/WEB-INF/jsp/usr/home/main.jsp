@@ -4,6 +4,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -351,188 +353,130 @@ document.addEventListener("DOMContentLoaded", function() {
 	</div>
 </div>
 
-<div class="team_project_member_profile">
-    <button class="hidden_btn btn" onclick="toggleContainer()">Contact Us</button>
-    <div class="container">
-		<div class="row_container">
-			<div class="profile_container">
-				<div class="profile_box">
-					<div class="profile_picture">
-						<img class="profile_img"
-							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
-							alt="" />
-					</div>
-					<div class="profile_info">
-						<ul>
-							<li>이름 : 고의성</li>
-							<li>
-								이메일 :
-								<a href="mailto:rhdmltjd1324@gmail.com">rhdmltjd1324@gmail.com</a>
-							</li>
 
-							<li>연락처 : 010-6245-9767</li>
-							<li>
-								<img style="display: inline-block;" class="github_img"
-									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/Gouiseong?tab=repositories" target="_blank">
-									<span class="github">github</span>
-								</a>
-							</li>
-					</div>
+<div class="team_project_box">
+	<button class="hidden_btn btn" onclick="toggleContainer()">Contact Us</button>
+<div class="member_profile_box">
+	<div class="profile_left">
+		<div class="first">
+			<img class="profile_img"
+				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				alt="" />
+			<div class="info_box">
+				<div class="pro_name">
+					<span class="material-symbols-outlined">id_card</span>
+					<div>고의성</div>
 				</div>
-			</div>
-			<div class="profile_container">
-				<div class="profile_box">
-					<div class="profile_picture">
-						<img class="profile_img"
-							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
-							alt="" />
-					</div>
-					<div class="profile_info">
-						<ul>
-							<li>이름 : 정다운</li>
-							<li>
-								이메일 :
-								<a href="mailto:jungpro567@gmail.com">jungpro567@gmail.com</a>
-							</li>
-							<li>연락처 : 010-6245-9767</li>
-							<li>
-								<img style="display: inline-block;" class="github_img"
-									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
-									<span class="github">github</span>
-								</a>
-							</li>
-					</div>
+				<div class="pro_email">
+					<span class="material-symbols-outlined">mail</span>
+					<a href="mailto:rhdmltjd1324@gmail.com">rhdmltjd1324@gmail.com</a>
+				</div>
+				<div class="pro_pnum">
+					<span class="material-symbols-outlined">call</span>
+					<div>010-6245-9767</div>
+				</div>
+				<div class="pro_github">
+					<a href="https://github.com/Gouiseong?tab=repositories" target="_blank">
+						<img class="github_img"
+							src="https://velog.velcdn.com/images/vrslxowe/post/970150e1-d395-4edf-b9c6-72cdf3900091/image.png" alt="" />
+					</a>
 				</div>
 			</div>
 		</div>
-		<div class="high_container">
-			<div class="profile_container">
-				<div class="profile_box">
-					<div class="profile_picture">
-						<img class="profile_img"
-							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
-							alt="" />
-					</div>
-					<div class="profile_info">
-						<ul>
-							<li>이름 : 오지현</li>
-							<li>
-								이메일 :
-								<a href="mailto:ubis970420@gmail.com">ubis970420@gmail.com</a>
-							</li>
-
-
-							<li>연락처 : 010-6245-9767</li>
-							<li>
-								<img style="display: inline-block;" class="github_img"
-									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/jihyeon2434?tab=repositories" target="_blank">
-									<span class="github">github</span>
-								</a>
-							</li>
-					</div>
+		<div class="secon">
+			<img class="profile_img"
+				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				alt="" />
+			<div class="info_box">
+				<div class="pro_name">
+					<span class="material-symbols-outlined">id_card</span>
+					<div>오지현</div>
 				</div>
-			</div>
-			<div class="profile_container">
-				<div class="profile_box">
-					<div class="profile_picture">
-						<img class="profile_img"
-							src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
-							alt="" />
-					</div>
-					<div class="profile_info">
-						<ul>
-							<li>이름 : 김선경</li>
-							<li>
-								이메일 :
-								<a href="mailto:vrslxowe@gmail.com">vrslxowe@gmail.com</a>
-							</li>
-							<li>연락처 : 010-6245-9767</li>
-							<li>
-								<img style="display: inline-block;" class="github_img"
-									src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="" />
-								<a href="https://github.com/vrslxowe?tab=repositories" target="_blank">
-									<span class="github">github</span>
-								</a>
-							</li>
-					</div>
+				<div class="pro_email">
+					<span class="material-symbols-outlined">mail</span>
+					<a href="mailto:ubis970420@gmail.com">rhdmltjd1324@gmail.com</a>
+				</div>
+				<div class="pro_pnum">
+					<span class="material-symbols-outlined">call</span>
+					<div>010-6245-9767</div>
+				</div>
+				<div class="pro_github">
+					<a href="https://github.com/jihyeon2434?tab=repositories" target="_blank">
+						<img class="github_img"
+							src="https://velog.velcdn.com/images/vrslxowe/post/970150e1-d395-4edf-b9c6-72cdf3900091/image.png" alt="" />
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="profile_right">
+		<div class="first">
+			<img class="profile_img"
+				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				alt="" />
+			<div class="info_box">
+				<div class="pro_name">
+					<span class="material-symbols-outlined">id_card</span>
+					<div>정다운</div>
+				</div>
+				<div class="pro_email">
+					<span class="material-symbols-outlined">mail</span>
+					<a href="mailto:jungpro567@gmail.com">jungpro567@gmail.com</a>
+				</div>
+				<div class="pro_pnum">
+					<span class="material-symbols-outlined">call</span>
+					<div>010-6245-9767</div>
+				</div>
+				<div class="pro_github">
+					<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
+						<img class="github_img"
+							src="https://velog.velcdn.com/images/vrslxowe/post/970150e1-d395-4edf-b9c6-72cdf3900091/image.png" alt="" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="secon">
+			<img class="profile_img"
+				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				alt="" />
+			<div class="info_box">
+				<div class="pro_name">
+					<span class="material-symbols-outlined">id_card</span>
+					<div>김선경</div>
+				</div>
+				<div class="pro_email">
+					<span class="material-symbols-outlined">mail</span>
+					<a href="mailto:vrslxowe@gmail.com">rhdmltjd1324@gmail.com</a>
+				</div>
+				<div class="pro_pnum">
+					<span class="material-symbols-outlined">call</span>
+					<div>010-6245-9767</div>
+				</div>
+				<div class="pro_github">
+					<a href="https://github.com/vrslxowe?tab=repositories" target="_blank">
+						<img class="github_img"
+							src="https://velog.velcdn.com/images/vrslxowe/post/970150e1-d395-4edf-b9c6-72cdf3900091/image.png" alt="" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </div>
 
+
+<script>
+    function toggleContainer() {
+        var container = document.querySelector('.member_profile_box');
+        if (container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+</script>
+
 <style type="text/css">
-
-.hidden_btn {
-	width: 100px;
-	height: 50px;
-}
-
-.team_project_member_profile {
-	display: flex;
-	padding-top: 100px;
-	padding-bottom: 100px;
-	background-color: #050A19;
-	/* 	border: 3px solid; */
-}
-
-.container {
-	margin: auto;
-	border-radius: 10px;
-	background-color: #5168A4;
-	width: 1300px;
-}
-
-.high_container, .row_container {
-	display: flex;
-}
-
-.profile_container {
-	flex: 1;
-	background-color: #00256C;
-	width: 400px;
-	height: 200px;
-	margin: 20 50;
-	border-radius: 5px;
-}
-
-.profile_box {
-	display: flex;
-}
-
-.profile_picture {
-	flex: 1;
-	height: 200px;
-	align-content: center;
-}
-
-.profile_info {
-	flex: 2;
-	color: white;
-	height: 200px;
-	align-content: center;
-	margin-left: 10px;
-	font-size: 14px;
-}
-
-.profile_img {
-	width: 150px;
-	height: 150px;
-	border-radius: 120px;
-	margin-left: 22px;
-}
-
-.github_img {
-	width: 30px;
-	height: 30px;
-}
-
-.github:hover {
-	
-}
 
 *, *:before, *:after {
 	box-sizing: border-box;
@@ -872,6 +816,89 @@ a.control_next {
 	justify-content: center;
 }
 
+/* 팀프로젝트 조장 및 조원 프로필 css */
+.hidden_btn {
+	position: relative;
+	width: 100px;
+	height: 50px;
+	top: 30px;
+	left: 46.5%;
+}
+
+.team_project_box {
+	background-color: #050A19;
+	height: 750px;
+}
+
+.member_profile_box {
+	display: none;
+ 	position: relative;
+	background-color: #5168A4;
+	width: 1050px;
+	height: 480px;
+	top: 150px;
+	left: 21.5%;
+	border-radius: 25px;
+ }
+ 
+.profile_left {
+	position: relative;
+	top: 30;
+	left: 15px;
+}
+
+.profile_right {
+	position: relative;
+	top: -370px;
+	left: 535px;
+}
+
+.first, .secon {
+	width: 500px;
+	height: 200px;
+	color: white;
+	background-color: #00256C;
+	border-radius: 25px;
+}
+
+.secon {
+	position: relative;
+	top: 20px;
+}
+
+.info_box {
+	position: relative;
+	top: -150px;
+	left: 200px;
+}
+
+.profile_img {
+	position: relative;
+	top: 20px;
+	left: 20px;
+	width: 150px;
+	height: 150px;
+	border-radius: 120px;
+}
+
+.pro_name, .pro_email, .pro_pnum, .pro_github {
+	position: relative;
+	top: 25px;
+	left: 30px;
+	width: 150px;
+	height: 50px;
+}
+
+.pro_github {
+	top: -130px;
+	left: 200px;
+}
+
+.github_img {
+	width: 40px;
+	height: 40px;
+}
+
 @media ( max-width : 991px) {
 	.search_box_main {
 		width: 80%; /*너비를 뷰포트의 80%로 설정 */
@@ -927,9 +954,6 @@ a.control_next {
 		clear: both; /*float 요소 아래로 내려가게 함 */
 	}
 }
-
-/* 팀프로젝트 조장 및 조원 프로필 css */
-
 
 @media ( max-width : 991px) {
 	.event-schedule {

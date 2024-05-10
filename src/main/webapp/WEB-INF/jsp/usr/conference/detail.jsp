@@ -77,15 +77,18 @@
 				<div class="detail-top-bar">
 					<div style="font-size: 24px; margin-top: 10px;">${conference.title}</div>
 					<ul class="top-bar-count">
-						<li>조회수<span class="conference-detail__hit-count">${conference.hitCount}</span></li>
+						<li>
+							조회수
+							<span class="conference-detail__hit-count">${conference.hitCount}</span>
+						</li>
 
 					</ul>
-					<c:if test="${loggedInMemberId == 'admin' }">
-						<li>
-							<a style="white-space: nowrap;" class="btn btn-outline"
-								onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../conference/doDelete?id=${conference.id }">삭제</a>
-						</li>
-					</c:if>
+					<div class="delete_btn">
+						<c:if test="${loggedInMemberId == 'admin' }">
+							<a onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+								href="../conference/doDelete?id=${conference.id }">삭제</a>
+						</c:if>
+					</div>
 				</div>
 
 				<table class="table">
@@ -350,6 +353,16 @@ $(function() {
 	margin: 20px;
 }
 
+.delete_btn {
+	position: relative;
+	top: -100px;
+	left: 1060px;
+	width: 35px;
+}
+.delete_btn:hover {
+	border-bottom: 1px solid;
+}
+
 .list-board-item {
 	display: block;
 	background-color: white;
@@ -379,6 +392,7 @@ $(function() {
 
 .detail-top-bar {
 	border-top: solid 2px #878787;
+	height: 90px;
 }
 
 .top-bar-count {
