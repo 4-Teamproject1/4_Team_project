@@ -494,7 +494,7 @@
 .dropdown-content {
 	display: none;
 	width: 200px;
-	height: 140px;
+	height: 100px;
 	color: black;
 	list-style: none;
 	padding-top: 3px;

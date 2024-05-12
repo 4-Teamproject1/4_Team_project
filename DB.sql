@@ -622,9 +622,17 @@ INSERT INTO
 inquiry SET
 regDate = NOW(),
 updateDate = NOW(),
+memberId = 1,
+title = '테스트 문의1',
+`body` = 'qwerasdf';
+
+INSERT INTO
+inquiry SET
+regDate = NOW(),
+updateDate = NOW(),
 memberId = 2,
-title = '123',
-`body` = 'reqwrq';
+title = '테스트 문의2',
+`body` = 'abcdgg';
 
 
 ## 관리자 테이블 test중
