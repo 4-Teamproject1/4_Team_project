@@ -579,7 +579,6 @@ CREATE TABLE `hotel` (
     href TEXT NOT NULL
 );
 
-DROP TABLE `hotel`;
 
 SELECT *
 FROM `hotel`;
@@ -646,7 +645,7 @@ FROM `admin`;
 			FROM MEMBER
 			WHERE `authLevel` = 7;
 			
-            SELECT *
+			SELECT *
 			FROM MEMBER
 			WHERE authLevel != 7;
 			

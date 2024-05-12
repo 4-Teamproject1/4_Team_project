@@ -34,7 +34,7 @@ public class HotelListCrawler {
 		System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
 
 		List<Hotel> hotelList = new ArrayList<>();
-		String[] areaList = { "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" };
+		String[] areaList = { "서울", "대전", "부산", "대구", "광주", "인천", "제주" };
 
 		// 검색어 입력
 		for (int i = 0; i < areaList.length; i++) {

@@ -9,6 +9,21 @@
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
+<c:if test="${!rq.isLogined()}">
+<script>
+	const resultMsg = 'F-1 / 로그인이 필요합니다.'.trim();
+	if (resultMsg.length > 0) {
+		alert(resultMsg);
+	}
+	if (confirm('이전 페이지로 이동하시겠습니까?')) {
+		history.back();
+	} else {
+		location.href = '/';
+	}
+</script>
+</c:if>
+
+
 <script type="text/javascript">
 	let InquiryWrite__submitFormDone = false;
 	function InquiryWrite__submit(form) {
@@ -39,22 +54,24 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<c:choose>
-			<c:when test="${empty loggedInMemberName}">
-				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
-			</c:when>
-			<c:otherwise>
-				<a href="../member/myInfo">
-					<button class="username">${loggedInMemberName}님</button>
-				</a>
-			</c:otherwise>
-		</c:choose>
+
+		<c:if test="${!rq.isLogined() }">
+			<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+		</c:if>
+		<c:if test="${rq.isLogined() }">
+			<a href="../member/myInfo">
+				<button class="username">${loggedInMemberName}님</button>
+			</a>
+		</c:if>
+
 
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
@@ -79,7 +96,9 @@
 				<tbody>
 					<tr>
 						<th class="box_title">제목</th>
-						<td><input class="input input-bordered" autocomplete="off" type="text" placeholder="제목을 입력해주세요" name="title" /></td>
+						<td>
+							<input class="input input-bordered" autocomplete="off" type="text" placeholder="제목을 입력해주세요" name="title" />
+						</td>
 					</tr>
 					<tr>
 						<th class="box_content">내용</th>
@@ -200,12 +219,14 @@ body {
 	border-radius: 5px;
 	width: 100px;
 }
+
 .box_title {
 	height: 48.5px;
 	line-height: 43.5px;
 }
+
 .box_content {
-	margin-top:3px;
+	margin-top: 3px;
 	height: 600px;
 	line-height: 520px;
 }
@@ -221,5 +242,4 @@ body {
 	color: white;
 	text-align: center;
 }
-
 </style>
