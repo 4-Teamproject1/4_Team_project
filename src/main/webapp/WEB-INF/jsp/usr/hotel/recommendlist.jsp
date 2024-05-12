@@ -1,14 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="Recommend List"></c:set>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100'
+	rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
 
 <script>
@@ -18,7 +24,7 @@
 		popup.classList.add('popup');
 
 		// 도시 목록
-		const areas = [ "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" ];
+		const areas = [ "서울", "대전", "부산", "대구", "광주", "인천", "제주" ];
 
 		areas.forEach(function(area) {
 			const areaElement = document.createElement('div');
@@ -91,15 +97,14 @@
 		</c:choose>
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a>
-		<a href="../competition/list">
+		</a> <a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a>
-		<a href="../member/myQuestion">
+		</a> <a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
-			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;"
+				class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
 	</nav>
 </header>
@@ -116,15 +121,12 @@
 						<div class="accommodation-nav-item btn m-1">숙소</div>
 					</a>
 					<div class="dropdown">
-						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
+						<div tabindex="0" role="button"
+							class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
 
-							<li>
-								<a href="../recommend/TrainList">기차</a>
-							</li>
-							<li>
-								<a href="../recommend/BusList">버스</a>
-							</li>
+							<li><a href="../recommend/TrainList">기차</a></li>
+							<li><a href="../recommend/BusList">버스</a></li>
 						</ul>
 					</div>
 				</ul>
@@ -138,15 +140,12 @@
 
 				<div class="slidecontainer">
 					<div>
-						<input type="range" min="0" max="1000000" value="0" class="slider" id="range">
+						<input type="range" min="0" max="1000000" value="0" class="slider"
+							id="range">
 					</div>
-					<span>
-						Min:
-						<span id="minValue">0</span>
-					</span>
-					<span>
-						Max:
-						<input type="number" id="maxValue" value="1000000">
+					<span> Min: <span id="minValue">0</span>
+					</span> <span> Max: <input type="number" id="maxValue"
+						value="1000000">
 					</span>
 				</div>
 
@@ -222,11 +221,12 @@
 
 	</div>
 
-<div class="outer-content-box">
+	<div class="outer-content-box">
 		<div class="sort_bar">
 
 			<form action="../hotel/recommendlist" method="POST">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?"
+					name="area">
 
 
 				<div id="date_start_btn" class="date_start">
@@ -262,7 +262,8 @@
 									<div class="main-image-container">
 
 										<div class="main-image">
-											<img class="hotel-img" src="${hotel.imgUrl }" alt="Main hotel image" />
+											<img class="hotel-img" src="${hotel.imgUrl }"
+												alt="Main hotel image" />
 										</div>
 
 									</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="My Question Detail"></c:set>
+<%@ include file="../common/toastUiEditorLib.jspf"%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
@@ -15,15 +16,25 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<a href="../member/myInfo">
-			<button class="username">${loggedInMemberName}님</button>
-		</a> <a href="../conference/list">
+		<c:if test="${rq.isLogined() }">
+			<a href="../member/myInfo">
+				<button class="username">${loggedInMemberName}님</button>
+			</a>
+		</c:if>
+		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a> <a href="../competition/list">
+		</a>
+		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a> <a href="../member/myQuestion">
+		</a>
+		<a href="../member/myQuestion">
 			<button class="hd_question">문의사항</button>
 		</a>
+		<c:if test="${!rq.isLogined() }">
+			<li>
+				<a class="hover:underline" href="${rq.loginUri }">로그인</a>
+			</li>
+		</c:if>
 		<c:if test="${rq.isLogined() }">
 			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
@@ -41,7 +52,7 @@
 <div class="Question_box title">
 	<div class="Ques_title">문의 제목</div>
 	<div class="Ques1">${inquiry.title}</div>
-	</div>
+</div>
 <div class="Question_box content">
 	<div class="Ques_content">문의 내용</div>
 	<div class="Ques2">${inquiry.body}</div>
@@ -161,6 +172,7 @@ body {
 	border-bottom-width: 1px;
 	border-color: #878787;
 }
+
 .Ques_title, .Ques_content {
 	position: relative;
 	width: 160px;
@@ -174,6 +186,7 @@ body {
 	border-bottom-width: 1px;
 	border-color: #878787;
 }
+
 .Ques_content {
 	height: 450px;
 }
@@ -184,17 +197,17 @@ body {
 	width: 780px;
 	height: 100%;
 	color: black;
-	
 }
+
 .Ques1 {
 	top: -87px;
 	display: flex;
 	align-items: center;
 }
+
 .Ques2 {
 	top: -100.2%;
 	padding: 20px 0 0 0;;
-	
 }
 
 .title {

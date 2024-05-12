@@ -79,16 +79,16 @@
 					<ul class="top-bar-count">
 						<li>
 							조회수
-							<span>${conference.hitCount}</span>
+							<span class="conference-detail__hit-count">${conference.hitCount}</span>
 						</li>
 
 					</ul>
-					<c:if test="${loggedInMemberId == 'admin' }">
-						<li>
-							<a style="white-space: nowrap;" class="btn btn-outline"
-								onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../conference/doDelete?id=${conference.id }">삭제</a>
-						</li>
-					</c:if>
+					<div class="delete_btn">
+						<c:if test="${loggedInMemberId == 'admin' }">
+							<a onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+								href="../conference/doDelete?id=${conference.id }">삭제</a>
+						</c:if>
+					</div>
 				</div>
 
 				<table class="table">
@@ -265,6 +265,22 @@ if(isNaN(params.memberId) == true){
 
 </script>
 
+<!-- 조회수 -->
+<script>
+function ConferenceDetail__doIncreaseHitCount() {
+    $.get('../conference/doIncreaseHitCountRd', {
+        id : params.id,
+        ajaxMode : 'Y'
+    }, function(data) {
+        $('.conference-detail__hit-count').empty().html(data.data1);
+    }, 'json');
+}
+
+$(function() {
+    setTimeout(ConferenceDetail__doIncreaseHitCount, 2000);
+});
+
+</script>
 
 
 
@@ -337,6 +353,16 @@ if(isNaN(params.memberId) == true){
 	margin: 20px;
 }
 
+.delete_btn {
+	position: relative;
+	top: -100px;
+	left: 1060px;
+	width: 35px;
+}
+.delete_btn:hover {
+	border-bottom: 1px solid;
+}
+
 .list-board-item {
 	display: block;
 	background-color: white;
@@ -366,6 +392,7 @@ if(isNaN(params.memberId) == true){
 
 .detail-top-bar {
 	border-top: solid 2px #878787;
+	height: 90px;
 }
 
 .top-bar-count {

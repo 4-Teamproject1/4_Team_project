@@ -72,16 +72,19 @@
 					<div style="font-size: 24px; margin-top: 10px;">${competition.title}</div>
 					<ul class="top-bar-count">
 
-						<li>조회수<span class="competition-detail__hit-count">${competition.hitCount}</span></li>
-
-			
-					</ul>
-					<c:if test="${loggedInMemberId == 'admin' }">
 						<li>
-							<a style="white-space: nowrap;" class="btn btn-outline"
-								onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../competition/doDelete?id=${competition.id }">삭제</a>
+							조회수
+							<span class="competition-detail__hit-count">${competition.hitCount}</span>
 						</li>
-					</c:if>
+
+
+					</ul>
+					<div class="delete_btn">
+						<c:if test="${loggedInMemberId == 'admin' }">
+							<a onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+								href="../competition/doDelete?id=${competition.id }">삭제</a>
+						</c:if>
+					</div>
 				</div>
 				<table class="table">
 					<tbody>
@@ -106,8 +109,8 @@
 							</td>
 							<td>담당자 이메일</td>
 							<td>${competition.contactEmail}</td>
-							
-							
+
+
 						</tr>
 					</tbody>
 
@@ -302,6 +305,16 @@ body {
 	margin: 20px;
 }
 
+.delete_btn {
+	position: relative;
+	top: -100px;
+	left: 1060px;
+	width: 35px;
+}
+.delete_btn:hover {
+	border-bottom: 1px solid;
+}
+
 .list-board-item:hover, .list-board-item:active {
 	background-color: #7E9DD9;
 	/* 마우스를 올렸을 때와 클릭했을 때의 배경색 */
@@ -330,6 +343,7 @@ body {
 
 .detail-top-bar {
 	border-top: solid 2px #878787;
+	height: 90px;
 }
 
 .top-bar-count {
