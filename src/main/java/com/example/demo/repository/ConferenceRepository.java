@@ -225,49 +225,4 @@ public interface ConferenceRepository {
 			""")
 	public Object getConferenceHitCount(int id);
 
-	
-	@Select("""
-		    <script>
-		    SELECT COUNT(*) FROM `academy`
-		    WHERE categoryId = #{categoryId}
-		    <if test='order.equals("regDate")'>
-		        AND regDate IS NOT NULL
-		    </if>
-		    <if test='order.equals("hitCount")'>
-		        AND hitCount IS NOT NULL
-		    </if>
-		    <if test='order.equals("finDate")'>
-		        AND applicationPeriod IS NOT NULL
-		    </if>
-		    <if test='order.equals("title")'>
-		        AND title IS NOT NULL
-		    </if>
-		    </script>
-		""")
-		public int countConferencesByOrderAndCategory(@Param("order") String order, @Param("categoryId") int categoryId);
-
-	   @Select("""
-        <script>
-        SELECT * FROM `academy`
-        WHERE categoryId = #{categoryId}
-        <choose>
-            <when test='order.equals("regDate")'>
-                ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC
-            </when>
-            <when test='order.equals("hitCount")'>
-                ORDER BY hitCount DESC
-            </when>
-            <when test='order.equals("finDate")'>
-                ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%Y-%m-%d') ASC
-            </when>
-            <when test='order.equals("title")'>
-                ORDER BY title ASC
-            </when>
-        </choose>
-        LIMIT #{limit} OFFSET #{offset}
-        </script>
-    """)
-    List<Conference> getConferencesByCategoryAndOrder(@Param("categoryId") int categoryId, @Param("order") String order, @Param("offset") int offset, @Param("limit") int limit);
 }
-
-
