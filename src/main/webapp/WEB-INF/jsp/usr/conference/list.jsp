@@ -365,6 +365,8 @@ body {
 	flex: 4;
 	margin: 20px;
 	height: 100%;
+	position: relative;
+	left: 50px;
 }
 
 .main-list {
@@ -576,6 +578,8 @@ tr {
 /* 사이드 학술 연구정보 박스 */
 
   .research-info-container {
+  	position: relative;
+  	left: 60px;
     background-color: #fff;
     display: flex;
     max-width: 183px;
@@ -617,7 +621,6 @@ tr {
     display: flex;
     margin-top: 11px;
     flex-direction: column;
-    padding: 11px 0;
     width: 140px;
     height: 80px;
     }
