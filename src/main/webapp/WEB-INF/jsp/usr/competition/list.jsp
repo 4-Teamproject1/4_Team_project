@@ -360,6 +360,8 @@ body {
 	flex: 4;
 	margin: 20px;
 	height: 100%;
+	position: relative;
+	left: 50px;
 }
 
 .main-list {
@@ -552,21 +554,23 @@ tr {
 }
 
 .page-bar button {
-    background-color: white; /* 버튼 배경색 */
-    border: 1px solid gray; /* 테두리 */
-    color: #333; /* 글자 색상 */
-    padding: 4px 11px; /* 패딩 */
-    margin: 4px; /* 마진 */
-    border-radius: 4px; /* 모서리 둥글게 */
+	background-color: white; /* 버튼 배경색 */
+	border: 1px solid gray; /* 테두리 */
+	color: #333; /* 글자 색상 */
+	padding: 4px 11px; /* 패딩 */
+	margin: 4px; /* 마진 */
+	border-radius: 4px; /* 모서리 둥글게 */
 }
 
 .page-bar button:hover {
-    background-color: #7E9DD9; /* 마우스 호버시 색상 변경 */
-    color: white;
+	background-color: #7E9DD9; /* 마우스 호버시 색상 변경 */
+	color: white;
 }
 
 /* 사이드 학술 연구정보 박스 */
 .research-info-container {
+	position: relative;
+	left: 60px;
 	background-color: #fff;
 	display: flex;
 	max-width: 183px;
@@ -608,7 +612,6 @@ tr {
 	display: flex;
 	margin-top: 11px;
 	flex-direction: column;
-	padding: 11px 0;
 	width: 140px;
 	height: 80px;
 }
