@@ -65,6 +65,8 @@ public class competitionInfoCrawler {
                String title = titleElement.getText();
                competition.setTitle(title); // Assuming a setTitle method exists
 
+               
+               
                // 테이블에서 필요한 정보를 가져오기
                WebElement table = driver.findElement(By.className("contentSummaryInfo"));
                List<WebElement> rows = table.findElements(By.tagName("tr"));
