@@ -118,6 +118,7 @@
 			<option value="28">28일</option>
 			<option value="29">29일</option>
 			<option value="30">30일</option>
+			<option value="30">31일</option>
 		</select>
 		<select class="select people_sort_bar">
 			<option>1명</option>
