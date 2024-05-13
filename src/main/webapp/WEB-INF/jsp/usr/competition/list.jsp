@@ -543,7 +543,7 @@ tr {
 
 /* 하단 바 */
 .bottom-bar {
-	margin-top: 60px;
+	margin-top: 40px;
 	text-align: center;
 }
 
@@ -552,16 +552,17 @@ tr {
 }
 
 .page-bar button {
-	background-color: #f9f9f9; /* 버튼 배경색 */
-	border: 1px solid #ccc; /* 테두리 */
-	color: #333; /* 글자 색상 */
-	padding: 8px 16px; /* 패딩 */
-	margin: 4px; /* 마진 */
-	border-radius: 4px; /* 모서리 둥글게 */
+    background-color: white; /* 버튼 배경색 */
+    border: 1px solid gray; /* 테두리 */
+    color: #333; /* 글자 색상 */
+    padding: 4px 11px; /* 패딩 */
+    margin: 4px; /* 마진 */
+    border-radius: 4px; /* 모서리 둥글게 */
 }
 
 .page-bar button:hover {
-	background-color: #e9e9e9; /* 마우스 호버시 색상 변경 */
+    background-color: #7E9DD9; /* 마우스 호버시 색상 변경 */
+    color: white;
 }
 
 /* 사이드 학술 연구정보 박스 */
