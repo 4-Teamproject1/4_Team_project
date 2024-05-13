@@ -119,8 +119,12 @@
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
 
-							<li><a href="../recommend/TrainList">기차</a></li>
-							<li><a href="../recommend/BusList">버스</a></li>
+							<li>
+								<a href="../recommend/TrainList">기차</a>
+							</li>
+							<li>
+								<a href="../recommend/BusList">버스</a>
+							</li>
 						</ul>
 					</div>
 				</ul>
@@ -136,8 +140,13 @@
 					<div>
 						<input type="range" min="0" max="1000000" value="0" class="slider" id="range">
 					</div>
-					<span> Min: <span id="minValue">0</span>
-					</span> <span> Max: <input type="number" id="maxValue" value="1000000">
+					<span>
+						Min:
+						<span id="minValue">0</span>
+					</span>
+					<span>
+						Max:
+						<input type="number" id="maxValue" value="1000000">
 					</span>
 				</div>
 
@@ -217,13 +226,77 @@
 		<div class="sort_bar">
 			<form action="../hotel/recommendlist" method="POST">
 				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplete="off">
-				<div id="date_start_btn" class="date_start">
-					<div style="text-align: center;">2024년 5월 12일</div>
-					<div style="text-align: center;">금요일</div>
+				<div id="date_start_btn" class=" ">
+					<select class="select date_start">
+						<option value="">체크인 날짜</option>
+						<option value="1">1일</option>
+						<option value="2">2일</option>
+						<option value="3">3일</option>
+						<option value="4">4일</option>
+						<option value="5">5일</option>
+						<option value="6">6일</option>
+						<option value="7">7일</option>
+						<option value="8">8일</option>
+						<option value="9">9일</option>
+						<option value="10">10일</option>
+						<option value="11">11일</option>
+						<option value="12">12일</option>
+						<option value="13">13일</option>
+						<option value="14">14일</option>
+						<option value="15">15일</option>
+						<option value="16">16일</option>
+						<option value="17">17일</option>
+						<option value="18">18일</option>
+						<option value="19">19일</option>
+						<option value="20">20일</option>
+						<option value="21">21일</option>
+						<option value="22">22일</option>
+						<option value="23">23일</option>
+						<option value="24">24일</option>
+						<option value="25">25일</option>
+						<option value="26">26일</option>
+						<option value="27">27일</option>
+						<option value="28">28일</option>
+						<option value="29">29일</option>
+						<option value="30">30일</option>
+						<option value="30">31일</option>
+					</select>
 				</div>
-				<div class="date_end">
-					<div style="text-align: center;">2024년 5월 15일</div>
-					<div style="text-align: center;">토요일</div>
+				<div class=" ">
+					<select class="select date_end">
+						<option value="">체크아웃 날짜</option>
+						<option value="1">1일</option>
+						<option value="2">2일</option>
+						<option value="3">3일</option>
+						<option value="4">4일</option>
+						<option value="5">5일</option>
+						<option value="6">6일</option>
+						<option value="7">7일</option>
+						<option value="8">8일</option>
+						<option value="9">9일</option>
+						<option value="10">10일</option>
+						<option value="11">11일</option>
+						<option value="12">12일</option>
+						<option value="13">13일</option>
+						<option value="14">14일</option>
+						<option value="15">15일</option>
+						<option value="16">16일</option>
+						<option value="17">17일</option>
+						<option value="18">18일</option>
+						<option value="19">19일</option>
+						<option value="20">20일</option>
+						<option value="21">21일</option>
+						<option value="22">22일</option>
+						<option value="23">23일</option>
+						<option value="24">24일</option>
+						<option value="25">25일</option>
+						<option value="26">26일</option>
+						<option value="27">27일</option>
+						<option value="28">28일</option>
+						<option value="29">29일</option>
+						<option value="30">30일</option>
+						<option value="30">31일</option>
+					</select>
 				</div>
 				<select class="select people_sort_bar">
 					<option>1명</option>
@@ -1059,7 +1132,7 @@ body {
 .popup {
 	position: absolute;
 	top: 35.5%;
-	left: 28%;
+	left: 24%;
 	width: 660px;
 	height: 185px;
 	background-color: white;
@@ -1088,48 +1161,47 @@ body {
 }
 
 .city_box, .people_sort_bar, .btn_sort_bar {
-	position: relative;
+	position: absolute;
 	height: 60px;
 	border-radius: 17px;
 	background-color: #edf0f9;
-	top: 3.2px;
+	top: 3.8px;
 }
 
 .city_box {
-	left: -12px;
+	left: 15px;
 	width: 350px;
 	padding-left: 30px;
 }
 
 .date_start, .date_end {
-	position: relative;
-	display: inline-block;
-	padding-top: 5px;
-	left: -5px;
+	position: absolute;
+	display: flex;
+	left: 380px;
 	width: 150px;
 	height: 60px;
-	top: 13px;
+	top: 3.8px;
 	background-color: #edf0f9;
 }
 
 .date_start {
 	border-right: 1px solid #cbd5e0;
 	border-radius: 17px 0 0 17px;
-	left: -2.5px;
 }
 
 .date_end {
 	border-left: 1px solid #cbd5e0;
 	border-radius: 0 17px 17px 0;
-	left: -8px;
+	left: 530px;
 }
 
 .people_sort_bar {
 	width: 190px;
+	left: 690px;
 }
 
 .btn_sort_bar {
-	left: 10px;
+	left: 890px;
 	width: 100px;
 	height: 60px;
 	color: white;
