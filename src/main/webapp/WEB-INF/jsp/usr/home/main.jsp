@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 		<div class="secon">
 			<img class="profile_img"
-				src="https://velog.velcdn.com/images/vrslxowe/post/d2891dad-8278-4f37-8202-102a29742af1/image.jpg"
+				src="https://velog.velcdn.com/images/vrslxowe/post/50d47acc-65bd-40a6-8edb-6108b538bd4f/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
