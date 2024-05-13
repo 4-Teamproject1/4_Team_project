@@ -27,8 +27,8 @@
 		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
 		</a>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
+		<a href="../hotel/recommendlist">
+			<button class="hd_recommend">숙박&교통</button>
 		</a>
 		<c:if test="${!rq.isLogined() }">
 			<li>
