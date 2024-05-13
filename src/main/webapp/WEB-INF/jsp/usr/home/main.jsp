@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div class="profile_left">
 		<div class="first">
 			<img class="profile_img"
-				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				src="https://velog.velcdn.com/images/rhdmltjd123/post/4f013abb-0c12-4837-95fa-446769eabb40/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -425,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 				<div class="pro_pnum">
 					<span class="material-symbols-outlined">call</span>
-					<div>010-6245-9767</div>
+					<div>010-7172-1453</div>
 				</div>
 				<div class="pro_github">
 					<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
