@@ -654,7 +654,6 @@ CREATE TABLE `hotel` (
     href TEXT NOT NULL
 );
 
-DROP TABLE `hotel`;
 
 SELECT *
 FROM `hotel`;
@@ -699,9 +698,17 @@ INSERT INTO
 inquiry SET
 regDate = NOW(),
 updateDate = NOW(),
+memberId = 1,
+title = '테스트 문의1',
+`body` = 'qwerasdf';
+
+INSERT INTO
+inquiry SET
+regDate = NOW(),
+updateDate = NOW(),
 memberId = 2,
-title = '123',
-`body` = 'reqwrq';
+title = '테스트 문의2',
+`body` = 'abcdgg';
 
 
 ## 관리자 테이블 test중
@@ -736,3 +743,5 @@ FROM `admin`;
          FROM `academy`
          WHERE categoryId = 2
          ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC;
+
+		

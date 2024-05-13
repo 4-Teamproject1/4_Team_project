@@ -5,11 +5,11 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-
+<c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
+<c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -18,7 +18,7 @@
 		popup.classList.add('popup');
 
 		// 도시 목록
-		const areas = [ "대구", "대전", "부산", "서울", "속초", "수원", "여수", "전주", "제주", "인천", "광주", "창원", "충주" ];
+		const areas = [ "서울", "대전", "부산", "대구", "광주", "인천", "제주" ];
 
 		areas.forEach(function(area) {
 			const areaElement = document.createElement('div');
@@ -79,16 +79,16 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		<c:choose>
-			<c:when test="${empty loggedInMemberName}">
-				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
-			</c:when>
-			<c:otherwise>
-				<a href="../member/myInfo">
-					<button class="username">${loggedInMemberName}님</button>
-				</a>
-			</c:otherwise>
-		</c:choose>
+		<c:if test="${rq.isLogined() }">
+			<a href="../member/myInfo">
+				<button class="username">${loggedInMemberName}님</button>
+			</a>
+		</c:if>
+		<c:if test="${!rq.isLogined() }">
+
+			<a class="hover:underline" href="${rq.loginUri }">로그인</a>
+
+		</c:if>
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -119,12 +119,8 @@
 						<div tabindex="0" role="button" class="accommodation-nav-item btn m-1">교통</div>
 						<ul tabindex="0" class="dropdown-content">
 
-							<li>
-								<a href="../recommend/TrainList">기차</a>
-							</li>
-							<li>
-								<a href="../recommend/BusList">버스</a>
-							</li>
+							<li><a href="../recommend/TrainList">기차</a></li>
+							<li><a href="../recommend/BusList">버스</a></li>
 						</ul>
 					</div>
 				</ul>
@@ -140,13 +136,8 @@
 					<div>
 						<input type="range" min="0" max="1000000" value="0" class="slider" id="range">
 					</div>
-					<span>
-						Min:
-						<span id="minValue">0</span>
-					</span>
-					<span>
-						Max:
-						<input type="number" id="maxValue" value="1000000">
+					<span> Min: <span id="minValue">0</span>
+					</span> <span> Max: <input type="number" id="maxValue" value="1000000">
 					</span>
 				</div>
 
@@ -222,13 +213,10 @@
 
 	</div>
 
-<div class="outer-content-box">
+	<div class="outer-content-box">
 		<div class="sort_bar">
-
 			<form action="../hotel/recommendlist" method="POST">
-				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area">
-
-
+				<input class="city_box" type="text" placeholder="어디로 떠나시나요?" name="area" autocomplete="off">
 				<div id="date_start_btn" class="date_start">
 					<div style="text-align: center;">2024년 5월 12일</div>
 					<div style="text-align: center;">금요일</div>
@@ -328,96 +316,6 @@
 </div>
 
 <style>
-.popup {
-	position: absolute;
-	top: 34%;
-	left: 29%;
-	width: 660px;
-	height: 185px;
-	background-color: white;
-	border-radius: 17px;
-	padding: 10px;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-	z-index: 10;
-	display: none;
-}
-
-.area {
-	cursor: pointer;
-	padding: 10px;
-	margin: 5px;
-	display: inline-block;
-	width: calc(20% - 10px);
-	/* Set width for 5 regions in a row with margins */
-	text-align: center;
-	border-radius: 5px;
-	transition: background-color 0.1s ease;
-	/* Add transition for hover effect */
-}
-
-.area:hover {
-	background-color: #f0f0f0;
-}
-
-.city_box, .people_sort_bar, .btn_sort_bar {
-	position: relative;
-	height: 60px;
-	border-radius: 17px;
-	background-color: #edf0f9;
-}
-
-.city_box {
-	left: -20px;
-	width: 350px;
-	padding-left: 30px;
-}
-
-.date_start, .date_end {
-	position: relative;
-	display: inline-block;
-	left: -10px;
-	width: 150px;
-	height: 60px;
-	background-color: #edf0f9;
-}
-
-.date_start {
-	border-right: 1px solid #cbd5e0;
-	border-radius: 17px 0 0 17px;
-}
-
-.date_end {
-	border-left: 1px solid #cbd5e0;
-	border-radius: 0 17px 17px 0;
-}
-
-.people_sort_bar {
-	width: 190px;
-}
-
-.btn_sort_bar {
-	left: 15px;
-	width: 100px;
-	height: 60px;
-	color: white;
-	border-radius: 19px;
-	background-color: #00256C;
-}
-
-.sort_bar {
-	position: relative;
-	top: 250px;
-	width: 1000px;
-	height: 70px;
-	font-size: 16px;
-	border-radius: 21px;
-	border: 1px solid rgba(221, 223, 226, 1);
-	background-color: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 body {
 	width: 100%;
 	hight: 130%;
@@ -470,7 +368,7 @@ body {
 .hotel-imageANDdetail {
 	display: flex;
 	gap: 20px;
-	border-right: solid 1px black;
+	border-right: solid 1px #ccc;;
 }
 
 .hotel-img {
@@ -495,7 +393,7 @@ body {
 
 .left_box {
 	position: relative;
-	top: 240px;
+	top: 360px;
 }
 
 /* 왼쪽 서치박스 css */
@@ -524,6 +422,13 @@ body {
 	opacity: 1;
 }
 
+.list-container {
+	display: flex;
+	position: relative;
+	top: 245px;
+	left: 30px;
+}
+
 .accommodation-nav-list {
 	position: relative;
 	width: 337px;
@@ -541,21 +446,17 @@ body {
 
 .dropdown-content {
 	display: none;
-	width: 150px;
-	height: 120px;
+	width: 200px;
+	height: 100px;
 	color: black;
 	list-style: none;
-	padding-top: 1px;
+	padding-top: 3px;
 	border-top: 2px solid #cbd5e0;
 	border-bottom: 2px solid #cbd5e0;
-	position: absolute; /* Change from relative to absolute */
-	top: -70px; /* Align with the top of the dropdown button */
-	left: 100%; /* Position it to the right of the button */
-	background-color: white; /* Add background color */
 }
 
 .dropdown-content li {
-	padding: 7px;
+	padding: 10px;
 	text-align: center;
 }
 
@@ -566,24 +467,20 @@ body {
 .hotel-card {
 	position: relative;
 	top: 300px;
+	left: 20px;
 	justify-content: center;
-	border-radius: 8px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-	background-color: rgba(255, 255, 255, 0);
 	max-width: 965px;
-	justify-content: center;
 	justify-content: center;
 }
 
 .hotel-card-content {
 	display: flex;
-	border: solid 1px black;
+	border: solid 1px #ccc;
 	margin-top: 15px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	/* 수평 위치, 수직 위치, 흐림 정도, 색상 */
 	background-color: ffffff;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 	margin-top: 30px;
 }
 
@@ -1157,6 +1054,101 @@ body {
 	flex-grow: 1;
 	flex-basis: auto;
 	margin: auto 0;
+}
+/*선택 박스*/
+.popup {
+	position: absolute;
+	top: 35.5%;
+	left: 28%;
+	width: 660px;
+	height: 185px;
+	background-color: white;
+	border-radius: 17px;
+	padding: 10px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+	display: none;
+}
+
+.area {
+	cursor: pointer;
+	padding: 10px;
+	margin: 5px;
+	display: inline-block;
+	width: calc(20% - 10px);
+	/* Set width for 5 regions in a row with margins */
+	text-align: center;
+	border-radius: 5px;
+	transition: background-color 0.1s ease;
+	/* Add transition for hover effect */
+}
+
+.area:hover {
+	background-color: #f0f0f0;
+}
+
+.city_box, .people_sort_bar, .btn_sort_bar {
+	position: relative;
+	height: 60px;
+	border-radius: 17px;
+	background-color: #edf0f9;
+	top: 3.2px;
+}
+
+.city_box {
+	left: -12px;
+	width: 350px;
+	padding-left: 30px;
+}
+
+.date_start, .date_end {
+	position: relative;
+	display: inline-block;
+	padding-top: 5px;
+	left: -5px;
+	width: 150px;
+	height: 60px;
+	top: 13px;
+	background-color: #edf0f9;
+}
+
+.date_start {
+	border-right: 1px solid #cbd5e0;
+	border-radius: 17px 0 0 17px;
+	left: -2.5px;
+}
+
+.date_end {
+	border-left: 1px solid #cbd5e0;
+	border-radius: 0 17px 17px 0;
+	left: -8px;
+}
+
+.people_sort_bar {
+	width: 190px;
+}
+
+.btn_sort_bar {
+	left: 10px;
+	width: 100px;
+	height: 60px;
+	color: white;
+	border-radius: 19px;
+	background-color: #00256C;
+}
+
+.sort_bar {
+	position: relative;
+	top: 250px;
+	width: 1000px;
+	height: 70px;
+	font-size: 16px;
+	border-radius: 21px;
+	border: 1px solid rgba(221, 223, 226, 1);
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media ( max-width : 991px) {

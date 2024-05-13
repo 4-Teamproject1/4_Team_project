@@ -8,9 +8,6 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<!-- <div class="background_img"> -->
-<!-- 	<img src="https://velog.velcdn.com/images/jungmoon2/post/e240172d-c361-4834-ad54-b3f0cc445542/image.png" alt="" /> -->
-<!-- </div> -->
 <div class="background_img"></div>
 <header class="header">
 	<a href="../home/main">
@@ -26,7 +23,7 @@
 		</div>
 		<div class="input-group">
 			<span class="material-symbols-outlined">lock</span>
-			<input class="password-input max-w-xs" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요" name="loginPw" />
+			<input class="password-input max-w-xs" autocomplete="off" type="password" placeholder="비밀번호를 입력해주세요" name="loginPw" />
 		</div>
 		<input class="login_button" type="submit" value="로그인" />
 	</form>

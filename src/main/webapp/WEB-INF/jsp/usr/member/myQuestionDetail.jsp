@@ -57,9 +57,6 @@
 	<div class="Ques_content">문의 내용</div>
 	<div class="Ques2">${inquiry.body}</div>
 </div>
-
-
-
 <button class="back_btn" type="button" onclick="history.back();">뒤로가기</button>
 
 <style>

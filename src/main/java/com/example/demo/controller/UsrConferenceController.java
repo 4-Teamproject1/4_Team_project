@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import com.example.demo.service.ConferenceService;
 import com.example.demo.service.ScrapService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Conference;
+import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -107,27 +106,46 @@ public class UsrConferenceController {
 	}
 
 	
-	// Controller
-	@RequestMapping("/usr/conference/getFilteredConferences")
+	@GetMapping("/usr/conference/getFilteredConferences")
 	public ResponseEntity<?> getFilteredConferences(@RequestParam("option") String option, 
-	                                                @RequestParam("categoryId") int categoryId,
-	                                                @RequestParam(defaultValue = "1") int page,
-	                                                @RequestParam(defaultValue = "20") int limit) {
-	    int totalConferences = conferenceService.countFilteredConferences(option, categoryId);
-	    int totalPages = (int) Math.ceil((double) totalConferences / limit);
-	    List<Conference> conferenceList = conferenceService.getFilteredConferences(option, categoryId, page, limit);
-	  System.out.println(totalConferences);
-	  System.out.println(totalConferences);
-	    System.err.println(totalPages);
-	    
-	    
-	    
-	    
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("conferences", conferenceList);
-	    response.put("totalPages", totalPages);
-	    response.put("currentPage", page);
-	    return ResponseEntity.ok().body(response);
+	                                                @RequestParam("categoryId") int categoryId) {
+		System.err.println(option);
+	    List<Conference> conferenceList;
+
+	    // 선택된 옵션에 따라 적절한 정렬 방식으로 conferenceList를 가져옵니다.
+	    if ("등록/수정일순".equals(option)) {
+	        if (categoryId == 0) {
+	            conferenceList = conferenceService.getConferencesOrderByRegDate(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	        } else {
+	            conferenceList = conferenceService.getConferencesByCategoryOrderByRegDate(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+	        }
+	    } else if ("조회순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderByhitCount(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderByhitCount(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 조회순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
+	    } else if ("마감순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderByfinDate(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderByfinDate(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 마감순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
+	    } else if ("제목순".equals(option)) {
+	    	  if (categoryId == 0) {
+		            conferenceList = conferenceService.getConferencesOrderBytitle(); // categoryId가 0인 경우 전체 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        } else {
+		            conferenceList = conferenceService.getConferencesByCategoryOrderBytitle(categoryId); // categoryId에 해당하는 학술행사를 등록/수정일순으로 정렬하여 가져옵니다.
+		        }
+	        // 제목순으로 정렬된 conferenceList를 가져오는 로직을 추가합니다.
+	    } else {
+	        // 정렬 옵션이 올바르지 않은 경우 예외 처리를 합니다.
+	        return ResponseEntity.badRequest().body("올바르지 않은 정렬 옵션입니다.");
+	    }
+
+	    return ResponseEntity.ok().body(conferenceList);
 	}
 
 	@RequestMapping("/usr/conference/doDelete")

@@ -250,6 +250,101 @@
 
 
 <style>
+body {
+	width: 100%;
+	height: 130%;
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	display: flex;
+	position: absolute;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 17px auto 0;
+	padding: 0 20px;
+	gap: 20px;
+}
+
+.logo {
+	text-align: center;
+}
+
+.header_menu {
+	display: flex;
+	gap: 20px;
+}
+
+.header_menu button:hover {
+	border-bottom: 1px solid;
+}
+
+.hd_logout {
+	margin-top: 3.5px;
+	font-size: 12.5px;
+}
+
+.hd_logout:hover {
+	border-bottom: 1px solid;
+}
+
+.username {
+	flex-grow: 1;
+}
+
+.img {
+	position: absolute;
+	width: 100%;
+	height: 150px;
+	left: 0px;
+	top: 57px;
+	background:
+		url('https://velog.velcdn.com/images/vrslxowe/post/20b2f61b-15a7-4b21-8d0a-71a03a83d097/image.jpg')
+		no-repeat;
+	background-size: cover;
+}
+
+.outer-content-box {
+	display: flex;
+	justify-content: center; /* 수평 가운데 정렬 */
+	width: 1000px;
+	height: 200px;
+	flex-direction: column; /* 요소들을 세로로 배치합니다. */
+}
+
+.train-info-name {
+	display: flex;
+	flex-direction: column;
+	/* 	border: 3px solid red; */
+}
+
+/* @media ( max-width : 991px) {
+	.train-info-name {
+		white-space: initial;
+	}
+} */
+.train-name {
+	border-radius: 5px;
+	background-color: #B6CCF4;
+	color: black;
+	justify-content: center;
+	padding: 6px 12px;
+	font-size: 14px;
+}
+
+/* @media ( max-width : 991px) {
+	.train-name {
+		white-space: initial;
+	}
+}
+ */
+.outer-arrival-icon {
+	/* 	border: 3px solid blue; */
+	display: flex;
+	align-items: end;
+}
 .departure-time, .arrival-time {
 	position: relative;
 	color: #24262c;
@@ -458,7 +553,7 @@
 .dropdown-content {
 	display: none;
 	width: 200px;
-	height: 140px;
+	height: 100px;
 	color: black;
 	list-style: none;
 	padding-top: 3px;
@@ -483,101 +578,6 @@
 	width: 1000px;
 }
 
-body {
-	width: 100%;
-	height: 130%;
-	margin: 0;
-	padding: 0;
-}
-
-.header {
-	display: flex;
-	position: absolute;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	margin: 17px auto 0;
-	padding: 0 20px;
-	gap: 20px;
-}
-
-.logo {
-	text-align: center;
-}
-
-.header_menu {
-	display: flex;
-	gap: 20px;
-}
-
-.header_menu button:hover {
-	border-bottom: 1px solid;
-}
-
-.hd_logout {
-	margin-top: 3.5px;
-	font-size: 12.5px;
-}
-
-.hd_logout:hover {
-	border-bottom: 1px solid;
-}
-
-.username {
-	flex-grow: 1;
-}
-
-.img {
-	position: absolute;
-	width: 100%;
-	height: 150px;
-	left: 0px;
-	top: 57px;
-	background:
-		url('https://velog.velcdn.com/images/vrslxowe/post/20b2f61b-15a7-4b21-8d0a-71a03a83d097/image.jpg')
-		no-repeat;
-	background-size: cover;
-}
-
-.outer-content-box {
-	display: flex;
-	justify-content: center; /* 수평 가운데 정렬 */
-	width: 1000px;
-	height: 200px;
-	flex-direction: column; /* 요소들을 세로로 배치합니다. */
-}
-
-.train-info-name {
-	display: flex;
-	flex-direction: column;
-	/* 	border: 3px solid red; */
-}
-
-/* @media ( max-width : 991px) {
-	.train-info-name {
-		white-space: initial;
-	}
-} */
-.train-name {
-	border-radius: 5px;
-	background-color: #B6CCF4;
-	color: black;
-	justify-content: center;
-	padding: 6px 12px;
-	font-size: 14px;
-}
-
-/* @media ( max-width : 991px) {
-	.train-name {
-		white-space: initial;
-	}
-}
- */
-.outer-arrival-icon {
-	/* 	border: 3px solid blue; */
-	display: flex;
-	align-items: end;
-}
 </style>
 
 <%@ include file="../common/foot.jspf"%>

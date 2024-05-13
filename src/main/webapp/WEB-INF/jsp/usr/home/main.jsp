@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div class="profile_left">
 		<div class="first">
 			<img class="profile_img"
-				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				src="https://velog.velcdn.com/images/rhdmltjd123/post/4f013abb-0c12-4837-95fa-446769eabb40/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 		<div class="secon">
 			<img class="profile_img"
-				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				src="https://velog.velcdn.com/images/vrslxowe/post/d2891dad-8278-4f37-8202-102a29742af1/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -394,11 +394,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 				<div class="pro_email">
 					<span class="material-symbols-outlined">mail</span>
-					<a href="mailto:ubis970420@gmail.com">rhdmltjd1324@gmail.com</a>
+					<a href="mailto:ubis970420@gmail.com">ubis970420@gmail.com</a>
 				</div>
 				<div class="pro_pnum">
 					<span class="material-symbols-outlined">call</span>
-					<div>010-6245-9767</div>
+					<div>010-3397-2434</div>
 				</div>
 				<div class="pro_github">
 					<a href="https://github.com/jihyeon2434?tab=repositories" target="_blank">
@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<div class="profile_right">
 		<div class="first">
 			<img class="profile_img"
-				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				src="https://velog.velcdn.com/images/vrslxowe/post/fb8178d1-4e44-4720-8024-1d355364d499/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -425,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 				<div class="pro_pnum">
 					<span class="material-symbols-outlined">call</span>
-					<div>010-6245-9767</div>
+					<div>010-7172-1453</div>
 				</div>
 				<div class="pro_github">
 					<a href="https://github.com/JUNGmoon123?tab=repositories" target="_blank">
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 		<div class="secon">
 			<img class="profile_img"
-				src="https://i.namu.wiki/i/MmSNZEv4TguhJ-Sc5PVcQ3_HXSWPWAT9sBEQNNpv3Xv1E7qDtfzw2aqkIbsKH5xEwtpyLZl4v6jKLxtYF33sgw.webp"
+				src="https://velog.velcdn.com/images/vrslxowe/post/c07c91d9-9d43-4fff-af95-f39340685622/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -446,11 +446,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 				<div class="pro_email">
 					<span class="material-symbols-outlined">mail</span>
-					<a href="mailto:vrslxowe@gmail.com">rhdmltjd1324@gmail.com</a>
+					<a href="mailto:vrslxowe@gmail.com">vrslxowe@gmail.com</a>
 				</div>
 				<div class="pro_pnum">
 					<span class="material-symbols-outlined">call</span>
-					<div>010-6245-9767</div>
+					<div>010-4167-5324</div>
 				</div>
 				<div class="pro_github">
 					<a href="https://github.com/vrslxowe?tab=repositories" target="_blank">
@@ -463,7 +463,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	</div>
 	</div>
 </div>
-
 
 <script>
     function toggleContainer() {
@@ -821,7 +820,7 @@ a.control_next {
 	position: relative;
 	width: 100px;
 	height: 50px;
-	top: 30px;
+	top: 650px;
 	left: 46.5%;
 }
 
@@ -836,7 +835,7 @@ a.control_next {
 	background-color: #5168A4;
 	width: 1050px;
 	height: 480px;
-	top: 150px;
+	top: 100px;
 	left: 21.5%;
 	border-radius: 25px;
  }
