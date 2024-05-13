@@ -8,7 +8,8 @@
 - 주제 선정
 - 피그마 제작
 - github 협업 세팅
-- 크롤링
+- 역할분담
+- 
 - 발표평가
   
 ## 🧑‍🤝‍🧑 개발자 소개 
@@ -27,7 +28,7 @@
 
 ## ⚙️ 기술 스택
 - **Server** : AWS EC2
-- **DataBase** : AWS RDS, Datagrip, JPQL, ERD AqueryTool
+- **DataBase** : AWS RDS, Datagrip, JPQL, ERD AqueryTool, MySQL
 - **WS/WAS** : Nginx, Tomcat
 - **OCR** : AWS Textract, AWS S3
 - **아이디어 회의** : Slack, Zoom, Notion
