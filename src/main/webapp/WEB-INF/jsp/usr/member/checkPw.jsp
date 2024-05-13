@@ -20,7 +20,7 @@
 		<form action="../member/doCheckPw" method="POST">
 			<div class="id_field">아이디<br>${rq.loginedMember.loginId }</div>
 			<div class="change_pw">
-				비밀번호 확인 <input class="pw_field"  name="loginPw"  autocomplete="off" type="text" placeholder="기존 비밀번호를 입력해주세요" />
+				비밀번호 확인 <input class="pw_field"  name="loginPw"  autocomplete="off" type="password" placeholder="기존 비밀번호를 입력해주세요" />
 			</div>
 			<input class="signup-btn" type="submit" value="확인" />
 		</form>

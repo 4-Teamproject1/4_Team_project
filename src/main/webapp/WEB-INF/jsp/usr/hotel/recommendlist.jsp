@@ -1092,7 +1092,7 @@ body {
 	height: 60px;
 	border-radius: 17px;
 	background-color: #edf0f9;
-	top: 5px;
+	top: 3.2px;
 }
 
 .city_box {
@@ -1104,21 +1104,24 @@ body {
 .date_start, .date_end {
 	position: relative;
 	display: inline-block;
+	padding-top: 5px;
 	left: -5px;
 	width: 150px;
 	height: 60px;
-	top: 11px;
+	top: 13px;
 	background-color: #edf0f9;
 }
 
 .date_start {
 	border-right: 1px solid #cbd5e0;
 	border-radius: 17px 0 0 17px;
+	left: -2.5px;
 }
 
 .date_end {
 	border-left: 1px solid #cbd5e0;
 	border-radius: 0 17px 17px 0;
+	left: -8px;
 }
 
 .people_sort_bar {

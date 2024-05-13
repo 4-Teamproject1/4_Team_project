@@ -199,7 +199,7 @@ body {
 	position: fixed;
 	left: 50%;
 	transform: translateX(-50%);
-	bottom: 7%;
+	bottom: 4%;
 	border-radius: 18px;
 	background: #00256c;
 	color: white;
@@ -208,7 +208,7 @@ body {
 }
 
 .info_box {
-	top: 300px;
+	top: 270px;
 	left: 25%;
 	height: 87px;
 	width: 1000px;
