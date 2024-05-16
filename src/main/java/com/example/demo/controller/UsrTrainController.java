@@ -24,14 +24,16 @@ public class UsrTrainController {
 			@RequestParam(defaultValue = "서울 용산구 한강대로 405") String departureTrain,
 			@RequestParam(defaultValue = "대전역") String arriveTrain, @RequestParam(defaultValue = "21") String ondate) {
 
+		// 기차표 정보를 가져오는 서비스 호출
 		List<Train> spanTexts = trainTicketService.gettrainservice(departureTrain, arriveTrain, ondate);
 
-		// 여기서 spanTexts를 이용하여 모델에 추가
+		// 가져온 기차표 정보를 모델에 추가
 		for (Train text : spanTexts) {
 			System.out.println("텍스트: " + text);
 		}
 		model.addAttribute("spanTexts", spanTexts);
 
+		// 결과를 보여줄 뷰 페이지로 이동
 		return "usr/recommend/TrainList";
 	}
 }
