@@ -25,32 +25,25 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
+	@Autowired
+	private Rq rq; // 의존성 주입을 통해 Rq 객체 생성
 
 	@Autowired
-	private Rq rq;
+	private ArticleService articleService; // 의존성 주입을 통해 ArticleService 객체 생성
 
 	@Autowired
-	private ArticleService articleService;
+	private BoardService boardService; // 의존성 주입을 통해 BoardService 객체 생성
 
 	@Autowired
-	private BoardService boardService;
+	private ReplyService replyService; // 의존성 주입을 통해 ReplyService 객체 생성
 
 	@Autowired
-	private ReplyService replyService;
+	private ReactionPointService reactionPointService; // 의존성 주입을 통해 ReactionPointService 객체 생성
 
-	@Autowired
-	private ReactionPointService reactionPointService;
-	
-	
 	public UsrArticleController() {
-
 	}
 
-	
-	
-	
-	
-
+	// 게시글 목록 페이지를 보여주는 메서드
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
 			@RequestParam(defaultValue = "1") int page,
@@ -67,12 +60,9 @@ public class UsrArticleController {
 			return rq.historyBackOnView("없는 게시판이야");
 		}
 
-		// 한페이지에 글 10개씩이야
-		// 글 20개 -> 2 page
-		// 글 24개 -> 3 page
-		int itemsInAPage = 10;
+		int itemsInAPage = 10; // 한 페이지에 보여줄 글 개수
 
-		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
+		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage); // 총 페이지 수 계산
 
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
 				searchKeyword);
@@ -86,9 +76,10 @@ public class UsrArticleController {
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
-		return "usr/article/list";
+		return "usr/article/list"; // 게시글 목록 페이지로 이동
 	}
 
+	// 게시글 상세 페이지를 보여주는 메서드
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -112,9 +103,10 @@ public class UsrArticleController {
 		model.addAttribute("isAlreadyAddBadRp",
 				reactionPointService.isAlreadyAddBadRp(rq.getLoginedMemberId(), id, "article"));
 
-		return "usr/article/detail";
+		return "usr/article/detail"; // 게시글 상세 페이지로 이동
 	}
 
+	// 조회수 증가 처리 후 결과를 리턴하는 메서드
 	@RequestMapping("/usr/article/doIncreaseHitCountRd")
 	@ResponseBody
 	public ResultData doIncreaseHitCountRd(int id) {
@@ -133,12 +125,14 @@ public class UsrArticleController {
 
 	}
 
+	// 글쓰기 페이지를 보여주는 메서드
 	@RequestMapping("/usr/article/write")
 	public String showJoin(HttpServletRequest req) {
 
-		return "usr/article/write";
+		return "usr/article/write"; // 글쓰기 페이지로 이동
 	}
 
+	// 글쓰기 처리 후 결과를 리턴하는 메서드
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doWrite(HttpServletRequest req, String title, String body, int boardId) {
@@ -162,6 +156,7 @@ public class UsrArticleController {
 
 	}
 
+	// 수정 페이지를 보여주는 메서드
 	@RequestMapping("/usr/article/modify")
 	public String showModify(HttpServletRequest req, Model model, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -174,9 +169,10 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 
-		return "usr/article/modify";
+		return "usr/article/modify"; // 수정 페이지로 이동
 	}
 
+	// 수정 처리 후 결과를 리턴하는 메서드
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
@@ -185,6 +181,7 @@ public class UsrArticleController {
 		Article article = articleService.getArticle(id);
 
 		if (article == null) {
+
 			return Ut.jsHistoryBack("F-1", Ut.f("%d번 글은 존재하지 않습니다", id));
 		}
 
@@ -198,7 +195,7 @@ public class UsrArticleController {
 				"../article/detail?id=" + id);
 	}
 
-	// 로그인 체크 -> 유무 체크 -> 권한 체크 -> 삭제
+	// 게시글 삭제 처리 후 결과를 리턴하는 메서드
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
@@ -219,9 +216,4 @@ public class UsrArticleController {
 		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(),
 				"../article/list");
 	}
-
-	
-
-	
-	
 }

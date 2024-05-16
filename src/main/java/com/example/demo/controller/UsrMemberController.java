@@ -37,9 +37,9 @@ public class UsrMemberController {
 	@Autowired
 	private ConferenceService conferenceService;
 
-		
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
+	// 로그인 아이디 중복 확인을 처리하는 메서드
 	public ResultData getLoginIdDup(String loginId) {
 
 		if (Ut.isEmpty(loginId)) {
@@ -55,8 +55,10 @@ public class UsrMemberController {
 		return ResultData.from("S-1", "사용 가능!", "loginId", loginId);
 	}
 
+
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
+	// 로그아웃을 처리하는 메서드
 	public String doLogout(HttpServletRequest req, @RequestParam(defaultValue = "/") String afterLogoutUri) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -70,6 +72,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/login")
+	// 로그인 페이지를 보여주는 메서드
 	public String showLogin(HttpServletRequest req) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -83,6 +86,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
+	// 로그인을 처리하는 메서드
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw,
 			@RequestParam(defaultValue = "/") String afterLoginUri) {
 
@@ -124,6 +128,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/join")
+	// 회원가입 페이지를 보여주는 메서드
 	public String showJoin(HttpServletRequest req) {
 
 		return "usr/member/join";
@@ -131,6 +136,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
+	// 회원가입을 처리하는 메서드
 	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String nickname,
 			String cellphoneNum, String email) {
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -170,6 +176,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myPage")
+	// 내 정보 페이지를 보여주는 메서드
 	public String showMyPage(HttpServletRequest req) {
 		/*
 		 * Rq rq = (Rq) req.getAttribute("rq");
@@ -180,6 +187,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myInfo")
+	// 내 정보 페이지를 보여주는 메서드
 	public String myInfo(HttpServletRequest req) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -190,6 +198,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/mySchedule")
+	// 내 일정 페이지를 보여주는 메서드
 	public String mySchedule(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
@@ -204,12 +213,14 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/checkPw")
+	// 비밀번호 확인 페이지를 보여주는 메서드
 	public String showCheckPw() {
 
 		return "usr/member/checkPw";
 	}
 
 	@RequestMapping("/usr/member/doCheckPw")
+	// 비밀번호 확인을 처리하는 메서드
 	public String doCheckPw(String loginPw) {
 
 		if (Ut.isNullOrEmpty(loginPw)) {
@@ -225,6 +236,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
+	// 회원 정보 수정을 처리하는 메서드
 	public String doModify(HttpServletRequest req, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -258,6 +270,7 @@ public class UsrMemberController {
 
 	// 문의사항
 	@RequestMapping("/usr/member/inquiry")
+	// 문의 작성 페이지를 보여주는 메서드
 	public String showinquiry(HttpServletRequest req) {
 
 		return "usr/member/inquiry";
@@ -265,6 +278,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doinquirywrite")
 	@ResponseBody
+	// 문의 작성을 처리하는 메서드
 	public String doWrite(HttpServletRequest req, String title, String body) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -289,6 +303,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myQuestionDetail")
+	// 내 문의 상세 페이지를 보여주는 메서드
 	public String showInquiryDetail(Model model, @RequestParam("id") int inquiryId) {
 		Inquiry inquiry = memberService.getInquiryById(inquiryId);
 		model.addAttribute("inquiry", inquiry);
@@ -296,24 +311,27 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myQuestion")
+	// 내 문의 목록 페이지를 보여주는 메서드
 	public String showMyQuestion(HttpServletRequest req, Model model) {
 		Rq rq = (Rq) req.getAttribute("rq");
-		
+
 		Member loginedMember = rq.getLoginedMember();
 		List<Inquiry> inquiries;
-		if(loginedMember.getId()==1) {
-			 inquiries = memberService.getAllInquiries2();
-		}else{
-			 inquiries = memberService.getAllInquiries(loginedMember.getId()); // 모든 문의사항 가져오기	
+		if (loginedMember.getId() == 1) {
+			inquiries = memberService.getAllInquiries2();
+		} else {
+			inquiries = memberService.getAllInquiries(loginedMember.getId()); // 모든 문의사항 가져오기
 		}
-		
+
 		model.addAttribute("inquiries", inquiries); // JSP 파일에서 inquiries를 사용할 수 있도록 모델에 추가
 		return "usr/member/myQuestion"; // myQuestion.jsp 파일을 보여줌
 	}
 
 	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
-	public String doWithdraw(HttpServletRequest req, @RequestParam(defaultValue = "../member/login") String afterLogoutUri) {
+	// 회원 탈퇴를 처리하는 메서드
+	public String doWithdraw(HttpServletRequest req,
+			@RequestParam(defaultValue = "../member/login") String afterLogoutUri) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (!rq.isLogined()) {
@@ -331,44 +349,27 @@ public class UsrMemberController {
 		return Ut.jsReplace("S-1", "탈퇴 처리되었습니다.", "/");
 	}
 
-	//관리자일때 문의사항 삭제가능
+	// 관리자일때 문의사항 삭제가능
 	@RequestMapping("/usr/member/doDelete")
 	@ResponseBody
+	// 문의사항을 삭제하는 메서드
 	public String doDelete(HttpServletRequest req, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		Inquiry inquiry = memberService.getInquiry(id);
-		
+
 		if (inquiry == null) {
 			return Ut.jsHistoryBack("F-1", Ut.f("%d번 문의사항은 존재하지 않습니다", id));
 		}
-		
+
 		ResultData loginedMemberCanDeleteRd = memberService.userCanDelete(rq.getLoginedMemberId(), inquiry);
 
 		if (loginedMemberCanDeleteRd.isSuccess()) {
 			memberService.deleteConference(id);
 		}
 
-		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(), "../member/myQuestion");
+		return Ut.jsReplace(loginedMemberCanDeleteRd.getResultCode(), loginedMemberCanDeleteRd.getMsg(),
+				"../member/myQuestion");
 	}
-	
-	
-//	// 관리자 페이지설정
-//	@RequestMapping("/usr/member/adminpage")
-//	public String showadmin(HttpServletRequest req, Model model) {
-//		Rq rq = (Rq) req.getAttribute("rq");
-//		Integer memberId = rq.getLoginedMemberId();
-//		ResultData loginMember = memberService.getMemberLevel(memberId);
-//		if (loginMember.isFail()) {
-//			return Ut.jsHistoryBack(loginMember.getResultCode(), loginMember.getMsg());
-//		}
-//		List<Inquiry> inquiries = memberService.getAllInquiries(); // 모든 문의사항 가져오기
-//		List<Member> members = memberService.getMembers(); // 모든 멤버가져오기
-//
-//		model.addAttribute("inquiries", inquiries);
-//		model.addAttribute("members", members);
-//
-//		return "usr/member/adminpage";
-//	}
 
 }
