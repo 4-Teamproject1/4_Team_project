@@ -13,24 +13,24 @@
 - 발표평가
 
 ## 🧑‍🤝‍🧑 개발자 소개
-**고의성** : 조장, 백엔드(아고다 및 숙소 크롤링/필터링), DB 설계, 발표
-**정다운** : 백엔드(기차 및 버스 크롤링, 관리자 설정, 문의사항, 학회/공모전 검색, DB 설계)
-**오지현** : 백엔드(학회 및 공모전 크롤링, 학회/공모전 필터링, 즐겨찾기, 조회수, 회원탈퇴, DB 설계)
-**김선경** : 프론트엔드(전체 총괄), 벡엔드(문의사항)
+- **고의성** : 조장, 백엔드(아고다 및 숙소 크롤링/필터링), DB 설계, 발표
+- **정다운** : 백엔드(기차 및 버스 크롤링, 관리자 설정, 문의사항, 학회/공모전 검색, DB 설계)
+- **오지현** : 백엔드(학회 및 공모전 크롤링, 학회/공모전 필터링, 즐겨찾기, 조회수, 회원탈퇴, DB 설계)
+- **김선경** : 프론트엔드(전체 총괄), 벡엔드(문의사항)
 ![개발자소개](https://github.com/4-Teamproject1/4_Team_project/assets/140681352/8ffed082-d94a-48bd-b528-6c4fa8164753)
 
 ## 💻 개발환경
-**Version** : Java 17
-**IDE** : Spring Tool Suite
-**Framework** : SpringBoot 3.1.9-SNAPSHOT
-**ORM** : MyBatis
+- **Version** : Java 17
+- **IDE** : Spring Tool Suite
+- **Framework** : SpringBoot 3.1.9-SNAPSHOT
+- **ORM** : MyBatis
 
 
 ## ⚙️ 기술 스택
-**Server** : Tomcat
-**DataBase** : ERD Cloud, MySQL
-**WS/WAS** : Tomcat
-**아이디어 회의** : Discord, Google Docs ,Google Sheet, ERD Cloud
+- **Server** : Tomcat
+- **DataBase** : ERD Cloud, MySQL
+- **WS/WAS** : Tomcat
+- **아이디어 회의** : Discord, Google Docs ,Google Sheet, ERD Cloud
 
 ## 📝 프로젝트 아키텍쳐
 
