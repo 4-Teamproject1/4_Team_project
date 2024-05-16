@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.vo.Conference;
 
 @Component
-public class ConferenceInfoCrawler5 {
+public class ConferenceInfoCrawler {
 	private WebDriver driver;
 
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
