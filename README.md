@@ -1,10 +1,10 @@
-4_TEAM_PROJECT
+# 4_TEAM_PROJECT
 [산업구조변화대응 특화훈련] 공공데이터를 활용한 웹앱개발자 양성 과정 중 진행한 팀 프로젝트 과제입니다.
 
-👨‍🏫 프로젝트 소개
+## 👨‍🏫 프로젝트 소개
 학회나 공모전에 참여하는 사람들을 위해 학회일정에 맞는 숙소와 교통편을 찾아서 추천해주고, 학회 및 공모전 일정을 제공하는 사이트를 제작해보았습니다.
 
-⏲️ 개발 기간
+## ⏲️ 개발 기간
 2024.04.08(월) ~ 2024.05.13(월)
 주제 선정
 피그마 제작
@@ -12,32 +12,32 @@ github 협업 세팅
 역할분담
 발표평가
 
-🧑‍🤝‍🧑 개발자 소개
+## 🧑‍🤝‍🧑 개발자 소개
 고의성 : 조장, 백엔드(아고다 및 숙소 크롤링/필터링), DB 설계, 발표
 정다운 : 백엔드(기차 및 버스 크롤링, 관리자 설정, 문의사항, 학회/공모전 검색, DB 설계)
 오지현 : 백엔드(학회 및 공모전 크롤링, 학회/공모전 필터링, 즐겨찾기, 조회수, 회원탈퇴, DB 설계)
 김선경 : 프론트엔드(전체 총괄), 벡엔드(문의사항)
 ![개발자소개](https://github.com/4-Teamproject1/4_Team_project/assets/140681352/8ffed082-d94a-48bd-b528-6c4fa8164753)
 
-💻 개발환경
+## 💻 개발환경
 Version : Java 17
 IDE : Spring Tool Suite
 Framework : SpringBoot 3.1.9-SNAPSHOT
 ORM : MyBatis
 
 
-⚙️ 기술 스택
+## ⚙️ 기술 스택
 Server : Tomcat
 DataBase : ERD Cloud, MySQL
 WS/WAS : Tomcat
 아이디어 회의 : Discord, Google Docs ,Google Sheet, ERD Cloud
 
-📝 프로젝트 아키텍쳐
+## 📝 프로젝트 아키텍쳐
 
 ![](https://velog.velcdn.com/images/jihyeon2434/post/429e7dcb-5e58-4ee3-8d79-8f56f5010f94/image.png)
 ![](https://velog.velcdn.com/images/jihyeon2434/post/159ea9db-8c0f-40c3-bab5-cef00f105f28/image.png)
 
-📌 주요 기능
+## 📌 주요 기능
 [벡앤드]
 - 학회/공모전 정보 등록
 하이브레인넷에서 제공하는 학회/공모전 리스트(제목, 기간, 장소 등)를 크롤링으로 가져온다.  
@@ -77,7 +77,7 @@ WS/WAS : Tomcat
 
 
 
-✒️ 크롤링
+## ✒️ 크롤링
 크롤링 사이트 
 - [하이브레인넷](https://www.hibrain.net/?gad_source=1&gclid=CjwKCAjw9IayBhBJEiwAVuc3fhQsHRNTHgdATnqSQoFxhqCJed0N41lGFhDH4sJ7SF2MqHnpirnDOhoC-t0QAvD_BwE)
 - [네이버 길찾기](https://map.naver.com/p/directions/-/-/-/car?c=15.00,0,0,0,dh)
