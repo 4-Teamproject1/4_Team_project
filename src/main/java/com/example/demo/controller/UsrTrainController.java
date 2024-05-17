@@ -25,7 +25,13 @@ public class UsrTrainController {
 			@RequestParam(defaultValue = "대전역") String arriveTrain, @RequestParam(defaultValue = "21") String ondate) {
 
 		List<Train> spanTexts = trainTicketService.gettrainservice(departureTrain, arriveTrain, ondate);
-
+		
+        // 전달된 파라미터 값 로그 출력
+        System.out.println("출발 역: " + departureTrain);
+        System.out.println("도착 역: " + arriveTrain);
+        System.out.println("출발 일자: " + ondate);
+		
+		
 		// 여기서 spanTexts를 이용하여 모델에 추가
 		for (Train text : spanTexts) {
 			System.out.println("텍스트: " + text);

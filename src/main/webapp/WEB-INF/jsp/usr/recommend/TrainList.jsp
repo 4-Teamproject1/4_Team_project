@@ -94,7 +94,7 @@
 <form action="/usr/recommend/TrainList" method="get">
 	<div class="searchBox">
 		<span class="material-symbols-outlined train_icon">train</span>
-		<select class="select select-ghost w-full max-w-xs arrival_train" name="arrivalTrain">
+		<select class="select select-ghost w-full max-w-xs arrival_train" name="departureTrain">
 			<option value="">출발역</option>
 			<option value="서울">서울</option>
 			<option value="강릉">강릉</option>
@@ -130,7 +130,7 @@
 			<option value="행신">행신</option>
 		</select>
 
-		<select class="select select-ghost w-full max-w-xs destination_train" name="destinationTrain">
+		<select class="select select-ghost w-full max-w-xs destination_train" name="arriveTrain">
 			<option value="">도착역</option>
 			<option value="서울">서울</option>
 			<option value="부산">부산</option>
