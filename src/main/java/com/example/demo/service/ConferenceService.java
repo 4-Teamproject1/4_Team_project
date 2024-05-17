@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.controller.ConferenceInfoCrawler5;
+import com.example.demo.controller.ConferenceInfoCrawler;
 import com.example.demo.repository.CompetitionRepository;
 import com.example.demo.repository.ConferenceRepository;
 import com.example.demo.util.Ut;
@@ -28,14 +28,14 @@ public class ConferenceService {
 	private CompetitionRepository competitionRepository;
 
 	@Autowired
-	private ConferenceInfoCrawler5 crawler;
+	private ConferenceInfoCrawler crawler;
 
 	public ConferenceService(ConferenceRepository conferenceRepository) {
 		this.conferenceRepository = conferenceRepository;
 	}
 
 	public List<Conference> crawlAndSaveConferences() {
-		ConferenceInfoCrawler5 crawler = new ConferenceInfoCrawler5();
+		ConferenceInfoCrawler crawler = new ConferenceInfoCrawler();
 		// 크롤러를 호출하여 학회 데이터를 가져옵니다.
 		List<Conference> conferences = crawler.crawlConference();
 

@@ -36,13 +36,14 @@ public class TrainTicketCrawler {
         arrivalInput.sendKeys("부산");
 
         // 날짜 입력 (수정된 부분)
-        LocalDate date = LocalDate.now().plusDays(3); // 예를 들어, 오늘로부터 3일 뒤로 설정
+        LocalDate date = LocalDate.now().plusDays(3); // 오늘로부터 3일 뒤로 설정
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd");
         String formattedDate = date.format(formatter);
         WebElement dateInput = driver.findElement(By.xpath("//dd[contains(@class, 'lx5CLVZizAnop1laHAqU')]"));
-        dateInput.click(); // 클릭하여 날짜 선택 팝업 띄우기
+        dateInput.click(); // 날짜 선택 팝업 띄우기
         WebElement selectedDate = driver.findElement(By.xpath("//button[@aria-label='" + formattedDate + "']"));
         selectedDate.click(); // 선택한 날짜 클릭
+
         // 스크롤 내리기
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 300)");

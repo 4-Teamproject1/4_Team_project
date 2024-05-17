@@ -250,9 +250,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	<a href="../conference/list">
 		<button class="menu_box2 academicEventList">학회 정보</button>
 	</a>
-	<a href="../member/myQuestion">
-		<button class="menu_box2 myquestion">문의사항</button>
-	</a>
 	<a href="../hotel/recommendlist">
 		<button class="menu_box2 recommend">숙박&교통</button>
 	</a>
@@ -385,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 		<div class="secon">
 			<img class="profile_img"
-				src="https://velog.velcdn.com/images/vrslxowe/post/d2891dad-8278-4f37-8202-102a29742af1/image.jpg"
+				src="https://velog.velcdn.com/images/vrslxowe/post/50d47acc-65bd-40a6-8edb-6108b538bd4f/image.jpg"
 				alt="" />
 			<div class="info_box">
 				<div class="pro_name">
@@ -506,7 +503,7 @@ h1 {
 	right: 4.5%;
 	background-color: #00256c;
 	color: white;
-	width: 550px;
+	width: 460px;
 	height: 60px;
 	border-radius: 10px;
 	opacity: 0.9;

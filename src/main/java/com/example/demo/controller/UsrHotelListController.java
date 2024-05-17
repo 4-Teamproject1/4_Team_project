@@ -29,50 +29,45 @@ public class UsrHotelListController {
 
 	}
 
-	// 액션 메서드
+	// 호텔 리스트 크롤링 및 저장하는 메서드 호출
 	@RequestMapping("usr/hotel/crawl")
-
 	public List<Hotel> crawlAndSaveHotelList(HttpServletRequest req, HttpServletResponse response, Model model) {
-
-		return hotelListService.crawlAndSaveHotelList();
+	    return hotelListService.crawlAndSaveHotelList();
 	}
 
-	/*
-	 * @RequestMapping("usr/hotel/recommendlist") public String
-	 * showHotelList2(HttpServletRequest req, Model model) { Rq rq = (Rq)
-	 * req.getAttribute("rq");
-	 * 
-	 * List<Hotel> hotelList = hotelListService.getHotelList();
-	 * model.addAttribute("hotelList", hotelList);
-	 * 
-	 * return "usr/hotel/recommendlist"; }
-	 */
-
+	// 추천된 호텔 리스트를 보여주는 메서드
 	@RequestMapping("usr/hotel/recommendlist")
-	public String showRecommendedHotelList(@RequestParam(defaultValue = "") String area,
-			Model model) {
-		System.out.println(area);
-		if (area == null || area.equals("")) {
-			List<Hotel> hotelList = hotelListService.getAllHotelList();
-			model.addAttribute("hotelList", hotelList);
-
-		} else {
-			List<Hotel> hotelList = hotelListService.getHotelList(area);
-			model.addAttribute("hotelList", hotelList);
-		}
-		return "usr/hotel/recommendlist";
+	public String showRecommendedHotelList(@RequestParam(defaultValue = "") String area, Model model) {
+	    // 지역(area)에 따라 추천된 호텔 리스트를 가져와서 모델에 추가합니다.
+	    if (area == null || area.equals("")) {
+	        // 만약 지역(area)이 없거나 비어있다면 모든 호텔 리스트를 가져와서 모델에 추가합니다.
+	        List<Hotel> hotelList = hotelListService.getAllHotelList();
+	        model.addAttribute("hotelList", hotelList);
+	    } else {
+	        // 지역(area)에 해당하는 호텔 리스트를 가져와서 모델에 추가합니다.
+	        List<Hotel> hotelList = hotelListService.getHotelList(area);
+	        model.addAttribute("hotelList", hotelList);
+	    }
+	    // 추천된 호텔 리스트를 표시하는 뷰 페이지로 이동합니다.
+	    return "usr/hotel/recommendlist";
 	}
 
+	// 검색된 호텔 리스트를 보여주는 메서드
 	@RequestMapping("usr/hotel/searchList")
 	public String showSearchHotelList(@RequestParam(required = false) String endLocation, Model model) {
-		if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
-			String searchPrefix = endLocation.substring(0, 2); // 앞 두 글자 추출
-			List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
-			model.addAttribute("hotelList", filteredHotels);
-		} else {
-			model.addAttribute("hotelList", new ArrayList<>()); // 입력값이 부적절하면 빈 목록을 반환
-		}
-		return "usr/hotel/recommendlist";
+	    if (endLocation != null && !endLocation.isEmpty() && endLocation.length() >= 2) {
+	        // 검색된 위치(endLocation)가 null이 아니고 비어있지 않으며 길이가 2 이상이면 실행됩니다.
+	        String searchPrefix = endLocation.substring(0, 2); // 검색된 위치의 앞 두 글자를 추출합니다.
+	        // 검색된 위치의 앞 두 글자로 시작하는 호텔 리스트를 가져와서 모델에 추가합니다.
+	        List<Hotel> filteredHotels = hotelListService.getHotelsByLocationPrefix(searchPrefix + "%");
+	        model.addAttribute("hotelList", filteredHotels);
+	    } else {
+	        // 검색된 위치가 부적절한 경우 빈 목록을 생성하여 모델에 추가합니다.
+	        model.addAttribute("hotelList", new ArrayList<>());
+	    }
+	    // 검색된 호텔 리스트를 표시하는 뷰 페이지로 이동합니다.
+	    return "usr/hotel/recommendlist";
 	}
+
 
 }

@@ -32,8 +32,8 @@
 		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
 		</a>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
+		<a href="../hotel/recommendlist">
+			<button class="hd_recommend">숙박&교통</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
 			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
@@ -365,6 +365,8 @@ body {
 	flex: 4;
 	margin: 20px;
 	height: 100%;
+	position: relative;
+	left: 50px;
 }
 
 .main-list {
@@ -548,7 +550,7 @@ tr {
 
 /* 하단 바 */
 .bottom-bar {
-	margin-top: 60px;
+	margin-top: 40px;
 	text-align: center;
 }
 
@@ -557,16 +559,17 @@ tr {
 }
 
 .page-bar button {
-    background-color: #f9f9f9; /* 버튼 배경색 */
-    border: 1px solid #ccc; /* 테두리 */
+    background-color: white; /* 버튼 배경색 */
+    border: 1px solid gray; /* 테두리 */
     color: #333; /* 글자 색상 */
-    padding: 8px 16px; /* 패딩 */
+    padding: 4px 11px; /* 패딩 */
     margin: 4px; /* 마진 */
     border-radius: 4px; /* 모서리 둥글게 */
 }
 
 .page-bar button:hover {
-    background-color: #e9e9e9; /* 마우스 호버시 색상 변경 */
+    background-color: #7E9DD9; /* 마우스 호버시 색상 변경 */
+    color: white;
 }
 
 
@@ -575,6 +578,8 @@ tr {
 /* 사이드 학술 연구정보 박스 */
 
   .research-info-container {
+  	position: relative;
+  	left: 60px;
     background-color: #fff;
     display: flex;
     max-width: 183px;
@@ -616,7 +621,6 @@ tr {
     display: flex;
     margin-top: 11px;
     flex-direction: column;
-    padding: 11px 0;
     width: 140px;
     height: 80px;
     }
