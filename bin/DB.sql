@@ -1,4 +1,79 @@
 
+# 테스트 DB 생성
+DROP DATABASE IF EXISTS acc_app_2024_04__test;
+CREATE DATABASE acc_app_2024_04__test;
+USE acc_app_2024_04__test;
+
+# 개발 DB 생성
+DROP DATABASE IF EXISTS acc_app_2024_04__dev;
+CREATE DATABASE acc_app_2024_04__dev;
+USE acc_app_2024_04__dev;
+
+SELECT *
+FROM `member`;
+
+SELECT *
+FROM `song`;
+SELECT *
+FROM `product`;
+
+SELECT *
+FROM `cart_item`;
+
+SELECT *
+FROM `cash_log`;
+
+SELECT *
+FROM `product_order`;
+
+SELECT *
+FROM `order_item`;
+
+SELECT *
+FROM `rebate_order_item`;
+
+SELECT pay_price - refund_price
+FROM `rebate_order_item` AS ROI
+
+## DB스위치문 하기
+
+SELECT order_item_id, pay_price, refund_price, wholesale_price, pg_fee,
+CASE
+    WHEN pay_price = refund_price
+    THEN 0
+    ELSE wholesale_price - pg_fee
+END AS rebate_price    
+FROM `rebate_order_item`;
+
+
+#####
+DROP DATABASE IF EXISTS `batch_ex_24_04`;
+CREATE DATABASE `batch_ex_24_04`;
+USE `batch_ex_24_04`;
+
+SHOW TABLES;
+
+SELECT *
+FROM product;
+
+SELECT *
+FROM rebate_order_item;
+
+
+# 개선 - 2
+SELECT ROI.order_item_id AS `주문 품목 번호`,
+DATE(ROI.order_item_create_date) AS `주문 날짜`,
+CONCAT(FORMAT(ROI.pay_price - ROI.refund_price,0),'원') AS `결제금액`,
+ROI.product_name AS `상품명`,
+ROI.product_option_color AS `색상`,
+ROI.product_option_size AS `사이즈`,
+ROI.quantity - ROI.refund_quantity AS `수량`
+FROM rebate_order_item AS ROI
+ORDER BY ROI.order_item_id ASC;
+
+#####
+
+
 DROP DATABASE IF EXISTS `Spring_AM_01`;
 CREATE DATABASE `Spring_AM_01`;
 USE `Spring_AM_01`;
@@ -479,22 +554,22 @@ GROUP BY RP.relTypeCode,RP.relId;
 
 #학회 테이블 생성
 CREATE TABLE `academy` (
-	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
-	categoryId INT NOT NULL,
-	`title`  VARCHAR(500) NULL,
-	`hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-	`eventPeriod` VARCHAR(500) NULL,
-	`applicationPeriod`	 VARCHAR(500) NULL,
-	`entryFee`	 VARCHAR(500) NULL ,
-	`place`	 VARCHAR(500) NULL,
-	`address`	 VARCHAR(500) NULL,
-	`homepage`	 VARCHAR(500) NULL,
-	`imageURL`	 VARCHAR(500) NULL,
-	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
-	`goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
-	AmemberId INT(10) NOT NULL DEFAULT 1
-	
+   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   `themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
+   categoryId INT NOT NULL,
+   `title`  VARCHAR(500) NULL,
+   `hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+   `eventPeriod` VARCHAR(500) NULL,
+   `applicationPeriod`    VARCHAR(500) NULL,
+   `entryFee`    VARCHAR(500) NULL ,
+   `place`    VARCHAR(500) NULL,
+   `address`    VARCHAR(500) NULL,
+   `homepage`    VARCHAR(500) NULL,
+   `imageURL`    VARCHAR(500) NULL,
+   `regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
+   `goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
+   AmemberId INT(10) NOT NULL DEFAULT 1
+   
 );
 
 SELECT *
@@ -533,20 +608,20 @@ FROM `academy`;
 
 #공모전테이블 생성
 CREATE TABLE `competition` (
-	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`title`  VARCHAR(500) NULL,
-	`themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
-	`hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-	`totalPrizeMoney` VARCHAR(500) NULL,
-	`firstPrizeMoney` VARCHAR(500) NULL,
-	`applicationPeriod`	 VARCHAR(500) NULL,
-	`homepage`	 VARCHAR(500) NULL,
-	`imageURL`	 VARCHAR(500) NULL,
-	`contactNum`	 VARCHAR(500) NULL,
-	`contactEmail`	 VARCHAR(500) NULL,
-	`regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
-	`goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
-	CmemberId INT(10) NOT NULL DEFAULT 1
+   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   `title`  VARCHAR(500) NULL,
+   `themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
+   `hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+   `totalPrizeMoney` VARCHAR(500) NULL,
+   `firstPrizeMoney` VARCHAR(500) NULL,
+   `applicationPeriod`    VARCHAR(500) NULL,
+   `homepage`    VARCHAR(500) NULL,
+   `imageURL`    VARCHAR(500) NULL,
+   `contactNum`    VARCHAR(500) NULL,
+   `contactEmail`    VARCHAR(500) NULL,
+   `regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
+   `goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
+   CmemberId INT(10) NOT NULL DEFAULT 1
 );
 
 
@@ -554,11 +629,11 @@ CREATE TABLE `competition` (
 UPDATE article
 SET hitCount = hitCount + 1
 WHERE id = 1;
-			
-			SELECT *
-			FROM article;
-			
-			
+         
+         SELECT *
+         FROM article;
+         
+         
 UPDATE `competition`
 SET hitCount = hitCount + 1
 WHERE id = 1;
@@ -569,17 +644,16 @@ FROM `competition`;
 
 #호텔 테이블 생성
 CREATE TABLE `hotel` (
-	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`imgURL` VARCHAR(500) NOT NULL,
-	hotelName VARCHAR(500) NOT NULL,
-	grade CHAR(100) NOT NULL,
-	price CHAR(100) NOT NULL,
-	service CHAR(100) NOT NULL,
-	location CHAR(100) NOT NULL,
+   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   `imgURL` VARCHAR(500) NOT NULL,
+   hotelName VARCHAR(500) NOT NULL,
+   grade CHAR(100) NOT NULL,
+   price CHAR(100) NOT NULL,
+   service CHAR(100) NOT NULL,
+   location CHAR(100) NOT NULL,
     href TEXT NOT NULL
 );
 
-DROP TABLE `hotel`;
 
 SELECT *
 FROM `hotel`;
@@ -610,7 +684,8 @@ CREATE TABLE inquiry(
     memberId INT(10) NOT NULL,
     IboardId INT(10) NOT NULL DEFAULT 2,
     `body` VARCHAR(500) NOT NULL,
-    title VARCHAR(500) NOT NULL
+    title VARCHAR(500) NOT NULL,
+    ImemberId INT(10) NOT NULL DEFAULT 1
 );
 
 ## alter table inquiry add column IboardId int(10) not null DEFAULT 2 after memberId ; 컬럼추가실험
@@ -623,9 +698,17 @@ INSERT INTO
 inquiry SET
 regDate = NOW(),
 updateDate = NOW(),
+memberId = 1,
+title = '테스트 문의1',
+`body` = 'qwerasdf';
+
+INSERT INTO
+inquiry SET
+regDate = NOW(),
+updateDate = NOW(),
 memberId = 2,
-title = '123',
-`body` = 'reqwrq';
+title = '테스트 문의2',
+`body` = 'abcdgg';
 
 
 ## 관리자 테이블 test중
@@ -642,21 +725,23 @@ CREATE TABLE `admin`(
 SELECT *
 FROM `admin`;
 
-			SELECT `authLevel`
-			FROM MEMBER
-			WHERE `authLevel` = 7;
-			
+         SELECT `authLevel`
+         FROM MEMBER
+         WHERE `authLevel` = 7;
+         
             SELECT *
-			FROM MEMBER
-			WHERE authLevel != 7;
-			
-			
-			SELECT `authLevel`
-			FROM MEMBER
-			WHERE id = 1;
-			
-			
-			SELECT COUNT(*)
-			FROM `academy`
-			WHERE categoryId = 2
-			ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC;
+         FROM MEMBER
+         WHERE authLevel != 7;
+         
+         
+         SELECT `authLevel`
+         FROM MEMBER
+         WHERE id = 1;
+         
+         
+         SELECT COUNT(*)
+         FROM `academy`
+         WHERE categoryId = 2
+         ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC;
+
+		

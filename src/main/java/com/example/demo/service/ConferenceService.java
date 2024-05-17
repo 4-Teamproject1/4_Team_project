@@ -12,7 +12,6 @@ import com.example.demo.repository.CompetitionRepository;
 import com.example.demo.repository.ConferenceRepository;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Conference;
-import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 
 @Service

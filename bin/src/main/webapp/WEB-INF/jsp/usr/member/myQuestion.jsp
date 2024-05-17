@@ -47,8 +47,8 @@
 		<a href="../competition/list">
 			<button class="hd_contest">공모전</button>
 		</a>
-		<a href="../member/myQuestion">
-			<button class="hd_question">문의사항</button>
+		<a href="../hotel/recommendlist">
+			<button class="hd_recommend">숙박&교통</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
 			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
@@ -78,7 +78,9 @@
 		<div class="bar_num">번호</div>
 		<div class="bar_title">문의 제목</div>
 		<div class="bar_date">문의 날짜</div>
-		<div class="bar_delete">삭제</div>
+		<c:if test="${loggedInMemberId == 'admin' }">
+        <div class="bar_delete">삭제</div>
+    </c:if>
 	</div>
 
 	<div class="question_box">
@@ -254,19 +256,19 @@ body {
 
 .bar_title {
 	position: relative;
-	left: -10;
+	left: -10px;
 	width: 1000px;
 }
 
 .bar_date {
 	position: relative;
-	left: -80;
+	left: -80px;
 	width: 100px;
 }
 
 .bar_delete {
-	position: relative;
-	left: -30px;
+	position: absolute;
+	left: 1040px;
 	width: 40px;
 	
 }

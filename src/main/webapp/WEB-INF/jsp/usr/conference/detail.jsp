@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 필요한 JavaScript 라이브러리 포함 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script src="../path/to/your/javascript/file.js"></script> -->
+
+<!-- 폰트 스타일링을 위한 Google Fonts -->
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<!-- 로그인한 회원 정보 설정 -->
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
 <script>
+//페이지에 대한 매개변수 정의
 	const params = {};
 	params.id = parseInt('${param.id}');
 	params.themeId = parseInt('${param.themeId}');
@@ -25,7 +29,7 @@
 
 
 
-
+<!-- 헤더 섹션 -->
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -58,6 +62,8 @@
 </header>
 
 
+
+<!-- 메인 콘텐츠 섹션 -->
 <div class="list-container">
 	<div class="list-board">
 		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
@@ -67,11 +73,6 @@
 
 	<div class="list-items-container">
 		<div class="list-items-section">
-
-			<!-- <form class="search-form">
-				Search form
-				Your search form HTML here
-			</form> -->
 			<div class="list-items-section-box">
 				<div style="font-size: 20px; margin-bottom: 10px;">학술행사</div>
 				<div class="detail-top-bar">
@@ -90,7 +91,6 @@
 						</c:if>
 					</div>
 				</div>
-
 				<table class="table">
 					<tbody>
 						<tr>
@@ -129,79 +129,27 @@
 								</c:choose>
 							</tr>
 						</c:if>
-
-
-						<!--   <tr>
-                            <td>담당자 연락처</td>
-                            <td>전화번호</td>
-                            <td>담당자 이메일</td>
-                            <td>이메일 todo</td>
-                        </tr> -->
 					</tbody>
-
-
-					<!-- 추가적인 데이터 행들을 여기에 추가 -->
-
 				</table>
-
-
+				<!-- 행사 이미지 -->
 				<div class="competition-body">
 					<img src="${conference.imageURL}" alt="" style="width: 800px; height: auto;" loading="lazy" />
-
 				</div>
+				<!-- 즐겨찾기 버튼 -->
 				<div class="btn-box">
 					<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
 				</div>
-
 			</div>
-			<%-- <div class="bookmark">
-				<!-- <div class="place-box">
-					<div>장소</div>
-					<div class="map" id="map" style="width: 500px; height: 350px;"></div>
-					<div>교통편</div>
-					<div>바로가기</div>
-				</div> -->
-
-				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	4d58ba447ad884369bfffee6e0c34649"></script>
-				<!-- <script>
-						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-							center : new kakao.maps.LatLng(33.450701,
-									126.570667), // 지도의 중심좌표
-							level : 3
-						// 지도의 확대 레벨
-						};
-
-						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-						// 마커가 표시될 위치입니다 
-						var markerPosition = new kakao.maps.LatLng(33.450701,
-								126.570667);
-
-						// 마커를 생성합니다
-						var marker = new kakao.maps.Marker({
-							position : markerPosition
-						});
-
-						// 마커가 지도 위에 표시되도록 설정합니다
-						marker.setMap(map);
-
-						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-						// marker.setMap(null);
-					</script> -->
-				<button id="likeButton" class="bookmark-button" onclick="doGoodReaction(${param.themeId}, ${param.id})">즐겨찾기</button>
-							<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">좋아요</button>
-
-			</div> --%>
 		</div>
 	</div>
 </div>
 
+
+<!-- 사이드바 섹션 -->
 <div class="side-bar-container"></div>
 </div>
 
 <script>
-
 <!-- 좋아요 싫어요 버튼	-->
 function checkRP() {
 	if(isAlreadyAddGoodRp == true){
@@ -229,31 +177,22 @@ if(isNaN(params.memberId) == true){
 			console.log(data);
 			console.log('data.data1Name : ' + data.data1Name);
 			console.log('data.data1 : ' + data.data1);
-/* 			console.log('data.data2Name : ' + data.data2Name);
-			console.log('data.data2 : ' + data.data2); */
 			if(data.resultCode.startsWith('S-')){
 				var likeButton = $('#likeButton');
-				var likeCount = $('#likeCount');
-			/* 	var DislikeButton = $('#DislikeButton');
-				var DislikeCount = $('#DislikeCount'); */
-				
+				var likeCount = $('#likeCount');		
 				if(data.resultCode == 'S-1'){
 					likeButton.toggleClass('btn-outline');
 					likeCount.text(data.data1);
 				}else if(data.resultCode == 'S-2'){
-				/* 	DislikeButton.toggleClass('btn-outline');
-					DislikeCount.text(data.data2); */
 					likeButton.toggleClass('btn-outline');
 					likeCount.text(data.data1);
 				}else {
 					likeButton.toggleClass('btn-outline');
 					likeCount.text(data.data1);
 				}
-				
 			}else {
 				alert(data.msg);
 			}
-	
 		},
 		error: function(jqXHR,textStatus,errorThrown) {
 			alert('좋아요 오류 발생 : ' + textStatus);
@@ -265,7 +204,7 @@ if(isNaN(params.memberId) == true){
 
 </script>
 
-<!-- 조회수 -->
+<!-- 조회수 증가 관련 스크립트 -->
 <script>
 function ConferenceDetail__doIncreaseHitCount() {
     $.get('../conference/doIncreaseHitCountRd', {
@@ -359,6 +298,7 @@ $(function() {
 	left: 1060px;
 	width: 35px;
 }
+
 .delete_btn:hover {
 	border-bottom: 1px solid;
 }

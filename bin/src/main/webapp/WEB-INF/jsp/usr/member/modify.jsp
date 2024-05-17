@@ -222,12 +222,12 @@ body {
 }
 
 .modify-btn {
-	left: -20%;
+	left: 20%;
 }
 
 .back-btn {
 	top: -6.5px;
-	left: 20%;
+	left: -20%;
 }
 
 @media ( max-width : 991px) {

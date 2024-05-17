@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- 필요한 JavaScript 라이브러리 포함 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../actual/path/to/javascript/file.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
-<!-- daisy ui 불러오기 -->
+<!-- 스타일링을 위해 Daisy UI 포함 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<!-- 로그인한 회원의 이름과 ID 설정 -->
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
@@ -21,7 +23,7 @@
 	
 </script>
 
-
+<!-- 헤더 섹션 -->
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -52,7 +54,7 @@
 		</c:if>
 	</nav>
 </header>
-
+<!-- 메인 콘텐츠 섹션 -->
 <div class="list-container">
 	<div class="list-board">
 		<a href="../conference/list" class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</a>
@@ -161,6 +163,7 @@ function checkRP() {
 	}
 }
 
+// 좋아요 싫어요 실행 함수
 function doGoodReaction(themeId, academyId) {
 if(isNaN(params.memberId) == true){
 		if(confirm('로그인 후 이용 가능합니다.')){
@@ -179,20 +182,17 @@ if(isNaN(params.memberId) == true){
 			console.log(data);
 			console.log('data.data1Name : ' + data.data1Name);
 			console.log('data.data1 : ' + data.data1);
-/* 			console.log('data.data2Name : ' + data.data2Name);
-			console.log('data.data2 : ' + data.data2); */
+
 			if(data.resultCode.startsWith('S-')){
 				var likeButton = $('#likeButton');
 				var likeCount = $('#likeCount');
-			/* 	var DislikeButton = $('#DislikeButton');
-				var DislikeCount = $('#DislikeCount'); */
+		
 				
 				if(data.resultCode == 'S-1'){
 					likeButton.toggleClass('btn-outline');
 					likeCount.text(data.data1);
 				}else if(data.resultCode == 'S-2'){
-				/* 	DislikeButton.toggleClass('btn-outline');
-					DislikeCount.text(data.data2); */
+				
 					likeButton.toggleClass('btn-outline');
 					likeCount.text(data.data1);
 				}else {
@@ -216,8 +216,9 @@ if(isNaN(params.memberId) == true){
 </script>
 
 
-<!-- 조회수 -->
+ 
 <script>
+// 조회수 증가 함수
 function CompetitionDetail__doIncreaseHitCount() {
     $.get('../competition/doIncreaseHitCountRd', {
         id : params.id,
