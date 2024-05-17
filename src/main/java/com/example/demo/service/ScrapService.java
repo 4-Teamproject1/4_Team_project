@@ -62,18 +62,7 @@ public class ScrapService {
 		return ResultData.from("S-1", "좋아요!");
 	}
 
-	/*
-	 * public ResultData addBadReactionPoint(int loginedMemberId, String
-	 * relTypeCode, int relId) { int affectedRow =
-	 * reactionPointRepository.addBadReactionPoint(loginedMemberId, relId);
-	 * 
-	 * if (affectedRow != 1) { return ResultData.from("F-1", "싫어요 실패"); }
-	 * 
-	 * switch (relTypeCode) { case "article":
-	 * articleService.increaseBadReactionPoint(relId); break; }
-	 * 
-	 * return ResultData.from("S-1", "싫어요!"); }
-	 */
+
 	public ResultData deleteGoodReactionPoint(int loginedMemberId, int themeId, int academyId) {
 		scrapRepository.deleteReactionPoint(loginedMemberId, themeId, academyId);
 		if (themeId == 1) {
@@ -85,15 +74,7 @@ public class ScrapService {
 
 	}
 
-	/*
-	 * public ResultData deleteBadReactionPoint(int loginedMemberId, String
-	 * relTypeCode, int relId) {
-	 * reactionPointRepository.deleteReactionPoint(loginedMemberId, relId);
-	 * 
-	 * switch (relTypeCode) { case "article":
-	 * articleService.decreaseBadReactionPoint(relId); break; } return
-	 * ResultData.from("S-1", "싫어요 취소 됨"); }
-	 */
+	
 
 	public boolean isAlreadyAddGoodRp(int memberId, int academyId, int themeId) {
 		int getPointTypeCodeByMemberId = scrapRepository.getSumReactionPoint(memberId, academyId, themeId);

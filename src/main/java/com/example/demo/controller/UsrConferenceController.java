@@ -15,7 +15,6 @@ import com.example.demo.service.ConferenceService;
 import com.example.demo.service.ScrapService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Conference;
-import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
