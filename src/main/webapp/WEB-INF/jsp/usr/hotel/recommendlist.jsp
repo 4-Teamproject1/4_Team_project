@@ -12,32 +12,34 @@
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 <script>
+	//도시 선택 팝업 함수
 	document.addEventListener("DOMContentLoaded", function() {
 		const cityBox = document.querySelector('.city_box');
 		const popup = document.createElement('div');
 		popup.classList.add('popup');
 
-		// 도시 목록
 		const areas = [ "서울", "대전", "부산", "대구", "광주", "인천", "제주" ];
 
 		areas.forEach(function(area) {
 			const areaElement = document.createElement('div');
 			areaElement.textContent = area;
-			areaElement.classList.add('area');
+			areaElement.classList.add('area'); 
 			areaElement.addEventListener('click', function() {
-				cityBox.value = area; // 선택된 도시로 입력 필드 값 설정
-				popup.style.display = 'none'; // 지역을 선택한 후 팝업 숨김
+				// 선택된 도시로 입력 필드 값 설정
+				cityBox.value = area;
+				// 지역 선택 후 팝업 숨김
+				popup.style.display = 'none';
 			});
 			popup.appendChild(areaElement);
 		});
-
+		// 클릭 이벤트가 상위 요소로 전파되지 않도록
 		cityBox.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+			event.stopPropagation();
 			popup.style.display = 'block';
 		});
 
 		popup.addEventListener('click', function(event) {
-			event.stopPropagation(); // 클릭 이벤트가 문서 본문으로 전파되지 않도록 함
+			event.stopPropagation();
 		});
 
 		document.body.appendChild(popup);
@@ -49,25 +51,22 @@
 			}
 		});
 
-		// form 제출 시 input 값을 설정
+		// form 제출 시 input 값 설정
 		document.querySelector('.btn_sort_bar').addEventListener('click',
 				function(event) {
 					document.querySelector('.city_box').value = cityBox.value;
 				});
 	});
 
+	//체크인,아웃 날짜 선택 기능 함수
 	$(document).ready(function() {
-		// date_start_btn 버튼을 클릭할 때의 동작 설정
 		$("#date_start_btn").click(function() {
-			// jQuery UI의 DatePicker를 활성화하고 설정
 			$("#datepicker").datepicker({
 				dateFormat : 'yy년 mm월 dd일',
 				onSelect : function(dateText, inst) {
-					// 선택한 날짜를 텍스트 입력란에 넣음
-					$(".city_box").val(dateText);
+					$(".date_start").val(dateText);
 				}
 			});
-			// 달력 표시
 			$("#datepicker").datepicker("show");
 		});
 	});
@@ -1431,8 +1430,6 @@ body {
 		slider.value = this.value;
 		slider.dispatchEvent(new Event('input'));
 	});
-
-	// JavaScript 코드
 
 	document.addEventListener('DOMContentLoaded', function() {
 		// 모든 체크박스 요소를 가져옵니다.
