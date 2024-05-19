@@ -12,10 +12,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
+
 <script>
-/* 메인 이미지 슬라이드 */
+
+//이미지가 3초마다 자동으로 슬라이드 되도록 설정
   jQuery(document).ready(function($) {
-    // 자동으로 슬라이드되도록 설정합니다.
     setInterval(function() {
       moveRight();
     }, 3000);
@@ -23,7 +24,6 @@
     var slideWidth = $("#slider ul li").width();
     var slideHeight = $("#slider ul li").height();
     var sliderUlWidth = slideCount * slideWidth;
-    // 슬라이더의 너비와 높이를 설정합니다.
     $("#slider").css({
       width: slideWidth,
       height: slideHeight
@@ -32,9 +32,9 @@
       width: sliderUlWidth,
       marginLeft: -slideWidth
     });
-    // 슬라이더의 마지막 아이템을 첫 번째로 이동시킵니다.
+    // 슬라이더의 마지막 아이템을 첫번째로 이동
     $("#slider ul li:last-child").prependTo("#slider ul");
-    // 왼쪽으로 슬라이드하는 함수
+    //슬라이드 방향 설정
     function moveLeft() {
       $("#slider ul").animate({
         left: +slideWidth
@@ -43,7 +43,6 @@
         $("#slider ul").css("left", "");
       });
     }
-    // 오른쪽으로 슬라이드하는 함수
     function moveRight() {
       $("#slider ul").animate({
         left: -slideWidth
@@ -52,11 +51,10 @@
         $("#slider ul").css("left", "");
       });
     }
-    // 이전 버튼 클릭 시 왼쪽으로 슬라이드합니다.
+    // 버튼 클릭 시 왼쪽과 오른쪽으로 슬라이드
     $("a.control_prev").click(function() {
       moveLeft();
     });
-    // 다음 버튼 클릭 시 오른쪽으로 슬라이드합니다.
     $("a.control_next").click(function() {
       moveRight();
     });
@@ -66,42 +64,44 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+	// 학회 목록에서 가져온 정보를 검색 상자에 넣는 함수
     const searchData = [
         <c:forEach var="conference" items="${conferences}" varStatus="status">
             '${conference.title}'<c:if test="${!status.last}">,</c:if>
         </c:forEach>
     ];
-
+	
+ 	// 검색 결과를 표시할 검색 상자, input 선택
     const searchResultsContainer = document.querySelector('.search_results');
-    const searchInput = document.querySelector('.SearchBoxTextEditor'); // 검색 상자 선택
-    const boxDateInput = document.querySelector('.box_date'); // 가는날 input 선택
-
+    const searchInput = document.querySelector('.SearchBoxTextEditor');
+    const boxDateInput = document.querySelector('.box_date');
+    
+	// 학회 목록에서 가져온 회의 제목, 기간, 주소 배열
     const conferenceTitles = [
         <c:forEach var="conference" items="${conferences}" varStatus="status">
             '${conference.title}',
         </c:forEach>
     ];
-
     const conferenceEventPeriods = [
         <c:forEach var="conference" items="${conferences}" varStatus="status">
             '${conference.eventPeriod}',
         </c:forEach>
     ];
-
-    const conferenceAddresses = [
+	// 주소가 없는 경우(null) 공백 할당
+   const conferenceAddresses = [
         <c:forEach var="conference" items="${conferences}" varStatus="status">
             <c:choose>
                 <c:when test="${not empty conference.address}">
                     '${conference.address}',
                 </c:when>
                 <c:otherwise>
-                    '', // null인 경우는 공백을 할당합니다.
+                    '',
                 </c:otherwise>
             </c:choose>
         </c:forEach>
     ];
 
-    // 이 부분에 JavaScript 변수를 선언하고 JSP에서 넘겨준 데이터를 할당합니다.
+   // 회의 제목, 기간, 주소 배열 데이터를 할당 
     const conferenceAddressesJS = [
         <c:forEach var="conference" items="${conferences}" varStatus="status">
             <c:choose>
@@ -109,36 +109,31 @@ document.addEventListener("DOMContentLoaded", function() {
                     '${conference.address}',
                 </c:when>
                 <c:otherwise>
-                    '', // null인 경우는 공백을 할당합니다.
+                    '',
                 </c:otherwise>
             </c:choose>
         </c:forEach>
     ];
 
-
+	// 검색 결과 목록을 화면에 표시하고 사용자가 클릭하여 선택할 수 있도록 하는 함수
     function populateSearchResults() {
         searchResultsContainer.innerHTML = ''; // 이전 결과를 지우기
         searchData.forEach((item, index) => {
             const div = document.createElement('div');
             div.textContent = item;
-            div.classList.add('search-result-item'); // CSS 스타일을 위한 클래스 추가
+            div.classList.add('search-result-item');
             div.addEventListener('click', function() {
-                searchInput.value = this.textContent; // 검색 상자에 텍스트 설정
-                searchResultsContainer.classList.remove('visible'); // 검색 결과 숨기기
-
+                searchInput.value = this.textContent;
+                searchResultsContainer.classList.remove('visible');
                 // 클릭한 항목의 인덱스 가져오기
                 const selectedIndex = conferenceTitles.indexOf(this.textContent);
-                
-                // 해당하는 학회의 eventPeriod 가져오기
+                // 해당하는 학회의 날짜 가져오기
                 const eventPeriod = conferenceEventPeriods[selectedIndex];
                 const startDate = eventPeriod.split(' ~ ')[0]; // 물결 기호(~) 앞의 날짜만 추출
-
                 // box_date 클래스를 가진 입력 필드에 startDate 설정
                 boxDateInput.value = startDate;
-
                 // 해당하는 학회의 address 가져오기
                 const address = conferenceAddresses[selectedIndex];
-
                 // box_end 클래스를 가진 입력 필드에 address 설정
                 document.querySelector('.box_end').value = address;
             });
@@ -160,24 +155,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-
-  </script>
-
-<script>
-//DOMContentLoaded 이벤트 리스너 내부에서 작성된 코드라고 가정합니다.
+	//검색 목록에서 클릭한 학회의 검색결과가 입력되는 함수
   document.querySelectorAll('.search-result-item').forEach(function(item) {
       item.addEventListener('click', function() {
           searchInput.value = this.textContent; // 검색 입력값 설정
           searchResultsContainer.classList.remove('visible'); // 검색 결과 숨김
 
-          // 클릭한 항목의 인덱스 가져오기
           const index = searchData.indexOf(this.textContent);
-          
-          // 해당하는 학회의 eventPeriod 가져오기
           const eventPeriod = "${conferences.get(index).eventPeriod}";
 
-          // box_date 클래스를 가진 입력 필드에 eventPeriod 설정
           document.querySelector('.box_date').value = eventPeriod;
       });
   });
@@ -186,31 +172,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script>
-  function formatDate(dateString) {
-	    // 날짜와 시간을 공백을 기준으로 분할합니다.
-	    var parts = dateString.split(" ");
-	    // 시작일과 종료일을 "-"로 분할합니다.
-	    var startEndDate = parts[0].split("~");
-	    // 시작일과 종료일의 시간을 제외한 부분을 가져옵니다.
-	    var startDate = startEndDate[0];
-	    var endDate = startEndDate[1];
-	    // 변환된 날짜 형식을 반환합니다.
-	    return startDate + " ~ " + endDate;
+//주어진 날짜 문자열을 형식화하는 함수
+function formatDate(dateString) { // 날짜와 시간을 공백 기준으로 분할
+	   var parts = dateString.split(" "); // 시작일과 종료일을 "-"로 분할
+	   var startEndDate = parts[0].split("~"); // 시작일과 종료일의 시간을 제외한 부분을 가져옴
+	   var startDate = startEndDate[0];
+	   var endDate = startEndDate[1]; // 변환된 날짜 형식 반환
+	   return startDate + " ~ " + endDate;
 	}
 
 </script>
 
 <script>
   document.querySelector('.box_date').addEventListener('click', function() {
-	    // 현재 검색 상자에 입력된 텍스트를 가져옵니다.
+	    // 현재 검색 상자에 입력된 텍스트를 가져옴
 	    const searchText = document.querySelector('.SearchBoxTextEditor').value;
 	    
-	    // 해당 텍스트와 일치하는 학회의 인덱스를 찾습니다.
+	    // 해당 텍스트와 일치하는 학회의 인덱스 찾기
 	    const index = searchData.indexOf(searchText);
 	    
-	    if (index !== -1) { // 일치하는 학회가 있다면
+	    if (index !== -1) {
 	        const eventPeriod = conferenceEventPeriods[index];
-	        // eventPeriod 형식 "24.05.20 ~ 24.05.21" 을 "24.05.20" 와 "24.05.21" 로 분리
+	     // 일치하는 학회가 있다면 eventPeriod 형식 "24.05.20 ~ 24.05.21" 을 "24.05.20" 과 "24.05.21" 로 분리
 	        const dates = eventPeriod.split(' ~ ');
 
 	        // 날짜를 두 줄로 표시하기 위한 줄바꿈 적용

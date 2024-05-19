@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="My Schedule"></c:set>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <div id="calendar"></div>
-<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Exo+2:400,100'
+	rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
@@ -15,21 +19,6 @@
     // JSP에서 받아온 conferences와 competitions 데이터를 JavaScript 변수에 할당하여 전달
     var conferencesData = ${conferences};
     var competitionsData = ${competitions};
-    
-    
-// 예시 이벤트 데이터
-    var conference = {
-        eventName: "한국생명공학연구원 KPEC 감염병 대응 세미나",
-        eventPeriod: "24.05.20",
-        location: "대전광역시 유성구 과학로 125"
-    };
-
-    // 이벤트의 기간 정보를 받아와서 날짜로 변환
-    var dateString = conference.eventPeriod;
-    var eventDate = moment(dateString, "YY.MM.DD").format("YYYY년 M월 D일");
-
-    console.log(eventDate); // 결과: "2024년 5월 20일"
-
 </script>
 
 <script>
@@ -53,14 +42,14 @@
 			// 스크롤 가능한 컨테이너 요소
 			this.scrollContainer = this.el.querySelector(".scroll-container");
 		}
-		// 캘린더 다음 달로 이동 함수
+		// 캘린더 다음 달로 이동
 		Calendar.prototype.nextMonth = function() {
 			this.current.add("months", 1);
 			this.next = true;
 			this.draw();
 			this.adjustScrollContainerPosition(); // 스크롤 컨테이너 위치 조정
 		};
-		// 캘린더 이전 달로 이동 함수
+		// 캘린더 이전 달로 이동
 		Calendar.prototype.prevMonth = function() {
 			this.current.subtract("months", 1);
 			this.next = false;
@@ -93,7 +82,7 @@
 		    this.addEvents();
 		};
 		
-		// 달력 그리기 전에 이전 달의 데이터를 정리하는 함수
+		// 달력 그리기 전에 이전 달의 데이터를 정리
 		Calendar.prototype.clearPreviousMonth = function() {
 		    var monthContainer = this.el.querySelector('.month');
 		    if (monthContainer) {
@@ -126,6 +115,7 @@
 			}
 			this.title.innerHTML = this.current.format("MMM YYYY");
 		};
+		// drawMonth 함수 내부
 		Calendar.prototype.drawMonth = function() {
 		    var self = this;
 		    // 새로운 달 생성
@@ -134,7 +124,7 @@
 
 		    this.backFill(); // 이전 달의 마지막 일부를 채움
 		    this.currentMonth(); // 현재 달을 그림
-		    this.fowardFill(); // 다음 달의 처음 일부를 채움
+		    this.forwardFill(); // 다음 달의 처음 일부를 채움
 
 		    // 월 전환 애니메이션 처리
 		    if (this.oldMonth) {
@@ -147,6 +137,7 @@
 		        this.month.className = "month new";
 		    }
 		};
+
 		// 이전 달 채우기 함수
 		Calendar.prototype.backFill = function() {
 			var clone = this.current.clone();
@@ -160,17 +151,14 @@
 			}
 		};
 		// 다음 달 채우기 함수
-		Calendar.prototype.fowardFill = function() {
-			var clone = this.current.clone().add("months", 1).subtsract("days",
-					1);
-			var dayOfWeek = clone.day();
-			if (dayOfWeek === 6) {
-				return;
-			}
-			for (var i = dayOfWeek; i < 6; i++) {
-				this.drawDay(clone.add("days", 1));
-			}
+		Calendar.prototype.forwardFill = function() {
+		    var clone = this.current.clone().add(1, "months").subtract(1, "days"); // 다음 달의 마지막 날짜로 이동
+		    var dayOfWeek = clone.day();
+		    for (var i = dayOfWeek + 1; i <= 6; i++) { // 현재 요일 다음부터 6까지 반복하여 그림
+		        this.drawDay(clone.add(1, "days")); // 다음 날짜를 그림
+		    }
 		};
+
 		// 현재 달을 그리는 함수
 		Calendar.prototype.currentMonth = function() {
 			var clone = this.current.clone();
@@ -197,10 +185,8 @@
 				// 요일 레이블 요소 생성
 				var weekdayLabel = createElement("div", "weekday-label",
 						weekday);
-				// 요일 행에 요일 레이블 추가
 				weekdaysRow.appendChild(weekdayLabel);
 			});
-			// 캘린더 요소에 요일 행 추가
 			this.el.appendChild(weekdaysRow);
 		};
 		// 날짜를 그리는 함수
@@ -212,9 +198,7 @@
 			outer.addEventListener("click", function() {
 				self.openDay(this);
 			});
-			// 날짜
 			var number = createElement("div", "day-number", day.format("DD"));
-			// 이벤트
 			var events = createElement("div", "day-events");
 			this.drawEvents(day, events);
 			outer.appendChild(number);
@@ -243,7 +227,6 @@
 		    });
 		};
 		
-
 		// 이벤트 데이터를 달력에 그리기
 		Calendar.prototype.addEvents = function() {
 		    var self = this;
@@ -284,14 +267,13 @@
 					// 날짜에 해당하는 이벤트를 함께 표시하기 위해 scrollContainer에 날짜도 추가
 					var dayElement = createElement("div",
 							"day-events-container");
+					//day.format("DD일")은 날짜를 "DD일" 형식으로 포맷하여 반환
 					var dayNumberElement = createElement("div", "day-number",
-							day.format("DD일")); //날짜를 표시하는 요소를 생성하고, 해당 요소를 dayNumberElement 변수에 할당합니다. 이때 day.format("DD일")은 날짜를 "DD일" 형식으로 포맷하여 반환합니다.
+							day.format("DD일"));
 					dayElement.appendChild(dayNumberElement);
 					self.renderEvents(todaysEvents, dayElement);
 					scrollContainer.appendChild(dayElement);
-					// 날짜 요소에 선 추가
 					dayNumberElement.style.borderBottom = "1px solid #ccc";
-					// 날짜 요소에 더 많은 상단과 하단 여백 추가
 					dayNumberElement.style.paddingTop = "20px";
 					dayNumberElement.style.paddingBottom = "20px";
 					dayNumberElement.style.marginTop = "20px";
@@ -334,13 +316,11 @@
 			}
 			ele.appendChild(wrapper);
 		};
-		// 다음 달로 이동 함수
 		Calendar.prototype.nextMonth = function() {
 			this.current.add("months", 1);
 			this.next = true;
 			this.draw();
 		};
-		// 이전 달로 이동 함수
 		Calendar.prototype.prevMonth = function() {
 			this.current.subtract("months", 1);
 			this.next = false;
@@ -499,28 +479,27 @@
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
-		    <c:choose>
-    <c:when test="${empty loggedInMemberName}">
-        <a class="hover:underline" href="${rq.loginUri}">로그인</a>
-    </c:when>
-    <c:otherwise>
-        <a href="../member/myInfo">
-            <button class="username">${loggedInMemberName}님</button>
-        </a>
-    </c:otherwise>
-</c:choose>
+		<c:choose>
+			<c:when test="${empty loggedInMemberName}">
+				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
+			</c:when>
+			<c:otherwise>
+				<a href="../member/myInfo">
+					<button class="username">${loggedInMemberName}님</button>
+				</a>
+			</c:otherwise>
+		</c:choose>
 
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
-		</a>
-		<a href="../competition/list">
+		</a> <a href="../competition/list">
 			<button class="hd_contest">공모전</button>
-		</a>
-		<a href="../hotel/recommendlist">
+		</a> <a href="../hotel/recommendlist">
 			<button class="hd_recommend">숙박&교통</button>
 		</a>
 		<c:if test="${rq.isLogined() }">
-			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
+			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;"
+				class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
 	</nav>
 </header>
@@ -532,11 +511,9 @@
 <div class="menu_right">
 	<a href="../member/mySchedule">
 		<button class="menu_box2 myschedule">내 일정</button>
-	</a>
-	<a href="../member/myInfo">
+	</a> <a href="../member/myInfo">
 		<button class="menu_box2 myinfo">내 정보</button>
-	</a>
-	<a href="../member/myQuestion">
+	</a> <a href="../member/myQuestion">
 		<button class="menu_box2 myquestion">내 문의</button>
 	</a>
 </div>
@@ -572,18 +549,19 @@ body {
 	display: flex;
 	gap: 20px;
 }
+
 .header_menu button:hover {
-    border-bottom: 1px solid;
+	border-bottom: 1px solid;
 }
 
 .hd_logout {
 	margin-top: 3.5px;
 	font-size: 12.5px;
 }
-.hd_logout:hover {
-    border-bottom: 1px solid;
-}
 
+.hd_logout:hover {
+	border-bottom: 1px solid;
+}
 
 .username {
 	flex-grow: 1;
@@ -700,13 +678,13 @@ body {
 	right: 5px;
 }
 
-/* 새로운 월 애니메이션 */
+/* 새로운 월 */
 .month.new {
 	-webkit-animation: fadeIn 1s ease-out;
 	opacity: 1;
 }
 
-/* 다음 월 애니메이션 */
+/* 다음 월 */
 .month.in.next {
 	-webkit-animation: moveFromTopFadeMonth 0.4s ease-out;
 	-moz-animation: moveFromTopFadeMonth 0.4s ease-out;
@@ -714,7 +692,7 @@ body {
 	opacity: 1;
 }
 
-/* 다음 월 나가기 애니메이션 */
+/* 다음 월 나가기 */
 .month.out.next {
 	-webkit-animation: moveToTopFadeMonth 0.4s ease-in;
 	-moz-animation: moveToTopFadeMonth 0.4s ease-in;
@@ -722,7 +700,7 @@ body {
 	opacity: 1;
 }
 
-/* 이전 월 입장 애니메이션 */
+/* 이전 월 입장 */
 .month.in.prev {
 	-webkit-animation: moveFromBottomFadeMonth 0.4s ease-out;
 	-moz-animation: moveFromBottomFadeMonth 0.4s ease-out;
@@ -730,7 +708,7 @@ body {
 	opacity: 1;
 }
 
-/* 이전 월 나가기 애니메이션 */
+/* 이전 월 나가기 */
 .month.out.prev {
 	-webkit-animation: moveToBottomFadeMonth 0.4s ease-in;
 	-moz-animation: moveToBottomFadeMonth 0.4s ease-in;
@@ -837,9 +815,9 @@ body {
 
 /* 이벤트 목록 */
 .events {
-/* position: relative;
+	/* position: relative;
     top: -20px; /* 위로 올리고 싶은 만큼의 값 */
-    right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
+	right: -20px; /* 우측으로 이동하고 싶은 만큼의 값 */ */
 	height: auto;
 	width: auto;
 	padding: 7px 0;
@@ -849,10 +827,10 @@ body {
 	/* 스크롤바 숨김 */
 	-ms-overflow-style: none;
 	/* Firefox IE 10+ */
-/* 	border: 3px solid red; */
+	/* 	border: 3px solid red; */
 }
 
-/* 이벤트 목록 입장 애니메이션 */
+/* 이벤트 목록 입장 */
 .events.in {
 	-webkit-animation-delay: 0.3s;
 	-moz-animation-delay: 0.3s;
@@ -865,14 +843,14 @@ body {
 	animation: fadeIn 0.3s ease both;
 }
 
-/* 이벤트 목록 나가기 애니메이션 */
+/* 이벤트 목록 나가기 */
 .details.out .events {
 	-webkit-animation: fadeOutShrink 0.4s ease both;
 	-moz-animation: fadeOutShink 0.4s ease both;
 	animation: fadeOutShink 0.4s ease both;
 }
 
-/* 이벤트 목록 나가기 애니메이션 */
+/* 이벤트 목록 나가기 */
 .events.out {
 	-webkit-animation: fadeOut 0.3s ease both;
 	-moz-animation: fadeOut 0.3s ease both;
@@ -974,7 +952,7 @@ body {
     }
   }
 
-  /*화면 위에서 아래로 이동하면서 페이드 인되는 애니메이션*/
+  /*화면 위에서 아래로 이동하면서 페이드 인*/
   @-webkit-keyframes moveToTopFade {
     to {
       opacity: 0.3;
@@ -985,7 +963,7 @@ body {
     }
   }
 
-  /*화면 위에서 위로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
+  /*화면 위에서 위로 이동하면서 페이드 아웃(월별)*/
   @-webkit-keyframes moveToTopFadeMonth {
     to {
       opacity: 0;
@@ -993,7 +971,7 @@ body {
     }
   }
 
-  /* 화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
+  /* 화면 아래에서 위로 이동하면서 페이드 인(월별)*/
   @-webkit-keyframes moveFromTopFadeMonth {
     from {
       opacity: 0;
@@ -1001,7 +979,7 @@ body {
     }
   }
 
-  /* 화면 위에서 아래로 이동하면서 페이드 아웃되는 애니메이션(월별)*/
+  /* 화면 위에서 아래로 이동하면서 페이드 아웃(월별)*/
   @-webkit-keyframes moveToBottomFadeMonth {
     to {
       opacity: 0;
@@ -1009,7 +987,7 @@ body {
     }
   }
 
-  /*화면 아래에서 위로 이동하면서 페이드 인되는 애니메이션(월별)*/
+  /*화면 아래에서 위로 이동하면서 페이드 인(월별)*/
   @-webkit-keyframes moveFromBottomFadeMonth {
     from {
       opacity: 0;
@@ -1017,21 +995,21 @@ body {
     }
   }
 
-  /*화면에 나타나면서 서서히 나타나는 애니메이션*/
+  /*화면에 나타나면서 서서히 나타나도록*/
   @-webkit-keyframes fadeIn {
     from {
       opacity: 0;
     }
   }
 
-  /*화면에서 사라지면서 서서히 사라지는 애니메이션*/
+  /*화면에서 사라지면서 서서히 사라지도록*/
   @-webkit-keyframes fadeOut {
     to {
       opacity: 0;
     }
   }
 
-  /*요소가 사라지면서 크기가 축소되는 애니메이션*/
+  /*요소가 사라지면서 크기가 축소되도록*/
   @-webkit-keyframes fadeOutShink {
     to {
       opacity: 0;
@@ -1039,6 +1017,7 @@ body {
       height: 0px;
     }
   }
+  
 </style>
 
 <%@ include file="../common/foot.jspf"%>
