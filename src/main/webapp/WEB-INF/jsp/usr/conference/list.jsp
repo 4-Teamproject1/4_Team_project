@@ -6,10 +6,13 @@
 <link href='https://fonts.googleapis.com/css?family=Exo+2:400,100' rel='stylesheet' type='text/css'>
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
+
+<!-- 현재 로그인한 사용자의 이름과 ID를 저장 -->
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
 
+<!-- 페이지 상단 헤더 -->
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
@@ -41,7 +44,7 @@
 	</nav>
 </header>
 
-
+<!-- 주요 콘텐츠 영역 -->
 <div class="list-container">
 	<div class="list-board">
 		<span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>

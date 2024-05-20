@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ScrapRepository {
-
+	
+	//특정 아카데미, 테마 및 회원에 대한 반응 포인트의 합계를 조회합니다.
 	@Select("""
 			SELECT IFNULL(SUM(point),0)
 			FROM scrap
@@ -17,6 +18,8 @@ public interface ScrapRepository {
 			""")
 	public int getSumReactionPoint(int loginedMemberId, int themeId, int academyId);
 
+	
+	//특정 아카데미, 테마 및 회원에 대해 긍정적인 반응 포인트를 추가합니다.
 	@Insert("""
 			INSERT INTO scrap
 			SET regDate = NOW(),
@@ -28,12 +31,8 @@ public interface ScrapRepository {
 			""")
 	public int addGoodReactionPoint(int memberId, int themeId, int academyId);
 
-	/*
-	 * @Insert(""" INSERT INTO scrap SET regDate = NOW(), updateDate = NOW(), relId
-	 * = #{relId}, memberId = #{memberId}, `point` = -1 """) public int
-	 * addBadReactionPoint(int memberId, String relTypeCode, int relId);
-	 */
-
+	
+//특정 아카데미, 테마 및 회원에 대한 반응 포인트를 삭제합니다.
 	@Delete("""
 			DELETE FROM scrap
 			WHERE memberId = #{memberId}
@@ -43,7 +42,7 @@ public interface ScrapRepository {
 	public void deleteReactionPoint(int memberId, int themeId,  int academyId );
 
 	
-	
+	//특정 아카데미, 테마 및 회원에 대한 스크랩 수의 합계를 조회합니다.
 	@Select("""
 			SELECT IFNULL(SUM(S.point),0)
 			FROM scrap AS S

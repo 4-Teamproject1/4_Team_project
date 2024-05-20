@@ -8,14 +8,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
 
 
+<!-- 로그인 상태 정보 설정 -->
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
+<!-- 페이지 헤더 -->
 <header class="header">
 	<a href="../home/main">
 		<button class="logo">로고</button>
 	</a>
 	<nav class="header_menu">
+	<!-- 로그인 상태에 따라 다른 메뉴 표시 -->
 		<c:choose>
 			<c:when test="${empty loggedInMemberName}">
 				<a class="hover:underline" href="${rq.loginUri}">로그인</a>
@@ -26,7 +29,7 @@
 				</a>
 			</c:otherwise>
 		</c:choose>
-
+  <!-- 다른 메뉴 링크 -->
 		<a href="../conference/list">
 			<button class="hd_info">학회 정보</button>
 		</a>
@@ -36,14 +39,16 @@
 		<a href="../hotel/recommendlist">
 			<button class="hd_recommend">숙박&교통</button>
 		</a>
+		 <!-- 로그아웃 링크 -->
 		<c:if test="${rq.isLogined() }">
 			<a onclick="if(confirm('로그아웃 하시겠어요?') == false) return false;" class="hd_logout" href="../member/doLogout">로그아웃</a>
 		</c:if>
 	</nav>
 </header>
-
+<!-- 메인 컨텐츠 영역 -->
 <div class="list-container">
 	<div class="list-board">
+	<!-- 학술연구정보 탭 -->
 		<span class="list-board-item" style="background-color: #00256c; color: white;">학술연구정보</span>
 		<a href="../conference/list" class="list-board-item">학술행사</a>
 		<a href="../competition/list" class="list-board-item">공모전</a>
@@ -54,6 +59,7 @@
 
 			<div class="main-list">공모전</div>
 			<div class="sort-options-container ">
+			  <!-- 정렬 옵션 -->
 				<div class="sort-options">
 					<form>
 						<input type="radio" id="option1" name="options" value="option1">
@@ -88,7 +94,7 @@
 					</script>
 				</div>
 
-
+<!-- 검색 폼 -->
 				<form action="/usr/competition/list" method="get">
 					<select name="searchKeywordTypeCode">
 						<option value="title">제목</option>
@@ -100,7 +106,9 @@
 			</div>
 
 			<!-- Entry 2 -->
+			   <!-- 공모전 목록 테이블 -->
 			<div>
+			
 				<table class="table ">
 					<colgroup>
 						<col style="width: 5%" />
@@ -121,6 +129,7 @@
 
 
 					<tbody>
+					 <!-- 공모전 목록 반복 출력 -->
 						<c:forEach items="${competitions}" var="competition">
 							<tr>
 								<td>${competition.id}</td>
@@ -145,6 +154,8 @@
 			</div>
 		</div>
 	</div>
+	
+<!-- 사이드바 학술 연구 정보 섹션 -->
 	<div class="side-bar-container">
 		<section class="research-info-container">
 			<h2 class="research-info-title">
@@ -154,6 +165,7 @@
 				추천 학술연구정보
 			</h2>
 
+        <!-- 각 학술 연구 정보 항목 -->
 			<article class="research-item">
 				<header class="research-item-header">
 					<img
@@ -207,6 +219,7 @@
 </div>
 
 <div class="bottom-bar">
+ <!-- 페이지 네비게이션 -->
 	<div class="page-bar">
 		<c:if test="${currentPage > 1}">
 			<a href="?page=${currentPage - 1}&limit=20">
