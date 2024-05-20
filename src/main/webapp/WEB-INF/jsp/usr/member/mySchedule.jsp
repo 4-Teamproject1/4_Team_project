@@ -10,7 +10,8 @@
 <!-- daisy ui 불러오기 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/4.6.1/full.css" />
-
+	
+<!-- 로그인한 회원 정보 설정 -->
 <c:set var="loggedInMemberName" value="${rq.loginedMember.name}"></c:set>
 <c:set var="loggedInMemberId" value="${rq.loginedMember.loginId}"></c:set>
 
