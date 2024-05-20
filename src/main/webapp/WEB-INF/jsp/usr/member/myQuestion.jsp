@@ -130,7 +130,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
+/* 상단바 메뉴 */
 .header {
 	display: flex;
 	justify-content: space-between;
@@ -167,6 +167,7 @@ body {
 	flex-grow: 1;
 }
 
+/* 상단 이미지 */
 .img {
 	position: absolute;
 	width: 100%;
@@ -179,6 +180,7 @@ body {
 	background-size: cover;
 }
 
+/* 상단바 메뉴 */
 .menu_box1, .menu_box2 {
 	border-radius: 18px;
 	background: #00256c;
@@ -222,6 +224,7 @@ body {
 	top: 165px;
 }
 
+/* 문의 리스트 박스 */
 .question_list {
 	position: absolute;
 	top: 270px;
@@ -279,10 +282,6 @@ body {
 	background-color: #00256c;
 	left: -12px;
 	width: 70px;
-}
-
-.question_box {
-	
 }
 
 .question_content {
