@@ -34,7 +34,7 @@ public class BusTicketService2 {
         private String arriveBus;
         private String ondate;
         
-        // 생성자
+        // 생성자, controller의 디폴트값밑 JSP쪽의 데이터를 전달받기 위함.
         public BusCrawler(String departureBus, String arriveBus, String ondate) {
             this.departureBus = departureBus;
             this.arriveBus = arriveBus;
@@ -47,7 +47,8 @@ public class BusTicketService2 {
             System.setProperty("webdriver.chrome.driver", "C:/work/chromedriver.exe");
             WebDriver driver = new ChromeDriver();
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
+            
+            // 이동할 URL 설정
             String url = "https://www.kobus.co.kr/mrs/rotinf.do";
             driver.get(url);
 
@@ -56,7 +57,8 @@ public class BusTicketService2 {
             searchInput.click();
             // 출발지 입력란 활성화
             WebElement activatedSearchInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("terminalSearch")));
-
+            
+            // 도착지 입력란 활성화
             String searchText = departureBus;
             activatedSearchInput.sendKeys(searchText);
             // ENTER 키 입력
@@ -73,6 +75,7 @@ public class BusTicketService2 {
             dateElement.click();
             String targetNumber = ondate; // 클릭하고 싶은 날짜의 숫자
             List<WebElement> dateLinks = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@class='ui-datepicker-calendar']//a[@class='ui-state-default']")));
+            //반복문으로 날짜를 찾기
             for (WebElement dateLink : dateLinks) {
                 if (dateLink.getText().equals(targetNumber)) {
                     dateLink.click();
@@ -99,13 +102,16 @@ public class BusTicketService2 {
             String departureText = departureElement.getText();
             String arriveText = arriveElement.getText();
             String takeDrtmText = takeDrtmElement.getText();
-
+            
+            // Bus 객체 생성 및 정보 설정
             Bus bus = new Bus();
             bus.setDeparturePlace(departureText);
             bus.setArrivePlace(arriveText);
             bus.setTakesumTime(takeDrtmText);
-
-            busList.add(bus);
+            
+            busList.add(bus);//bus정보를 list에 추가
+            
+            // 버스 시간 정보를 가져와서 busList에 추가
             List<WebElement> spanElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div.bus_time > p")));
             for (WebElement spanElement : spanElements) {
                 Bus bus2 = extractBusInfo(spanElement);
@@ -133,6 +139,7 @@ public class BusTicketService2 {
             for (WebElement spanElement : spanElements) {
                 String spanClass = spanElement.getAttribute("class");
                 String text = spanElement.getText();
+                //태그에 해당하는 요소값을 가져온다.
                 if ("start_time".equals(spanClass)) {
                     bus.setStartTime(text);
                 }
@@ -143,6 +150,7 @@ public class BusTicketService2 {
                     bus.setRemainingSeats(text);
                 }
             }
+         // 버스 회사 이름과 등급 정보 추출
             List<WebElement> busInfoElements = pElement.findElements(By.cssSelector("p[data-time] > a > span.bus_info"));
             for (WebElement busInfoElementName : busInfoElements) {
                 String text = busInfoElementName.getText();
