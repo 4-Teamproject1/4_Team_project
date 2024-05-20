@@ -15,6 +15,7 @@ import com.example.demo.vo.Conference;
 @Mapper
 public interface CompetitionRepository {
 
+    // 특정 ID의 공모전 정보를 조회합니다.
 	@Select("""
 			<script>
 			SELECT *
@@ -24,6 +25,7 @@ public interface CompetitionRepository {
 			""")
 	public Competition getEventById(int id);
 
+    // 새로운 공모전을 데이터베이스에 추가합니다.
 	@Insert("""
 			INSERT INTO `competition` SET
 			         title = #{title},
@@ -39,6 +41,7 @@ public interface CompetitionRepository {
 			""")
 	public void insertCompetition(Competition competition);
 
+	// 검색 키워드에 따라 공모전 목록을 조회합니다. (페이지네이션 처리 포함)
 	@Select("""
 		    <script>
 		    SELECT * FROM `competition`
@@ -48,6 +51,7 @@ public interface CompetitionRepository {
 		""")
 	public List<Competition> getCompetitionsList(@Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
 
+	// 등록일순으로 공모전 목록을 정렬하여 조회합니다.
 	@Select("""
 			<script>
 			SELECT *
@@ -57,6 +61,7 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsByCategoryOrderByRegDate();
 
+	 // 조회수순으로 공모전 목록을 정렬하여 조회합니다.
 	@Select("""
 			<script>
 			SELECT *
@@ -66,6 +71,8 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsByCategoryOrderByhitCount();
 
+	
+	// 마감일순으로 공모전 목록을 정렬하여 조회합니다.
 	@Select("""
 			<script>
 			SELECT *
@@ -75,6 +82,8 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsByCategoryOrderByfinDate();
 
+	
+	 // 제목순으로 공모전 목록을 정렬하여 조회합니다.
 	@Select("""
 			<script>
 			SELECT *
@@ -84,6 +93,8 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsByCategoryOrderBytitle();
 
+	
+	 // 지정된 형식으로 공모전의 제목과 신청 기간을 조회합니다.
 	@Select("""
 			    <script>
 			    SELECT title,
@@ -97,6 +108,8 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getCompetitionsList2();
 
+
+    // 공모전의 좋아요 점수를 1점 증가시킵니다.
 	@Update("""
 			UPDATE `competition`
 			SET goodReactionPoint = goodReactionPoint + 1
@@ -105,6 +118,8 @@ public interface CompetitionRepository {
 			""")
 	public int increaseGoodReactionPoint(int academyId, int themeId);
 
+	
+	// 공모전의 좋아요 점수를 1점 감소시킵니다.
 	@Update("""
 			UPDATE `competition`
 			SET goodReactionPoint = goodReactionPoint - 1
@@ -113,6 +128,8 @@ public interface CompetitionRepository {
 			""")
 	public int decreaseGoodReactionPoint(int themeId, int academyId);
 
+	
+	 // 특정 공모전의 좋아요 점수를 조회합니다.
 	@Select("""
 			SELECT goodReactionPoint
 			FROM `competition`
@@ -135,6 +152,7 @@ public interface CompetitionRepository {
 			""")
 	public List<Competition> getscrapShopsList(int memberId);
 
+	 // 특정 키워드를 포함하는 공모전의 총 수를 반환합니다.
 	@Select("""
 			    <script>
 			    SELECT COUNT(*) FROM `competition`
@@ -143,6 +161,7 @@ public interface CompetitionRepository {
 			""")
 	public int countConferences(String searchKeyword);
 
+	 // 등록된 모든 공모전 수를 반환합니다.
 	@Select("""
 			    <script>
 			    SELECT COUNT(*) FROM `competition`
@@ -159,13 +178,14 @@ public interface CompetitionRepository {
 			""")
 	public Competition getcompetitionId(int id);
 
+	 // 특정 ID의 공모전을 삭제합니다.
 	@Delete("""
 			DELETE FROM `competition`
 			WHERE id = #{id}
 			""")
 	void deleteCompetition(int id);
 
-	
+	// 조회수를 증가시킵니다.
 	@Update("""
 			UPDATE `competition`
 			SET hitCount = hitCount + 1
@@ -174,7 +194,7 @@ public interface CompetitionRepository {
 	public int increaseHitCount(int id);
 
 	
-	
+	   // 조회수를 반환합니다.
 	@Select("""
 			SELECT hitCount
 			FROM `competition`

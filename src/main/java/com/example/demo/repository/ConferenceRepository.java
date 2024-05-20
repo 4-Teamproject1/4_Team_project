@@ -14,6 +14,7 @@ import com.example.demo.vo.Conference;
 @Mapper
 public interface ConferenceRepository {
 
+	// 학회 정보를 데이터베이스에 삽입
 	@Insert("""
 			INSERT INTO `academy` SET
 			         categoryId = #{categoryId},
@@ -29,8 +30,9 @@ public interface ConferenceRepository {
 			         imageURL = #{imageURL},
 			         regDate = NOW()
 			""")
-	public void insertConference(Conference conference);
+	void insertConference(Conference conference);
 
+	// 카테고리와 검색 키워드를 기준으로 학회 목록을 가져옴 (페이징 처리)
 	@Select("""
 			    <script>
 			    SELECT * FROM `academy`
@@ -39,9 +41,10 @@ public interface ConferenceRepository {
 			    LIMIT #{limit} OFFSET #{offset}
 			    </script>
 			""")
-	public List<Conference> getShopsList(@Param("categoryId") int categoryId,
+	List<Conference> getShopsList(@Param("categoryId") int categoryId,
 			@Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("limit") int limit);
 
+	// 카테고리와 검색 키워드를 기준으로 학회 개수를 세어 반환
 	@Select("""
 			    <script>
 			    SELECT COUNT(*) FROM `academy`
@@ -49,8 +52,9 @@ public interface ConferenceRepository {
 			    AND title LIKE CONCAT('%', #{searchKeyword}, '%')
 			    </script>
 			""")
-	public int countConferences(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword);
+	int countConferences(@Param("categoryId") int categoryId, @Param("searchKeyword") String searchKeyword);
 
+	// ID를 기준으로 학회 정보를 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -58,8 +62,9 @@ public interface ConferenceRepository {
 			WHERE id = #{id};
 			</script>
 			""")
-	public Conference getEventById(int id);
+	Conference getEventById(int id);
 
+	// 카테고리를 기준으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -67,8 +72,9 @@ public interface ConferenceRepository {
 			WHERE categoryId = #{categoryId};
 			</script>
 			""")
-	public List<Conference> getConferencesByCategory(int categoryId);
+	List<Conference> getConferencesByCategory(int categoryId);
 
+	// 등록일 기준으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -76,8 +82,9 @@ public interface ConferenceRepository {
 			ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC
 			</script>
 			""")
-	public List<Conference> getConferencesOrderByRegDate();
+	List<Conference> getConferencesOrderByRegDate();
 
+	// 카테고리와 등록일 기준으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -86,8 +93,9 @@ public interface ConferenceRepository {
 			ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC
 			</script>
 			""")
-	public List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId);
+	List<Conference> getConferencesByCategoryOrderByRegDate(int categoryId);
 
+	// 조회수 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -95,8 +103,9 @@ public interface ConferenceRepository {
 			ORDER BY hitCount DESC
 			</script>
 			""")
-	public List<Conference> getConferencesOrderByhitCount();
+	List<Conference> getConferencesOrderByhitCount();
 
+	// 카테고리와 조회수 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -105,8 +114,9 @@ public interface ConferenceRepository {
 			ORDER BY hitCount DESC
 			</script>
 			""")
-	public List<Conference> getConferencesByCategoryOrderByhitCount(int categoryId);
+	List<Conference> getConferencesByCategoryOrderByhitCount(int categoryId);
 
+	// 마감일 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -114,8 +124,9 @@ public interface ConferenceRepository {
 			ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC
 			</script>
 			""")
-	public List<Conference> getConferencesOrderByfinDate();
+	List<Conference> getConferencesOrderByfinDate();
 
+	// 카테고리와 마감일 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -124,8 +135,9 @@ public interface ConferenceRepository {
 			ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC
 			</script>
 			""")
-	public List<Conference> getConferencesByCategoryOrderByfinDate(int categoryId);
+	List<Conference> getConferencesByCategoryOrderByfinDate(int categoryId);
 
+	// 제목 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -133,8 +145,9 @@ public interface ConferenceRepository {
 			ORDER BY title ASC
 			</script>
 			""")
-	public List<Conference> getConferencesOrderBytitle();
+	List<Conference> getConferencesOrderBytitle();
 
+	// 카테고리와 제목 순으로 학회 목록을 가져옴
 	@Select("""
 			<script>
 			SELECT *
@@ -143,8 +156,9 @@ public interface ConferenceRepository {
 			ORDER BY title ASC
 			</script>
 			""")
-	public List<Conference> getConferencesByCategoryOrderBytitle(int categoryId);
+	List<Conference> getConferencesByCategoryOrderBytitle(int categoryId);
 
+	// 수정된 주소 형식으로 학회 목록을 가져옴
 	@Select("""
 			    <script>
 			    SELECT title,place,
@@ -157,32 +171,36 @@ public interface ConferenceRepository {
 			    FROM `academy`;
 			    </script>
 			""")
-	public List<Conference> getShopsList2();
+	List<Conference> getShopsList2();
 
+	// 좋아요 반응 점수 증가
 	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint + 1
 			WHERE id = #{academyId}
 			AND themeId = #{themeId}
 			""")
-	public int increaseGoodReactionPoint(int academyId, int themeId);
+	int increaseGoodReactionPoint(int academyId, int themeId);
 
+	// 좋아요 반응 점수 감소
 	@Update("""
 			UPDATE `academy`
 			SET goodReactionPoint = goodReactionPoint - 1
 			WHERE id = #{academyId}
 			AND themeId = #{themeId}
 			""")
-	public int decreaseGoodReactionPoint(int themeId, int academyId);
+	int decreaseGoodReactionPoint(int themeId, int academyId);
 
+	// 좋아요 반응 점수를 가져옴
 	@Select("""
 			SELECT goodReactionPoint
 			FROM `academy`
 			WHERE id = #{academyId}
 			AND themeId = #{themeId}
 			""")
-	public int getGoodRP(int themeId, int academyId);
+	int getGoodRP(int themeId, int academyId);
 
+	// 사용자의 스크랩 학회 목록을 가져옴
 	@Select("""
 			    <script>
 			    SELECT title, place,
@@ -196,33 +214,37 @@ public interface ConferenceRepository {
 			    );
 			    </script>
 			""")
-	public List<Conference> getscrapShopsList(int memberId);
+	List<Conference> getscrapShopsList(int memberId);
 
+	// 학회 삭제를 위한 학회 정보를 가져옴
 	@Select("""
 			SELECT a.*
 			FROM `academy` AS a
 			WHERE a.id = #{id}
 			""")
-	public Conference getConferenceId(int id);
+	Conference getConferenceId(int id);
 
+	// 학회 정보를 삭제
 	@Delete("""
 			DELETE FROM `academy`
 			WHERE id = #{id}
 			""")
 	void deleteConference(int id);
 
+	// 조회수 증가
 	@Update("""
 			UPDATE `academy`
 			SET hitCount = hitCount + 1
 			WHERE id = #{id}
 			""")
-	public int increaseHitCount(int id);
+	int increaseHitCount(int id);
 	
+	// 학회의 조회수를 가져옴
 	@Select("""
 			SELECT hitCount
 			FROM `academy`
 			WHERE id = #{id}
 			""")
-	public Object getConferenceHitCount(int id);
+	Object getConferenceHitCount(int id);
 
 }
