@@ -83,6 +83,3 @@
 - [네이버 길찾기](https://map.naver.com/p/directions/-/-/-/car?c=15.00,0,0,0,dh)
 - [고속버스 통합예매](https://www.kobus.co.kr/main.do)
 - [아고다](https://www.kobus.co.kr/main.do)
-
-## 📘 가이드북
-https://docs.google.com/document/d/1bRU-8DwDhtbp_6cgmxjIbRylNQPqAjn0UMryIpBVOyY/edit?usp=sharing
