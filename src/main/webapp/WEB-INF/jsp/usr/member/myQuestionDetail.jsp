@@ -67,6 +67,7 @@ body {
 	padding: 0;
 }
 
+/* 상단바 메뉴 */
 .header {
 	display: flex;
 	position: absolute;
@@ -104,6 +105,7 @@ body {
 	flex-grow: 1;
 }
 
+/* 상단 이미지 */
 .img {
 	position: absolute;
 	width: 100%;
@@ -116,6 +118,7 @@ body {
 	background-size: cover;
 }
 
+/* 메뉴 박스 */
 .menu_box1, .menu_box2 {
 	border-radius: 18px;
 	background: #00256c;
@@ -151,6 +154,7 @@ body {
 	top: 155px;
 }
 
+/* 문의사항 상세 정보 박스 */
 .Ques_date {
 	position: relative;
 	top: 250px;

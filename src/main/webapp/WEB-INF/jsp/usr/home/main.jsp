@@ -457,6 +457,7 @@ function formatDate(dateString) { // 날짜와 시간을 공백 기준으로 분
 
 <style type="text/css">
 
+/* 공통 스타일 설정 */
 *, *:before, *:after {
 	box-sizing: border-box;
 	margin: 0;
@@ -480,6 +481,7 @@ h1 {
 	font-weight: 300;
 }
 
+/* 상단 오른쪽 메뉴 */
 .menu_right {
 	position: absolute;
 	top: 15px;
@@ -506,6 +508,7 @@ h1 {
 	font-size: 12.5px;
 }
 
+/* 이미지 슬라이더 */
 #slider {
 	top: -20px;
 	margin: 0;
@@ -574,7 +577,7 @@ a.control_next {
 	font-size: 18px;
 }
 
-/* 메인검색영역 */
+/* 메인 검색 영역 */
 .search_box {
 	position: absolute;
 	top: 37%;
@@ -629,6 +632,7 @@ a.control_next {
 	padding-left: 20px;
 }
 
+/* 검색 결과 */
 .search_results {
 	position: absolute;
 	top: 15%;
@@ -719,7 +723,7 @@ a.control_next {
 	z-index: 6;
 }
 
-/* main페이지 하단 정보요약글 */
+/* 하단 학회, 공모전 리스트 박스 */
 .event-schedule {
 	vertical-align: top;
 	width: 700px;
@@ -795,7 +799,7 @@ a.control_next {
 	justify-content: center;
 }
 
-/* 팀프로젝트 조장 및 조원 프로필 css */
+/* 팀 프로젝트 조장 및 조원 프로필 */
 .hidden_btn {
 	position: relative;
 	width: 100px;
@@ -878,6 +882,7 @@ a.control_next {
 	height: 40px;
 }
 
+/* 반응형 디자인 조정 */
 @media ( max-width : 991px) {
 	.search_box_main {
 		width: 80%; /*너비를 뷰포트의 80%로 설정 */
