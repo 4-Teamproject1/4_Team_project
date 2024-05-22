@@ -11,7 +11,7 @@
 <div class="background_img"></div>
 <header class="header">
 	<a href="../home/main">
-		<button class="logo">로고</button>
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
 	</a>
 </header>
 <main class="login-container">
@@ -50,12 +50,13 @@ body {
 	gap: 20px;
 }
 
-.logo {
-	text-align: center;
-	background-color: white;
-	border-radius: 7px;
-	width: 40px;
-	height: 30px;
+.logo_img {
+	position: absolute;
+	width: 100%;
+	max-width: 115px;
+    height: auto;
+	left: 10px;
+	top: 15px;
 }
 
 .background_img {

@@ -229,6 +229,10 @@ function formatDate(dateString) { // 날짜와 시간을 공백 기준으로 분
 	</ul>
 </div>
 
+<a href="../home/main">
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
+	</a>
+
 <div class="menu_right">
 	<a href="../conference/list">
 		<button class="menu_box2 academicEventList">학회 정보</button>
@@ -479,6 +483,15 @@ html, body {
 h1 {
 	text-align: center;
 	font-weight: 300;
+}
+
+.logo_img {
+	position: absolute;
+	width: 100%;
+	max-width: 115px;
+    height: auto;
+	left: 10px;
+	top: 15px;
 }
 
 /* 상단 오른쪽 메뉴 */

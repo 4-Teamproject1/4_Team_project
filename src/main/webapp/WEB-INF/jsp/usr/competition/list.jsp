@@ -15,7 +15,7 @@
 <!-- 페이지 헤더 -->
 <header class="header">
 	<a href="../home/main">
-		<button class="logo">로고</button>
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
 	</a>
 	<nav class="header_menu">
 	<!-- 로그인 상태에 따라 다른 메뉴 표시 -->
@@ -321,8 +321,13 @@ body {
 	gap: 20px;
 }
 
-.logo {
-	text-align: center;
+.logo_img {
+	position: absolute;
+	width: 100%;
+	max-width: 100px;
+    height: auto;
+	left: 10px;
+	top: 0;
 }
 
 .header_menu {
