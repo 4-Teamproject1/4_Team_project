@@ -175,17 +175,6 @@ public class UsrMemberController {
 		return Ut.jsReplace(joinRd.getResultCode(), joinRd.getMsg(), "../member/login");
 	}
 
-	@RequestMapping("/usr/member/myPage")
-	// 내 정보 페이지를 보여주는 메서드
-	public String showMyPage(HttpServletRequest req) {
-		/*
-		 * Rq rq = (Rq) req.getAttribute("rq");
-		 * 
-		 * if (!rq.isLogined()) { return Ut.jsHistoryBack("F-1", "로그인이 필요합니다."); }
-		 */
-		return "usr/member/myPage";
-	}
-
 	@RequestMapping("/usr/member/myInfo")
 	// 내 정보 페이지를 보여주는 메서드
 	public String myInfo(HttpServletRequest req) {

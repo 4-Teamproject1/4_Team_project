@@ -477,7 +477,7 @@
 
 <header class="header_logo">
 	<a href="../home/main">
-		<button class="logo">로고</button>
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
 	</a>
 	<nav class="header_menu">
 		<c:choose>
@@ -578,6 +578,15 @@ body {
 		url('https://velog.velcdn.com/images/vrslxowe/post/ba2f5fd8-3c2c-4a9a-baa4-2d31c48be056/image.jpg')
 		no-repeat;
 	background-size: cover;
+}
+
+.logo_img {
+	position: absolute;
+	width: 100%;
+	max-width: 100px;
+    height: auto;
+	left: 10px;
+	top: 15px;
 }
 
 .menu_box1, .menu_box2 {
