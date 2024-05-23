@@ -230,7 +230,7 @@ function formatDate(dateString) { // 날짜와 시간을 공백 기준으로 분
 </div>
 
 <a href="../home/main">
-	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/e33e04bc-5aee-4d08-a809-a2ef540a5760/image.png" alt="Logo Image" class="logo_img">
 	</a>
 
 <div class="menu_right">
@@ -488,9 +488,9 @@ h1 {
 .logo_img {
 	position: absolute;
 	width: 100%;
-	max-width: 115px;
+	max-width: 125px;
     height: auto;
-	left: 10px;
+	left: 20px;
 	top: 15px;
 }
 

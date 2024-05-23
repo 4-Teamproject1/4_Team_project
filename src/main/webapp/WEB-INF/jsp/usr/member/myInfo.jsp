@@ -15,7 +15,7 @@
 
 <header class="header">
 	<a href="../home/main">
-	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/e1dec4f9-6a81-42cc-8a9d-745e8eb99584/image.png" alt="Logo Image" class="logo_img">
 	</a>
 	<nav class="header_menu">
 		<a href="../member/myInfo">
@@ -81,7 +81,7 @@
 </div>
 
 <div class="info_box info_withdraw">
-	<div class="info1">탇퇴</div>
+	<div class="info1">탈퇴</div>
 
 <!-- 탈퇴하기 버튼, 한 번만 선언합니다 -->
 <button class="info2 withdraw_btn" onclick="return confirmWithdrawal();">탈퇴하기</button>
@@ -114,9 +114,9 @@ body {
 .logo_img {
 	position: absolute;
 	width: 100%;
-	max-width: 100px;
+	max-width: 120px;
     height: auto;
-	left: 10px;
+	left: 20px;
 	top: 0;
 }
 

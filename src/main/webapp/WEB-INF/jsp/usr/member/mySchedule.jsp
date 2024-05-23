@@ -340,6 +340,7 @@
 			return ele;
 		}
 	})();
+	
 	!(function() {
 	    // conferences 데이터 생성
 	    var conferences = [
@@ -477,7 +478,7 @@
 
 <header class="header_logo">
 	<a href="../home/main">
-	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/e1dec4f9-6a81-42cc-8a9d-745e8eb99584/image.png" alt="Logo Image" class="logo_img">
 	</a>
 	<nav class="header_menu">
 		<c:choose>
@@ -542,10 +543,6 @@ body {
 	gap: 20px;
 }
 
-.logo {
-	text-align: center;
-}
-
 .header_menu {
 	display: flex;
 	gap: 20px;
@@ -583,10 +580,10 @@ body {
 .logo_img {
 	position: absolute;
 	width: 100%;
-	max-width: 100px;
+	max-width: 120px;
     height: auto;
-	left: 10px;
-	top: 15px;
+	left: 20px;
+	top: 17px;
 }
 
 .menu_box1, .menu_box2 {

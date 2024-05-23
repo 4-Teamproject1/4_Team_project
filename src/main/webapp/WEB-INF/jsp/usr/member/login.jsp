@@ -11,7 +11,7 @@
 <div class="background_img"></div>
 <header class="header">
 	<a href="../home/main">
-	 <img src="https://velog.velcdn.com/images/vrslxowe/post/6855238e-1328-4125-ae1b-d1ff265ded58/image.png" alt="Logo Image" class="logo_img">
+	 <img src="https://velog.velcdn.com/images/vrslxowe/post/e1dec4f9-6a81-42cc-8a9d-745e8eb99584/image.png" alt="Logo Image" class="logo_img">
 	</a>
 </header>
 <main class="login-container">
@@ -53,9 +53,9 @@ body {
 .logo_img {
 	position: absolute;
 	width: 100%;
-	max-width: 115px;
+	max-width: 120px;
     height: auto;
-	left: 10px;
+	left: 20px;
 	top: 15px;
 }
 
