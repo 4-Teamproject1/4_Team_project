@@ -1,82 +1,8 @@
+### 개인프로젝트
 
-# 테스트 DB 생성
-DROP DATABASE IF EXISTS acc_app_2024_04__test;
-CREATE DATABASE acc_app_2024_04__test;
-USE acc_app_2024_04__test;
-
-# 개발 DB 생성
-DROP DATABASE IF EXISTS acc_app_2024_04__dev;
-CREATE DATABASE acc_app_2024_04__dev;
-USE acc_app_2024_04__dev;
-
-SELECT *
-FROM `member`;
-
-SELECT *
-FROM `song`;
-SELECT *
-FROM `product`;
-
-SELECT *
-FROM `cart_item`;
-
-SELECT *
-FROM `cash_log`;
-
-SELECT *
-FROM `product_order`;
-
-SELECT *
-FROM `order_item`;
-
-SELECT *
-FROM `rebate_order_item`;
-
-SELECT pay_price - refund_price
-FROM `rebate_order_item` AS ROI
-
-## DB스위치문 하기
-
-SELECT order_item_id, pay_price, refund_price, wholesale_price, pg_fee,
-CASE
-    WHEN pay_price = refund_price
-    THEN 0
-    ELSE wholesale_price - pg_fee
-END AS rebate_price    
-FROM `rebate_order_item`;
-
-
-#####
-DROP DATABASE IF EXISTS `batch_ex_24_04`;
-CREATE DATABASE `batch_ex_24_04`;
-USE `batch_ex_24_04`;
-
-SHOW TABLES;
-
-SELECT *
-FROM product;
-
-SELECT *
-FROM rebate_order_item;
-
-
-# 개선 - 2
-SELECT ROI.order_item_id AS `주문 품목 번호`,
-DATE(ROI.order_item_create_date) AS `주문 날짜`,
-CONCAT(FORMAT(ROI.pay_price - ROI.refund_price,0),'원') AS `결제금액`,
-ROI.product_name AS `상품명`,
-ROI.product_option_color AS `색상`,
-ROI.product_option_size AS `사이즈`,
-ROI.quantity - ROI.refund_quantity AS `수량`
-FROM rebate_order_item AS ROI
-ORDER BY ROI.order_item_id ASC;
-
-#####
-
-
-DROP DATABASE IF EXISTS `Spring_AM_01`;
-CREATE DATABASE `Spring_AM_01`;
-USE `Spring_AM_01`;
+DROP DATABASE IF EXISTS `project`;
+CREATE DATABASE `project`;
+USE `project`;
 
 # article 테이블 생성
 CREATE TABLE article(
@@ -100,8 +26,7 @@ CREATE TABLE `member`(
     cellphoneNum CHAR(20) NOT NULL,
     email CHAR(50) NOT NULL,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (0=탈퇴 전, 1=탈퇴 후)',
-    delDate DATETIME COMMENT '탈퇴 날짜',
-    MboardId INT(10) NOT NULL DEFAULT 1
+    delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
 
@@ -176,8 +101,6 @@ SET memberId = 3
 WHERE id IN (3,4);
 
 
-
-
 # board 테이블 생성
 CREATE TABLE board(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -207,6 +130,43 @@ SET regDate = NOW(),
 updateDate = NOW(),
 `code` = 'QnA',
 `name` = '질의응답';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'FREE1',
+`name` = '자유게시판';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'FREE2',
+`name` = '술리뷰';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'FREE3',
+`name` = '와이너리리뷰';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'BREWERY',
+`name` = '양조장';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'BEER',
+`name` = '술';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'BREWERY2',
+`name` = '양조장2';
+
 
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
 
@@ -408,7 +368,200 @@ ON R.id = RP_SUM.relId
 SET R.goodReactionPoint = RP_SUM.goodReactionPoint,
 R.badReactionPoint = RP_SUM.badReactionPoint;
 
+
+# 상품테이블 생성
+CREATE TABLE product(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    productName CHAR(50) NOT NULL,
+    `body`TEXT NOT NULL,
+    abv CHAR(20) NOT NULL,
+    price CHAR(50) NOT NULL
+);
+
+ALTER TABLE product ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
+
+#상품테스트 데이터
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+boardId = 9,
+productName = '여우목',
+`body` = '오미자 증류주',
+abv = '40도',
+price = '12000';
+
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+boardId = 9,
+productName = '강산명주',
+`body` = '복분자주',
+abv = '13도',
+price = '3800';
+
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+boardId = 9,
+productName = '고창명산품',
+`body` = '복분자주',
+abv = '18도',
+price = '22800';
+
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+boardId = 7,
+productName = '로버트몬다비',
+`body` = '와인',
+abv = '18도',
+price = '69000';
+
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+boardId = 7,
+productName = '파비아',
+`body` = '와인',
+abv = '18도',
+price = '63000';
+
+INSERT INTO product
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+boardId = 7,
+productName = '모엣 샹동 샴페인',
+`body` = '샴페인',
+abv = '18도',
+price = '63000';
+
+
+CREATE TABLE brewery(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    barName CHAR(50) NOT NULL,
+    barAddr CHAR(50) NOT NULL,
+    barNumber CHAR(50) NOT NULL,
+    barWeb CHAR(50) NOT NULL,
+    barlatitude CHAR(50),
+    barlongitude CHAR(50),
+    barimage VARCHAR(255)
+);
+
+ALTER TABLE brewery ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER id;
+ALTER TABLE brewery ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER id;
+
+
+UPDATE brewery
+SET boardId = 7
+WHERE id BETWEEN 1 AND 50;
+
+UPDATE brewery
+SET memberId = 2
+WHERE id BETWEEN 1 AND 24;
+
+UPDATE brewery
+SET memberId = 3
+WHERE id BETWEEN 25 AND 50;
+
+
+DROP TABLE beers;
+CREATE TABLE beers(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    btype CHAR(50),
+    model CHAR(50), 
+    byear CHAR(50), 
+    color CHAR(50), 
+    price CHAR(50), 
+    src VARCHAR(255),
+    binfo CHAR(50)
+);
+
+
+#model은 이름, btype은 선택기준 의미 
+INSERT INTO beers (btype, model, byear, color, price, src, binfo) VALUES
+('white', 'white와인', '2016', 'white', '16000', 'https://오아크.com/web/product/medium/202211/42ae59aaa0b992e6b4de509c1e89f34c.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('red', 'red와인', '2015', 'red', '60000', 'https://오아크.com/web/product/medium/202211/f229d7a97041a31794ee25b213b88712.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('white', 'white와인', '2022', 'white', '65000', 'https://오아크.com/web/product/medium/202211/bf679203e1c07b565179d7ed927587cb.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('red', 'red와인', '2023', 'red', '50000', 'https://오아크.com/web/product/medium/202211/f229d7a97041a31794ee25b213b88712.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('craft', '수제맥주', '2021', 'craft', '5000', 'https://ojsfile.ohmynews.com/STD_IMG_FILE/2021/0310/IE002771543_STD.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('craft', '수제맥주', '1992', 'craft', '12000', 'https://images.emarteveryday.co.kr/images/app/webapps/evd_web2/share/SKU/mall/86/12/8809363881286_1.png', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('craft', '수제맥주', '1993', 'craft', '8900', 'https://cdn.imweb.me/thumbnail/20210330/bc061fa6b54a1.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('craft', '수제맥주', '1997', 'craft', '7000', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIwIgE2NTo-nkSlCnEe1lHqJht9bZSpuQxVA&usqp=CAU', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('dark', '흑맥주', '2012', 'dark', '4000', 'https://image.mycelebs.com/beer/new/sq/241530_sq_00.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('dark', '흑맥주', '2022', 'dark', '8000', 'https://blog.kakaocdn.net/dn/GPutK/btrHBBcHlfG/DdflRd2VHqDB2YslahdWoK/img.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('cheongju', '보리소주', '2022', 'cheongju', '8000', 'https://godomall.speedycdn.net/ecde3d55747f2aa4dbec5952a29271fe/goods/1000001054/image/detail/1000001054_detail_056.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!'),
+('dark', '흑맥주', '2020', 'dark', '10000', 'https://gomean.co.kr/wp-content/uploads/2023/07/gm-dark-beer-main.jpg', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis modi officia incidunt facere similique repellendus molestias suscipit reprehenderit esse! Consectetur deleniti perferendis dolor impedit nihil distinctio sapiente minima cumque numquam!');
+
+# 밑에 추가하기 전에 CSV데이터 가져오기
+ALTER TABLE beers ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER id;
+ALTER TABLE beers ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER id;
+
+
+UPDATE beers
+SET boardId = 8
+WHERE id BETWEEN 1 AND 138;
+
+UPDATE beers
+SET memberId = 2
+WHERE id BETWEEN 1 AND 70;
+
+UPDATE beers
+SET memberId = 3
+WHERE id BETWEEN 71 AND 138;
+
+
+
+
+######## CSV실험
+CREATE TABLE CSV(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    barName CHAR(50) NOT NULL,
+    barAddr CHAR(50) NOT NULL,
+    barNumber CHAR(50) NOT NULL,
+    barWeb CHAR(50) NOT NULL
+);
+
+ALTER TABLE CSV ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER id;
+ALTER TABLE CSV ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER id;
+
+UPDATE CSV
+SET boardId = 15
+WHERE id BETWEEN 1 AND 50;
+
+UPDATE CSV
+SET memberId = 2
+WHERE id BETWEEN 1 AND 24;
+
+UPDATE CSV
+SET memberId = 3
+WHERE id BETWEEN 25 AND 50;
+
+
 ###############################################
+DROP TABLE brewery;
+DROP TABLE CSV;
+DROP TABLE beers;
+
+
+
+SELECT * 
+FROM beers
+ORDER BY id;
+
+SELECT * 
+FROM brewery
+ORDER BY id;
+
+SELECT * FROM CSV;
 
 SELECT * FROM article;
 
@@ -420,17 +573,32 @@ SELECT * FROM reactionPoint;
 
 SELECT * FROM `reply`;
 
+SELECT * FROM product;
+
+SELECT * 
+FROM product
+WHERE boardId = 7;
+
+SELECT * 
+FROM beers
+WHERE boardId = 16;
+
+SELECT * 
+FROM brewery
+WHERE boardId = 14
+GROUP BY id
+ORDER BY id DESC;
 
 
 SELECT goodReactionPoint
 FROM article 
-WHERE id = 1;
+WHERE id = 1
 
 INSERT INTO article
 (
     regDate, updateDate, memberId, boardId, title, `body`
 )
-SELECT NOW(),NOW(), FLOOR(RAND() * 2) + 2, FLOOR(RAND() * 3) + 1, CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
+SELECT NOW(),NOW(), FLOOR(RAND() * 2) + 2, FLOOR(RAND() * 6) + 1, CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
 FROM article;
 
 SELECT IFNULL(SUM(RP.point),0)
@@ -452,9 +620,9 @@ UPDATE article
 SET title = '제목45'
 WHERE id = 7;
 
-SELECT FLOOR(RAND() * 2) + 2;
+SELECT FLOOR(RAND() * 2) + 2
 
-SELECT FLOOR(RAND() * 3) + 1;
+SELECT FLOOR(RAND() * 3) + 1
 
 
 SHOW FULL COLUMNS FROM `member`;
@@ -470,7 +638,7 @@ WHERE 1
 AND boardId = 1
 AND A.title LIKE CONCAT('%','0000','%')
 OR A.body LIKE CONCAT('%','0000','%')
-ORDER BY id DESC;
+ORDER BY id DESC
 
 SELECT COUNT(*)
 FROM article AS A
@@ -478,7 +646,7 @@ WHERE 1
 AND boardId = 1
 AND A.title LIKE CONCAT('%','0000','%')
 OR A.body LIKE CONCAT('%','0000','%')
-ORDER BY id DESC;
+ORDER BY id DESC
 
 
 SELECT hitCount
@@ -537,211 +705,18 @@ ORDER BY A.id DESC;
 
 SELECT *, COUNT(*)
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId;
+GROUP BY RP.relTypeCode,RP.relId
 
 SELECT IF(RP.point > 0, '큼','작음')
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId;
+GROUP BY RP.relTypeCode,RP.relId
 
 # 각 게시물의 좋아요, 싫어요 갯수
 SELECT RP.relTypeCode, RP.relId,
 SUM(IF(RP.point > 0,RP.point,0)) AS goodReactionPoint,
 SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
 FROM reactionPoint AS RP
-GROUP BY RP.relTypeCode,RP.relId;
+GROUP BY RP.relTypeCode,RP.relId
 
-
-
-#학회 테이블 생성
-CREATE TABLE `academy` (
-   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   `themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
-   categoryId INT NOT NULL,
-   `title`  VARCHAR(500) NULL,
-   `hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-   `eventPeriod` VARCHAR(500) NULL,
-   `applicationPeriod`    VARCHAR(500) NULL,
-   `entryFee`    VARCHAR(500) NULL ,
-   `place`    VARCHAR(500) NULL,
-   `address`    VARCHAR(500) NULL,
-   `homepage`    VARCHAR(500) NULL,
-   `imageURL`    VARCHAR(500) NULL,
-   `regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
-   `goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
-   AmemberId INT(10) NOT NULL DEFAULT 1
-   
-);
-
-SELECT *
-FROM `member`;
-
-SELECT goodReactionPoint
-FROM `academy`
-WHERE id = 2
-AND themeId =1;
- 
-SELECT *
-FROM `academy`;
-
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
-VALUES (7, 'test학회1', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', NOW(), '대전광역시');
-
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
-VALUES (7, 'test학회2', 50, '2024-05-01', '2024-05-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
-
-
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
-VALUES (7, 'test학회3', 50, '2024-06-01', '2024-06-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '부산광역시');
-
-INSERT INTO `academy` (categoryId, title, hitCount, eventPeriod, applicationPeriod, entryFee, place, homepage, imageURL, regDate, address) 
-VALUES (7, 'test학회4', 50, '2024-07-01', '2024-07-15', '10000원', '온라인', 'http://example.com', 'http://example.com/image.jpg', DATE_ADD(NOW(), INTERVAL 2 DAY), '서울특별시');
-
-SELECT *
-FROM `academy`
-WHERE categoryId = 2
-ORDER BY STR_TO_DATE(SUBSTRING_INDEX(applicationPeriod, ' ~ ', -1), '%y.%m.%d') ASC;
-
-
-SELECT *
-FROM `academy`;
-
-
-#공모전테이블 생성
-CREATE TABLE `competition` (
-   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   `title`  VARCHAR(500) NULL,
-   `themeId` INT  NULL COMMENT '테마번호(학회/공모전)', 
-   `hitCount` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-   `totalPrizeMoney` VARCHAR(500) NULL,
-   `firstPrizeMoney` VARCHAR(500) NULL,
-   `applicationPeriod`    VARCHAR(500) NULL,
-   `homepage`    VARCHAR(500) NULL,
-   `imageURL`    VARCHAR(500) NULL,
-   `contactNum`    VARCHAR(500) NULL,
-   `contactEmail`    VARCHAR(500) NULL,
-   `regDate`    VARCHAR(100)  NULL COMMENT '등록날짜',
-   `goodReactionPoint` INT(10) UNSIGNED NULL DEFAULT 0 COMMENT '스크랩수',
-   CmemberId INT(10) NOT NULL DEFAULT 1
-);
-
-
-
-UPDATE article
-SET hitCount = hitCount + 1
-WHERE id = 1;
-         
-         SELECT *
-         FROM article;
-         
-         
-UPDATE `competition`
-SET hitCount = hitCount + 1
-WHERE id = 1;
-
-
-SELECT *
-FROM `competition`;
-
-#호텔 테이블 생성
-CREATE TABLE `hotel` (
-   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   `imgURL` VARCHAR(500) NOT NULL,
-   hotelName VARCHAR(500) NOT NULL,
-   grade CHAR(100) NOT NULL,
-   price CHAR(100) NOT NULL,
-   service CHAR(100) NOT NULL,
-   location CHAR(100) NOT NULL,
-    href TEXT NOT NULL
-);
-
-
-SELECT *
-FROM `hotel`;
-
-
-CREATE TABLE scrap
-(   id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `regDate` DATETIME NOT NULL COMMENT '찜 날짜', 
-    `updateDate` DATETIME NOT NULL,
-    `deleteDate` DATETIME NULL, 
-    `memberId` INT(10) UNSIGNED NOT NULL COMMENT '회원 번호',
-     themeId  INT(10) UNSIGNED NOT NULL  COMMENT '테마(학회/공모전) 번호',
-    `academyId` INT(10) UNSIGNED NOT NULL  COMMENT '학회 번호', 
-    `point` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩 상태 찜 여부 (0=찜 취소, 1= 찜)'
-);
-
-SELECT *
-FROM scrap;
-
-
-
-
-
-CREATE TABLE inquiry(
-    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL , 
-    updateDate DATETIME NOT NULL,
-    memberId INT(10) NOT NULL,
-    IboardId INT(10) NOT NULL DEFAULT 2,
-    `body` VARCHAR(500) NOT NULL,
-    title VARCHAR(500) NOT NULL,
-    ImemberId INT(10) NOT NULL DEFAULT 1
-);
-
-## alter table inquiry add column IboardId int(10) not null DEFAULT 2 after memberId ; 컬럼추가실험
-
-SELECT *
-FROM inquiry;
-
-
-INSERT INTO
-inquiry SET
-regDate = NOW(),
-updateDate = NOW(),
-memberId = 1,
-title = '테스트 문의1',
-`body` = 'qwerasdf';
-
-INSERT INTO
-inquiry SET
-regDate = NOW(),
-updateDate = NOW(),
-memberId = 2,
-title = '테스트 문의2',
-`body` = 'abcdgg';
-
-
-## 관리자 테이블 test중
-CREATE TABLE `admin`(
-    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL , 
-    updateDate DATETIME NOT NULL,
-    inquriyId INT(10) NOT NULL DEFAULT 2,
-    AmemberId INT(10) NOT NULL DEFAULT 1,
-    AacademyId INT(10) NOT NULL DEFAULT 3,
-    AcompetitionId INT(10) NOT NULL DEFAULT 4
-);
-
-SELECT *
-FROM `admin`;
-
-         SELECT `authLevel`
-         FROM MEMBER
-         WHERE `authLevel` = 7;
-         
-            SELECT *
-         FROM MEMBER
-         WHERE authLevel != 7;
-         
-         
-         SELECT `authLevel`
-         FROM MEMBER
-         WHERE id = 1;
-         
-         
-         SELECT COUNT(*)
-         FROM `academy`
-         WHERE categoryId = 2
-         ORDER BY STR_TO_DATE(regDate, '%Y-%m-%d') DESC;
-
-		
+##############################
+##개인프로젝트 

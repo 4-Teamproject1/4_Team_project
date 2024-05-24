@@ -21,10 +21,10 @@ public class UsrBusController {
 	
 	// 버스 추천 목록을 가져와서 화면에 표시하는 액션 메서드
 	@RequestMapping("/usr/recommend/BusList")
-	public String recommendTrainList(HttpServletRequest req, Model model,
+	public String recommendBusList(HttpServletRequest req, Model model,
 			@RequestParam (defaultValue="동서울") String departureBus,
 			@RequestParam (defaultValue="대전복합") String arriveBus,
-			@RequestParam(defaultValue = "21") String ondate
+			@RequestParam(defaultValue = "24") String ondate
 			) {
 		// 버스 서비스를 통해 버스 정보 가져오기
 		List<Bus> busLists = butTicketService2.getBusservice(departureBus, arriveBus, ondate);

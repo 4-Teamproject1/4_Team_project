@@ -22,7 +22,7 @@ public class UsrTrainController {
 	@RequestMapping("/usr/recommend/TrainList")
 	public String recommendTrainList(HttpServletRequest req, Model model,
 			@RequestParam(defaultValue = "서울 용산구 한강대로 405") String departureTrain,
-			@RequestParam(defaultValue = "대전역") String arriveTrain, @RequestParam(defaultValue = "21") String ondate) {
+			@RequestParam(defaultValue = "대전역") String arriveTrain, @RequestParam(defaultValue = "24") String ondate) {
 
 		// 기차표 정보를 가져오는 서비스 호출
 		List<Train> spanTexts = trainTicketService.gettrainservice(departureTrain, arriveTrain, ondate);
