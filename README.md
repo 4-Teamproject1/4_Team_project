@@ -19,18 +19,12 @@
 - **김선경** : 프론트엔드(전체 총괄), 벡엔드(문의사항)
 ![개발자소개](https://github.com/4-Teamproject1/4_Team_project/assets/140681352/8ffed082-d94a-48bd-b528-6c4fa8164753)
 
-## 💻 개발환경
-- **Version** : Java 17
-- **IDE** : Spring Tool Suite
-- **Framework** : SpringBoot 3.1.9-SNAPSHOT
-- **ORM** : MyBatis
-
-
-## ⚙️ 기술 스택
-- **Server** : Tomcat
-- **DataBase** : ERD Cloud, MySQL
-- **WS/WAS** : Tomcat
-- **아이디어 회의** : Discord, Google Docs ,Google Sheet, ERD Cloud
+## 💻 개발환경 및 사용기술
+개발환경 : Windows10
+개발도구 : MAVEN, Spring Tool Suit 4, SqlYog, selenium
+개발언어 및 프레임워크 : HTTP, CSS, java(jdk1.7), javaScript, jQuery, Tailwind, daisyUI, SpringBoot
+DB : MySql
+ORM : MyBatis
 
 ## 📝 프로젝트 아키텍쳐
 
