@@ -83,8 +83,8 @@
 			<option value="성남">성남(분당)</option>
 			<option value="창원역">창원역</option>
 		</select>
-		<select class="select select-ghost w-full max-w-xs departure_box" name="arriveBus" id="arriveBus" >
-			
+		<select class="select select-ghost w-full max-w-xs departure_box" name="arriveBus" id="arriveBus">
+
 		</select>
 		<select class="select select-ghost w-full max-w-xs date_start" name="ondate">
 			<option value="">출발 일자</option>
@@ -138,7 +138,9 @@
 	</div>
 </form>
 <script>
-	$(document).ready(function() {
+	$(document)
+			.ready(
+					function() {
 						// 출발지와 해당 출발지에 대한 도착지 매핑 정보
 						var destinationMapping = {
 							"동서울" : [ "동해", "대전복합", "청주고속터미널", "광주(유·스퀘어)",
@@ -169,19 +171,30 @@
 						};
 
 						// 출발지가 변경될 때마다 도착지 옵션을 업데이트하는 함수
-						$('#departureBus').change(function() {
-											var selectedDeparture = $(this).val(); // 선택된 출발지 값 가져오기
-											var destinations = destinationMapping[selectedDeparture]|| []; // 해당 출발지에 대한 도착지 목록 가져오기
+						$('#departureBus')
+								.change(
+										function() {
+											var selectedDeparture = $(this)
+													.val(); // 선택된 출발지 값 가져오기
+											var destinations = destinationMapping[selectedDeparture]
+													|| []; // 해당 출발지에 대한 도착지 목록 가져오기
 											var arriveBusSelect = $('#arriveBus'); // 도착지 select 요소
 											arriveBusSelect.empty(); // 기존 옵션 제거
 
 											// 도착지 select 요소 업데이트
-											$.each(destinations,function(index,destination) {
-												arriveBusSelect.append($('<option>',{
-															value : destination,
-															text : destination
-														}));
-											});
+											$
+													.each(
+															destinations,
+															function(index,
+																	destination) {
+																arriveBusSelect
+																		.append($(
+																				'<option>',
+																				{
+																					value : destination,
+																					text : destination
+																				}));
+															});
 
 											// 출발지 선택 여부에 따라 도착지 선택란 활성화/비활성화
 											if (selectedDeparture !== '') {
@@ -198,13 +211,13 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        // 예매하기 버튼 클릭 이벤트 설정
-        $('.reservation-btn').click(function() {
-            // 새 창에서 kobus 웹사이트를 엽니다
-            window.open('https://www.kobus.co.kr/main.do', '_blank');
-        });
-    });
+	$(document).ready(function() {
+		// 예매하기 버튼 클릭 이벤트 설정
+		$('.reservation-btn').click(function() {
+			// 새 창에서 kobus 웹사이트를 엽니다
+			window.open('https://www.kobus.co.kr/main.do', '_blank');
+		});
+	});
 </script>
 
 <div class="bus-info-main">
