@@ -80,3 +80,6 @@
 
 ## 📘 가이드북
 https://docs.google.com/document/d/1bRU-8DwDhtbp_6cgmxjIbRylNQPqAjn0UMryIpBVOyY/edit?usp=sharing
+
+## 📕개발기술서
+https://docs.google.com/document/d/1qHpVj7aLqlEoNKrpqa3zXmq6pdo3Tg0sWLbLQB9IV6E/edit
