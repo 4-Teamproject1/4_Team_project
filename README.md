@@ -76,7 +76,7 @@
 - [하이브레인넷](https://www.hibrain.net/?gad_source=1&gclid=CjwKCAjw9IayBhBJEiwAVuc3fhQsHRNTHgdATnqSQoFxhqCJed0N41lGFhDH4sJ7SF2MqHnpirnDOhoC-t0QAvD_BwE)
 - [네이버 길찾기](https://map.naver.com/p/directions/-/-/-/car?c=15.00,0,0,0,dh)
 - [고속버스 통합예매](https://www.kobus.co.kr/main.do)
-- [아고다](https://www.kobus.co.kr/main.do)
+- [아고다]([https://www.kobus.co.kr/main.do](https://www.agoda.com/ko-kr/?site_id=1922887&tag=eeeb2a37-a3e0-4932-8325-55d6a8ba95a4&gad_source=1&gad_campaignid=21035050206&gbraid=0AAAAAD-GdVmlr5QcnpuU_CRvkGH8SJqI_&device=c&network=g&adid=734266400825&rand=7972794221814467279&aud=kwd-304551434341&gclid=Cj0KCQiA5abIBhCaARIsAM3-zFUiPVOHb-m_di9kze4IeuwCgwHQxpRnfsD1pxNWjOEHdhwvy2lKrNEaAjgXEALw_wcB&pslc=1&ds=tD%2FgbZM8KXG4EAHA))
 
 ## 📘 가이드북
 https://docs.google.com/document/d/1bRU-8DwDhtbp_6cgmxjIbRylNQPqAjn0UMryIpBVOyY/edit?usp=sharing
